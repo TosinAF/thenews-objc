@@ -2,19 +2,25 @@
 //  TNAppDelegate.m
 //  thenews
 //
-//  Created by Tosin Afolabi on 13/02/2014.
+//  Created by Tosin Afolabi on 30/01/2014.
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
 #import "TNAppDelegate.h"
+#import "TNLaunchViewController.h"
+#import "TNSignupViewController.h"
+#import "TNLoginViewController.h"
+#import "TNFeedViewController.h"
+#import "TNHomeViewController.h"
 
 @implementation TNAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = [UIColor lightGrayColor];
+    self.window.rootViewController = [[TNHomeViewController alloc] init];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -27,7 +33,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 

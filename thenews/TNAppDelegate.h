@@ -2,7 +2,7 @@
 //  TNAppDelegate.h
 //  thenews
 //
-//  Created by Tosin Afolabi on 13/02/2014.
+//  Created by Tosin Afolabi on 30/01/2014.
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
