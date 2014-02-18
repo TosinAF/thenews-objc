@@ -19,6 +19,13 @@
 
 @implementation TNHomeViewController
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+
 - (void)viewDidLoad {
 
 	[super viewDidLoad];
