@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import "Post.h"
 #import <UIKit/UIKit.h>
 #import "TNFeedViewController.h"
 
@@ -14,6 +15,6 @@
 - (void)setForReuse;
 - (void)setFrameHeight:(CGFloat)height;
 - (void)setFeedType:(TNFeedType)feedType;
-- (void)setTitle:(NSString*)title author:(NSString*)author points:(NSNumber*)points index:(NSNumber*)index commentCount:(NSNumber*)count;
+- (void)configureForPost:(Post *)post;
 
 @end

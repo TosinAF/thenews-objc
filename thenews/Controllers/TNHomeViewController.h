@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TNHomeViewController : UIViewController <UIPageViewControllerDataSource>
+@interface TNHomeViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @end

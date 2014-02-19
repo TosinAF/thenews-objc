@@ -32,6 +32,7 @@
 		4E783D4118AD7D7D00D78B20 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E783D2918AD7D7D00D78B20 /* UIKit.framework */; };
 		4E783D4918AD7D7D00D78B20 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E783D4718AD7D7D00D78B20 /* InfoPlist.strings */; };
 		4E783D4B18AD7D7D00D78B20 /* thenewsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E783D4A18AD7D7D00D78B20 /* thenewsTests.m */; };
+		4EAFEE7718B38EAE00E88420 /* GTScrollNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAFEE7618B38EAE00E88420 /* GTScrollNavigationBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,8 @@
 		4E783D4618AD7D7D00D78B20 /* thenewsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "thenewsTests-Info.plist"; sourceTree = "<group>"; };
 		4E783D4818AD7D7D00D78B20 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4E783D4A18AD7D7D00D78B20 /* thenewsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = thenewsTests.m; sourceTree = "<group>"; };
+		4EAFEE7518B38EAE00E88420 /* GTScrollNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTScrollNavigationBar.h; sourceTree = "<group>"; };
+		4EAFEE7618B38EAE00E88420 /* GTScrollNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTScrollNavigationBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,16 +202,16 @@
 		4E783D5418AD7E5900D78B20 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4E4E1BB618AD989300B87E7A /* TNFeedViewController.h */,
-				4E4E1BB718AD989300B87E7A /* TNFeedViewController.m */,
-				4E4E1BB818AD989300B87E7A /* TNHomeViewController.h */,
-				4E4E1BB918AD989300B87E7A /* TNHomeViewController.m */,
 				4E4E1BBA18AD989300B87E7A /* TNLaunchViewController.h */,
 				4E4E1BBB18AD989300B87E7A /* TNLaunchViewController.m */,
 				4E4E1BBC18AD989300B87E7A /* TNLoginViewController.h */,
 				4E4E1BBD18AD989300B87E7A /* TNLoginViewController.m */,
 				4E4E1BBE18AD989300B87E7A /* TNSignupViewController.h */,
 				4E4E1BBF18AD989300B87E7A /* TNSignupViewController.m */,
+				4E4E1BB618AD989300B87E7A /* TNFeedViewController.h */,
+				4E4E1BB718AD989300B87E7A /* TNFeedViewController.m */,
+				4E4E1BB818AD989300B87E7A /* TNHomeViewController.h */,
+				4E4E1BB918AD989300B87E7A /* TNHomeViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -231,6 +234,8 @@
 				4E4E1BCA18AD98A100B87E7A /* TNTextField.m */,
 				4E4E1BC718AD98A100B87E7A /* TNFeedViewCell.h */,
 				4E4E1BC818AD98A100B87E7A /* TNFeedViewCell.m */,
+				4EAFEE7518B38EAE00E88420 /* GTScrollNavigationBar.h */,
+				4EAFEE7618B38EAE00E88420 /* GTScrollNavigationBar.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -280,7 +285,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = TN;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Tosin Afolabi";
 				TargetAttributes = {
 					4E783D3C18AD7D7D00D78B20 = {
@@ -341,6 +346,7 @@
 				4E4E1BC118AD989300B87E7A /* TNHomeViewController.m in Sources */,
 				4E4E1BD918AD98E000B87E7A /* UIColor+TNColors.m in Sources */,
 				4E4E1BC318AD989300B87E7A /* TNLoginViewController.m in Sources */,
+				4EAFEE7718B38EAE00E88420 /* GTScrollNavigationBar.m in Sources */,
 				4E4E1BD018AD98B200B87E7A /* Post.m in Sources */,
 				4E783D3218AD7D7D00D78B20 /* main.m in Sources */,
 				4E4E1BC018AD989300B87E7A /* TNFeedViewController.m in Sources */,
@@ -391,7 +397,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -430,7 +435,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -464,10 +468,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/tosin/Documents/thenews,
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "thenews/thenews-Prefix.pch";
 				INFOPLIST_FILE = "thenews/thenews-Info.plist";
@@ -483,10 +484,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/tosin/Documents/thenews,
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "thenews/thenews-Prefix.pch";
 				INFOPLIST_FILE = "thenews/thenews-Info.plist";
@@ -500,7 +498,6 @@
 		4E783D5218AD7D7D00D78B20 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/thenews.app/thenews";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -523,7 +520,6 @@
 		4E783D5318AD7D7D00D78B20 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/thenews.app/thenews";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

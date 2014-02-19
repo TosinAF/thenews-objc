@@ -19,7 +19,8 @@ static NSString *CellIdentifier = @"TNFeedCell";
 
 @property (nonatomic, strong) NSString *navTitle;
 @property (nonatomic, strong) UIColor *navbarColor;
-@property (nonatomic, strong) UINavigationBar *navigationBar;
+@property (nonatomic, strong) GTScrollNavigationBar *navBar;
+@property (nonatomic, strong) UINavigationItem *navItem;
 
 @property (nonatomic, strong) NSMutableArray *posts;
 @property (nonatomic, strong) UITableView *feedView;
@@ -31,15 +32,13 @@ static NSString *CellIdentifier = @"TNFeedCell";
 
 @implementation TNFeedViewController
 
-- (id)initWithFeedType:(TNFeedType)type
-{
+- (id)initWithFeedType:(TNFeedType)type {
 	self = [super init];
 	if (self) {
+		self.feedType = [NSNumber numberWithInt:type];
+		self.posts = [NSMutableArray array];
 
-        self.feedType = [NSNumber numberWithInt:type];
-        self.posts = [NSMutableArray array];
-
-        switch (type) {
+		switch (type) {
 			case TNFeedTypeDesignerNews:
 				self.navTitle = @"DESIGNER NEWS";
 				self.navbarColor = [UIColor dnColor];
@@ -54,61 +53,68 @@ static NSString *CellIdentifier = @"TNFeedCell";
 	return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	self.edgesForExtendedLayout = UIRectEdgeNone;
+	self.navBar.scrollView = self.feedView;
 
+	if (self.navBar) {
+		[self.navBar setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64.0)];
+	}
+}
+
+- (void)viewDidLoad {
 	[super viewDidLoad];
 	[self downloadPosts];
 
 	/* Set Up Navigation Bar */
 
-    CGFloat navBarHeight = 64.0;
-    CGSize screenSize = self.view.frame.size;
+	CGFloat navBarHeight = 64.0;
+	CGSize screenSize = self.view.frame.size;
 
-    self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, navBarHeight)];
-    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:self.navTitle];
+	self.navBar = [[GTScrollNavigationBar alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, navBarHeight)];
+	self.navItem = [[UINavigationItem alloc] initWithTitle:self.navTitle];
 
-    //[UIApplication sharedApplication].statusBarFrame.size = 7;
+	[self.navBar setBarTintColor:self.navbarColor];
+	[self.navBar setTintColor:[UIColor whiteColor]];
+	[self.navBar setTitleTextAttributes:@{ NSFontAttributeName:[UIFont fontWithName:@"Montserrat" size:16.0f],
+	                                       NSForegroundColorAttributeName:[UIColor whiteColor] }];
 
-    [self.navigationBar setBarTintColor:self.navbarColor];
-    [self.navigationBar setTintColor:[UIColor whiteColor]];
-    [self.navigationBar setTitleTextAttributes:@{ NSFontAttributeName:[UIFont fontWithName:@"Montserrat" size:16.0f],
-                                                    NSForegroundColorAttributeName:[UIColor whiteColor] }];
-
-    self.menuButton = ({
-        UIButton *menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [menuButton setFrame:CGRectMake(0, 0, 30, 30)];
-        [menuButton setTitle:@"\u2630" forState:UIControlStateNormal];
-        [menuButton.titleLabel setFont:[UIFont fontWithName:@"Entypo" size:50]];
-        [menuButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        menuButton;
-    });
+	self.menuButton = ({
+       UIButton *menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+       [menuButton setFrame:CGRectMake(0, 0, 30, 30)];
+       [menuButton setTitle:@"\u2630" forState:UIControlStateNormal];
+       [menuButton.titleLabel setFont:[UIFont fontWithName:@"Entypo" size:50]];
+       [menuButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+       menuButton;
+   });
 
 	self.createPostButton = ({
-        UIButton *createPostButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [createPostButton setFrame:CGRectMake(0, 0, 30, 30)];
-        [createPostButton setTitle:@"\u2795" forState:UIControlStateNormal];
-        [createPostButton.titleLabel setFont:[UIFont fontWithName:@"Entypo" size:50]];
-        [createPostButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        createPostButton;
-    });
+         UIButton *createPostButton = [UIButton buttonWithType:UIButtonTypeCustom];
+         [createPostButton setFrame:CGRectMake(0, 0, 30, 30)];
+         [createPostButton setTitle:@"\u2795" forState:UIControlStateNormal];
+         [createPostButton.titleLabel setFont:[UIFont fontWithName:@"Entypo" size:50]];
+         [createPostButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+         createPostButton;
+     });
 
-    navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.menuButton];
-    navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.createPostButton];
-    [self.navigationBar pushNavigationItem:navigationItem animated:NO];
+	self.navItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.menuButton];
+	self.navItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.createPostButton];
+	[self.navBar pushNavigationItem:self.navItem animated:NO];
 
-    /* Set up TableView */
+	/* Set up TableView */
 
-    CGFloat contentViewHeight = screenSize.height - navBarHeight;
-    self.feedView = [[UITableView alloc] initWithFrame:CGRectMake(0, navBarHeight, screenSize.width, contentViewHeight)];
+	CGFloat contentViewHeight = screenSize.height - navBarHeight;
+	self.feedView = [[UITableView alloc] initWithFrame:CGRectMake(0, navBarHeight, screenSize.width, contentViewHeight)];
 
-    [self.feedView setDelegate:self];
-    [self.feedView setDataSource:self];
-    [self.feedView setSeparatorInset:UIEdgeInsetsZero];
-    [self.feedView setSeparatorColor:[UIColor tnLightGreyColor]];
+	[self.feedView setDelegate:self];
+	[self.feedView setDataSource:self];
+	[self.feedView setSeparatorInset:UIEdgeInsetsZero];
+	[self.feedView setSeparatorColor:[UIColor tnLightGreyColor]];
 	[self.feedView registerClass:[TNFeedViewCell class] forCellReuseIdentifier:CellIdentifier];
 
-    [self.view addSubview:self.navigationBar];
-    [self.view addSubview:self.feedView];
+	[self.view addSubview:self.navBar];
+	[self.view addSubview:self.feedView];
 }
 
 #pragma mark - Table view data source
@@ -122,15 +128,14 @@ static NSString *CellIdentifier = @"TNFeedCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	Post *post = [self.posts objectAtIndex:[indexPath row]];
 	TNFeedViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
 	[cell setForReuse];
 	[cell setFrameHeight:CELL_HEIGHT];
 	[cell setFeedType:[self.feedType intValue]];
-	[cell setTitle:[post title] author:[post author] points:[post points] index:[post position] commentCount:[post comments]];
+    [cell configureForPost:[self.posts objectAtIndex:[indexPath row]]];
 
-	return cell;
+    return cell;
 }
 
 #pragma mark - Table view delegate
@@ -143,11 +148,11 @@ static NSString *CellIdentifier = @"TNFeedCell";
 
 - (void)downloadPosts {
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURL *dataURL = [[NSURL alloc] init];
+	    NSURL *dataURL = [[NSURL alloc] init];
 
-        switch ([self.feedType intValue]) {
+	    switch ([self.feedType intValue]) {
 			case TNFeedTypeDesignerNews:
-                dataURL = [NSURL URLWithString:@"http://thenews-api.herokuapp.com/top/dn"];
+				dataURL = [NSURL URLWithString:@"http://thenews-api.herokuapp.com/top/dn"];
 				break;
 
 			case TNFeedTypeHackerNews:
@@ -155,8 +160,8 @@ static NSString *CellIdentifier = @"TNFeedCell";
 				break;
 		}
 
-        NSData *responseData = [[NSData alloc] initWithContentsOfURL:dataURL];
-        [self performSelectorOnMainThread:@selector(storeData:) withObject:responseData waitUntilDone:YES];
+	    NSData *responseData = [[NSData alloc] initWithContentsOfURL:dataURL];
+	    [self performSelectorOnMainThread:@selector(storeData:) withObject:responseData waitUntilDone:YES];
 	});
 }
 
@@ -164,8 +169,6 @@ static NSString *CellIdentifier = @"TNFeedCell";
 	int index = 0;
 	NSError *error;
 	NSDictionary *posts = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
-
-	NSLog(@"%@", posts);
 
 	for (NSDictionary *collection in posts) {
 		Post *post = [[Post alloc] init];
@@ -186,6 +189,10 @@ static NSString *CellIdentifier = @"TNFeedCell";
 	}
 
 	[self.feedView reloadData];
+}
+
+- (void)resetNavBar {
+	[self.navBar resetToDefaultPosition:YES];
 }
 
 @end

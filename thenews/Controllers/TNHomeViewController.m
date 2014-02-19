@@ -21,10 +21,9 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self.navigationController setNavigationBarHidden:YES];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 }
-
 
 - (void)viewDidLoad {
 
@@ -34,9 +33,13 @@
 	                                                          navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
 	                                                                        options:@{UIPageViewControllerOptionInterPageSpacingKey:@0.0f}];
     self.pageViewController.dataSource = self;
+    self.pageViewController.delegate = self;
+
 
 	self.hnViewController = [[TNFeedViewController alloc] initWithFeedType:TNFeedTypeHackerNews];
 	self.dnViewController = [[TNFeedViewController alloc] initWithFeedType:TNFeedTypeDesignerNews];
+
+
 
 	NSArray *viewControllers = [NSArray arrayWithObjects:self.dnViewController, nil];
 	[self.pageViewController setViewControllers:viewControllers
@@ -88,6 +91,12 @@
             // will never reach here
             return self.hnViewController;
     }
+}
+
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
+{
+    TNFeedViewController *feedViewController = [previousViewControllers firstObject];
+    [feedViewController resetNavBar];
 }
 
 @end
