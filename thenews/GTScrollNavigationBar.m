@@ -90,7 +90,7 @@ lastContentOffsetY = _lastContentOffsetY;
     CGRect frame = self.frame;
     frame.origin.y = 0;
     [self setFrame:frame alpha:1.0f animated:NO];
-    [self.scrollView setFrame:CGRectMake(frame.origin.x, frame.origin.y + 64, 320, 568)];
+    [self.scrollView setFrame:CGRectMake(frame.origin.x, frame.origin.y + 64, 320, 568 - 20)];
     // possibly set frame properly with self.view.bounds.stuff
     // possibly set content offest to zero here
     // refactor this in general
@@ -170,7 +170,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         }
 
         [self setFrame:frame alpha:alpha animated:YES];
-        [self.scrollView setFrame:CGRectMake(frame.origin.x, frame.origin.y + 64, 320, 568)];
+        [self.scrollView setFrame:CGRectMake(frame.origin.x, frame.origin.y + 64, 320, 568 - 20)];
 
         if (!self.scrollView.decelerating) {
             CGPoint newContentOffset = CGPointMake(self.scrollView.contentOffset.x,
@@ -186,7 +186,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         alpha = MAX(kNearZero, alpha);
 
         [self setFrame:frame alpha:alpha animated:NO];
-        [self.scrollView setFrame:CGRectMake(frame.origin.x, frame.origin.y + 64, 320, 568)];
+        [self.scrollView setFrame:CGRectMake(frame.origin.x, frame.origin.y + 64, 320, 568 - 20)];
     }
 
     self.lastContentOffsetY = contentOffsetY;

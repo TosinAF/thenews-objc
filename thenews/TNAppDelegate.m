@@ -12,6 +12,7 @@
 #import "TNLoginViewController.h"
 #import "TNFeedViewController.h"
 #import "TNHomeViewController.h"
+#import "TNPostViewController.h"
 
 @implementation TNAppDelegate
 
@@ -19,7 +20,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor lightGrayColor];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[TNHomeViewController alloc] init]];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[TNPostViewController alloc] initWithURL:[NSURL URLWithString:@"http://blog.flinto.com/flinto-now-supports-android.html"]  title:@"Flinto"]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [self.window makeKeyAndVisible];
     return YES;

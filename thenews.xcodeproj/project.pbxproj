@@ -33,6 +33,7 @@
 		4E783D4918AD7D7D00D78B20 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E783D4718AD7D7D00D78B20 /* InfoPlist.strings */; };
 		4E783D4B18AD7D7D00D78B20 /* thenewsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E783D4A18AD7D7D00D78B20 /* thenewsTests.m */; };
 		4EAFEE7718B38EAE00E88420 /* GTScrollNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAFEE7618B38EAE00E88420 /* GTScrollNavigationBar.m */; };
+		4EFA416018B4415400C1AE0B /* TNPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA415F18B4415400C1AE0B /* TNPostViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,9 @@
 		4E783D4A18AD7D7D00D78B20 /* thenewsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = thenewsTests.m; sourceTree = "<group>"; };
 		4EAFEE7518B38EAE00E88420 /* GTScrollNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTScrollNavigationBar.h; sourceTree = "<group>"; };
 		4EAFEE7618B38EAE00E88420 /* GTScrollNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTScrollNavigationBar.m; sourceTree = "<group>"; };
+		4EFA415E18B4415400C1AE0B /* TNPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNPostViewController.h; sourceTree = "<group>"; };
+		4EFA415F18B4415400C1AE0B /* TNPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNPostViewController.m; sourceTree = "<group>"; };
+		4EFA416E18B45C4800C1AE0B /* TNTypeEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNTypeEnum.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,8 +165,9 @@
 				4E783D5418AD7E5900D78B20 /* Controllers */,
 				4E783D5718AD7E7B00D78B20 /* Views */,
 				4E783D5518AD7E6800D78B20 /* Models */,
-				4E783D3718AD7D7D00D78B20 /* Images.xcassets */,
 				4E783D2C18AD7D7D00D78B20 /* Supporting Files */,
+				4EFA416D18B4542B00C1AE0B /* Third Party Libraries */,
+				4E783D3718AD7D7D00D78B20 /* Images.xcassets */,
 			);
 			path = thenews;
 			sourceTree = "<group>";
@@ -171,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				4E4E1BDA18AD98E500B87E7A /* Fonts */,
+				4EFA416E18B45C4800C1AE0B /* TNTypeEnum.h */,
 				4E4E1BD418AD98E000B87E7A /* UIColor+TNColors.h */,
 				4E4E1BD518AD98E000B87E7A /* UIColor+TNColors.m */,
 				4E783D2D18AD7D7D00D78B20 /* thenews-Info.plist */,
@@ -208,10 +214,12 @@
 				4E4E1BBD18AD989300B87E7A /* TNLoginViewController.m */,
 				4E4E1BBE18AD989300B87E7A /* TNSignupViewController.h */,
 				4E4E1BBF18AD989300B87E7A /* TNSignupViewController.m */,
-				4E4E1BB618AD989300B87E7A /* TNFeedViewController.h */,
-				4E4E1BB718AD989300B87E7A /* TNFeedViewController.m */,
 				4E4E1BB818AD989300B87E7A /* TNHomeViewController.h */,
 				4E4E1BB918AD989300B87E7A /* TNHomeViewController.m */,
+				4E4E1BB618AD989300B87E7A /* TNFeedViewController.h */,
+				4E4E1BB718AD989300B87E7A /* TNFeedViewController.m */,
+				4EFA415E18B4415400C1AE0B /* TNPostViewController.h */,
+				4EFA415F18B4415400C1AE0B /* TNPostViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -234,10 +242,17 @@
 				4E4E1BCA18AD98A100B87E7A /* TNTextField.m */,
 				4E4E1BC718AD98A100B87E7A /* TNFeedViewCell.h */,
 				4E4E1BC818AD98A100B87E7A /* TNFeedViewCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		4EFA416D18B4542B00C1AE0B /* Third Party Libraries */ = {
+			isa = PBXGroup;
+			children = (
 				4EAFEE7518B38EAE00E88420 /* GTScrollNavigationBar.h */,
 				4EAFEE7618B38EAE00E88420 /* GTScrollNavigationBar.m */,
 			);
-			name = Views;
+			name = "Third Party Libraries";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,6 +356,7 @@
 			files = (
 				4E783D3618AD7D7D00D78B20 /* TNAppDelegate.m in Sources */,
 				4E4E1BCC18AD98A100B87E7A /* TNFeedViewCell.m in Sources */,
+				4EFA416018B4415400C1AE0B /* TNPostViewController.m in Sources */,
 				4E4E1BCB18AD98A100B87E7A /* TNButton.m in Sources */,
 				4E4E1BC218AD989300B87E7A /* TNLaunchViewController.m in Sources */,
 				4E4E1BC118AD989300B87E7A /* TNHomeViewController.m in Sources */,
