@@ -10,11 +10,21 @@
 #import "UIColor+TNColors.h"
 #import "TNSignupViewController.h"
 #import "TNLoginViewController.h"
+#import "TNHomeViewController.h"
+#import "TNTextFieldTypeEnum.h"
+
+bool validEmailField;
+bool validPasswordField;
+
+static NSString *authErrorMessage = @"Your login credentials are invalid";
+static NSString *networkErrorMessage = @"There is no network connection";
+static NSString *invalidFieldErrorMessage = @"Please correct the indicated errors.";
 
 @interface TNLoginViewController ()
 
 @property (strong, nonatomic) TNTextField *emailField;
 @property (strong, nonatomic) TNTextField *passwordField;
+@property (strong, nonatomic) UILabel *errorLabel;
 
 @end
 
@@ -27,7 +37,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [[self navigationController] setNavigationBarHidden:NO];
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
 
 }
 
@@ -86,9 +96,48 @@
     [[gotoSignupView titleLabel] setLineBreakMode:NSLineBreakByWordWrapping];
     [gotoSignupView  addTarget:self action:@selector(gotoSignupView:) forControlEvents:UIControlEventTouchUpInside];
 
+    // Error Label
+
+    self.errorLabel = ({
+        UILabel *errorLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 210, screenSize.width, 100)];
+        [errorLabel setText:invalidFieldErrorMessage];
+        [errorLabel setTextColor:[UIColor redColor]];
+        [errorLabel setTextAlignment:NSTextAlignmentCenter];
+        [errorLabel setFont:[UIFont fontWithName:@"Avenir-Medium" size:16.5f]];
+        errorLabel;
+    });
+
     [self.view addSubview:gotoSignupView];
     [self.view addSubview:self.emailField];
     [self.view addSubview:self.passwordField];
+}
+
+#pragma mark - UITextField Delegate Methods
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    NSUInteger tag = [textField tag];
+
+    switch (tag) {
+
+        case 0:
+            [self.passwordField becomeFirstResponder];
+            break;
+
+        case 1:
+            [self pushHomeView];
+            break;
+    }
+    
+    return NO;
+}
+
+#pragma mark - Private Methods
+
+- (void)pushHomeView
+{
+    TNHomeViewController *homeViewController = [[TNHomeViewController alloc] init];
+    [self.navigationController pushViewController:homeViewController animated:YES];
 }
 
 - (void)gotoSignupView:(id)selector
@@ -118,24 +167,6 @@
         [self.navigationController setViewControllers:viewControllers];
         [self.navigationController pushViewController:signupViewController animated:YES];
     }
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    NSUInteger tag = [textField tag];
-
-    switch (tag) {
-
-        case 0:
-            [self.passwordField becomeFirstResponder];
-            break;
-
-        case 1:
-            // push new view to the nac stack
-            break;
-    }
-    
-    return NO;
 }
 
 @end

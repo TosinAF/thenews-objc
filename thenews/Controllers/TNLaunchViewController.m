@@ -67,7 +67,6 @@ BOOL registrationSkipped;
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    //[self setNeedsStatusBarAppearanceUpdate];
 
     CGSize screenSize = self.view.bounds.size;
 
@@ -125,7 +124,7 @@ BOOL registrationSkipped;
 
 - (void)skipButtonPressed:(id)selector
 {
-    registrationSkipped= YES;
+    registrationSkipped = YES;
     TNHomeViewController *homeViewController = [[TNHomeViewController alloc] init];
     [self.navigationController pushViewController:homeViewController animated:YES];
 }

@@ -20,6 +20,7 @@
     [self setTitle:text forState:UIControlStateNormal];
     [[self titleLabel] setFont:[UIFont fontWithName:@"Montserrat-Regular" size:20]];
 
+    // remove this later
     if (borderExists) {
         [[self layer] setBorderColor:highlightColor.CGColor];
         [[self layer] setBorderWidth:2.0f];
