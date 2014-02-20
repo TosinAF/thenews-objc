@@ -7,6 +7,7 @@
 //
 
 #import "TNAppDelegate.h"
+#import "TNNavigationController.h"
 #import "TNLaunchViewController.h"
 #import "TNSignupViewController.h"
 #import "TNLoginViewController.h"
@@ -20,8 +21,9 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor lightGrayColor];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[TNPostViewController alloc] initWithURL:[NSURL URLWithString:@"http://www.smallhq.com/blog/your-startup-is-overthinking-design/"]]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO];
+    self.window.rootViewController = [[TNNavigationController alloc] initWithRootViewController:[[TNLaunchViewController alloc] init]];
     [self.window makeKeyAndVisible];
     return YES;
 }

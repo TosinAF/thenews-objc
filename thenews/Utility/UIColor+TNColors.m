@@ -34,6 +34,8 @@
     return [UIColor colorWithRed:0.380 green:0.749 blue:0.639 alpha:0.8];
 }
 
-
++ (UIColor *)alternateHnColor {
+    return [UIColor colorWithRed:1.000 green:0.400 blue:0.000 alpha:1];
+}
 
 @end

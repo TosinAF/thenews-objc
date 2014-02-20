@@ -8,6 +8,7 @@
 
 #import "TNTextField.h"
 #import "UIColor+TNColors.h"
+#import "TNSignupViewController.h"
 #import "TNLoginViewController.h"
 
 @interface TNLoginViewController ()
@@ -17,23 +18,31 @@
 
 @end
 
-@implementation TNLoginViewController 
+@implementation TNLoginViewController
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [[self navigationController] setNavigationBarHidden:NO];
+
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 
     CGSize screenSize = self.view.bounds.size;
+
 
     [self setTitle:@"Log In"];
     [[UINavigationBar appearance] setBarTintColor:[UIColor hnColor]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes: @{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Medium" size:20.0f],
+    [[UINavigationBar appearance] setTitleTextAttributes: @{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Light" size:18.0f],
                                                             NSForegroundColorAttributeName:[UIColor whiteColor]}];
 
     [self.view setBackgroundColor:[UIColor whiteColor]];
@@ -75,16 +84,40 @@
     [[gotoSignupView titleLabel] setNumberOfLines:3];
     [[gotoSignupView titleLabel] setTextAlignment:NSTextAlignmentCenter];
     [[gotoSignupView titleLabel] setLineBreakMode:NSLineBreakByWordWrapping];
-    [gotoSignupView  addTarget:self action:@selector(gotoLoginView:) forControlEvents:UIControlEventTouchUpInside];
+    [gotoSignupView  addTarget:self action:@selector(gotoSignupView:) forControlEvents:UIControlEventTouchUpInside];
 
     [self.view addSubview:gotoSignupView];
     [self.view addSubview:self.emailField];
     [self.view addSubview:self.passwordField];
 }
 
-- (void)gotoLoginView:(id)selector
+- (void)gotoSignupView:(id)selector
 {
+    int viewControllersInStack = [self.navigationController.viewControllers count];
+    TNSignupViewController *signupViewController;
 
+    if ( viewControllersInStack <= 2 ) {
+
+        signupViewController = [[TNSignupViewController alloc] init];
+        [self.navigationController pushViewController:signupViewController animated:YES];
+
+    } else {
+
+        // Prevent loop of Signup & Login View Controllers
+
+        NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+
+        for (id vc in viewControllers) {
+            if ([vc isMemberOfClass:[TNSignupViewController class]]) {
+                signupViewController = vc;
+                [viewControllers removeObject:vc];
+                break;
+            }
+        }
+
+        [self.navigationController setViewControllers:viewControllers];
+        [self.navigationController pushViewController:signupViewController animated:YES];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

@@ -19,5 +19,7 @@
 + (UIColor *) hnColor;
 + (UIColor *) hnLightColor;
 
++ (UIColor *)alternateHnColor;
+
 
 @end

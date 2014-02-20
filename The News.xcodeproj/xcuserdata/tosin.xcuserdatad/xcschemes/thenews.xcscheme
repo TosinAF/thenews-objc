@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4E783D2118AD7D7D00D78B20"
                BuildableName = "thenews.app"
-               BlueprintName = "thenews"
-               ReferencedContainer = "container:thenews.xcodeproj">
+               BlueprintName = "The News"
+               ReferencedContainer = "container:The News.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4E783D3C18AD7D7D00D78B20"
                BuildableName = "thenewsTests.xctest"
-               BlueprintName = "thenewsTests"
-               ReferencedContainer = "container:thenews.xcodeproj">
+               BlueprintName = "The NewsTests"
+               ReferencedContainer = "container:The News.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,8 +44,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4E783D2118AD7D7D00D78B20"
             BuildableName = "thenews.app"
-            BlueprintName = "thenews"
-            ReferencedContainer = "container:thenews.xcodeproj">
+            BlueprintName = "The News"
+            ReferencedContainer = "container:The News.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -63,8 +63,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4E783D2118AD7D7D00D78B20"
             BuildableName = "thenews.app"
-            BlueprintName = "thenews"
-            ReferencedContainer = "container:thenews.xcodeproj">
+            BlueprintName = "The News"
+            ReferencedContainer = "container:The News.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -81,8 +81,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4E783D2118AD7D7D00D78B20"
             BuildableName = "thenews.app"
-            BlueprintName = "thenews"
-            ReferencedContainer = "container:thenews.xcodeproj">
+            BlueprintName = "The News"
+            ReferencedContainer = "container:The News.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

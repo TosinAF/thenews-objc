@@ -9,6 +9,7 @@
 #import "TNTextField.h"
 #import "UIColor+TNColors.h"
 #import "TNSignupViewController.h"
+#import "TNLoginViewController.h"
 
 @interface TNSignupViewController ()
 
@@ -19,6 +20,11 @@
 @end
 
 @implementation TNSignupViewController
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -34,7 +40,7 @@
     [self setTitle:@"Sign Up"];
     [[UINavigationBar appearance] setBarTintColor:[UIColor hnColor]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes: @{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Medium" size:20.0f],
+    [[UINavigationBar appearance] setTitleTextAttributes: @{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Light" size:18.0f],
                                                             NSForegroundColorAttributeName:[UIColor whiteColor]}];
 
     [self.view setBackgroundColor:[UIColor whiteColor]];
@@ -146,7 +152,31 @@
 
 - (void)gotoLoginView:(id)selector
 {
+    int viewControllersInStack = [self.navigationController.viewControllers count];
+    TNLoginViewController *loginViewController;
 
+    if ( viewControllersInStack <= 2 ) {
+
+        loginViewController = [[TNLoginViewController alloc] init];
+        [self.navigationController pushViewController:loginViewController animated:YES];
+
+    } else {
+
+        // Prevent loop of Signup & Login View Controllers
+        
+        NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+
+        for (id vc in viewControllers) {
+            if ([vc isMemberOfClass:[TNLoginViewController class]]) {
+                loginViewController = vc;
+                [viewControllers removeObject:vc];
+                break;
+            }
+        }
+
+        [self.navigationController setViewControllers:viewControllers];
+        [self.navigationController pushViewController:loginViewController animated:YES];
+    }
 }
 
 - (BOOL)validateEmail:(NSString *)email

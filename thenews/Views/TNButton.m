@@ -14,9 +14,9 @@
 - (void)withText:(NSString *)text normalColor:(UIColor *)normalColor highlightColor:(UIColor *)highlightColor border:(BOOL)borderExists
 {
     [self setBackgroundImage:[self imageWithColor:normalColor] forState:UIControlStateNormal];
-    [self setBackgroundImage:[self imageWithColor:highlightColor] forState:UIControlStateHighlighted];
+    [self setBackgroundImage:[self imageWithColor:[UIColor whiteColor]] forState:UIControlStateSelected];
     [self setTitleColor:highlightColor forState:UIControlStateNormal];
-    [self setTitleColor:normalColor forState:UIControlStateHighlighted];
+    [self setTitleColor:normalColor forState:UIControlStateSelected];
     [self setTitle:text forState:UIControlStateNormal];
     [[self titleLabel] setFont:[UIFont fontWithName:@"Montserrat-Regular" size:20]];
 

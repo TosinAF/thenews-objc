@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4E3B4B6918B5655400D8B75B /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3B4B6618B5655400D8B75B /* NJKWebViewProgress.m */; };
 		4E3B4B6C18B56E2D00D8B75B /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3B4B6B18B56E2D00D8B75B /* NJKWebViewProgressView.m */; };
+		4E3B4BFC18B604B600D8B75B /* TNNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3B4BFB18B604B600D8B75B /* TNNavigationController.m */; };
 		4E4E1BC018AD989300B87E7A /* TNFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E1BB718AD989300B87E7A /* TNFeedViewController.m */; };
 		4E4E1BC118AD989300B87E7A /* TNHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E1BB918AD989300B87E7A /* TNHomeViewController.m */; };
 		4E4E1BC218AD989300B87E7A /* TNLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E1BBB18AD989300B87E7A /* TNLaunchViewController.m */; };
@@ -55,6 +56,8 @@
 		4E3B4B6618B5655400D8B75B /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgress.m; sourceTree = "<group>"; };
 		4E3B4B6718B5655400D8B75B /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
 		4E3B4B6B18B56E2D00D8B75B /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
+		4E3B4BFA18B604B600D8B75B /* TNNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNNavigationController.h; sourceTree = "<group>"; };
+		4E3B4BFB18B604B600D8B75B /* TNNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNNavigationController.m; sourceTree = "<group>"; };
 		4E4E1BB618AD989300B87E7A /* TNFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNFeedViewController.h; path = Controllers/TNFeedViewController.h; sourceTree = "<group>"; };
 		4E4E1BB718AD989300B87E7A /* TNFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNFeedViewController.m; path = Controllers/TNFeedViewController.m; sourceTree = "<group>"; };
 		4E4E1BB818AD989300B87E7A /* TNHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNHomeViewController.h; path = Controllers/TNHomeViewController.h; sourceTree = "<group>"; };
@@ -78,20 +81,20 @@
 		4E4E1BD318AD98E000B87E7A /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "Utility/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		4E4E1BD418AD98E000B87E7A /* UIColor+TNColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+TNColors.h"; path = "Utility/UIColor+TNColors.h"; sourceTree = "<group>"; };
 		4E4E1BD518AD98E000B87E7A /* UIColor+TNColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+TNColors.m"; path = "Utility/UIColor+TNColors.m"; sourceTree = "<group>"; };
-		4E783D2218AD7D7D00D78B20 /* thenews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = thenews.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E783D2218AD7D7D00D78B20 /* The News.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The News.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E783D2518AD7D7D00D78B20 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4E783D2718AD7D7D00D78B20 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4E783D2918AD7D7D00D78B20 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		4E783D2D18AD7D7D00D78B20 /* thenews-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "thenews-Info.plist"; sourceTree = "<group>"; };
+		4E783D2D18AD7D7D00D78B20 /* The News-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "The News-Info.plist"; sourceTree = "<group>"; };
 		4E783D2F18AD7D7D00D78B20 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4E783D3118AD7D7D00D78B20 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4E783D3318AD7D7D00D78B20 /* thenews-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "thenews-Prefix.pch"; sourceTree = "<group>"; };
+		4E783D3318AD7D7D00D78B20 /* The News-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "The News-Prefix.pch"; sourceTree = "<group>"; };
 		4E783D3418AD7D7D00D78B20 /* TNAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TNAppDelegate.h; sourceTree = "<group>"; };
 		4E783D3518AD7D7D00D78B20 /* TNAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TNAppDelegate.m; sourceTree = "<group>"; };
 		4E783D3718AD7D7D00D78B20 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		4E783D3D18AD7D7D00D78B20 /* thenewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = thenewsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E783D3D18AD7D7D00D78B20 /* The NewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The NewsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E783D3E18AD7D7D00D78B20 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		4E783D4618AD7D7D00D78B20 /* thenewsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "thenewsTests-Info.plist"; sourceTree = "<group>"; };
+		4E783D4618AD7D7D00D78B20 /* The NewsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "The NewsTests-Info.plist"; sourceTree = "<group>"; };
 		4E783D4818AD7D7D00D78B20 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4E783D4A18AD7D7D00D78B20 /* thenewsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = thenewsTests.m; sourceTree = "<group>"; };
 		4EAFEE7518B38EAE00E88420 /* GTScrollNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTScrollNavigationBar.h; sourceTree = "<group>"; };
@@ -140,6 +143,26 @@
 			name = NJKWebViewProgress;
 			sourceTree = "<group>";
 		};
+		4E3B4C0018B61BF200D8B75B /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				4E3B4BFA18B604B600D8B75B /* TNNavigationController.h */,
+				4E3B4BFB18B604B600D8B75B /* TNNavigationController.m */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
+		4E3B4C0218B61C0C00D8B75B /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				4E4E1BBE18AD989300B87E7A /* TNSignupViewController.h */,
+				4E4E1BBF18AD989300B87E7A /* TNSignupViewController.m */,
+				4E4E1BBC18AD989300B87E7A /* TNLoginViewController.h */,
+				4E4E1BBD18AD989300B87E7A /* TNLoginViewController.m */,
+			);
+			name = Registration;
+			sourceTree = "<group>";
+		};
 		4E4E1BDA18AD98E500B87E7A /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,8 +186,8 @@
 		4E783D2318AD7D7D00D78B20 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4E783D2218AD7D7D00D78B20 /* thenews.app */,
-				4E783D3D18AD7D7D00D78B20 /* thenewsTests.xctest */,
+				4E783D2218AD7D7D00D78B20 /* The News.app */,
+				4E783D3D18AD7D7D00D78B20 /* The NewsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -202,10 +225,10 @@
 				4EFA416E18B45C4800C1AE0B /* TNTypeEnum.h */,
 				4E4E1BD418AD98E000B87E7A /* UIColor+TNColors.h */,
 				4E4E1BD518AD98E000B87E7A /* UIColor+TNColors.m */,
-				4E783D2D18AD7D7D00D78B20 /* thenews-Info.plist */,
+				4E783D2D18AD7D7D00D78B20 /* The News-Info.plist */,
 				4E783D2E18AD7D7D00D78B20 /* InfoPlist.strings */,
 				4E783D3118AD7D7D00D78B20 /* main.m */,
-				4E783D3318AD7D7D00D78B20 /* thenews-Prefix.pch */,
+				4E783D3318AD7D7D00D78B20 /* The News-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -222,7 +245,7 @@
 		4E783D4518AD7D7D00D78B20 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4E783D4618AD7D7D00D78B20 /* thenewsTests-Info.plist */,
+				4E783D4618AD7D7D00D78B20 /* The NewsTests-Info.plist */,
 				4E783D4718AD7D7D00D78B20 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -233,16 +256,14 @@
 			children = (
 				4E4E1BBA18AD989300B87E7A /* TNLaunchViewController.h */,
 				4E4E1BBB18AD989300B87E7A /* TNLaunchViewController.m */,
-				4E4E1BBC18AD989300B87E7A /* TNLoginViewController.h */,
-				4E4E1BBD18AD989300B87E7A /* TNLoginViewController.m */,
-				4E4E1BBE18AD989300B87E7A /* TNSignupViewController.h */,
-				4E4E1BBF18AD989300B87E7A /* TNSignupViewController.m */,
+				4E3B4C0218B61C0C00D8B75B /* Registration */,
 				4E4E1BB818AD989300B87E7A /* TNHomeViewController.h */,
 				4E4E1BB918AD989300B87E7A /* TNHomeViewController.m */,
 				4E4E1BB618AD989300B87E7A /* TNFeedViewController.h */,
 				4E4E1BB718AD989300B87E7A /* TNFeedViewController.m */,
 				4EFA415E18B4415400C1AE0B /* TNPostViewController.h */,
 				4EFA415F18B4415400C1AE0B /* TNPostViewController.m */,
+				4E3B4C0018B61BF200D8B75B /* Utility */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -295,9 +316,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4E783D2118AD7D7D00D78B20 /* thenews */ = {
+		4E783D2118AD7D7D00D78B20 /* The News */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4E783D4E18AD7D7D00D78B20 /* Build configuration list for PBXNativeTarget "thenews" */;
+			buildConfigurationList = 4E783D4E18AD7D7D00D78B20 /* Build configuration list for PBXNativeTarget "The News" */;
 			buildPhases = (
 				4E783D1E18AD7D7D00D78B20 /* Sources */,
 				4E783D1F18AD7D7D00D78B20 /* Frameworks */,
@@ -307,14 +328,14 @@
 			);
 			dependencies = (
 			);
-			name = thenews;
+			name = "The News";
 			productName = thenews;
-			productReference = 4E783D2218AD7D7D00D78B20 /* thenews.app */;
+			productReference = 4E783D2218AD7D7D00D78B20 /* The News.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4E783D3C18AD7D7D00D78B20 /* thenewsTests */ = {
+		4E783D3C18AD7D7D00D78B20 /* The NewsTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4E783D5118AD7D7D00D78B20 /* Build configuration list for PBXNativeTarget "thenewsTests" */;
+			buildConfigurationList = 4E783D5118AD7D7D00D78B20 /* Build configuration list for PBXNativeTarget "The NewsTests" */;
 			buildPhases = (
 				4E783D3918AD7D7D00D78B20 /* Sources */,
 				4E783D3A18AD7D7D00D78B20 /* Frameworks */,
@@ -325,9 +346,9 @@
 			dependencies = (
 				4E783D4318AD7D7D00D78B20 /* PBXTargetDependency */,
 			);
-			name = thenewsTests;
+			name = "The NewsTests";
 			productName = thenewsTests;
-			productReference = 4E783D3D18AD7D7D00D78B20 /* thenewsTests.xctest */;
+			productReference = 4E783D3D18AD7D7D00D78B20 /* The NewsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -345,7 +366,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4E783D1D18AD7D7D00D78B20 /* Build configuration list for PBXProject "thenews" */;
+			buildConfigurationList = 4E783D1D18AD7D7D00D78B20 /* Build configuration list for PBXProject "The News" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -357,8 +378,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4E783D2118AD7D7D00D78B20 /* thenews */,
-				4E783D3C18AD7D7D00D78B20 /* thenewsTests */,
+				4E783D2118AD7D7D00D78B20 /* The News */,
+				4E783D3C18AD7D7D00D78B20 /* The NewsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -401,6 +422,7 @@
 				4E4E1BC118AD989300B87E7A /* TNHomeViewController.m in Sources */,
 				4E4E1BD918AD98E000B87E7A /* UIColor+TNColors.m in Sources */,
 				4E4E1BC318AD989300B87E7A /* TNLoginViewController.m in Sources */,
+				4E3B4BFC18B604B600D8B75B /* TNNavigationController.m in Sources */,
 				4EAFEE7718B38EAE00E88420 /* GTScrollNavigationBar.m in Sources */,
 				4E4E1BD018AD98B200B87E7A /* Post.m in Sources */,
 				4E783D3218AD7D7D00D78B20 /* main.m in Sources */,
@@ -425,7 +447,7 @@
 /* Begin PBXTargetDependency section */
 		4E783D4318AD7D7D00D78B20 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4E783D2118AD7D7D00D78B20 /* thenews */;
+			target = 4E783D2118AD7D7D00D78B20 /* The News */;
 			targetProxy = 4E783D4218AD7D7D00D78B20 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -527,11 +549,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "thenews/thenews-Prefix.pch";
-				INFOPLIST_FILE = "thenews/thenews-Info.plist";
+				GCC_PREFIX_HEADER = "thenews/The News-Prefix.pch";
+				INFOPLIST_FILE = "thenews/The News-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "The News";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -543,11 +565,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "thenews/thenews-Prefix.pch";
-				INFOPLIST_FILE = "thenews/thenews-Info.plist";
+				GCC_PREFIX_HEADER = "thenews/The News-Prefix.pch";
+				INFOPLIST_FILE = "thenews/The News-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "The News";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -567,8 +589,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "thenewsTests/thenewsTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "thenewsTests/The NewsTests-Info.plist";
+				PRODUCT_NAME = "The NewsTests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -585,8 +607,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "thenews/thenews-Prefix.pch";
-				INFOPLIST_FILE = "thenewsTests/thenewsTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "thenewsTests/The NewsTests-Info.plist";
+				PRODUCT_NAME = "The NewsTests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -595,7 +617,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4E783D1D18AD7D7D00D78B20 /* Build configuration list for PBXProject "thenews" */ = {
+		4E783D1D18AD7D7D00D78B20 /* Build configuration list for PBXProject "The News" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4E783D4C18AD7D7D00D78B20 /* Debug */,
@@ -604,7 +626,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4E783D4E18AD7D7D00D78B20 /* Build configuration list for PBXNativeTarget "thenews" */ = {
+		4E783D4E18AD7D7D00D78B20 /* Build configuration list for PBXNativeTarget "The News" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4E783D4F18AD7D7D00D78B20 /* Debug */,
@@ -613,7 +635,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4E783D5118AD7D7D00D78B20 /* Build configuration list for PBXNativeTarget "thenewsTests" */ = {
+		4E783D5118AD7D7D00D78B20 /* Build configuration list for PBXNativeTarget "The NewsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4E783D5218AD7D7D00D78B20 /* Debug */,
