@@ -57,10 +57,6 @@ static NSString *CellIdentifier = @"TNFeedCell";
 	[super viewWillAppear:animated];
 	self.edgesForExtendedLayout = UIRectEdgeNone;
 	self.navBar.scrollView = self.feedView;
-
-	if (self.navBar) {
-		[self.navBar setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 64.0)];
-	}
 }
 
 - (void)viewDidLoad {

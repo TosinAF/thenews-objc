@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NJKWebViewProgress.h"
 
-@interface TNPostViewController : UIViewController <UIScrollViewDelegate>
+@interface TNPostViewController : UIViewController <UIWebViewDelegate, NJKWebViewProgressDelegate>
 
+- (id)initWithURL:(NSURL *)url;
 - (id)initWithURL:(NSURL*)url title:(NSString *)title;
 
 @end

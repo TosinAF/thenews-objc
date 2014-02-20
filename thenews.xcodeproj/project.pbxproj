@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E3B4B6918B5655400D8B75B /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3B4B6618B5655400D8B75B /* NJKWebViewProgress.m */; };
+		4E3B4B6C18B56E2D00D8B75B /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3B4B6B18B56E2D00D8B75B /* NJKWebViewProgressView.m */; };
 		4E4E1BC018AD989300B87E7A /* TNFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E1BB718AD989300B87E7A /* TNFeedViewController.m */; };
 		4E4E1BC118AD989300B87E7A /* TNHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E1BB918AD989300B87E7A /* TNHomeViewController.m */; };
 		4E4E1BC218AD989300B87E7A /* TNLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E1BBB18AD989300B87E7A /* TNLaunchViewController.m */; };
@@ -34,6 +36,8 @@
 		4E783D4B18AD7D7D00D78B20 /* thenewsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E783D4A18AD7D7D00D78B20 /* thenewsTests.m */; };
 		4EAFEE7718B38EAE00E88420 /* GTScrollNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAFEE7618B38EAE00E88420 /* GTScrollNavigationBar.m */; };
 		4EFA416018B4415400C1AE0B /* TNPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA415F18B4415400C1AE0B /* TNPostViewController.m */; };
+		4EFA417618B469A500C1AE0B /* IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA417218B469A500C1AE0B /* IonIcons.m */; };
+		4EFA417718B469A500C1AE0B /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EFA417318B469A500C1AE0B /* ionicons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +51,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E3B4B6518B5655400D8B75B /* NJKWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgress.h; sourceTree = "<group>"; };
+		4E3B4B6618B5655400D8B75B /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgress.m; sourceTree = "<group>"; };
+		4E3B4B6718B5655400D8B75B /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
+		4E3B4B6B18B56E2D00D8B75B /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
 		4E4E1BB618AD989300B87E7A /* TNFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNFeedViewController.h; path = Controllers/TNFeedViewController.h; sourceTree = "<group>"; };
 		4E4E1BB718AD989300B87E7A /* TNFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNFeedViewController.m; path = Controllers/TNFeedViewController.m; sourceTree = "<group>"; };
 		4E4E1BB818AD989300B87E7A /* TNHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNHomeViewController.h; path = Controllers/TNHomeViewController.h; sourceTree = "<group>"; };
@@ -91,6 +99,10 @@
 		4EFA415E18B4415400C1AE0B /* TNPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNPostViewController.h; sourceTree = "<group>"; };
 		4EFA415F18B4415400C1AE0B /* TNPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNPostViewController.m; sourceTree = "<group>"; };
 		4EFA416E18B45C4800C1AE0B /* TNTypeEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNTypeEnum.h; sourceTree = "<group>"; };
+		4EFA417018B469A500C1AE0B /* ionicons-codes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ionicons-codes.h"; sourceTree = "<group>"; };
+		4EFA417118B469A500C1AE0B /* IonIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IonIcons.h; sourceTree = "<group>"; };
+		4EFA417218B469A500C1AE0B /* IonIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IonIcons.m; sourceTree = "<group>"; };
+		4EFA417318B469A500C1AE0B /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +129,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E3B4B6418B5654000D8B75B /* NJKWebViewProgress */ = {
+			isa = PBXGroup;
+			children = (
+				4E3B4B6518B5655400D8B75B /* NJKWebViewProgress.h */,
+				4E3B4B6618B5655400D8B75B /* NJKWebViewProgress.m */,
+				4E3B4B6718B5655400D8B75B /* NJKWebViewProgressView.h */,
+				4E3B4B6B18B56E2D00D8B75B /* NJKWebViewProgressView.m */,
+			);
+			name = NJKWebViewProgress;
+			sourceTree = "<group>";
+		};
 		4E4E1BDA18AD98E500B87E7A /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,10 +272,24 @@
 		4EFA416D18B4542B00C1AE0B /* Third Party Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				4E3B4B6418B5654000D8B75B /* NJKWebViewProgress */,
+				4EFA416F18B469A500C1AE0B /* IonIcons */,
 				4EAFEE7518B38EAE00E88420 /* GTScrollNavigationBar.h */,
 				4EAFEE7618B38EAE00E88420 /* GTScrollNavigationBar.m */,
 			);
 			name = "Third Party Libraries";
+			sourceTree = "<group>";
+		};
+		4EFA416F18B469A500C1AE0B /* IonIcons */ = {
+			isa = PBXGroup;
+			children = (
+				4EFA417018B469A500C1AE0B /* ionicons-codes.h */,
+				4EFA417118B469A500C1AE0B /* IonIcons.h */,
+				4EFA417218B469A500C1AE0B /* IonIcons.m */,
+				4EFA417318B469A500C1AE0B /* ionicons.ttf */,
+			);
+			name = IonIcons;
+			path = ionicons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,6 +368,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EFA417718B469A500C1AE0B /* ionicons.ttf in Resources */,
 				4E4E1BD718AD98E000B87E7A /* Montserrat-Bold.ttf in Resources */,
 				4E783D3018AD7D7D00D78B20 /* InfoPlist.strings in Resources */,
 				4E4E1BD618AD98E000B87E7A /* Entypo.ttf in Resources */,
@@ -354,6 +392,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E3B4B6918B5655400D8B75B /* NJKWebViewProgress.m in Sources */,
 				4E783D3618AD7D7D00D78B20 /* TNAppDelegate.m in Sources */,
 				4E4E1BCC18AD98A100B87E7A /* TNFeedViewCell.m in Sources */,
 				4EFA416018B4415400C1AE0B /* TNPostViewController.m in Sources */,
@@ -365,8 +404,10 @@
 				4EAFEE7718B38EAE00E88420 /* GTScrollNavigationBar.m in Sources */,
 				4E4E1BD018AD98B200B87E7A /* Post.m in Sources */,
 				4E783D3218AD7D7D00D78B20 /* main.m in Sources */,
+				4EFA417618B469A500C1AE0B /* IonIcons.m in Sources */,
 				4E4E1BC018AD989300B87E7A /* TNFeedViewController.m in Sources */,
 				4E4E1BC418AD989300B87E7A /* TNSignupViewController.m in Sources */,
+				4E3B4B6C18B56E2D00D8B75B /* NJKWebViewProgressView.m in Sources */,
 				4E4E1BCD18AD98A100B87E7A /* TNTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

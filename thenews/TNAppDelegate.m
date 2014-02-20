@@ -20,7 +20,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor lightGrayColor];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[TNPostViewController alloc] initWithURL:[NSURL URLWithString:@"http://blog.flinto.com/flinto-now-supports-android.html"]  title:@"Flinto"]];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[TNPostViewController alloc] initWithURL:[NSURL URLWithString:@"http://www.smallhq.com/blog/your-startup-is-overthinking-design/"]]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [self.window makeKeyAndVisible];
     return YES;

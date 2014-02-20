@@ -33,6 +33,7 @@
 		<string>Entypo.ttf</string>
 		<string>Montserrat-Bold.ttf</string>
 		<string>Montserrat-Regular.ttf</string>
+		<string>ionicons.ttf</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
