@@ -97,7 +97,7 @@ BOOL registrationSkipped;
     self.skip = ({
         UIButton *skip = [UIButton buttonWithType:UIButtonTypeCustom ];
         [skip setFrame:CGRectMake(10, screenSize.height + 100, screenSize.width - 20, 50)];
-        [skip setTitle:@"Skip To The News" forState:UIControlStateNormal];
+        [skip setTitle:@"Skip to The News" forState:UIControlStateNormal];
         [skip setTitleColor:[UIColor hnLightColor] forState:UIControlStateNormal];
         [skip setTitleColor:[UIColor hnColor] forState:UIControlStateHighlighted];
         [[skip titleLabel] setFont:[UIFont fontWithName:@"Montserrat-Regular" size:20]];
