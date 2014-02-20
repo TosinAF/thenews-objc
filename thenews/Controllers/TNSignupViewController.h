@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TNFormViewController.h"
 
-@interface TNSignupViewController : UIViewController <UITextFieldDelegate>
+@interface TNSignupViewController : TNFormViewController 
 
 @end

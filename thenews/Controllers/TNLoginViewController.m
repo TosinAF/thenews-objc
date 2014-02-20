@@ -11,20 +11,8 @@
 #import "TNSignupViewController.h"
 #import "TNLoginViewController.h"
 #import "TNHomeViewController.h"
-#import "TNTextFieldTypeEnum.h"
-
-bool validEmailField;
-bool validPasswordField;
-
-static NSString *authErrorMessage = @"Your login credentials are invalid";
-static NSString *networkErrorMessage = @"There is no network connection";
-static NSString *invalidFieldErrorMessage = @"Please correct the indicated errors.";
 
 @interface TNLoginViewController ()
-
-@property (strong, nonatomic) TNTextField *emailField;
-@property (strong, nonatomic) TNTextField *passwordField;
-@property (strong, nonatomic) UILabel *errorLabel;
 
 @end
 
@@ -99,7 +87,7 @@ static NSString *invalidFieldErrorMessage = @"Please correct the indicated error
     // Error Label
 
     self.errorLabel = ({
-        UILabel *errorLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 210, screenSize.width, 100)];
+        UILabel *errorLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 225, screenSize.width, 100)];
         [errorLabel setText:invalidFieldErrorMessage];
         [errorLabel setTextColor:[UIColor redColor]];
         [errorLabel setTextAlignment:NSTextAlignmentCenter];
@@ -130,43 +118,6 @@ static NSString *invalidFieldErrorMessage = @"Please correct the indicated error
     }
     
     return NO;
-}
-
-#pragma mark - Private Methods
-
-- (void)pushHomeView
-{
-    TNHomeViewController *homeViewController = [[TNHomeViewController alloc] init];
-    [self.navigationController pushViewController:homeViewController animated:YES];
-}
-
-- (void)gotoSignupView:(id)selector
-{
-    int viewControllersInStack = [self.navigationController.viewControllers count];
-    TNSignupViewController *signupViewController;
-
-    if ( viewControllersInStack <= 2 ) {
-
-        signupViewController = [[TNSignupViewController alloc] init];
-        [self.navigationController pushViewController:signupViewController animated:YES];
-
-    } else {
-
-        // Prevent loop of Signup & Login View Controllers
-
-        NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-
-        for (id vc in viewControllers) {
-            if ([vc isMemberOfClass:[TNSignupViewController class]]) {
-                signupViewController = vc;
-                [viewControllers removeObject:vc];
-                break;
-            }
-        }
-
-        [self.navigationController setViewControllers:viewControllers];
-        [self.navigationController pushViewController:signupViewController animated:YES];
-    }
 }
 
 @end

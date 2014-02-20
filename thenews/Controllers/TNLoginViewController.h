@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TNLoginViewController : UIViewController <UITextFieldDelegate>
+@interface TNLoginViewController : TNFormViewController 
 
 @end
