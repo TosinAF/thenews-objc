@@ -9,13 +9,14 @@
 #import "Post.h"
 #import "TNFeedViewCell.h"
 #import "UIColor+TNColors.h"
+#import "TNPostViewController.h"
 #import "TNFeedViewController.h"
 
 static int CELL_HEIGHT = 70;
+static int NUMBER_OF_POSTS_TO_DOWNLOAD = 10;
 static NSString *CellIdentifier = @"TNFeedCell";
 
 @interface TNFeedViewController ()
-
 
 @property (nonatomic, strong) NSString *navTitle;
 @property (nonatomic, strong) UIColor *navbarColor;
@@ -54,14 +55,17 @@ static NSString *CellIdentifier = @"TNFeedCell";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
 	self.edgesForExtendedLayout = UIRectEdgeNone;
 	self.navBar.scrollView = self.feedView;
+    [self configureNavbarApperance];
+    [self resetNavBar];
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	[self downloadPosts];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissPostView) name:@"dismissPostView" object:nil];
 
 	/* Set Up Navigation Bar */
 
@@ -71,10 +75,7 @@ static NSString *CellIdentifier = @"TNFeedCell";
 	self.navBar = [[GTScrollNavigationBar alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, navBarHeight)];
 	self.navItem = [[UINavigationItem alloc] initWithTitle:self.navTitle];
 
-	[self.navBar setBarTintColor:self.navbarColor];
-	[self.navBar setTintColor:[UIColor whiteColor]];
-	[self.navBar setTitleTextAttributes:@{ NSFontAttributeName:[UIFont fontWithName:@"Montserrat" size:16.0f],
-	                                       NSForegroundColorAttributeName:[UIColor whiteColor] }];
+	[self configureNavbarApperance];
 
 	self.menuButton = ({
        UIButton *menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -140,6 +141,15 @@ static NSString *CellIdentifier = @"TNFeedCell";
 	return CELL_HEIGHT;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    Post *post = [self.posts objectAtIndex:[indexPath row]];
+    TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[post link]]];
+    [self.navigationController pushViewController:postViewController animated:YES];
+}
+
+
 #pragma mark - Data Methods
 
 - (void)downloadPosts {
@@ -162,7 +172,7 @@ static NSString *CellIdentifier = @"TNFeedCell";
 }
 
 - (void)storeData:(NSData *)responseData {
-	int index = 0;
+	int index = 1;
 	NSError *error;
 	NSDictionary *posts = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
 
@@ -181,14 +191,36 @@ static NSString *CellIdentifier = @"TNFeedCell";
 		[post setUpdatedAt:[collection objectForKey:@"updatedAt"]];
 
 		[self.posts addObject:post];
-		if (index++ == 9) break;
+		if (index++ == NUMBER_OF_POSTS_TO_DOWNLOAD) break;
 	}
 
 	[self.feedView reloadData];
 }
 
+#pragma mark - Public Methods
+
 - (void)resetNavBar {
 	[self.navBar resetToDefaultPosition:YES];
+}
+
+#pragma mark - Private Methods
+
+- (void)configureNavbarApperance
+{
+    [self.navBar setBarTintColor:self.navbarColor];
+	[self.navBar setTintColor:[UIColor whiteColor]];
+	[self.navBar setTitleTextAttributes:@{ NSFontAttributeName:[UIFont fontWithName:@"Montserrat" size:16.0f],
+	                                       NSForegroundColorAttributeName:[UIColor whiteColor] }];
+}
+
+
+- (void)dismissPostView {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"dismissPostWebView" object:nil];
 }
 
 @end

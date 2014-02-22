@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NJKWebViewProgress.h"
 
-@interface TNPostViewController : UIViewController <UIWebViewDelegate, NJKWebViewProgressDelegate>
+@interface TNPostViewController : UIViewController <UIWebViewDelegate, NJKWebViewProgressDelegate, UIGestureRecognizerDelegate>
 
 - (id)initWithURL:(NSURL *)url;
 - (id)initWithURL:(NSURL*)url title:(NSString *)title;

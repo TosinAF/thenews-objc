@@ -76,7 +76,7 @@ int passwordLengthMin = 6;
 
 - (void)gotoLoginView:(id)selector
 {
-    int viewControllersInStack = [self.navigationController.viewControllers count];
+    int viewControllersInStack = (int)[self.navigationController.viewControllers count];
     TNLoginViewController *loginViewController;
 
     if ( viewControllersInStack <= 2 ) {
@@ -105,7 +105,7 @@ int passwordLengthMin = 6;
 
 - (void)gotoSignupView:(id)selector
 {
-    int viewControllersInStack = [self.navigationController.viewControllers count];
+    int viewControllersInStack = (int)[self.navigationController.viewControllers count];
     TNSignupViewController *signupViewController;
 
     if ( viewControllersInStack <= 2 ) {
@@ -136,6 +136,10 @@ int passwordLengthMin = 6;
 {
     TNHomeViewController *homeViewController = [[TNHomeViewController alloc] init];
     [self.navigationController pushViewController:homeViewController animated:YES];
+
+    // Remove Launch & Registration View Controllers No Longer Accessible
+    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+    [self.navigationController setViewControllers:[NSArray arrayWithObjects:[viewControllers lastObject], nil]];
 }
 
 - (BOOL)validateEmail:(NSString *)email

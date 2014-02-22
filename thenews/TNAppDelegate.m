@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import "UIColor+TNColors.h"
 #import "TNAppDelegate.h"
 #import "TNNavigationController.h"
 #import "TNLaunchViewController.h"
@@ -20,7 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor lightGrayColor];
+    self.window.backgroundColor = [UIColor tnLightGreyColor];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Light" size:16.0f],NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
     self.window.rootViewController = [[TNNavigationController alloc] initWithRootViewController:[[TNLaunchViewController alloc] init]];

@@ -127,6 +127,10 @@ BOOL registrationSkipped;
     registrationSkipped = YES;
     TNHomeViewController *homeViewController = [[TNHomeViewController alloc] init];
     [self.navigationController pushViewController:homeViewController animated:YES];
+
+    // Remove Launch View Controllers As It Is No Longer Accessible
+    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+    [self.navigationController setViewControllers:[NSArray arrayWithObjects:[viewControllers lastObject], nil]];
 }
 
 @end

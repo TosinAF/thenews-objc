@@ -66,6 +66,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
     [self.navigationController.navigationBar addSubview:_progressView];
 }
 
@@ -73,18 +74,23 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 {
     [super viewWillDisappear:animated];
     [_progressView removeFromSuperview];
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
     [self.navigationController setToolbarHidden:YES];
+    self.navigationController.interactivePopGestureRecognizer.delegate = nil;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    [self.navigationController.interactivePopGestureRecognizer setEnabled:YES];
 
     /* Set up Navigation Bar */
 
     [self configureTitleView];
     [self addBarButtonItems];
 	[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setBarTintColor:nil];
 	[[UINavigationBar appearance] setTitleTextAttributes:@{ NSFontAttributeName:[UIFont fontWithName:@"Montserrat-Regular" size:16.0f],
 	                                                        NSForegroundColorAttributeName:[UIColor blackColor] }];
 
@@ -198,7 +204,9 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
         UIImage *iconHighlight = [IonIcons imageWithIcon:icon_ios7_close_empty size:120.0f color:[UIColor redColor]];
 
         [closeButton setImage:icon forState:UIControlStateNormal];
-        [closeButton setImage:iconHighlight forState:UIControlStateHighlighted];
+        [closeButton setImage:iconHighlight forState:UIControlStateSelected];
+
+        [closeButton addTarget:self action:@selector(dismissButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         closeButton;
     });
 
@@ -291,7 +299,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 }
 
 - (void)dismissButtonPressed {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissButtonPressed" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissPostView" object:nil];
 }
 
 @end
