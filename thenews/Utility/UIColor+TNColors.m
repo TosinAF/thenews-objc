@@ -19,11 +19,11 @@
 }
 
 + (UIColor *)dnColor {
-    return [UIColor colorWithRed:0.361 green:0.537 blue:0.808 alpha:1];
+    return [UIColor colorWithRed:0.349 green:0.518 blue:0.816 alpha:1];
 }
 
 + (UIColor *)dnLightColor {
-    return [UIColor colorWithRed:0.361 green:0.537 blue:0.808 alpha:0.8];
+    return [UIColor colorWithRed:0.349 green:0.518 blue:0.816 alpha:0.8];
 }
 
 + (UIColor *)hnColor {
