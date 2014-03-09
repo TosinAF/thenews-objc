@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4E783D2118AD7D7D00D78B20"
-               BuildableName = "thenews.app"
+               BuildableName = "The News.app"
                BlueprintName = "The News"
                ReferencedContainer = "container:The News.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4E783D3C18AD7D7D00D78B20"
-               BuildableName = "thenewsTests.xctest"
+               BuildableName = "The NewsTests.xctest"
                BlueprintName = "The NewsTests"
                ReferencedContainer = "container:The News.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4E783D2118AD7D7D00D78B20"
-            BuildableName = "thenews.app"
+            BuildableName = "The News.app"
             BlueprintName = "The News"
             ReferencedContainer = "container:The News.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4E783D2118AD7D7D00D78B20"
-            BuildableName = "thenews.app"
+            BuildableName = "The News.app"
             BlueprintName = "The News"
             ReferencedContainer = "container:The News.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4E783D2118AD7D7D00D78B20"
-            BuildableName = "thenews.app"
+            BuildableName = "The News.app"
             BlueprintName = "The News"
             ReferencedContainer = "container:The News.xcodeproj">
          </BuildableReference>

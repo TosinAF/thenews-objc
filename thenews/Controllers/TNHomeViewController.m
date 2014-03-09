@@ -77,7 +77,7 @@
 
         default:
             // will never reach here
-            return self.hnViewController;
+            return nil;
     }
 }
 
@@ -95,14 +95,8 @@
 
         default:
             // will never reach here
-            return self.hnViewController;
+            return nil;
     }
-}
-
-- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
-{
-    TNFeedViewController *feedViewController = [previousViewControllers firstObject];
-    [feedViewController resetNavBar];
 }
 
 @end

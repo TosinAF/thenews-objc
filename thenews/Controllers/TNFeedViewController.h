@@ -22,6 +22,4 @@ typedef NS_ENUM (NSInteger, TNFeedType) {
 
 - (id)initWithFeedType:(TNFeedType)feedType;
 
-- (void)resetNavBar;
-
 @end

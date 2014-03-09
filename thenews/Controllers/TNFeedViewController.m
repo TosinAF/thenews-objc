@@ -20,7 +20,7 @@ static NSString *CellIdentifier = @"TNFeedCell";
 
 @property (nonatomic, strong) NSString *navTitle;
 @property (nonatomic, strong) UIColor *navbarColor;
-@property (nonatomic, strong) GTScrollNavigationBar *navBar;
+@property (nonatomic, strong) UINavigationBar *navBar;
 @property (nonatomic, strong) UINavigationItem *navItem;
 
 @property (nonatomic, strong) NSMutableArray *posts;
@@ -50,21 +50,19 @@ static NSString *CellIdentifier = @"TNFeedCell";
 				self.navbarColor = [UIColor hnColor];
 				break;
 		}
+        
+        [self downloadPosts];
 	}
 	return self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	self.edgesForExtendedLayout = UIRectEdgeNone;
-	self.navBar.scrollView = self.feedView;
     [self configureNavbarApperance];
-    [self resetNavBar];
     [super viewWillAppear:animated];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[self downloadPosts];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissPostView) name:@"dismissPostView" object:nil];
 
 	/* Set Up Navigation Bar */
@@ -143,7 +141,6 @@ static NSString *CellIdentifier = @"TNFeedCell";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     Post *post = [self.posts objectAtIndex:[indexPath row]];
     TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[post link]]];
     [self.navigationController pushViewController:postViewController animated:YES];
@@ -199,9 +196,6 @@ static NSString *CellIdentifier = @"TNFeedCell";
 
 #pragma mark - Public Methods
 
-- (void)resetNavBar {
-	[self.navBar resetToDefaultPosition:YES];
-}
 
 #pragma mark - Private Methods
 
