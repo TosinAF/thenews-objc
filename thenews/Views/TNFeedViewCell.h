@@ -9,8 +9,9 @@
 #import "Post.h"
 #import <UIKit/UIKit.h>
 #import "TNFeedViewController.h"
+#import "MCSwipeTableViewCell.h"
 
-@interface TNFeedViewCell : UITableViewCell
+@interface TNFeedViewCell : MCSwipeTableViewCell
 
 - (void)setForReuse;
 - (void)setFrameHeight:(CGFloat)height;

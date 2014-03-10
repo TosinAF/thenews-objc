@@ -6,12 +6,10 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
-#import "GTScrollNavigationBar.h"
-
-
 #import <UIKit/UIKit.h>
+#import "MCSwipeTableViewCell.h"
 
-@interface TNFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIPageViewControllerDelegate>
+@interface TNFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIPageViewControllerDelegate, MCSwipeTableViewCellDelegate>
 
 typedef NS_ENUM (NSInteger, TNFeedType) {
 	TNFeedTypeDesignerNews,

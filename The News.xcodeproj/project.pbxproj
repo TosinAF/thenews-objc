@@ -36,7 +36,7 @@
 		4E783D4118AD7D7D00D78B20 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E783D2918AD7D7D00D78B20 /* UIKit.framework */; };
 		4E783D4918AD7D7D00D78B20 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E783D4718AD7D7D00D78B20 /* InfoPlist.strings */; };
 		4E783D4B18AD7D7D00D78B20 /* thenewsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E783D4A18AD7D7D00D78B20 /* thenewsTests.m */; };
-		4EAFEE7718B38EAE00E88420 /* GTScrollNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAFEE7618B38EAE00E88420 /* GTScrollNavigationBar.m */; };
+		4EA2C07918CCD105008B4C0B /* MCSwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA2C07818CCD105008B4C0B /* MCSwipeTableViewCell.m */; };
 		4EFA416018B4415400C1AE0B /* TNPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA415F18B4415400C1AE0B /* TNPostViewController.m */; };
 		4EFA417618B469A500C1AE0B /* IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA417218B469A500C1AE0B /* IonIcons.m */; };
 		4EFA417718B469A500C1AE0B /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EFA417318B469A500C1AE0B /* ionicons.ttf */; };
@@ -100,8 +100,8 @@
 		4E783D4618AD7D7D00D78B20 /* The NewsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "The NewsTests-Info.plist"; sourceTree = "<group>"; };
 		4E783D4818AD7D7D00D78B20 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4E783D4A18AD7D7D00D78B20 /* thenewsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = thenewsTests.m; sourceTree = "<group>"; };
-		4EAFEE7518B38EAE00E88420 /* GTScrollNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTScrollNavigationBar.h; sourceTree = "<group>"; };
-		4EAFEE7618B38EAE00E88420 /* GTScrollNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTScrollNavigationBar.m; sourceTree = "<group>"; };
+		4EA2C07718CCD105008B4C0B /* MCSwipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSwipeTableViewCell.h; sourceTree = "<group>"; };
+		4EA2C07818CCD105008B4C0B /* MCSwipeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSwipeTableViewCell.m; sourceTree = "<group>"; };
 		4EFA415E18B4415400C1AE0B /* TNPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNPostViewController.h; sourceTree = "<group>"; };
 		4EFA415F18B4415400C1AE0B /* TNPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNPostViewController.m; sourceTree = "<group>"; };
 		4EFA416E18B45C4800C1AE0B /* TNTypeEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNTypeEnum.h; sourceTree = "<group>"; };
@@ -151,6 +151,9 @@
 			children = (
 				4E3B4BFA18B604B600D8B75B /* TNNavigationController.h */,
 				4E3B4BFB18B604B600D8B75B /* TNNavigationController.m */,
+				4EFA416E18B45C4800C1AE0B /* TNTypeEnum.h */,
+				4E4E1BD418AD98E000B87E7A /* UIColor+TNColors.h */,
+				4E4E1BD518AD98E000B87E7A /* UIColor+TNColors.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 			children = (
 				4E783D3418AD7D7D00D78B20 /* TNAppDelegate.h */,
 				4E783D3518AD7D7D00D78B20 /* TNAppDelegate.m */,
+				4E3B4C0018B61BF200D8B75B /* Utility */,
 				4E783D5418AD7E5900D78B20 /* Controllers */,
 				4E783D5718AD7E7B00D78B20 /* Views */,
 				4E783D5518AD7E6800D78B20 /* Models */,
@@ -227,9 +231,6 @@
 			isa = PBXGroup;
 			children = (
 				4E4E1BDA18AD98E500B87E7A /* Fonts */,
-				4EFA416E18B45C4800C1AE0B /* TNTypeEnum.h */,
-				4E4E1BD418AD98E000B87E7A /* UIColor+TNColors.h */,
-				4E4E1BD518AD98E000B87E7A /* UIColor+TNColors.m */,
 				4E783D2D18AD7D7D00D78B20 /* The News-Info.plist */,
 				4E783D2E18AD7D7D00D78B20 /* InfoPlist.strings */,
 				4E783D3118AD7D7D00D78B20 /* main.m */,
@@ -268,7 +269,6 @@
 				4E4E1BB718AD989300B87E7A /* TNFeedViewController.m */,
 				4EFA415E18B4415400C1AE0B /* TNPostViewController.h */,
 				4EFA415F18B4415400C1AE0B /* TNPostViewController.m */,
-				4E3B4C0018B61BF200D8B75B /* Utility */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -295,13 +295,21 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		4EA2C06B18CCC986008B4C0B /* MCSwipeTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				4EA2C07718CCD105008B4C0B /* MCSwipeTableViewCell.h */,
+				4EA2C07818CCD105008B4C0B /* MCSwipeTableViewCell.m */,
+			);
+			name = MCSwipeTableViewCell;
+			sourceTree = "<group>";
+		};
 		4EFA416D18B4542B00C1AE0B /* Third Party Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				4EA2C06B18CCC986008B4C0B /* MCSwipeTableViewCell */,
 				4E3B4B6418B5654000D8B75B /* NJKWebViewProgress */,
 				4EFA416F18B469A500C1AE0B /* IonIcons */,
-				4EAFEE7518B38EAE00E88420 /* GTScrollNavigationBar.h */,
-				4EAFEE7618B38EAE00E88420 /* GTScrollNavigationBar.m */,
 			);
 			name = "Third Party Libraries";
 			sourceTree = "<group>";
@@ -429,10 +437,10 @@
 				4E4E1BD918AD98E000B87E7A /* UIColor+TNColors.m in Sources */,
 				4E4E1BC318AD989300B87E7A /* TNLoginViewController.m in Sources */,
 				4E3B4BFC18B604B600D8B75B /* TNNavigationController.m in Sources */,
-				4EAFEE7718B38EAE00E88420 /* GTScrollNavigationBar.m in Sources */,
 				4E4E1BD018AD98B200B87E7A /* Post.m in Sources */,
 				4E783D3218AD7D7D00D78B20 /* main.m in Sources */,
 				4EFA417618B469A500C1AE0B /* IonIcons.m in Sources */,
+				4EA2C07918CCD105008B4C0B /* MCSwipeTableViewCell.m in Sources */,
 				4E4E1BC018AD989300B87E7A /* TNFeedViewController.m in Sources */,
 				4E4E1BC418AD989300B87E7A /* TNSignupViewController.m in Sources */,
 				4E3B4B6C18B56E2D00D8B75B /* NJKWebViewProgressView.m in Sources */,

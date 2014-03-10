@@ -70,7 +70,7 @@ static NSString *CellIdentifier = @"TNFeedCell";
 	CGFloat navBarHeight = 64.0;
 	CGSize screenSize = self.view.frame.size;
 
-	self.navBar = [[GTScrollNavigationBar alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, navBarHeight)];
+	self.navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, navBarHeight)];
 	self.navItem = [[UINavigationItem alloc] initWithTitle:self.navTitle];
 
 	[self configureNavbarApperance];
@@ -194,10 +194,8 @@ static NSString *CellIdentifier = @"TNFeedCell";
 	[self.feedView reloadData];
 }
 
-#pragma mark - Public Methods
-
-
 #pragma mark - Private Methods
+
 
 - (void)configureNavbarApperance
 {
@@ -206,7 +204,6 @@ static NSString *CellIdentifier = @"TNFeedCell";
 	[self.navBar setTitleTextAttributes:@{ NSFontAttributeName:[UIFont fontWithName:@"Montserrat" size:16.0f],
 	                                       NSForegroundColorAttributeName:[UIColor whiteColor] }];
 }
-
 
 - (void)dismissPostView {
     [self.navigationController popViewControllerAnimated:YES];

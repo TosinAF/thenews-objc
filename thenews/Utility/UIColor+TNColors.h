@@ -12,6 +12,7 @@
 
 + (UIColor *) tnGreyColor;
 + (UIColor *) tnLightGreyColor;
++ (UIColor *) tnLightGreenColor;
  
 + (UIColor *) dnColor;
 + (UIColor *) dnLightColor;

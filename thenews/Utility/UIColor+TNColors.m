@@ -18,6 +18,10 @@
     return [UIColor colorWithRed:0.941 green:0.941 blue:0.941 alpha:1];
 }
 
++ (UIColor *)tnLightGreenColor {
+    return [UIColor colorWithRed:0.631 green:0.890 blue:0.812 alpha:1];
+}
+
 + (UIColor *)dnColor {
     return [UIColor colorWithRed:0.349 green:0.518 blue:0.816 alpha:1];
 }
@@ -31,7 +35,7 @@
 }
 
 + (UIColor *)hnLightColor {
-    return [UIColor colorWithRed:0.380 green:0.749 blue:0.639 alpha:0.8];
+    return [UIColor colorWithRed:0.537 green:0.659 blue:0.867 alpha:1];
 }
 
 + (UIColor *)alternateHnColor {
