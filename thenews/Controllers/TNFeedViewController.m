@@ -7,6 +7,7 @@
 //
 
 #import "Post.h"
+#import "CRToast.h"
 #import "TNFeedViewCell.h"
 #import "UIColor+TNColors.h"
 #import "TNPostViewController.h"
@@ -130,6 +131,8 @@ static NSString *CellIdentifier = @"TNFeedCell";
 	[cell setFeedType:[self.feedType intValue]];
     [cell configureForPost:[self.posts objectAtIndex:[indexPath row]]];
 
+    [self addSwipeGesturesToCell:cell atIndexPath:indexPath];
+
     return cell;
 }
 
@@ -194,8 +197,75 @@ static NSString *CellIdentifier = @"TNFeedCell";
 	[self.feedView reloadData];
 }
 
-#pragma mark - Private Methods
+#pragma mark - Gesture Methods
 
+- (void)addSwipeGesturesToCell:(TNFeedViewCell*)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    // Should have decoupled this method but due to multiple instances there is an isssue with using nsnotification
+
+    UIView *commentView = [self viewWithImageName:@"Comment"];
+    UIView *upvoteView = [self viewWithImageName:@"Upvote"];
+
+    [cell setDefaultColor:[UIColor tnLightGreyColor]];
+
+    [cell setSwipeGestureWithView:commentView color:[UIColor dnColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        [self showCommentView];
+    }];
+
+
+    [cell setSwipeGestureWithView:upvoteView color:[UIColor tnLightGreenColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        [self upvotePost];
+    }];
+}
+
+- (UIView *)viewWithImageName:(NSString *)imageName {
+    UIImage *image = [UIImage imageNamed:imageName];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.contentMode = UIViewContentModeCenter;
+    return imageView;
+}
+
+#pragma mark - Notification Methods
+
+- (NSDictionary *)defaultNotificationOptions
+{
+    NSDictionary *options = @{
+                              kCRToastTextKey : @"Post Upvote Successful",
+                              kCRToastTextAlignmentKey : @(NSTextAlignmentLeft),
+                              kCRToastSubtitleTextAlignmentKey : @(NSTextAlignmentLeft),
+                              kCRToastFontKey : [UIFont fontWithName:@"Avenir-Light" size:14],
+                              kCRToastSubtitleFontKey : [UIFont fontWithName:@"Avenir-Light" size:9],
+                              kCRToastBackgroundColorKey : [UIColor colorWithRed:0.086 green:0.627 blue:0.522 alpha:1],
+                              kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
+                              kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeLinear),
+                              kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                              kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop),
+                              kCRToastNotificationPresentationTypeKey : @(YES),
+                              kCRToastNotificationTypeKey : @(YES),
+                              kCRToastUnderStatusBarKey: @(NO),
+                              kCRToastStatusBarStyle : @(UIStatusBarStyleLightContent),
+                              kCRToastImageKey : [UIImage imageNamed:@"Checkmark"]
+                              };
+    return options;
+}
+
+- (void)showNotification
+{
+    NSMutableDictionary *options = [NSMutableDictionary dictionaryWithDictionary:[self defaultNotificationOptions]];
+
+    if (rand() % 2) {
+        // Upvote Failed
+        options[kCRToastTextKey] = @"Post Upvote Failed";
+        options[kCRToastSubtitleTextKey] = @"Authentication Error";
+        options[kCRToastImageKey] = [UIImage imageNamed:@"Error"];
+        options[kCRToastBackgroundColorKey] = [UIColor colorWithRed:0.906 green:0.298 blue:0.235 alpha:1];
+    }
+
+
+    [CRToastManager showNotificationWithOptions:options completionBlock:^{}];
+}
+
+#pragma mark - Private Methods
 
 - (void)configureNavbarApperance
 {
@@ -205,13 +275,23 @@ static NSString *CellIdentifier = @"TNFeedCell";
 	                                       NSForegroundColorAttributeName:[UIColor whiteColor] }];
 }
 
+- (void)upvotePost
+{
+    [self showNotification];
+}
+
+- (void)showCommentView
+{
+    NSLog(@"CommentViewShown");
+}
+
 - (void)dismissPostView {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"dismissPostWebView" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"dismissPostView" object:nil];
 }
 
 @end

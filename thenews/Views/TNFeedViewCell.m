@@ -59,7 +59,6 @@
 	[self.contentView addSubview:self.detail];
 	[self.contentView addSubview:self.commentCount];
 
-    [self addSwipeGesturesToCell];
 }
 
 - (void)removeSubviews {
@@ -113,37 +112,8 @@
 	[self.commentCount setAttributedText:commentCountAttr];
 }
 
-- (void)addSwipeGesturesToCell
-{
-    UIView *commentView = [self viewWithImageName:@"Comment"];
-    UIView *upvoteView = [self viewWithImageName:@"Upvote"];
-
-    [self setDefaultColor:[UIColor tnLightGreyColor]];
-
-    [self setSwipeGestureWithView:commentView color:[UIColor dnColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"commentGestureSwiped" object:nil];
-        NSLog(@"Comment Gesture Swiped");
-    }];
-
-
-    [self setSwipeGestureWithView:upvoteView color:[UIColor tnLightGreenColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"upvoteGestureSwiped" object:nil];
-        NSLog(@"Upvote Gesture Swiped");
-    }];
-}
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
 	//[super setSelected:selected animated:animated];
 }
-
-#pragma Mark - Utility Methods
-
-- (UIView *)viewWithImageName:(NSString *)imageName {
-    UIImage *image = [UIImage imageNamed:imageName];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    imageView.contentMode = UIViewContentModeCenter;
-    return imageView;
-}
-
 
 @end
