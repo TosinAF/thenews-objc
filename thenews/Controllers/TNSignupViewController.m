@@ -42,6 +42,7 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
     // Setup Text Fields & Borders
+    // Can refactor this using a dictionary & loop
 
     self.nameField = ({
         TNTextField *nameField = [[TNTextField alloc] initWithFrame:CGRectMake(50, 70, screenSize.width, 50)];

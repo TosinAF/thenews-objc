@@ -7,6 +7,7 @@
 //
 
 #import "TNTypeEnum.h"
+#import "TNMenuView.h"
 #import "UIColor+TNColors.h"
 #import "TNViewController.h"
 #import "TNFeedViewController.h"
@@ -24,7 +25,7 @@ UITapGestureRecognizer *exitMenuTap;
 
 @property (nonatomic, strong) NSNumber *feedType;
 
-@property (nonatomic, strong) UIView *menu;
+@property (nonatomic, strong) TNMenuView *menu;
 @property (nonatomic, strong) UIButton *menuButton;
 @property (weak,nonatomic) UIViewController *currentViewController;
 
@@ -42,6 +43,7 @@ UITapGestureRecognizer *exitMenuTap;
     [super viewWillAppear:animated];
     [self defaultNavbarOptions];
     [self.navigationController setNavigationBarHidden:YES];
+    exitMenuTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitMenuOnTapRecognizer:)];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -84,14 +86,14 @@ UITapGestureRecognizer *exitMenuTap;
     [self.view addSubview:feedViewController.view];
     [feedViewController didMoveToParentViewController:self];
 
-    /* set up menu */
-    self.menu = [[UIView alloc] initWithFrame:CGRectMake(0, -150, 320, 150)];
-    [self.menu setBackgroundColor:[UIColor whiteColor]];
+    /* Set Up Menu View */
+
+    self.menu = [[TNMenuView alloc] initWithFrame:CGRectMake(0, -150, 320, 150)];
+    [self.menu layoutViews];
     self.menu.hidden = YES;
 
     [self.view addSubview:self.menu];
     [self.view addSubview:self.navBar];
-    exitMenuTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitMenuOnTapRecognizer:)];
 }
 
 - (void)setNavbarApperance
@@ -138,8 +140,8 @@ UITapGestureRecognizer *exitMenuTap;
     }
 }
 
-- (void)showMenu {
-
+- (void)showMenu
+{
     self.menu.hidden = NO;
     float containerAlpha = 0.5f;
     [[[self view] layer] addSublayer:openMenuShape];
@@ -167,8 +169,8 @@ UITapGestureRecognizer *exitMenuTap;
     [UIView commitAnimations];
 }
 
-- (void) hideMenu {
-
+- (void)hideMenu
+{
     float containerAlpha = 1.0f;
     [self.menuButton setSelected:NO];
     [openMenuShape removeFromSuperlayer];
@@ -181,7 +183,7 @@ UITapGestureRecognizer *exitMenuTap;
     menuFrame.origin.y = self.navBar.frame.size.height-menuFrame.size.height;
     containerFrame.origin.y = 0.0f;
 
-    [UIView animateWithDuration:0.3f delay:0.05f usingSpringWithDamping:1.0 initialSpringVelocity:4.0
+    [UIView animateWithDuration:0.3f delay:0.0f usingSpringWithDamping:1.0 initialSpringVelocity:4.0
                         options: UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          [self.menu setFrame:menuFrame];
