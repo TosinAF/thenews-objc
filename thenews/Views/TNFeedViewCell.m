@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import "TNTypeEnum.h"
 #import "TNFeedViewCell.h"
 #import "UIColor+TNColors.h"
 #import "TNFeedViewController.h"
@@ -32,14 +33,14 @@
 	self.frame = contentViewFrame;
 }
 
-- (void)setFeedType:(TNFeedType)feedType {
+- (void)setFeedType:(TNType)feedType {
 	switch (feedType) {
-		case TNFeedTypeDesignerNews:
+		case TNTypeDesignerNews:
 			self.themeColor = [UIColor dnColor];
 			self.lightThemeColor = [UIColor dnLightColor];
 			break;
 
-		case TNFeedTypeHackerNews:
+		case TNTypeHackerNews:
 			self.themeColor = [UIColor hnColor];
 			self.lightThemeColor = [UIColor hnLightColor];
 			break;

@@ -6,13 +6,15 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import "TNTypeEnum.h"
 #import "TNFeedViewController.h"
 #import "TNHomeViewController.h"
+#import "TNContainerViewController.h"
 
 @interface TNHomeViewController ()
 
-@property (nonatomic, strong) TNFeedViewController *dnViewController;
-@property (nonatomic, strong) TNFeedViewController *hnViewController;
+@property (nonatomic, strong) TNContainerViewController *dnViewController;
+@property (nonatomic, strong) TNContainerViewController *hnViewController;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 
 @end
@@ -42,8 +44,8 @@
     self.pageViewController.delegate = self;
 
 
-	self.hnViewController = [[TNFeedViewController alloc] initWithFeedType:TNFeedTypeHackerNews];
-	self.dnViewController = [[TNFeedViewController alloc] initWithFeedType:TNFeedTypeDesignerNews];
+	self.hnViewController = [[TNContainerViewController alloc] initWithType:TNTypeHackerNews];
+	self.dnViewController = [[TNContainerViewController alloc] initWithType:TNTypeDesignerNews];
 
 
 
@@ -55,7 +57,6 @@
     // View Controller Containment
     [self addChildViewController:self.pageViewController];
     [self.pageViewController didMoveToParentViewController:self];
-    //[self.pageViewController.view setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:self.pageViewController.view];
 
     self.view.gestureRecognizers = self.pageViewController.gestureRecognizers;
@@ -69,14 +70,13 @@
     NSNumber *feedType = viewController.feedType;
 
     switch ([feedType intValue]) {
-        case TNFeedTypeDesignerNews:
+        case TNTypeDesignerNews:
             return nil;
 
-        case TNFeedTypeHackerNews:
+        case TNTypeHackerNews:
             return self.dnViewController;
 
         default:
-            // will never reach here
             return nil;
     }
 }
@@ -87,14 +87,13 @@
     NSNumber *feedType = viewController.feedType;
 
     switch ([feedType intValue]) {
-        case TNFeedTypeDesignerNews:
+        case TNTypeDesignerNews:
             return self.hnViewController;
 
-        case TNFeedTypeHackerNews:
+        case TNTypeHackerNews:
             return nil;
 
         default:
-            // will never reach here
             return nil;
     }
 }

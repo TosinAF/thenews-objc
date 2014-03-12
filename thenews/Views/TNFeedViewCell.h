@@ -15,7 +15,7 @@
 
 - (void)setForReuse;
 - (void)setFrameHeight:(CGFloat)height;
-- (void)setFeedType:(TNFeedType)feedType;
+- (void)setFeedType:(TNType)feedType;
 - (void)configureForPost:(Post *)post;
 
 @end

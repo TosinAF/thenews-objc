@@ -6,18 +6,14 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import "TNTypeEnum.h"
 #import <UIKit/UIKit.h>
 #import "MCSwipeTableViewCell.h"
 
-@interface TNFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIPageViewControllerDelegate, MCSwipeTableViewCellDelegate>
-
-typedef NS_ENUM (NSInteger, TNFeedType) {
-	TNFeedTypeDesignerNews,
-	TNFeedTypeHackerNews
-};
+@interface TNFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIPageViewControllerDelegate>
 
 @property (nonatomic, strong) NSNumber *feedType;
 
-- (id)initWithFeedType:(TNFeedType)feedType;
+- (id)initWithType:(TNType)type;
 
 @end

@@ -14,7 +14,7 @@
 #import "TNLoginViewController.h"
 #import "TNFeedViewController.h"
 #import "TNHomeViewController.h"
-#import "TNPostViewController.h"
+#import "TNContainerViewController.h"
 
 @implementation TNAppDelegate
 
@@ -23,7 +23,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor tnLightGreyColor];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Light" size:16.0f],NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
+
     self.window.rootViewController = [[TNNavigationController alloc] initWithRootViewController:[[TNLaunchViewController alloc] init]];
     [self.window makeKeyAndVisible];
     return YES;
