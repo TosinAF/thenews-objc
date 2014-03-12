@@ -159,13 +159,12 @@ static NSString *CellIdentifier = @"TNFeedCell";
 
     [cell setDefaultColor:[UIColor tnLightGreyColor]];
 
-    [cell setSwipeGestureWithView:commentView color:[UIColor dnColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        [self showCommentView];
+    [cell setSwipeGestureWithView:upvoteView color:[UIColor tnLightGreenColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        [self upvotePost];
     }];
 
-
-    [cell setSwipeGestureWithView:upvoteView color:[UIColor tnLightGreenColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        [self upvotePost];
+    [cell setSwipeGestureWithView:commentView color:[UIColor dnColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        [self showCommentView];
     }];
 }
 
