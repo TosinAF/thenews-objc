@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TNMenuView : UIView
+@interface TNMenuView : UIView <UITextFieldDelegate>
 
-- (void)layoutViews;
+- (id)initWithFrame:(CGRect)frame type:(TNType)type;
+
+- (void)setup;
+- (void)toDefaultState;
 
 @end

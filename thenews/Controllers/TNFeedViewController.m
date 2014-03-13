@@ -152,7 +152,7 @@ static NSString *CellIdentifier = @"TNFeedCell";
 - (void)addSwipeGesturesToCell:(TNFeedViewCell*)cell atIndexPath:(NSIndexPath *)indexPath
 {
     // Should have decoupled this method but due to multiple instances of this object there is an isssue with using nsnotification
-    // where as 2 notifications are issued for one event
+    // where as 2 notifications are issued for one event - can be fixed with passing some data in the notification
 
     UIView *commentView = [self viewWithImageName:@"Comment"];
     UIView *upvoteView = [self viewWithImageName:@"Upvote"];

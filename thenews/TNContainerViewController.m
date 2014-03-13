@@ -18,15 +18,16 @@ UITapGestureRecognizer *exitMenuTap;
 
 @interface TNContainerViewController ()
 
+@property (nonatomic, strong) NSNumber *feedType;
+
 @property (nonatomic, strong) NSString *navTitle;
 @property (nonatomic, strong) UIColor *navbarColor;
 @property (nonatomic, strong) UINavigationBar *navBar;
 @property (nonatomic, strong) UINavigationItem *navItem;
 
-@property (nonatomic, strong) NSNumber *feedType;
-
 @property (nonatomic, strong) TNMenuView *menu;
 @property (nonatomic, strong) UIButton *menuButton;
+
 @property (weak,nonatomic) UIViewController *currentViewController;
 
 @end
@@ -36,19 +37,6 @@ UITapGestureRecognizer *exitMenuTap;
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self defaultNavbarOptions];
-    [self.navigationController setNavigationBarHidden:YES];
-    exitMenuTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitMenuOnTapRecognizer:)];
-}
-
--(void) viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self drawOpenMenuShape];
 }
 
 - (id)initWithType:(TNType)type {
@@ -72,11 +60,34 @@ UITapGestureRecognizer *exitMenuTap;
 	return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self defaultNavbarOptions];
+    [self.navigationController setNavigationBarHidden:YES];
+    exitMenuTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitMenuOnTapRecognizer:)];
+}
+
+-(void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self drawOpenMenuShape];
+}
+
+
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[self setNavbarApperance];
+    [self setNavbarApperance];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fadeOutChildViewController:) name:@"keyboardWillAppear" object:nil];
+
+    /* Set Up Menu View */
+
+    self.menu = [[TNMenuView alloc] initWithFrame:CGRectMake(0, -208, 320, 208) type:[self.feedType intValue]];
+    [self.menu setHidden:YES];
+    [self.menu setup];
 
     /* Set up First Child View Controller */
 
@@ -85,12 +96,6 @@ UITapGestureRecognizer *exitMenuTap;
     [self addChildViewController:feedViewController];
     [self.view addSubview:feedViewController.view];
     [feedViewController didMoveToParentViewController:self];
-
-    /* Set Up Menu View */
-
-    self.menu = [[TNMenuView alloc] initWithFrame:CGRectMake(0, -150, 320, 150)];
-    [self.menu layoutViews];
-    self.menu.hidden = YES;
 
     [self.view addSubview:self.menu];
     [self.view addSubview:self.navBar];
@@ -103,6 +108,7 @@ UITapGestureRecognizer *exitMenuTap;
 
 	self.navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, navBarHeight)];
 	self.navItem = [[UINavigationItem alloc] initWithTitle:self.navTitle];
+    [self.navBar setTranslucent:YES];
 
     [self defaultNavbarOptions];
 
@@ -147,13 +153,13 @@ UITapGestureRecognizer *exitMenuTap;
     [[[self view] layer] addSublayer:openMenuShape];
     [self.view addGestureRecognizer:exitMenuTap];
 
-    //[self.currentViewController.view setUserInteractionEnabled:NO];
+    [self.currentViewController.view setUserInteractionEnabled:NO];
 
     // Set new origin of menu
     CGRect menuFrame = self.menu.frame;
     menuFrame.origin.y = self.navBar.frame.size.height;
     CGRect containerFrame = self.currentViewController.view.frame;
-    containerFrame.origin.y = self.navBar.frame.size.height + 150 - 64;
+    containerFrame.origin.y = self.navBar.frame.size.height + 208 - 64;
 
 
     [UIView animateWithDuration:0.4 delay:0.0 usingSpringWithDamping:1.0 initialSpringVelocity:4.0
@@ -175,7 +181,8 @@ UITapGestureRecognizer *exitMenuTap;
     [self.menuButton setSelected:NO];
     [openMenuShape removeFromSuperlayer];
     [self.view removeGestureRecognizer:exitMenuTap];
-    //[self.currentViewController.view setUserInteractionEnabled:YES];
+    [self.menu toDefaultState];
+    [self.currentViewController.view setUserInteractionEnabled:YES];
 
     // Set new origin of Menu & Contianer
     CGRect menuFrame = self.menu.frame;
@@ -183,7 +190,7 @@ UITapGestureRecognizer *exitMenuTap;
     menuFrame.origin.y = self.navBar.frame.size.height-menuFrame.size.height;
     containerFrame.origin.y = 0.0f;
 
-    [UIView animateWithDuration:0.3f delay:0.0f usingSpringWithDamping:1.0 initialSpringVelocity:4.0
+    [UIView animateWithDuration:0.8f delay:0.0f usingSpringWithDamping:1.0 initialSpringVelocity:4.0
                         options: UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          [self.menu setFrame:menuFrame];
@@ -232,6 +239,20 @@ UITapGestureRecognizer *exitMenuTap;
     if (!CGRectContainsPoint(self.menu.frame, tapLocation) && !self.menu.hidden) {
         [self hideMenu];
     }
+}
+
+- (void)fadeOutChildViewController:(NSNotification *)notification
+{
+    NSNumber *identifier = [[notification userInfo] valueForKey:@"type"];
+
+    if ( [identifier isEqualToNumber:self.feedType]) {
+        [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             [self.currentViewController.view setAlpha:0.0f];
+                         }
+                         completion:nil];
+    }
+
 }
 
 @end
