@@ -8,7 +8,6 @@
 
 #import "UIColor+TNColors.h"
 #import "TNAppDelegate.h"
-#import "TNNavigationController.h"
 #import "TNLaunchViewController.h"
 #import "TNSignupViewController.h"
 #import "TNLoginViewController.h"
@@ -22,11 +21,12 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor tnLightGreyColor];
+
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Light" size:16.0f],NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
 
-    self.window.rootViewController = [[TNNavigationController alloc] initWithRootViewController:[[TNLaunchViewController alloc] init]];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[TNLaunchViewController alloc] init]];
     [self.window makeKeyAndVisible];
     return YES;
 }

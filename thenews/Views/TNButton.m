@@ -13,17 +13,17 @@
 
 - (void)withText:(NSString *)text normalColor:(UIColor *)normalColor highlightColor:(UIColor *)highlightColor border:(BOOL)borderExists
 {
-    [self setBackgroundImage:[self imageWithColor:normalColor] forState:UIControlStateNormal];
-    [self setBackgroundImage:[self imageWithColor:[UIColor whiteColor]] forState:UIControlStateSelected];
-    [self setTitleColor:highlightColor forState:UIControlStateNormal];
+
+    [self setTitleColor:normalColor forState:UIControlStateNormal];
     [self setTitleColor:normalColor forState:UIControlStateSelected];
     [self setTitle:text forState:UIControlStateNormal];
     [[self titleLabel] setFont:[UIFont fontWithName:@"Montserrat-Regular" size:20]];
 
     // remove this later
     if (borderExists) {
-        [[self layer] setBorderColor:highlightColor.CGColor];
+        [[self layer] setBorderColor:normalColor.CGColor];
         [[self layer] setBorderWidth:2.0f];
+        [[self layer] setCornerRadius:30.0f];
     }
 }
 

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4E3B4B6918B5655400D8B75B /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3B4B6618B5655400D8B75B /* NJKWebViewProgress.m */; };
 		4E3B4B6C18B56E2D00D8B75B /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3B4B6B18B56E2D00D8B75B /* NJKWebViewProgressView.m */; };
-		4E3B4BFC18B604B600D8B75B /* TNNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3B4BFB18B604B600D8B75B /* TNNavigationController.m */; };
 		4E3B4C0618B65CE300D8B75B /* TNFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3B4C0518B65CE300D8B75B /* TNFormViewController.m */; };
 		4E4E1BC018AD989300B87E7A /* TNFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E1BB718AD989300B87E7A /* TNFeedViewController.m */; };
 		4E4E1BC118AD989300B87E7A /* TNHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E1BB918AD989300B87E7A /* TNHomeViewController.m */; };
@@ -61,8 +60,6 @@
 		4E3B4B6618B5655400D8B75B /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgress.m; sourceTree = "<group>"; };
 		4E3B4B6718B5655400D8B75B /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
 		4E3B4B6B18B56E2D00D8B75B /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
-		4E3B4BFA18B604B600D8B75B /* TNNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNNavigationController.h; sourceTree = "<group>"; };
-		4E3B4BFB18B604B600D8B75B /* TNNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNNavigationController.m; sourceTree = "<group>"; };
 		4E3B4C0418B65CE300D8B75B /* TNFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNFormViewController.h; sourceTree = "<group>"; };
 		4E3B4C0518B65CE300D8B75B /* TNFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNFormViewController.m; sourceTree = "<group>"; };
 		4E4E1BB618AD989300B87E7A /* TNFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNFeedViewController.h; path = Controllers/TNFeedViewController.h; sourceTree = "<group>"; };
@@ -161,8 +158,6 @@
 		4E3B4C0018B61BF200D8B75B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				4E3B4BFA18B604B600D8B75B /* TNNavigationController.h */,
-				4E3B4BFB18B604B600D8B75B /* TNNavigationController.m */,
 				4EFA416E18B45C4800C1AE0B /* TNTypeEnum.h */,
 				4E4E1BD418AD98E000B87E7A /* UIColor+TNColors.h */,
 				4E4E1BD518AD98E000B87E7A /* UIColor+TNColors.m */,
@@ -466,7 +461,6 @@
 				4E4E1BC118AD989300B87E7A /* TNHomeViewController.m in Sources */,
 				4E4E1BD918AD98E000B87E7A /* UIColor+TNColors.m in Sources */,
 				4E4E1BC318AD989300B87E7A /* TNLoginViewController.m in Sources */,
-				4E3B4BFC18B604B600D8B75B /* TNNavigationController.m in Sources */,
 				4E4E1BD018AD98B200B87E7A /* Post.m in Sources */,
 				4EA2C08118CE9E2E008B4C0B /* CRToast.m in Sources */,
 				4E783D3218AD7D7D00D78B20 /* main.m in Sources */,

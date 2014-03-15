@@ -42,21 +42,17 @@ BOOL registrationSkipped;
 {
     // Animation to bring up the two buttons from the bottom of the screen
 
-    CGRect signupFrame = self.signup.frame;
-    signupFrame.origin.y = 328;
-
     CGRect loginFrame = self.login.frame;
-    loginFrame.origin.y = 408;
+    loginFrame.origin.y = 388;
 
     CGRect skipFrame = self.skip.frame;
-    skipFrame.origin.y = 478;
+    skipFrame.origin.y = 458;
 
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
     [UIView setAnimationDelay:0];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
 
-    self.signup.frame = signupFrame;
     self.login.frame = loginFrame;
     self.skip.frame = skipFrame;
 
@@ -66,46 +62,42 @@ BOOL registrationSkipped;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.view setBackgroundColor:[UIColor hnColor]];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 
     CGSize screenSize = self.view.bounds.size;
+
+    UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0, 380, 320, 200)];
+    [bottom setBackgroundColor:[UIColor whiteColor]];
 
     self.appTitle = ({
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, screenSize.width, 100)];
         [title setText:@"THE NEWS"];
-        [title setTextColor:[UIColor hnColor]];
+        [title setTextColor:[UIColor whiteColor]];
         [title setTextAlignment:NSTextAlignmentCenter];
         [title setFont:[UIFont fontWithName:@"Montserrat-Bold" size:40]];
         title;
     });
 
-    self.signup = ({
-        TNButton *signup = [[TNButton alloc] initWithFrame:CGRectMake(10, screenSize.height + 100, screenSize.width - 20, 50)];
-        [signup withText:@"Sign Up" normalColor:[UIColor alternateHnColor] highlightColor:[UIColor whiteColor] border:NO];
-        [signup addTarget:self action:@selector(signupButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        signup;
-    });
-
     self.login = ({
-        TNButton *login = [[TNButton alloc] initWithFrame:CGRectMake(10, screenSize.height + 100, screenSize.width - 20, 50)];
-        [login withText:@"Log In" normalColor:[UIColor dnColor] highlightColor:[UIColor whiteColor] border:NO];
+        TNButton *login = [[TNButton alloc] initWithFrame:CGRectMake(20, screenSize.height + 100, screenSize.width - 40, 60)];
+        [login withText:@"Log In" normalColor:[UIColor whiteColor] highlightColor:[UIColor whiteColor] border:YES];
         [login addTarget:self action:@selector(loginButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         login;
     });
 
     self.skip = ({
         UIButton *skip = [UIButton buttonWithType:UIButtonTypeCustom ];
-        [skip setFrame:CGRectMake(10, screenSize.height + 100, screenSize.width - 20, 50)];
+        [skip setFrame:CGRectMake(10, screenSize.height + 150, screenSize.width - 20, 50)];
         [skip setTitle:@"Skip to The News" forState:UIControlStateNormal];
-        [skip setTitleColor:[UIColor hnLightColor] forState:UIControlStateNormal];
-        [skip setTitleColor:[UIColor hnColor] forState:UIControlStateHighlighted];
+        [skip setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        //[skip setTitleColor:[UIColor hnColor] forState:UIControlStateHighlighted];
         [[skip titleLabel] setFont:[UIFont fontWithName:@"Montserrat-Regular" size:20]];
         [skip addTarget:self action:@selector(skipButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         skip;
     });
 
     [self.view addSubview:self.appTitle];
-    [self.view addSubview:self.signup];
     [self.view addSubview:self.login];
     [self.view addSubview:self.skip];
 }
