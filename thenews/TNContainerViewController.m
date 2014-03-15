@@ -73,15 +73,13 @@ UITapGestureRecognizer *exitMenuTap;
     [self drawOpenMenuShape];
 }
 
-
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self setNavbarApperance];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fadeOutChildViewController:) name:@"keyboardWillAppear" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeChildViewController:) name:@"menuButtonClicked" object:nil];
 
     /* Set Up Menu View */
 
@@ -252,6 +250,42 @@ UITapGestureRecognizer *exitMenuTap;
                          }
                          completion:nil];
     }
+
+}
+
+- (void)changeChildViewController:(NSNotification *)notification
+{
+
+    NSNumber *identifier = [[notification userInfo] valueForKey:@"type"];
+
+    if ( [identifier isEqualToNumber:self.feedType]) {
+        NSLog(@"yeah");
+    }
+
+
+    TNViewController *nextViewController = [[TNViewController alloc] init];
+    // Add nextViewController as child of container view controller.
+    [self addChildViewController:nextViewController];
+    // Tell current View controller that it will be removed.
+    [self willMoveToParentViewController:nil];
+
+    // Set the frame of the next view controller to equal the outgoing (current) view controller
+    nextViewController.view.frame = self.currentViewController.view.frame;
+
+    // Make the transition with a very short Cross disolve animation
+    [self transitionFromViewController:self.currentViewController
+                                         toViewController:nextViewController
+                                                 duration:0.1f
+                                                  options:UIViewAnimationOptionTransitionCrossDissolve
+                                               animations:^{
+
+                                               }
+                                               completion:^(BOOL finished) {
+                                                   self.currentViewController = nextViewController;
+                                                   [self.currentViewController removeFromParentViewController];
+                                                   [self hideMenu];
+                                                   [nextViewController didMoveToParentViewController:self];
+                                               }];
 
 }
 

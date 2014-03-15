@@ -8,10 +8,12 @@
 
 #import "IonIcons.h"
 #import "ionicons-codes.h"
+#import "UIColor+TNColors.h"
 #import "NJKWebViewProgressView.h"
 #import "TNPostViewController.h"
 
 NSString *loadingText = @"Loading...";
+DismissActionBlock dismissAction;
 
 @interface TNPostViewController ()
 
@@ -89,8 +91,9 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 
     [self configureTitleView];
     [self addBarButtonItems];
+
 	[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setBarTintColor:nil];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor dnColor]];
 	[[UINavigationBar appearance] setTitleTextAttributes:@{ NSFontAttributeName:[UIFont fontWithName:@"Montserrat-Regular" size:16.0f],
 	                                                        NSForegroundColorAttributeName:[UIColor blackColor] }];
 
@@ -175,6 +178,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
     self.titleLabel = ({
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 200, 24)];
         [titleLabel setText:self.titleStr];
+        [titleLabel setTextColor:[UIColor whiteColor]];
         [titleLabel setFont:[UIFont fontWithName:@"Montserrat" size:13]];
         [titleLabel setTextAlignment:NSTextAlignmentCenter];
         titleLabel;
@@ -185,7 +189,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
         urlLabel.font = [UIFont fontWithName:@"Montserrat" size:10];
         urlLabel.textAlignment = NSTextAlignmentCenter;
         urlLabel.text = [self getBaseURL:self.url];
-        urlLabel.textColor = [UIColor colorWithRed:0.529 green:0.596 blue:0.643 alpha:1];
+        urlLabel.textColor = [UIColor tnLightGreyColor];
         urlLabel;
     });
 
@@ -200,7 +204,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
         UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [closeButton setFrame:CGRectMake(0, 0, 30, 30)];
 
-        UIImage *icon = [IonIcons imageWithIcon:icon_ios7_close_empty size:120.0f color:[UIColor blackColor]];
+        UIImage *icon = [IonIcons imageWithIcon:icon_ios7_close_empty size:120.0f color:[UIColor whiteColor]];
         UIImage *iconHighlight = [IonIcons imageWithIcon:icon_ios7_close_empty size:120.0f color:[UIColor redColor]];
 
         [closeButton setImage:icon forState:UIControlStateNormal];
@@ -214,7 +218,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
         UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [shareButton setFrame:CGRectMake(0, 0, 20, 20)];
 
-        UIImage *icon = [IonIcons imageWithIcon:icon_ios7_upload_outline size:30.0f color:[UIColor blackColor]];
+        UIImage *icon = [IonIcons imageWithIcon:icon_ios7_upload_outline size:30.0f color:[UIColor whiteColor]];
 
         [shareButton setImage:icon forState:UIControlStateNormal];
         shareButton;
@@ -299,7 +303,12 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 }
 
 - (void)dismissButtonPressed {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissPostView" object:nil];
+    dismissAction();
 }
+
+- (void)setDismissAction:(DismissActionBlock)dismissActionBlock {
+    dismissAction = dismissActionBlock;
+}
+
 
 @end

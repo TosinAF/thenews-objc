@@ -41,7 +41,7 @@
 
     /* Menu Buttons */
 
-    NSArray *buttonTitles = [NSArray arrayWithObjects:@"M.O.T.D", @"Recent Stories", @"Settings", nil];
+    NSArray *buttonTitles = [NSArray arrayWithObjects:@"Recent Stories", @"M.O.T.D", @"Settings", nil];
 
     for (int i = 0; i < [buttonTitles count]; i++) {
 
@@ -56,6 +56,7 @@
         [menuButton setTitleColor:[UIColor dnColor] forState:UIControlStateNormal];
         [menuButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [[menuButton titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:20.0f]];
+        [menuButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 
         [menuButton setTag:i];
 
@@ -71,7 +72,7 @@
     self.searchField = [[UITextField alloc] initWithFrame:CGRectMake(40, 150, viewSize.width - 65, 50)];
     [self.searchField setDelegate:self];
     [self.searchField setTextColor:[UIColor dnColor]];
-    [self.searchField setPlaceholder:@"Enter a search term"];
+    [self.searchField setPlaceholder:@"Search Stories"];
     [self.searchField setRightViewMode:UITextFieldViewModeWhileEditing];
     [self.searchField setFont:[UIFont fontWithName:@"Avenir-Medium" size:20.0f]];
 
@@ -92,6 +93,12 @@
     [self addSubview:self.searchField];
 }
 
+- (void)menuButtonClicked:(UIButton*)selector
+{
+    NSDictionary *dict = @{@"buttonTag":[NSNumber numberWithInt:selector.tag], @"type":self.type};
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"menuButtonClicked" object:nil userInfo:dict];
+}
+
 - (void)clearTextField
 {
     // The action is jumpy if the placeholder text still exists
@@ -103,7 +110,7 @@
 {
     // For When the menu is hidden
     [self.searchField setText:@""];
-    [self.searchField setPlaceholder:@"Enter a search term"];
+    [self.searchField setPlaceholder:@"Search Stories"];
     [self.searchField resignFirstResponder];
 }
 
@@ -111,6 +118,8 @@
 {
     [self resignFirstResponder];
 }
+
+#pragma mark - UITextField Delegate
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {

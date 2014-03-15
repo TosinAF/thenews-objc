@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "NJKWebViewProgress.h"
 
+typedef void (^DismissActionBlock)(void);
+
 @interface TNPostViewController : UIViewController <UIWebViewDelegate, NJKWebViewProgressDelegate, UIGestureRecognizerDelegate>
 
 - (id)initWithURL:(NSURL *)url;
 - (id)initWithURL:(NSURL*)url title:(NSString *)title;
+- (void)setDismissAction:(DismissActionBlock)dismissActionBlock;
 
 @end

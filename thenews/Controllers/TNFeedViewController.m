@@ -46,7 +46,6 @@ static NSString *CellIdentifier = @"TNFeedCell";
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissPostView) name:@"dismissPostView" object:nil];
 
 	CGFloat navBarHeight = 64.0;
 	CGSize screenSize = self.view.frame.size;
@@ -96,9 +95,9 @@ static NSString *CellIdentifier = @"TNFeedCell";
 {
     Post *post = [self.posts objectAtIndex:[indexPath row]];
     TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[post link]]];
+    [postViewController setDismissAction:^{ [self.navigationController popViewControllerAnimated:YES]; }];
     [self.navigationController pushViewController:postViewController animated:YES];
 }
-
 
 #pragma mark - Data Methods
 
@@ -152,7 +151,7 @@ static NSString *CellIdentifier = @"TNFeedCell";
 - (void)addSwipeGesturesToCell:(TNFeedViewCell*)cell atIndexPath:(NSIndexPath *)indexPath
 {
     // Should have decoupled this method but due to multiple instances of this object there is an isssue with using nsnotification
-    // where as 2 notifications are issued for one event - can be fixed with passing some data in the notification
+    // can be fixed by creating method where i pass a block - do later
 
     UIView *commentView = [self viewWithImageName:@"Comment"];
     UIView *upvoteView = [self viewWithImageName:@"Upvote"];
@@ -228,11 +227,6 @@ static NSString *CellIdentifier = @"TNFeedCell";
 
 - (void)dismissPostView {
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"dismissPostView" object:nil];
 }
 
 @end
