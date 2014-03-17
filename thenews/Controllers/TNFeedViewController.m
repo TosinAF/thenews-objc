@@ -95,7 +95,10 @@ static NSString *CellIdentifier = @"TNFeedCell";
 {
     Post *post = [self.posts objectAtIndex:[indexPath row]];
     TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[post link]]];
-    [postViewController setDismissAction:^{ [self.navigationController popViewControllerAnimated:YES]; }];
+
+    __weak TNFeedViewController *weakSelf = self;
+    [postViewController setDismissAction:^{ [weakSelf.navigationController popViewControllerAnimated:YES]; }];
+
     [self.navigationController pushViewController:postViewController animated:YES];
 }
 
@@ -150,9 +153,6 @@ static NSString *CellIdentifier = @"TNFeedCell";
 
 - (void)addSwipeGesturesToCell:(TNFeedViewCell*)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    // Should have decoupled this method but due to multiple instances of this object there is an isssue with using nsnotification
-    // can be fixed by creating method where i pass a block - do later
-
     UIView *commentView = [self viewWithImageName:@"Comment"];
     UIView *upvoteView = [self viewWithImageName:@"Upvote"];
 

@@ -95,7 +95,7 @@
 
 - (void)menuButtonClicked:(UIButton*)selector
 {
-    NSDictionary *dict = @{@"buttonTag":[NSNumber numberWithInt:selector.tag], @"type":self.type};
+    NSDictionary *dict = @{@"buttonTag":[NSNumber numberWithLong:selector.tag], @"type":self.type};
     [[NSNotificationCenter defaultCenter] postNotificationName:@"menuButtonClicked" object:nil userInfo:dict];
 }
 

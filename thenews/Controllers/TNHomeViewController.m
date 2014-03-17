@@ -55,11 +55,10 @@
 	                                   animated:NO completion:nil];
 
     // View Controller Containment
-    [self addChildViewController:self.pageViewController];
     [self.pageViewController didMoveToParentViewController:self];
+    [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
 
-    self.view.gestureRecognizers = self.pageViewController.gestureRecognizers;
 }
 
 #pragma mark - UIPageViewControllerDataSource Methods
