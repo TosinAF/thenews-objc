@@ -10,9 +10,12 @@
 #import "TNMenuView.h"
 #import "UIColor+TNColors.h"
 
+KeyboardWillAppearBlock keyboardWillAppearAction;
+
 @interface TNMenuView ()
 
 @property (nonatomic, strong) NSNumber *type;
+@property (strong, nonatomic) UIColor *themeColor;
 
 @property (nonatomic,strong) UIButton *motdButton;
 @property (nonatomic,strong) UIButton *storiesButton;
@@ -27,9 +30,17 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-
         self.type = [NSNumber numberWithInt:type];
 
+        switch (type) {
+            case TNTypeDesignerNews:
+                self.themeColor = [UIColor dnColor];
+                break;
+
+            case TNTypeHackerNews:
+                self.themeColor = [UIColor hnColor];
+                break;
+        }
     }
     return self;
 }
@@ -53,7 +64,7 @@
         [menuButton setTitle:title forState:UIControlStateNormal];
         [menuButton setFrame:CGRectMake(0, yPos, viewSize.width, 50)];
         [menuButton setContentEdgeInsets:UIEdgeInsetsMake(0, 40, 0, 0)];
-        [menuButton setTitleColor:[UIColor dnColor] forState:UIControlStateNormal];
+        [menuButton setTitleColor:self.themeColor forState:UIControlStateNormal];
         [menuButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [[menuButton titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:20.0f]];
         [menuButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -121,10 +132,14 @@
 
 #pragma mark - UITextField Delegate
 
+- (void)setKeyboardWillAppearAction:(KeyboardWillAppearBlock)block
+{
+    keyboardWillAppearAction = block;
+}
+
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    NSDictionary *dict = @{@"type":self.type};
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardWillAppear" object:nil userInfo:dict];
+    keyboardWillAppearAction();
     return YES;
 }
 

@@ -16,6 +16,8 @@
 CAShapeLayer *openMenuShape;
 UITapGestureRecognizer *exitMenuTap;
 
+__weak TNContainerViewController *weakSelf;
+
 @interface TNContainerViewController ()
 
 @property (nonatomic, strong) NSNumber *feedType;
@@ -78,7 +80,8 @@ UITapGestureRecognizer *exitMenuTap;
     [super viewDidLoad];
     [self setNavbarApperance];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fadeOutChildViewController:) name:@"keyboardWillAppear" object:nil];
+
+    // Will refactor this
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeChildViewController:) name:@"menuButtonClicked" object:nil];
 
     /* Set Up Menu View */
@@ -86,6 +89,11 @@ UITapGestureRecognizer *exitMenuTap;
     self.menu = [[TNMenuView alloc] initWithFrame:CGRectMake(0, -208, 320, 208) type:[self.feedType intValue]];
     [self.menu setHidden:YES];
     [self.menu setup];
+
+    weakSelf = self;
+    [self.menu setKeyboardWillAppearAction:^{
+        [weakSelf fadeOutChildViewController];
+    }];
 
     /* Set up First Child View Controller */
 
@@ -220,7 +228,20 @@ UITapGestureRecognizer *exitMenuTap;
     [triangleShape addLineToPoint:CGPointMake(trianglePosition, height)];
 
     [openMenuShape setPath:triangleShape.CGPath];
-    [openMenuShape setFillColor:[UIColor colorWithRed:0.416 green:0.565 blue:0.824 alpha:1].CGColor];
+
+    // So as to match the Navbar Colours after Apple's meddling with the barTintColor
+    switch ([self.feedType intValue]) {
+        case TNTypeDesignerNews:
+            [openMenuShape setFillColor:[UIColor colorWithRed:0.416 green:0.565 blue:0.824 alpha:1].CGColor];
+            break;
+
+        case TNTypeHackerNews:
+            [openMenuShape setFillColor:[UIColor colorWithRed:0.451 green:0.769 blue:0.675 alpha:1].CGColor];
+            break;
+
+        default:
+            break;
+    }
 
     [openMenuShape setBounds:CGRectMake(0.0f, 0.0f, height+triangleSize, width)];
     [openMenuShape setAnchorPoint:CGPointMake(0.0f, 0.0f)];
@@ -239,18 +260,14 @@ UITapGestureRecognizer *exitMenuTap;
     }
 }
 
-- (void)fadeOutChildViewController:(NSNotification *)notification
+- (void)fadeOutChildViewController
 {
-    NSNumber *identifier = [[notification userInfo] valueForKey:@"type"];
 
-    if ( [identifier isEqualToNumber:self.feedType]) {
-        [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut
-                         animations:^{
-                             [self.currentViewController.view setAlpha:0.0f];
-                         }
-                         completion:nil];
-    }
-
+    [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         [weakSelf.currentViewController.view setAlpha:0.0f];
+                     }
+                     completion:nil];
 }
 
 - (void)changeChildViewController:(NSNotification *)notification

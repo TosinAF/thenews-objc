@@ -39,7 +39,11 @@
 }
 
 + (UIColor *)alternateHnColor {
-    return [UIColor colorWithRed:1.000 green:0.400 blue:0.000 alpha:1];
+    return [UIColor colorWithRed:1.000 green:0.408 blue:0.216 alpha:1];
+}
+
++ (UIColor *)alternateHnLightColor {
+    return [UIColor colorWithRed:1.000 green:0.408 blue:0.216 alpha:0.8];
 }
 
 @end
