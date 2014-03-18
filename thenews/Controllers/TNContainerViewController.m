@@ -82,18 +82,10 @@ __weak TNContainerViewController *weakSelf;
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
     // Will refactor this
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeChildViewController:) name:@"menuButtonClicked" object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeChildViewController:) name:@"menuButtonClicked" object:nil];
 
     /* Set Up Menu View */
-
-    self.menu = [[TNMenuView alloc] initWithFrame:CGRectMake(0, -208, 320, 208) type:[self.feedType intValue]];
-    [self.menu setHidden:YES];
-    [self.menu setup];
-
-    weakSelf = self;
-    [self.menu setKeyboardWillAppearAction:^{
-        [weakSelf fadeOutChildViewController];
-    }];
+    [self configureMenu];
 
     /* Set up First Child View Controller */
 
@@ -142,6 +134,18 @@ __weak TNContainerViewController *weakSelf;
 }
 
 #pragma mark - Drop Down Menu Methods
+
+- (void)configureMenu
+{
+    self.menu = [[TNMenuView alloc] initWithFrame:CGRectMake(0, -208, 320, 208) type:[self.feedType intValue]];
+    [self.menu setHidden:YES];
+    [self.menu setup];
+
+    weakSelf = self;
+    [self.menu setKeyboardWillAppearAction:^{
+        [weakSelf fadeOutChildViewController];
+    }];
+}
 
 - (void)toggleMenu {
     if(self.menu.hidden) {
@@ -269,7 +273,7 @@ __weak TNContainerViewController *weakSelf;
                      }
                      completion:nil];
 }
-
+/*
 - (void)changeChildViewController:(NSNotification *)notification
 {
 
@@ -305,5 +309,6 @@ __weak TNContainerViewController *weakSelf;
                                                }];
 
 }
+*/
 
 @end

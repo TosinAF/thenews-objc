@@ -22,6 +22,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 	TNToolBarButtonTypeForward,
     TNToolBarButtonTypeSpacer
 };
+@property (strong, nonatomic) UIColor *themeColor;
 
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSString *titleStr;
@@ -43,25 +44,24 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 
 @implementation TNPostViewController
 
-- (id)initWithURL:(NSURL *)url
+- (id)initWithURL:(NSURL *)url type:(TNType)type
 {
     self = [super init];
 
     if (self) {
         self.url = url;
         self.titleStr = loadingText;
+
+        switch (type) {
+			case TNTypeDesignerNews:
+				self.themeColor = [UIColor dnColor];
+				break;
+
+			case TNTypeHackerNews:
+				self.themeColor = [UIColor hnColor];
+				break;
+		}
     }
-    return self;
-}
-
-- (id)initWithURL:(NSURL *)url title:(NSString *)title
-{
-    self = [self initWithURL:url];
-
-    if (self) {
-        self.titleStr = title;
-    }
-
     return self;
 }
 
@@ -93,9 +93,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
     [self addBarButtonItems];
 
 	[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor dnColor]];
-	[[UINavigationBar appearance] setTitleTextAttributes:@{ NSFontAttributeName:[UIFont fontWithName:@"Montserrat-Regular" size:16.0f],
-	                                                        NSForegroundColorAttributeName:[UIColor blackColor] }];
+    [[UINavigationBar appearance] setBarTintColor:self.themeColor];
 
     /* Set Up Web View */
 

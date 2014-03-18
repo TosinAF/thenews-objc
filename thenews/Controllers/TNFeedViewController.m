@@ -94,7 +94,7 @@ static NSString *CellIdentifier = @"TNFeedCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Post *post = [self.posts objectAtIndex:[indexPath row]];
-    TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[post link]]];
+    TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[post link]] type:[self.feedType intValue]];
 
     __weak TNFeedViewController *weakSelf = self;
     [postViewController setDismissAction:^{ [weakSelf.navigationController popViewControllerAnimated:YES]; }];

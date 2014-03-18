@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import "TNTypeEnum.h"
 #import <UIKit/UIKit.h>
 #import "NJKWebViewProgress.h"
 
@@ -13,8 +14,7 @@ typedef void (^DismissActionBlock)(void);
 
 @interface TNPostViewController : UIViewController <UIWebViewDelegate, NJKWebViewProgressDelegate, UIGestureRecognizerDelegate>
 
-- (id)initWithURL:(NSURL *)url;
-- (id)initWithURL:(NSURL*)url title:(NSString *)title;
+- (id)initWithURL:(NSURL *)url type:(TNType)type;
 - (void)setDismissAction:(DismissActionBlock)dismissActionBlock;
 
 @end
