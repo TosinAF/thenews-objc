@@ -80,6 +80,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
     [super viewWillDisappear:animated];
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     [self.navigationController setToolbarHidden:YES];
+    self.navigationController.scrollNavigationBar.scrollView = nil;
 }
 
 - (void)viewDidLoad
@@ -118,6 +119,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
             [self configureToolbar];
         }
 
+        [self.titleLabel setFont:[UIFont fontWithName:@"Montserrat" size:16.0f]];
         [self.titleLabel setText:@"Loading..."];
         [self.navBarTitleView setShimmering:YES];
         [self updateToolbarButtonState];
@@ -158,6 +160,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 
 - (void)updateTitleLabel
 {
+    [self.titleLabel setFont:[UIFont fontWithName:@"Montserrat" size:13.0f]];
     [self.titleLabel setText:self.titleStr];
 }
 
