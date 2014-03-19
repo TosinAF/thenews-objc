@@ -81,21 +81,18 @@ __weak TNContainerViewController *weakSelf;
     [self setNavbarApperance];
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
-    // Will refactor this
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeChildViewController:) name:@"menuButtonClicked" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeTheme) name:@"shakeOccured" object:nil];
 
     /* Set Up Menu View */
     [self configureMenu];
 
     /* Set up First Child View Controller */
-
     TNFeedViewController *feedViewController = [[TNFeedViewController alloc] initWithType:[self.feedType intValue]];
     self.currentViewController = feedViewController;
     [self addChildViewController:feedViewController];
     [self.view addSubview:feedViewController.view];
     [feedViewController didMoveToParentViewController:self];
 
-    [self.view addSubview:self.menu];
     [self.view addSubview:self.navBar];
 }
 
@@ -135,8 +132,8 @@ __weak TNContainerViewController *weakSelf;
 
 #pragma mark - Drop Down Menu Methods
 
-- (void)configureMenu
-{
+- (void)configureMenu {
+
     self.menu = [[TNMenuView alloc] initWithFrame:CGRectMake(0, -208, 320, 208) type:[self.feedType intValue]];
     [self.menu setHidden:YES];
     [self.menu setup];
@@ -145,6 +142,8 @@ __weak TNContainerViewController *weakSelf;
     [self.menu setKeyboardWillAppearAction:^{
         [weakSelf fadeOutChildViewController];
     }];
+
+    [self.view addSubview:self.menu];
 }
 
 - (void)toggleMenu {
@@ -156,8 +155,8 @@ __weak TNContainerViewController *weakSelf;
     }
 }
 
-- (void)showMenu
-{
+- (void)showMenu {
+
     self.menu.hidden = NO;
     float containerAlpha = 0.5f;
     [[[self view] layer] addSublayer:openMenuShape];
@@ -185,8 +184,8 @@ __weak TNContainerViewController *weakSelf;
     [UIView commitAnimations];
 }
 
-- (void)hideMenu
-{
+- (void)hideMenu {
+
     float containerAlpha = 1.0f;
     [self.menuButton setSelected:NO];
     [openMenuShape removeFromSuperlayer];
@@ -252,8 +251,7 @@ __weak TNContainerViewController *weakSelf;
     [openMenuShape setPosition:CGPointMake(0.0f, 0.0f)];
 }
 
-- (void)exitMenuOnTapRecognizer:(UITapGestureRecognizer *)recognizer
-{
+- (void)exitMenuOnTapRecognizer:(UITapGestureRecognizer *)recognizer {
     // Get the location of the gesture
     CGPoint tapLocation = [recognizer locationInView:self.view];
     //NSLog(@"Tap location X:%1.0f, Y:%1.0f", tapLocation.x, tapLocation.y);
@@ -264,8 +262,7 @@ __weak TNContainerViewController *weakSelf;
     }
 }
 
-- (void)fadeOutChildViewController
-{
+- (void)fadeOutChildViewController {
 
     [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
@@ -273,6 +270,14 @@ __weak TNContainerViewController *weakSelf;
                      }
                      completion:nil];
 }
+
+#pragma mark - Shake Gesture Response
+
+- (void)changeTheme
+{
+    [self.navBar setBarTintColor:[UIColor alternateHnColor]];
+}
+
 /*
 - (void)changeChildViewController:(NSNotification *)notification
 {

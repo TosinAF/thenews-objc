@@ -203,27 +203,14 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
         [closeButton setFrame:CGRectMake(0, 0, 30, 30)];
 
         UIImage *icon = [IonIcons imageWithIcon:icon_ios7_close_empty size:120.0f color:[UIColor whiteColor]];
-        UIImage *iconHighlight = [IonIcons imageWithIcon:icon_ios7_close_empty size:120.0f color:[UIColor redColor]];
 
         [closeButton setImage:icon forState:UIControlStateNormal];
-        [closeButton setImage:iconHighlight forState:UIControlStateSelected];
 
         [closeButton addTarget:self action:@selector(dismissButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         closeButton;
     });
 
-	self.shareButton = ({
-        UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [shareButton setFrame:CGRectMake(0, 0, 20, 20)];
-
-        UIImage *icon = [IonIcons imageWithIcon:icon_ios7_upload_outline size:30.0f color:[UIColor whiteColor]];
-
-        [shareButton setImage:icon forState:UIControlStateNormal];
-        shareButton;
-    });
-
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.closeButton];
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.shareButton];
+	//self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStylePlain target:nil action:nil];
 }
 
 - (void)configureToolbar
@@ -251,7 +238,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
     self.forwardButton = [self createToolbarNavButton:TNToolBarButtonTypeForward];
     UIBarButtonItem *forwardButtonBarItem =[[UIBarButtonItem alloc] initWithCustomView:self.forwardButton];
 
-    NSArray *items = [NSArray arrayWithObjects:negativeSpacer, backButtonBarItem, positiveSpacer, forwardButtonBarItem, nil];
+    NSArray *items = @[negativeSpacer, backButtonBarItem, positiveSpacer, forwardButtonBarItem];
     [self.navigationController.toolbar setItems:items animated:NO];
 }
 

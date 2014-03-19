@@ -52,13 +52,13 @@ KeyboardWillAppearBlock keyboardWillAppearAction;
 
     /* Menu Buttons */
 
-    NSArray *buttonTitles = [NSArray arrayWithObjects:@"Recent Stories", @"M.O.T.D", @"Settings", nil];
+    NSArray *buttonTitles = @[@"Recent Stories", @"M.O.T.D", @"Settings"];
 
     for (int i = 0; i < [buttonTitles count]; i++) {
 
         int yPos = 0 + (i * 50);
 
-        NSString *title = [buttonTitles objectAtIndex:i];
+        NSString *title = buttonTitles[i];
 
         UIButton *menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [menuButton setTitle:title forState:UIControlStateNormal];
@@ -110,19 +110,21 @@ KeyboardWillAppearBlock keyboardWillAppearAction;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"menuButtonClicked" object:nil userInfo:dict];
 }
 
-- (void)clearTextField
-{
-    // The action is jumpy if the placeholder text still exists
-    [self.searchField setText:@""];
-    [self.searchField setPlaceholder:@""];
-}
-
 - (void)toDefaultState
 {
     // For When the menu is hidden
     [self.searchField setText:@""];
     [self.searchField setPlaceholder:@"Search Stories"];
     [self.searchField resignFirstResponder];
+}
+
+#pragma mark - Private Methods
+
+- (void)clearTextField
+{
+    // The action is jumpy if the placeholder text still exists
+    [self.searchField setText:@""];
+    [self.searchField setPlaceholder:@""];
 }
 
 - (void)dismissKeyboard

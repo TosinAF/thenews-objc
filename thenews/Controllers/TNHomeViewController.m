@@ -47,6 +47,7 @@
 - (void)viewDidLoad {
 
 	[super viewDidLoad];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 
 	self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
 	                                                          navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
@@ -60,7 +61,7 @@
 
 
 
-	NSArray *viewControllers = [NSArray arrayWithObjects:self.dnViewController, nil];
+	NSArray *viewControllers = @[self.dnViewController];
 	[self.pageViewController setViewControllers:viewControllers
 	                                  direction:UIPageViewControllerNavigationDirectionForward
 	                                   animated:NO completion:nil];

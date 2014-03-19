@@ -78,7 +78,7 @@ static NSString *CellIdentifier = @"TNFeedCell";
 	[cell setForReuse];
 	[cell setFrameHeight:CELL_HEIGHT];
 	[cell setFeedType:[self.feedType intValue]];
-    [cell configureForPost:[self.posts objectAtIndex:[indexPath row]]];
+    [cell configureForPost:(self.posts)[[indexPath row]]];
 
     [self addSwipeGesturesToCell:cell atIndexPath:indexPath];
 
@@ -93,7 +93,7 @@ static NSString *CellIdentifier = @"TNFeedCell";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Post *post = [self.posts objectAtIndex:[indexPath row]];
+    Post *post = (self.posts)[[indexPath row]];
     TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[post link]] type:[self.feedType intValue]];
 
     __weak TNFeedViewController *weakSelf = self;
@@ -130,17 +130,17 @@ static NSString *CellIdentifier = @"TNFeedCell";
 
 	for (NSDictionary *collection in posts) {
 		Post *post = [[Post alloc] init];
-		[post setAuthor:[collection objectForKey:@"author"]];
-		[post setAuthorLink:[collection objectForKey:@"authorLink"]];
-		[post setComments:[collection objectForKey:@"comments"]];
-		[post setCommentsLink:[collection objectForKey:@"commentsLink"]];
-		[post setCreatedAt:[collection objectForKey:@"createdAt"]];
-		[post setLink:[collection objectForKey:@"link"]];
-		[post setPoints:[collection objectForKey:@"points"]];
-		[post setPosition:[collection objectForKey:@"position"]];
-		[post setSource:[collection objectForKey:@"source"]];
-		[post setTitle:[collection objectForKey:@"title"]];
-		[post setUpdatedAt:[collection objectForKey:@"updatedAt"]];
+		[post setAuthor:collection[@"author"]];
+		[post setAuthorLink:collection[@"authorLink"]];
+		[post setComments:collection[@"comments"]];
+		[post setCommentsLink:collection[@"commentsLink"]];
+		[post setCreatedAt:collection[@"createdAt"]];
+		[post setLink:collection[@"link"]];
+		[post setPoints:collection[@"points"]];
+		[post setPosition:collection[@"position"]];
+		[post setSource:collection[@"source"]];
+		[post setTitle:collection[@"title"]];
+		[post setUpdatedAt:collection[@"updatedAt"]];
 
 		[self.posts addObject:post];
 		if (index++ == NUMBER_OF_POSTS_TO_DOWNLOAD) break;

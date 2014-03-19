@@ -139,7 +139,7 @@ int passwordLengthMin = 6;
 
     // Remove Launch & Registration View Controllers No Longer Accessible
     NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
-    [self.navigationController setViewControllers:[NSArray arrayWithObjects:[viewControllers lastObject], nil]];
+    [self.navigationController setViewControllers:@[[viewControllers lastObject]]];
 }
 
 - (BOOL)validateEmail:(NSString *)email

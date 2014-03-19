@@ -620,7 +620,7 @@
 		4E783D5218AD7D7D00D78B20 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/thenews.app/thenews";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/The News.app/The News";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -642,7 +642,7 @@
 		4E783D5318AD7D7D00D78B20 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/thenews.app/thenews";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/The News.app/The News";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
