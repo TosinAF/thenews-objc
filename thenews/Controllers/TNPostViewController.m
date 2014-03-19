@@ -9,8 +9,10 @@
 #import "IonIcons.h"
 #import "ionicons-codes.h"
 #import "UIColor+TNColors.h"
+#import "GTScrollNavigationBar.h"
 #import "NJKWebViewProgressView.h"
 #import "TNPostViewController.h"
+
 
 NSString *loadingText = @"Loading...";
 DismissActionBlock dismissAction;
@@ -78,14 +80,11 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
     [_progressView removeFromSuperview];
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     [self.navigationController setToolbarHidden:YES];
-    self.navigationController.interactivePopGestureRecognizer.delegate = nil;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationController.interactivePopGestureRecognizer.delegate = self;
-    [self.navigationController.interactivePopGestureRecognizer setEnabled:YES];
 
     /* Set up Navigation Bar */
 
@@ -115,6 +114,11 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
     self.progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
     [self.progressView setProgressBarColor:[UIColor colorWithRed:0.173 green:0.243 blue:0.314 alpha:1]];
 
+    /* Set up scrolling navigation bar */
+
+    self.webView.scrollView.delegate = self;
+
+    /* Set up toolbar */
 
 }
 
@@ -122,23 +126,29 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    // Ignore First Page Load
     if (navigationType != UIWebViewNavigationTypeOther) {
 
         if ( [self.navigationController isToolbarHidden] ) {
 
             [self.navigationController setToolbarHidden:NO animated:YES];
             [self configureToolbar];
-            [self updateToolbarButtonState];
-
-        } else {
-
-            [self updateToolbarButtonState];
         }
+
+        [self updateToolbarButtonState];
     }
     return YES;
 }
 
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [self.navigationController.scrollNavigationBar resetToDefaultPosition:NO];
+    [self updateToolbarButtonState];
+}
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+
+    /* Set Title View of Navigation Bar With Current Page Details */
 
     self.titleStr = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     self.url = webView.request.mainDocumentURL;
@@ -153,6 +163,17 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 
     [self.titleLabel setText:self.titleStr];
     [self.urlLabel setText:[self getBaseURL:self.url]];
+
+    self.navigationController.scrollNavigationBar.scrollView = self.webView.scrollView;
+
+    [self updateToolbarButtonState];
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
+{
+    [self.navigationController.scrollNavigationBar resetToDefaultPosition:NO];
 }
 
 #pragma mark - NJKWebViewProgressDelegate
@@ -278,6 +299,8 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 
 - (void)updateToolbarButtonState
 {
+    // Called in all three delegate methods to avoid bug
+    // where after first link is clicked, backButton is still disabled
     self.backButton.enabled = [self.webView canGoBack];
     self.forwardButton.enabled = [self.webView canGoForward];
 }

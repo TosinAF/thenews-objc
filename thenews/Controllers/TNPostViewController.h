@@ -12,7 +12,7 @@
 
 typedef void (^DismissActionBlock)(void);
 
-@interface TNPostViewController : UIViewController <UIWebViewDelegate, NJKWebViewProgressDelegate, UIGestureRecognizerDelegate>
+@interface TNPostViewController : UIViewController <UIWebViewDelegate, NJKWebViewProgressDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate>
 
 - (id)initWithURL:(NSURL *)url type:(TNType)type;
 - (void)setDismissAction:(DismissActionBlock)dismissActionBlock;

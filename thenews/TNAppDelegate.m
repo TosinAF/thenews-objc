@@ -6,14 +6,11 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
-#import "UIColor+TNColors.h"
+
 #import "TNAppDelegate.h"
+#import "UIColor+TNColors.h"
+#import "GTScrollNavigationBar.h"
 #import "TNLaunchViewController.h"
-#import "TNSignupViewController.h"
-#import "TNLoginViewController.h"
-#import "TNFeedViewController.h"
-#import "TNHomeViewController.h"
-#import "TNContainerViewController.h"
 
 @implementation TNAppDelegate
 
@@ -24,9 +21,16 @@
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
-    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Light" size:16.0f],NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Light" size:16.0f], NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
 
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[TNLaunchViewController alloc] init]];
+    UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[GTScrollNavigationBar class]
+                                                                       toolbarClass:nil];
+    TNLaunchViewController *launchViewController = [[TNLaunchViewController alloc] init];
+
+    [navController setViewControllers:@[launchViewController] animated:NO];
+
+    self.window.rootViewController = navController;
+    
     [self.window makeKeyAndVisible];
     return YES;
 }

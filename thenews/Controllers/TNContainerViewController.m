@@ -9,7 +9,6 @@
 #import "TNTypeEnum.h"
 #import "TNMenuView.h"
 #import "UIColor+TNColors.h"
-#import "TNViewController.h"
 #import "TNFeedViewController.h"
 #import "TNContainerViewController.h"
 
