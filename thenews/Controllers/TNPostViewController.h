@@ -8,11 +8,10 @@
 
 #import "TNTypeEnum.h"
 #import <UIKit/UIKit.h>
-#import "NJKWebViewProgress.h"
 
 typedef void (^DismissActionBlock)(void);
 
-@interface TNPostViewController : UIViewController <UIWebViewDelegate, NJKWebViewProgressDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate>
+@interface TNPostViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate>
 
 - (id)initWithURL:(NSURL *)url type:(TNType)type;
 - (void)setDismissAction:(DismissActionBlock)dismissActionBlock;

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4E1B9BEC18D92A4E008DB2F8 /* GTScrollNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B9BEB18D92A4E008DB2F8 /* GTScrollNavigationBar.m */; };
+		4E2EF66618DA443400509334 /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2EF66318DA443400509334 /* FBShimmeringLayer.m */; };
+		4E2EF66718DA443400509334 /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2EF66518DA443400509334 /* FBShimmeringView.m */; };
 		4E4E1BC018AD989300B87E7A /* TNFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E1BB718AD989300B87E7A /* TNFeedViewController.m */; };
 		4E4E1BC118AD989300B87E7A /* TNHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E1BB918AD989300B87E7A /* TNHomeViewController.m */; };
 		4E4E1BC218AD989300B87E7A /* TNLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E1BBB18AD989300B87E7A /* TNLaunchViewController.m */; };
@@ -33,8 +35,6 @@
 		4EBB4E9F18D7B626008BB571 /* TNContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4E9A18D7B626008BB571 /* TNContainerViewController.m */; };
 		4EBB4EA518D7B655008BB571 /* TNMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4EA118D7B655008BB571 /* TNMenuView.m */; };
 		4EBB4EB218D7B7A0008BB571 /* MCSwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4EA918D7B7A0008BB571 /* MCSwipeTableViewCell.m */; };
-		4EBB4EB318D7B7A0008BB571 /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4EAC18D7B7A0008BB571 /* NJKWebViewProgress.m */; };
-		4EBB4EB418D7B7A0008BB571 /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4EAE18D7B7A0008BB571 /* NJKWebViewProgressView.m */; };
 		4EBB4EB518D7B7A0008BB571 /* CRToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4EB118D7B7A0008BB571 /* CRToast.m */; };
 		4EFA417618B469A500C1AE0B /* IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA417218B469A500C1AE0B /* IonIcons.m */; };
 		4EFA417718B469A500C1AE0B /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EFA417318B469A500C1AE0B /* ionicons.ttf */; };
@@ -43,6 +43,12 @@
 /* Begin PBXFileReference section */
 		4E1B9BEA18D92A4E008DB2F8 /* GTScrollNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTScrollNavigationBar.h; sourceTree = "<group>"; };
 		4E1B9BEB18D92A4E008DB2F8 /* GTScrollNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTScrollNavigationBar.m; sourceTree = "<group>"; };
+		4E2EF66018DA443400509334 /* FBShimmering-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBShimmering-Prefix.pch"; sourceTree = "<group>"; };
+		4E2EF66118DA443400509334 /* FBShimmering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmering.h; sourceTree = "<group>"; };
+		4E2EF66218DA443400509334 /* FBShimmeringLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringLayer.h; sourceTree = "<group>"; };
+		4E2EF66318DA443400509334 /* FBShimmeringLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringLayer.m; sourceTree = "<group>"; };
+		4E2EF66418DA443400509334 /* FBShimmeringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringView.h; sourceTree = "<group>"; };
+		4E2EF66518DA443400509334 /* FBShimmeringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringView.m; sourceTree = "<group>"; };
 		4E4E1BB618AD989300B87E7A /* TNFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNFeedViewController.h; path = Controllers/TNFeedViewController.h; sourceTree = "<group>"; };
 		4E4E1BB718AD989300B87E7A /* TNFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNFeedViewController.m; path = Controllers/TNFeedViewController.m; sourceTree = "<group>"; };
 		4E4E1BB818AD989300B87E7A /* TNHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNHomeViewController.h; path = Controllers/TNHomeViewController.h; sourceTree = "<group>"; };
@@ -92,10 +98,6 @@
 		4EBB4EA218D7B655008BB571 /* TNMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNMenuView.h; path = Views/TNMenuView.h; sourceTree = "<group>"; };
 		4EBB4EA818D7B7A0008BB571 /* MCSwipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSwipeTableViewCell.h; sourceTree = "<group>"; };
 		4EBB4EA918D7B7A0008BB571 /* MCSwipeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSwipeTableViewCell.m; sourceTree = "<group>"; };
-		4EBB4EAB18D7B7A0008BB571 /* NJKWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgress.h; sourceTree = "<group>"; };
-		4EBB4EAC18D7B7A0008BB571 /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgress.m; sourceTree = "<group>"; };
-		4EBB4EAD18D7B7A0008BB571 /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
-		4EBB4EAE18D7B7A0008BB571 /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
 		4EBB4EB018D7B7A0008BB571 /* CRToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRToast.h; sourceTree = "<group>"; };
 		4EBB4EB118D7B7A0008BB571 /* CRToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRToast.m; sourceTree = "<group>"; };
 		4EFA417018B469A500C1AE0B /* ionicons-codes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ionicons-codes.h"; sourceTree = "<group>"; };
@@ -126,6 +128,19 @@
 			);
 			name = GTScrollNavigationBar;
 			path = "Third Party Libaries/GTScrollNavigationBar";
+			sourceTree = "<group>";
+		};
+		4E2EF65F18DA443400509334 /* FBShimmering */ = {
+			isa = PBXGroup;
+			children = (
+				4E2EF66018DA443400509334 /* FBShimmering-Prefix.pch */,
+				4E2EF66118DA443400509334 /* FBShimmering.h */,
+				4E2EF66218DA443400509334 /* FBShimmeringLayer.h */,
+				4E2EF66318DA443400509334 /* FBShimmeringLayer.m */,
+				4E2EF66418DA443400509334 /* FBShimmeringView.h */,
+				4E2EF66518DA443400509334 /* FBShimmeringView.m */,
+			);
+			path = FBShimmering;
 			sourceTree = "<group>";
 		};
 		4E3B4C0018B61BF200D8B75B /* Utility */ = {
@@ -288,18 +303,6 @@
 			path = "Third Party Libaries/MCSwipeTableViewCell";
 			sourceTree = "<group>";
 		};
-		4EBB4EAA18D7B7A0008BB571 /* NJKWebViewProgressBar */ = {
-			isa = PBXGroup;
-			children = (
-				4EBB4EAB18D7B7A0008BB571 /* NJKWebViewProgress.h */,
-				4EBB4EAC18D7B7A0008BB571 /* NJKWebViewProgress.m */,
-				4EBB4EAD18D7B7A0008BB571 /* NJKWebViewProgressView.h */,
-				4EBB4EAE18D7B7A0008BB571 /* NJKWebViewProgressView.m */,
-			);
-			name = NJKWebViewProgressBar;
-			path = "Third Party Libaries/NJKWebViewProgressBar";
-			sourceTree = "<group>";
-		};
 		4EBB4EAF18D7B7A0008BB571 /* CRToast */ = {
 			isa = PBXGroup;
 			children = (
@@ -313,9 +316,9 @@
 		4EFA416D18B4542B00C1AE0B /* Third Party Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				4E2EF65F18DA443400509334 /* FBShimmering */,
 				4E1B9BE918D92A4E008DB2F8 /* GTScrollNavigationBar */,
 				4EBB4EA718D7B7A0008BB571 /* MCSwipeTableViewCell */,
-				4EBB4EAA18D7B7A0008BB571 /* NJKWebViewProgressBar */,
 				4EBB4EAF18D7B7A0008BB571 /* CRToast */,
 				4EFA416F18B469A500C1AE0B /* IonIcons */,
 			);
@@ -402,7 +405,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EBB4EB318D7B7A0008BB571 /* NJKWebViewProgress.m in Sources */,
 				4E783D3618AD7D7D00D78B20 /* TNAppDelegate.m in Sources */,
 				4E4E1BCC18AD98A100B87E7A /* TNFeedViewCell.m in Sources */,
 				4E4E1BCB18AD98A100B87E7A /* TNButton.m in Sources */,
@@ -416,11 +418,12 @@
 				4E4E1BD018AD98B200B87E7A /* Post.m in Sources */,
 				4EBB4E9F18D7B626008BB571 /* TNContainerViewController.m in Sources */,
 				4EBB4EA518D7B655008BB571 /* TNMenuView.m in Sources */,
+				4E2EF66618DA443400509334 /* FBShimmeringLayer.m in Sources */,
 				4E783D3218AD7D7D00D78B20 /* main.m in Sources */,
 				4EBB4EB518D7B7A0008BB571 /* CRToast.m in Sources */,
 				4EFA417618B469A500C1AE0B /* IonIcons.m in Sources */,
 				4EBB4EB218D7B7A0008BB571 /* MCSwipeTableViewCell.m in Sources */,
-				4EBB4EB418D7B7A0008BB571 /* NJKWebViewProgressView.m in Sources */,
+				4E2EF66718DA443400509334 /* FBShimmeringView.m in Sources */,
 				4E4E1BC018AD989300B87E7A /* TNFeedViewController.m in Sources */,
 				4E4E1BC418AD989300B87E7A /* TNSignupViewController.m in Sources */,
 				4E4E1BCD18AD98A100B87E7A /* TNTextField.m in Sources */,

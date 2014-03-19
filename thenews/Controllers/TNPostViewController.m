@@ -10,8 +10,11 @@
 #import "ionicons-codes.h"
 #import "UIColor+TNColors.h"
 #import "GTScrollNavigationBar.h"
-#import "NJKWebViewProgressView.h"
 #import "TNPostViewController.h"
+
+#import "FBShimmering.h"
+#import "FBShimmeringView.h"
+#import "FBShimmeringLayer.h"
 
 
 NSString *loadingText = @"Loading...";
@@ -24,11 +27,13 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 	TNToolBarButtonTypeForward,
     TNToolBarButtonTypeSpacer
 };
+
 @property (strong, nonatomic) UIColor *themeColor;
 
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSString *titleStr;
 @property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) FBShimmeringView *navBarTitleView;
 
 @property (nonatomic, strong) UIButton *closeButton;
 @property (nonatomic, strong) UIButton *shareButton;
@@ -38,9 +43,6 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *urlLabel;
-
-@property (nonatomic, strong) NJKWebViewProgress *progressProxy;
-@property (nonatomic, strong) NJKWebViewProgressView *progressView;
 
 @end
 
@@ -71,13 +73,11 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 {
     [super viewWillAppear:animated];
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
-    [self.navigationController.navigationBar addSubview:_progressView];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [_progressView removeFromSuperview];
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     [self.navigationController setToolbarHidden:YES];
 }
@@ -101,25 +101,8 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
     [self.webView setScalesPageToFit:YES];
     [self.view addSubview:self.webView];
 
-    /* Set Up Progress Bar */
-
-    self.progressProxy = [[NJKWebViewProgress alloc] init];
-    self.webView.delegate = self.progressProxy;
-    self.progressProxy.webViewProxyDelegate = self;
-    self.progressProxy.progressDelegate = self;
-
-    CGFloat progressBarHeight = 2.5f;
-    CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
-    CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
-    self.progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
-    [self.progressView setProgressBarColor:[UIColor colorWithRed:0.173 green:0.243 blue:0.314 alpha:1]];
-
-    /* Set up scrolling navigation bar */
-
+    self.webView.delegate = self;
     self.webView.scrollView.delegate = self;
-
-    /* Set up toolbar */
-
 }
 
 #pragma mark - UIWebView Delegate
@@ -135,6 +118,8 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
             [self configureToolbar];
         }
 
+        [self.titleLabel setText:@"Loading..."];
+        [self.navBarTitleView setShimmering:YES];
         [self updateToolbarButtonState];
     }
     return YES;
@@ -149,24 +134,31 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
 
     /* Set Title View of Navigation Bar With Current Page Details */
-
     self.titleStr = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-    self.url = webView.request.mainDocumentURL;
+    //self.url = webView.request.mainDocumentURL;
+
+    [self.navBarTitleView setShimmering:NO];
 
     CATransition *animation = [CATransition animation];
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     animation.type = kCATransitionFromBottom;
-    animation.duration = 0.75;
+    animation.duration = 1.0f;
 
     [self.titleLabel.layer addAnimation:animation forKey:@"kCATransitionFade"];
-    [self.urlLabel.layer addAnimation:animation forKey:@"kCATransitionFade"];
+    //[self.urlLabel.layer addAnimation:animation forKey:@"kCATransitionFade"];
 
-    [self.titleLabel setText:self.titleStr];
-    [self.urlLabel setText:[self getBaseURL:self.url]];
+    //[self.urlLabel setText:[self getBaseURL:self.url]];
+
+    // Need to delay to allow shimmering to stop
+    [self performSelector:@selector(updateTitleLabel) withObject:nil afterDelay:0.5f];
+    [self updateToolbarButtonState];
 
     self.navigationController.scrollNavigationBar.scrollView = self.webView.scrollView;
+}
 
-    [self updateToolbarButtonState];
+- (void)updateTitleLabel
+{
+    [self.titleLabel setText:self.titleStr];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -174,13 +166,6 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
 {
     [self.navigationController.scrollNavigationBar resetToDefaultPosition:NO];
-}
-
-#pragma mark - NJKWebViewProgressDelegate
-
-- (void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
-{
-    [_progressView setProgress:progress animated:YES];
 }
 
 #pragma mark - Private Methods
@@ -191,15 +176,17 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
      * Splits the Original Title View into a Title & Subtitle View
      */
 
-    UIView *viewContainer = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
-    [viewContainer setBackgroundColor:[UIColor clearColor]];
+    self.navBarTitleView = [[FBShimmeringView alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    //[self.navBarTitleView setBackgroundColor:[UIColor clearColor]];
 
     self.titleLabel = ({
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 200, 24)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 200, 44)];
         [titleLabel setText:self.titleStr];
         [titleLabel setTextColor:[UIColor whiteColor]];
-        [titleLabel setFont:[UIFont fontWithName:@"Montserrat" size:13]];
+        [titleLabel setFont:[UIFont fontWithName:@"Montserrat" size:16.0f]];
         [titleLabel setTextAlignment:NSTextAlignmentCenter];
+        [titleLabel setNumberOfLines:2];
+        [titleLabel setAdjustsFontSizeToFitWidth:YES];
         titleLabel;
     });
 
@@ -212,26 +199,16 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
         urlLabel;
     });
 
-    [viewContainer addSubview:self.titleLabel];
-    [viewContainer addSubview:self.urlLabel];
-    self.navigationItem.titleView = viewContainer;
+    //[viewContainer addSubview:self.titleLabel];
+    self.navBarTitleView.contentView = self.titleLabel;
+    self.navBarTitleView.shimmering = YES;
+    //[viewContainer addSubview:self.urlLabel];
+    self.navigationItem.titleView = self.navBarTitleView;
 }
 
 - (void)addBarButtonItems
 {
-    self.closeButton = ({
-        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [closeButton setFrame:CGRectMake(0, 0, 30, 30)];
-
-        UIImage *icon = [IonIcons imageWithIcon:icon_ios7_close_empty size:120.0f color:[UIColor whiteColor]];
-
-        [closeButton setImage:icon forState:UIControlStateNormal];
-
-        [closeButton addTarget:self action:@selector(dismissButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        closeButton;
-    });
-
-	//self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStylePlain target:nil action:nil];
+    // Add Share Button Here
 }
 
 - (void)configureToolbar
