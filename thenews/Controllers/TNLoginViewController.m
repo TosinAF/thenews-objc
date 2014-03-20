@@ -37,7 +37,7 @@
 
 
     [self setTitle:@"Log In"];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor hnColor]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor tnColor]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTitleTextAttributes: @{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Light" size:18.0f],
                                                             NSForegroundColorAttributeName:[UIColor whiteColor]}];

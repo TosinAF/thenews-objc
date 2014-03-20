@@ -62,7 +62,7 @@ BOOL registrationSkipped;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor hnColor]];
+    [self.view setBackgroundColor:[UIColor tnColor]];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 
     CGSize screenSize = self.view.bounds.size;

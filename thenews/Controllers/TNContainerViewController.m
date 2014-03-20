@@ -80,8 +80,6 @@ __weak TNContainerViewController *weakSelf;
     [self setNavbarApperance];
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeTheme) name:@"shakeOccured" object:nil];
-
     /* Set Up Menu View */
     [self configureMenu];
 
@@ -238,7 +236,7 @@ __weak TNContainerViewController *weakSelf;
             break;
 
         case TNTypeHackerNews:
-            [openMenuShape setFillColor:[UIColor colorWithRed:0.451 green:0.769 blue:0.675 alpha:1].CGColor];
+            [openMenuShape setFillColor:[UIColor colorWithRed:0.992 green:0.467 blue:0.322 alpha:1].CGColor];
             break;
 
         default:
@@ -268,13 +266,6 @@ __weak TNContainerViewController *weakSelf;
                          [weakSelf.currentViewController.view setAlpha:0.0f];
                      }
                      completion:nil];
-}
-
-#pragma mark - Shake Gesture Response
-
-- (void)changeTheme
-{
-    [self.navBar setBarTintColor:[UIColor alternateHnColor]];
 }
 
 /*

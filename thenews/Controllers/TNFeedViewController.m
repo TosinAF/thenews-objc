@@ -153,12 +153,13 @@ static NSString *CellIdentifier = @"TNFeedCell";
 
 - (void)addSwipeGesturesToCell:(TNFeedViewCell*)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    UIView *commentView = [self viewWithImageName:@"Comment"];
     UIView *upvoteView = [self viewWithImageName:@"Upvote"];
+    UIView *commentView = [self viewWithImageName:@"Comment"];
+    UIColor *lightGreen = [UIColor colorWithRed:0.631 green:0.890 blue:0.812 alpha:1];
 
     [cell setDefaultColor:[UIColor tnLightGreyColor]];
 
-    [cell setSwipeGestureWithView:upvoteView color:[UIColor tnLightGreenColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+    [cell setSwipeGestureWithView:upvoteView color:lightGreen mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
         [self upvotePost];
     }];
 

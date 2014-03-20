@@ -214,6 +214,10 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
     // Add Share Button Here
 }
 
+#pragma mark - Toolbar Methods
+
+// Can be Refactored into its own view
+
 - (void)configureToolbar
 {
     CGFloat negativeSpacerWidth = -5;

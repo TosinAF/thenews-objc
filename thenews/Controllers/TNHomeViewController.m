@@ -26,22 +26,11 @@
     return UIStatusBarStyleLightContent;
 }
 
-- (BOOL)canBecomeFirstResponder
-{
-    return YES;
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self becomeFirstResponder];
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
     [self.navigationController setNavigationBarHidden:YES];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self resignFirstResponder];
 }
 
 - (void)viewDidLoad {
@@ -106,16 +95,6 @@
 
         default:
             return nil;
-    }
-}
-
-#pragma mark - Shake Gesture Methods
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if (motion == UIEventSubtypeMotionShake)
-    {
-        NSLog(@"Shake");
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"shakeOccured" object:nil];
     }
 }
 

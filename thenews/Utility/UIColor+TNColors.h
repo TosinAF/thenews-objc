@@ -10,9 +10,7 @@
 
 @interface UIColor (TNColors)
 
-+ (UIColor *) tnGreyColor;
-+ (UIColor *) tnLightGreyColor;
-+ (UIColor *) tnLightGreenColor;
++ (UIColor *)tnColor;
  
 + (UIColor *) dnColor;
 + (UIColor *) dnLightColor;
@@ -20,7 +18,7 @@
 + (UIColor *) hnColor;
 + (UIColor *) hnLightColor;
 
-+ (UIColor *)alternateHnColor;
-+ (UIColor *)alternateHnLightColor;
++ (UIColor *) tnGreyColor;
++ (UIColor *) tnLightGreyColor;
 
 @end
