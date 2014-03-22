@@ -11,11 +11,15 @@
 #import "UIColor+TNColors.h"
 #import "GTScrollNavigationBar.h"
 #import "TNLaunchViewController.h"
+#import "PocketAPI.h"
+#import <GooglePlus/GooglePlus.h>
+#import "OSKADNLoginManager.h"
 
 @implementation TNAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[PocketAPI sharedAPI] setConsumerKey:@"25320-2c296baa9f562cd41e0259f9"];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor tnLightGreyColor];
 
@@ -33,6 +37,25 @@
     
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+#warning Don't forget to override this method so that Pocket, App.net and Google+ authentication have the opportunity to respond!
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    BOOL success = NO;
+    if ([[OSKADNLoginManager sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation]) {
+        success = YES;
+    }
+    else if ([[PocketAPI sharedAPI] handleOpenURL:url]){
+        success = YES;
+    }
+    else if ([GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation]) {
+        success = YES;
+    }
+    else {
+        // if you handle your own custom url-schemes, do it here
+        // success = whatever;
+    }
+    return success;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

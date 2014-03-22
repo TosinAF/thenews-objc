@@ -11,6 +11,7 @@
 #import "UIColor+TNColors.h"
 #import "GTScrollNavigationBar.h"
 #import "TNPostViewController.h"
+#import "OvershareKit.h"
 
 #import "FBShimmering.h"
 #import "FBShimmeringView.h"
@@ -36,7 +37,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 @property (nonatomic, strong) FBShimmeringView *navBarTitleView;
 
 @property (nonatomic, strong) UIButton *closeButton;
-@property (nonatomic, strong) UIButton *shareButton;
+@property (nonatomic, strong) UIBarButtonItem *shareButton;
 
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) UIButton *forwardButton;
@@ -211,9 +212,21 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 
 - (void)addBarButtonItems
 {
-    // Add Share Button Here
+    self.shareButton = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Share"
+                                   style:UIBarButtonItemStyleBordered
+                                   target:self
+                            action:@selector(shareAction)];
+    self.navigationItem.rightBarButtonItem = self.shareButton;
 }
 
+- (void)shareAction
+{
+    OSKShareableContent *content = [OSKShareableContent contentFromMicroblogPost:self.titleLabel.text authorName:@"thenews" canonicalURL:self.url.absoluteString images:nil];
+    
+    [[OSKPresentationManager sharedInstance] presentActivitySheetForContent:content presentingViewController:self options:nil];
+
+}
 #pragma mark - Toolbar Methods
 
 // Can be Refactored into its own view
