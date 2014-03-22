@@ -31,18 +31,15 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 @property (strong, nonatomic) UIColor *themeColor;
 
 @property (nonatomic, strong) NSURL *url;
-@property (nonatomic, strong) NSString *titleStr;
 @property (nonatomic, strong) UIWebView *webView;
-@property (nonatomic, strong) FBShimmeringView *navBarTitleView;
 
-@property (nonatomic, strong) UIButton *closeButton;
 @property (nonatomic, strong) UIButton *shareButton;
-
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) UIButton *forwardButton;
 
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UILabel *urlLabel;
+@property (nonatomic, strong) NSString *titleStr;
+@property (nonatomic, strong) FBShimmeringView *navBarTitleView;
 
 @end
 
@@ -137,8 +134,6 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 
     /* Set Title View of Navigation Bar With Current Page Details */
     self.titleStr = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-    //self.url = webView.request.mainDocumentURL;
-
     [self.navBarTitleView setShimmering:NO];
 
     CATransition *animation = [CATransition animation];
@@ -147,9 +142,6 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
     animation.duration = 1.0f;
 
     [self.titleLabel.layer addAnimation:animation forKey:@"kCATransitionFade"];
-    //[self.urlLabel.layer addAnimation:animation forKey:@"kCATransitionFade"];
-
-    //[self.urlLabel setText:[self getBaseURL:self.url]];
 
     // Need to delay to allow shimmering to stop
     [self performSelector:@selector(updateTitleLabel) withObject:nil afterDelay:0.5f];
@@ -160,7 +152,15 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 
 - (void)updateTitleLabel
 {
+    // Default Font Size When not a Lodaing Indicator
     [self.titleLabel setFont:[UIFont fontWithName:@"Montserrat" size:13.0f]];
+
+    if ([self.titleStr length] > 30 ) {
+        [self.titleLabel setAdjustsFontSizeToFitWidth:NO];
+    } else {
+        [self.titleLabel setAdjustsFontSizeToFitWidth:YES];
+    }
+
     [self.titleLabel setText:self.titleStr];
 }
 
@@ -193,19 +193,8 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
         titleLabel;
     });
 
-    self.urlLabel = ({
-        UILabel *urlLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 24, 200, 44-28)];
-        urlLabel.font = [UIFont fontWithName:@"Montserrat" size:10];
-        urlLabel.textAlignment = NSTextAlignmentCenter;
-        urlLabel.text = [self getBaseURL:self.url];
-        urlLabel.textColor = [UIColor tnLightGreyColor];
-        urlLabel;
-    });
-
-    //[viewContainer addSubview:self.titleLabel];
     self.navBarTitleView.contentView = self.titleLabel;
     self.navBarTitleView.shimmering = YES;
-    //[viewContainer addSubview:self.urlLabel];
     self.navigationItem.titleView = self.navBarTitleView;
 }
 
@@ -287,11 +276,6 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
     // where after first link is clicked, backButton is still disabled
     self.backButton.enabled = [self.webView canGoBack];
     self.forwardButton.enabled = [self.webView canGoForward];
-}
-
-- (NSString *)getBaseURL:(NSURL *)url
-{
-    return[[NSURL URLWithString:@"/" relativeToURL:url] absoluteString];
 }
 
 - (void)dismissButtonPressed {
