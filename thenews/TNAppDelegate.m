@@ -39,7 +39,6 @@
     return YES;
 }
 
-#warning Don't forget to override this method so that Pocket, App.net and Google+ authentication have the opportunity to respond!
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     BOOL success = NO;
     if ([[OSKADNLoginManager sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation]) {
