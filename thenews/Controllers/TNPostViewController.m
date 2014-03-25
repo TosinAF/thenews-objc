@@ -8,7 +8,6 @@
 
 #import "IonIcons.h"
 #import "ionicons-codes.h"
-#import "UIColor+TNColors.h"
 #import "GTScrollNavigationBar.h"
 #import "TNPostViewController.h"
 #import "OvershareKit.h"

@@ -10,7 +10,6 @@
 #import "TNSignupViewController.h"
 #import "TNLoginViewController.h"
 #import "TNHomeViewController.h"
-#import "UIColor+TNColors.h"
 #import "TNButton.h"
 
 BOOL registrationSkipped;

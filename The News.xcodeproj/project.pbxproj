@@ -32,6 +32,7 @@
 		4E84011218E1783C00E3AB34 /* DNMOTD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84010B18E1783C00E3AB34 /* DNMOTD.m */; };
 		4E84011318E1783C00E3AB34 /* DNStory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84010D18E1783C00E3AB34 /* DNStory.m */; };
 		4E84011418E1783C00E3AB34 /* DNUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84010F18E1783C00E3AB34 /* DNUser.m */; };
+		4E84011718E17B4F00E3AB34 /* DNFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84011618E17B4F00E3AB34 /* DNFeedViewController.m */; };
 		4EBB4E9718D7B60F008BB571 /* TNFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4E9518D7B60F008BB571 /* TNFormViewController.m */; };
 		4EBB4E9E18D7B626008BB571 /* TNPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4E9818D7B626008BB571 /* TNPostViewController.m */; };
 		4EBB4E9F18D7B626008BB571 /* TNContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4E9A18D7B626008BB571 /* TNContainerViewController.m */; };
@@ -97,6 +98,8 @@
 		4E84010D18E1783C00E3AB34 /* DNStory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNStory.m; sourceTree = "<group>"; };
 		4E84010E18E1783C00E3AB34 /* DNUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNUser.h; sourceTree = "<group>"; };
 		4E84010F18E1783C00E3AB34 /* DNUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNUser.m; sourceTree = "<group>"; };
+		4E84011518E17B4F00E3AB34 /* DNFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNFeedViewController.h; path = Controllers/DNFeedViewController.h; sourceTree = "<group>"; };
+		4E84011618E17B4F00E3AB34 /* DNFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNFeedViewController.m; path = Controllers/DNFeedViewController.m; sourceTree = "<group>"; };
 		4EBB4E9418D7B5F7008BB571 /* TNTypeEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNTypeEnum.h; path = Utility/TNTypeEnum.h; sourceTree = "<group>"; };
 		4EBB4E9518D7B60F008BB571 /* TNFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNFormViewController.m; path = Controllers/TNFormViewController.m; sourceTree = "<group>"; };
 		4EBB4E9618D7B60F008BB571 /* TNFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNFormViewController.h; path = Controllers/TNFormViewController.h; sourceTree = "<group>"; };
@@ -269,6 +272,8 @@
 				4EBB4E9A18D7B626008BB571 /* TNContainerViewController.m */,
 				4E4E1BB618AD989300B87E7A /* TNFeedViewController.h */,
 				4E4E1BB718AD989300B87E7A /* TNFeedViewController.m */,
+				4E84011518E17B4F00E3AB34 /* DNFeedViewController.h */,
+				4E84011618E17B4F00E3AB34 /* DNFeedViewController.m */,
 				4EBB4E9918D7B626008BB571 /* TNPostViewController.h */,
 				4EBB4E9818D7B626008BB571 /* TNPostViewController.m */,
 			);
@@ -431,6 +436,7 @@
 				4E84011218E1783C00E3AB34 /* DNMOTD.m in Sources */,
 				4E4E1BCC18AD98A100B87E7A /* TNFeedViewCell.m in Sources */,
 				4E4E1BCB18AD98A100B87E7A /* TNButton.m in Sources */,
+				4E84011718E17B4F00E3AB34 /* DNFeedViewController.m in Sources */,
 				4E4E1BC218AD989300B87E7A /* TNLaunchViewController.m in Sources */,
 				4EBB4E9E18D7B626008BB571 /* TNPostViewController.m in Sources */,
 				4E84011118E1783C00E3AB34 /* DNComment.m in Sources */,

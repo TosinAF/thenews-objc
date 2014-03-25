@@ -1,44 +1,30 @@
 //
-//  TNFeedViewController.m
+//  DNFeedViewController.m
 //  The News
 //
-//  Created by Tosin Afolabi on 06/02/2014.
+//  Created by Tosin Afolabi on 25/03/2014.
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
 #import "Post.h"
 #import "CRToast.h"
 #import "TNFeedViewCell.h"
-#import "UIColor+TNColors.h"
 #import "TNPostViewController.h"
-#import "TNFeedViewController.h"
+#import "DNFeedViewController.h"
+#import "DesignerNewsAPIClient.h"
 
 static int CELL_HEIGHT = 70;
 static int NUMBER_OF_POSTS_TO_DOWNLOAD = 10;
 static NSString *CellIdentifier = @"TNFeedCell";
 
-@interface TNFeedViewController ()
+@interface DNFeedViewController () 
 
 @property (nonatomic, strong) NSMutableArray *posts;
 @property (nonatomic, strong) UITableView *feedView;
 
 @end
 
-@implementation TNFeedViewController
-
-- (id)initWithType:(TNType)type
-{
-	self = [super init];
-
-	if (self) {
-
-		self.feedType = [NSNumber numberWithInt:type];
-		self.posts = [NSMutableArray array];
-        [self downloadPosts];
-	}
-
-	return self;
-}
+@implementation DNFeedViewController
 
 - (void)viewDidLoad
 {
@@ -74,7 +60,7 @@ static NSString *CellIdentifier = @"TNFeedCell";
 
 	[cell setForReuse];
 	[cell setFrameHeight:CELL_HEIGHT];
-	[cell setFeedType:[self.feedType intValue]];
+	[cell setFeedType:TNTypeDesignerNews];
     [cell configureForPost:(self.posts)[[indexPath row]]];
 
     [self addSwipeGesturesToCell:cell atIndexPath:indexPath];
@@ -91,60 +77,15 @@ static NSString *CellIdentifier = @"TNFeedCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Post *post = (self.posts)[[indexPath row]];
-    TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[post link]] type:[self.feedType intValue]];
+    TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[post link]] type:TNTypeDesignerNews];
 
-    __weak TNFeedViewController *weakSelf = self;
+    __weak DNFeedViewController *weakSelf = self;
     [postViewController setDismissAction:^{ [weakSelf.navigationController popViewControllerAnimated:YES]; }];
 
     [self.navigationController pushViewController:postViewController animated:YES];
 }
 
-#pragma mark - Data Methods
 
-- (void)downloadPosts {
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-	    NSURL *dataURL = [[NSURL alloc] init];
-
-	    switch ([self.feedType intValue]) {
-			case TNTypeDesignerNews:
-				dataURL = [NSURL URLWithString:@"http://thenews-api.herokuapp.com/top/dn"];
-				break;
-
-			case TNTypeHackerNews:
-				dataURL = [NSURL URLWithString:@"http://thenews-api.herokuapp.com/top/hn"];
-				break;
-		}
-
-	    NSData *responseData = [[NSData alloc] initWithContentsOfURL:dataURL];
-	    [self performSelectorOnMainThread:@selector(storeData:) withObject:responseData waitUntilDone:YES];
-	});
-}
-
-- (void)storeData:(NSData *)responseData {
-	int index = 1;
-	NSError *error;
-	NSDictionary *posts = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
-
-	for (NSDictionary *collection in posts) {
-		Post *post = [[Post alloc] init];
-		[post setAuthor:collection[@"author"]];
-		[post setAuthorLink:collection[@"authorLink"]];
-		[post setComments:collection[@"comments"]];
-		[post setCommentsLink:collection[@"commentsLink"]];
-		[post setCreatedAt:collection[@"createdAt"]];
-		[post setLink:collection[@"link"]];
-		[post setPoints:collection[@"points"]];
-		[post setPosition:collection[@"position"]];
-		[post setSource:collection[@"source"]];
-		[post setTitle:collection[@"title"]];
-		[post setUpdatedAt:collection[@"updatedAt"]];
-
-		[self.posts addObject:post];
-		if (index++ == NUMBER_OF_POSTS_TO_DOWNLOAD) break;
-	}
-
-	[self.feedView reloadData];
-}
 
 #pragma mark - Gesture Methods
 
@@ -221,10 +162,6 @@ static NSString *CellIdentifier = @"TNFeedCell";
 - (void)showCommentView
 {
     NSLog(@"CommentViewShown");
-}
-
-- (void)dismissPostView {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

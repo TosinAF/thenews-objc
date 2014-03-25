@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
-#import "TNTypeEnum.h"
 #import <UIKit/UIKit.h>
 
 typedef void (^DismissActionBlock)(void);
