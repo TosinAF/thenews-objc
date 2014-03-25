@@ -27,6 +27,11 @@
 		4E783D3218AD7D7D00D78B20 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E783D3118AD7D7D00D78B20 /* main.m */; };
 		4E783D3618AD7D7D00D78B20 /* TNAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E783D3518AD7D7D00D78B20 /* TNAppDelegate.m */; };
 		4E783D3818AD7D7D00D78B20 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E783D3718AD7D7D00D78B20 /* Images.xcassets */; };
+		4E84011018E1783C00E3AB34 /* DesignerNewsAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84010618E1783C00E3AB34 /* DesignerNewsAPIClient.m */; };
+		4E84011118E1783C00E3AB34 /* DNComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84010918E1783C00E3AB34 /* DNComment.m */; };
+		4E84011218E1783C00E3AB34 /* DNMOTD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84010B18E1783C00E3AB34 /* DNMOTD.m */; };
+		4E84011318E1783C00E3AB34 /* DNStory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84010D18E1783C00E3AB34 /* DNStory.m */; };
+		4E84011418E1783C00E3AB34 /* DNUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84010F18E1783C00E3AB34 /* DNUser.m */; };
 		4EBB4E9718D7B60F008BB571 /* TNFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4E9518D7B60F008BB571 /* TNFormViewController.m */; };
 		4EBB4E9E18D7B626008BB571 /* TNPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4E9818D7B626008BB571 /* TNPostViewController.m */; };
 		4EBB4E9F18D7B626008BB571 /* TNContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4E9A18D7B626008BB571 /* TNContainerViewController.m */; };
@@ -82,6 +87,16 @@
 		4E783D4618AD7D7D00D78B20 /* The NewsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "The NewsTests-Info.plist"; sourceTree = "<group>"; };
 		4E783D4818AD7D7D00D78B20 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4E783D4A18AD7D7D00D78B20 /* thenewsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = thenewsTests.m; sourceTree = "<group>"; };
+		4E84010518E1783C00E3AB34 /* DesignerNewsAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignerNewsAPIClient.h; sourceTree = "<group>"; };
+		4E84010618E1783C00E3AB34 /* DesignerNewsAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignerNewsAPIClient.m; sourceTree = "<group>"; };
+		4E84010818E1783C00E3AB34 /* DNComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNComment.h; sourceTree = "<group>"; };
+		4E84010918E1783C00E3AB34 /* DNComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNComment.m; sourceTree = "<group>"; };
+		4E84010A18E1783C00E3AB34 /* DNMOTD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNMOTD.h; sourceTree = "<group>"; };
+		4E84010B18E1783C00E3AB34 /* DNMOTD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNMOTD.m; sourceTree = "<group>"; };
+		4E84010C18E1783C00E3AB34 /* DNStory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNStory.h; sourceTree = "<group>"; };
+		4E84010D18E1783C00E3AB34 /* DNStory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNStory.m; sourceTree = "<group>"; };
+		4E84010E18E1783C00E3AB34 /* DNUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNUser.h; sourceTree = "<group>"; };
+		4E84010F18E1783C00E3AB34 /* DNUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNUser.m; sourceTree = "<group>"; };
 		4EBB4E9418D7B5F7008BB571 /* TNTypeEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNTypeEnum.h; path = Utility/TNTypeEnum.h; sourceTree = "<group>"; };
 		4EBB4E9518D7B60F008BB571 /* TNFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNFormViewController.m; path = Controllers/TNFormViewController.m; sourceTree = "<group>"; };
 		4EBB4E9618D7B60F008BB571 /* TNFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNFormViewController.h; path = Controllers/TNFormViewController.h; sourceTree = "<group>"; };
@@ -205,6 +220,7 @@
 				4E783D5418AD7E5900D78B20 /* Controllers */,
 				4E783D5718AD7E7B00D78B20 /* Views */,
 				4E783D5518AD7E6800D78B20 /* Models */,
+				4E84010418E1783C00E3AB34 /* DesignerNewsAPIClient */,
 				4E783D2C18AD7D7D00D78B20 /* Supporting Files */,
 				4E783D3718AD7D7D00D78B20 /* Images.xcassets */,
 			);
@@ -281,6 +297,31 @@
 				4EBB4EA118D7B655008BB571 /* TNMenuView.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		4E84010418E1783C00E3AB34 /* DesignerNewsAPIClient */ = {
+			isa = PBXGroup;
+			children = (
+				4E84010518E1783C00E3AB34 /* DesignerNewsAPIClient.h */,
+				4E84010618E1783C00E3AB34 /* DesignerNewsAPIClient.m */,
+				4E84010718E1783C00E3AB34 /* Models */,
+			);
+			path = DesignerNewsAPIClient;
+			sourceTree = "<group>";
+		};
+		4E84010718E1783C00E3AB34 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4E84010818E1783C00E3AB34 /* DNComment.h */,
+				4E84010918E1783C00E3AB34 /* DNComment.m */,
+				4E84010A18E1783C00E3AB34 /* DNMOTD.h */,
+				4E84010B18E1783C00E3AB34 /* DNMOTD.m */,
+				4E84010C18E1783C00E3AB34 /* DNStory.h */,
+				4E84010D18E1783C00E3AB34 /* DNStory.m */,
+				4E84010E18E1783C00E3AB34 /* DNUser.h */,
+				4E84010F18E1783C00E3AB34 /* DNUser.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -387,17 +428,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E783D3618AD7D7D00D78B20 /* TNAppDelegate.m in Sources */,
+				4E84011218E1783C00E3AB34 /* DNMOTD.m in Sources */,
 				4E4E1BCC18AD98A100B87E7A /* TNFeedViewCell.m in Sources */,
 				4E4E1BCB18AD98A100B87E7A /* TNButton.m in Sources */,
 				4E4E1BC218AD989300B87E7A /* TNLaunchViewController.m in Sources */,
 				4EBB4E9E18D7B626008BB571 /* TNPostViewController.m in Sources */,
+				4E84011118E1783C00E3AB34 /* DNComment.m in Sources */,
+				4E84011318E1783C00E3AB34 /* DNStory.m in Sources */,
 				4E4E1BC118AD989300B87E7A /* TNHomeViewController.m in Sources */,
 				4E4E1BD918AD98E000B87E7A /* UIColor+TNColors.m in Sources */,
 				4EBB4E9718D7B60F008BB571 /* TNFormViewController.m in Sources */,
+				4E84011018E1783C00E3AB34 /* DesignerNewsAPIClient.m in Sources */,
 				4E4E1BC318AD989300B87E7A /* TNLoginViewController.m in Sources */,
 				4E4E1BD018AD98B200B87E7A /* Post.m in Sources */,
 				4EBB4E9F18D7B626008BB571 /* TNContainerViewController.m in Sources */,
 				4EBB4EA518D7B655008BB571 /* TNMenuView.m in Sources */,
+				4E84011418E1783C00E3AB34 /* DNUser.m in Sources */,
 				4E783D3218AD7D7D00D78B20 /* main.m in Sources */,
 				4E4E1BC018AD989300B87E7A /* TNFeedViewController.m in Sources */,
 				4E4E1BC418AD989300B87E7A /* TNSignupViewController.m in Sources */,
