@@ -19,16 +19,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[PocketAPI sharedAPI] setConsumerKey:@"25320-2c296baa9f562cd41e0259f9"];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor tnLightGreyColor];
+
+    [[PocketAPI sharedAPI] setConsumerKey:@"25320-2c296baa9f562cd41e0259f9"];
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Light" size:16.0f], NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
 
-    UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[GTScrollNavigationBar class]
-                                                                       toolbarClass:nil];
+    UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[GTScrollNavigationBar class] toolbarClass:nil];
     TNLaunchViewController *launchViewController = [[TNLaunchViewController alloc] init];
 
     [navController setViewControllers:@[launchViewController] animated:NO];
