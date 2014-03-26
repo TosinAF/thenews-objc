@@ -9,10 +9,10 @@
 
 #import "DesignerNewsAPIClient.h"
 
-static NSString * const DNAPIAccessToken    = @"DNAPIAccessToken";
+static NSString * const DNAPIAccessToken    = @"DNAPIAccessToken"; // This is not the actual access token but rather the key it is stored under in NSUserDefaults. A login request is preformed using the below to retreive the actual access token.
 static NSString * const DNAPIBaseURLString  = @"https://api-news.layervault.com/api/v1";
-static NSString * const DNAPIClientID       = @"";
-static NSString * const DNAPIClientSecret   = @"";
+static NSString * const DNAPIClientID       = @"3ba6addb82f5746189bbf3e59ac06a0d498f02309ae4d7119655be174528ad44";
+static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745e45e940bc7a6192014a0131f40397f78";
 
 @interface DesignerNewsAPIClient ()
 
@@ -51,7 +51,7 @@ static NSString * const DNAPIClientSecret   = @"";
                                  @"client_secret" : DNAPIClientSecret };
 
     [self POST:authURL parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-
+        NSLog(@"%@", responseObject);
         NSString *accessToken = responseObject[@"access_token"];
 
         // Store Access Token
@@ -72,7 +72,6 @@ static NSString * const DNAPIClientSecret   = @"";
     if ( accessToken == Nil ) {
         return false;
     }
-
     return true;
 }
 
@@ -276,6 +275,8 @@ static NSString * const DNAPIClientSecret   = @"";
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *accessToken = [defaults objectForKey:@"DNAPIAccessToken"];
+    NSLog(@"Current access token is: %@", accessToken);
+
     return accessToken;
 }
 

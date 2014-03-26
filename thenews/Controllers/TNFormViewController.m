@@ -11,6 +11,7 @@
 #import "TNHomeViewController.h"
 #import "TNSignupViewController.h"
 #import "TNLoginViewController.h"
+#import "DesignerNewsAPIClient.h"
 
 int passwordLengthMin = 6;
 
@@ -42,6 +43,7 @@ int passwordLengthMin = 6;
                 [textField setPlaceholderColor:[UIColor redColor]];
                 validEmailField = NO;
             } else {
+                self.username = textField.text;
                 [self resetTextField:self.emailField];
                 validEmailField = YES;
             }
@@ -53,6 +55,7 @@ int passwordLengthMin = 6;
                 [textField setPlaceholderColor:[UIColor redColor]];
                 validPasswordField = NO;
             } else {
+                self.password = textField.text;
                 [self resetTextField:self.passwordField];
                 validPasswordField = YES;
             }
@@ -156,6 +159,21 @@ int passwordLengthMin = 6;
     transition.duration = 0.5f;
     transition.delegate = self;
     [view.layer addAnimation:transition forKey:@"kCATransitionFade"];
+}
+
+- (void)proccessLogin {
+
+    DesignerNewsAPIClient *api = [[DesignerNewsAPIClient alloc] init];
+    [api authenticateUser:self.username password:self.password
+                  success:^(NSString *accessToken) {
+                      NSLog(@"Working: %@", accessToken);
+                      [self pushHomeView];
+                  }
+                  failure:^(NSURLSessionDataTask *task, NSError *error) {
+                      NSLog(@"Login failed task: %@ with error: %@", task, error);
+                    fail:
+                    goto fail; // If you find this, you win.
+                  }];
 }
 
 @end

@@ -16,7 +16,6 @@
 #import "FBShimmeringView.h"
 #import "FBShimmeringLayer.h"
 
-
 NSString *loadingText = @"Loading...";
 DismissActionBlock dismissAction;
 

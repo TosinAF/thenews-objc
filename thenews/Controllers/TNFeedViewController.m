@@ -12,6 +12,8 @@
 #import "UIColor+TNColors.h"
 #import "TNPostViewController.h"
 #import "TNFeedViewController.h"
+#import "TNCommentsViewController.h"
+#import "DesignerNewsAPIClient.h"
 
 static int CELL_HEIGHT = 70;
 static int NUMBER_OF_POSTS_TO_DOWNLOAD = 10;
@@ -161,7 +163,7 @@ static NSString *CellIdentifier = @"TNFeedCell";
     }];
 
     [cell setSwipeGestureWithView:commentView color:[UIColor dnColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        [self showCommentView];
+        [self showCommentView:[indexPath row]];
     }];
 }
 
@@ -218,9 +220,14 @@ static NSString *CellIdentifier = @"TNFeedCell";
     [self showNotification];
 }
 
-- (void)showCommentView
+- (void)showCommentView:(int )row
 {
-    NSLog(@"CommentViewShown");
+    #warning The current feed is fetched without using the API. For this reason, the network and postID are set statically because the currently used API does not have postIDs.
+    NSLog(@"%d", row);
+    TNCommentsViewController *vc = [[TNCommentsViewController alloc] init];
+    vc.network = TNTypeDesignerNews;
+    vc.storyID = 1;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)dismissPostView {

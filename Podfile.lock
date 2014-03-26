@@ -1,0 +1,68 @@
+PODS:
+  - ADNLogin (2.1.0)
+  - AFNetworking (2.2.1):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+    - AFNetworking/UIKit
+  - AFNetworking/NSURLConnection (2.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.2.1):
+    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (2.2.1)
+  - AFNetworking/Security (2.2.1)
+  - AFNetworking/Serialization (2.2.1)
+  - AFNetworking/UIKit (2.2.1):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - CRToast (0.0.3)
+  - GTScrollNavigationBar (0.1.1)
+  - ionicons (1.1)
+  - MCSwipeTableViewCell (2.1.0)
+  - OvershareKit (1.1.0):
+    - ADNLogin
+    - PocketAPI
+  - PocketAPI (1.0.2)
+  - RDRStickyKeyboardView (0.0.2)
+  - Shimmer (1.0.1)
+  - SVPullToRefresh (0.4.1)
+
+DEPENDENCIES:
+  - ADNLogin
+  - AFNetworking
+  - CRToast (from `https://github.com/vIiRuS/CRToast.git`, commit `e85576e81d`)
+  - GTScrollNavigationBar
+  - ionicons
+  - MCSwipeTableViewCell
+  - OvershareKit
+  - PocketAPI
+  - RDRStickyKeyboardView (from `https://github.com/datwelk/RDRStickyKeyboardView.git`, commit `d2b1b3bc30`)
+  - Shimmer
+  - SVPullToRefresh
+
+EXTERNAL SOURCES:
+  CRToast:
+    :commit: e85576e81d
+    :git: https://github.com/vIiRuS/CRToast.git
+  RDRStickyKeyboardView:
+    :commit: d2b1b3bc30
+    :git: https://github.com/datwelk/RDRStickyKeyboardView.git
+
+SPEC CHECKSUMS:
+  ADNLogin: ee20dc7e648813104930d445054cc9780599d864
+  AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
+  CRToast: 098268afe8f33eea983196badd9c2ca6b1f4e621
+  GTScrollNavigationBar: 10fc5b2d04e8d49785a6a9d957c0582d495d1cfa
+  ionicons: 50c5368bc6e4dbd1a26559aff0b67f2ed8640c48
+  MCSwipeTableViewCell: 4a26851568843d15340eeca00210c219aa9f76d5
+  OvershareKit: be7fe319647b4751d070d308c9d4e8d19d78893c
+  PocketAPI: 2ed51391e6ea7a48c707528f782f5a2cb0eab80e
+  RDRStickyKeyboardView: d05f78f153206ba3523c0bb3d6ce7e83f448d906
+  Shimmer: a1b92685f04ae7363e655f636a41a276dbb1507e
+  SVPullToRefresh: 61a0e4bd12bd6f8e3465909810b0fbeb1a28d5f2
+
+COCOAPODS: 0.29.0

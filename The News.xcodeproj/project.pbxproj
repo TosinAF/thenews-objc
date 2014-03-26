@@ -41,6 +41,8 @@
 		4ECE3DF018DFC13100DC26FB /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4ECE3DED18DFC13100DC26FB /* GooglePlus.bundle */; };
 		4ECE3DF118DFC13100DC26FB /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ECE3DEE18DFC13100DC26FB /* GooglePlus.framework */; };
 		ADD050CC668743E0B7EC0E0A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C05D4F76DE524C07AE8AB7E9 /* libPods.a */; };
+		C620B90818E23F8B007AB81D /* TNCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C620B90718E23F8B007AB81D /* TNCommentCell.m */; };
+		C620B90B18E2403F007AB81D /* TNCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C620B90A18E2403F007AB81D /* TNCommentsViewController.m */; };
 		C6B14C2418DD5D8A003F2A88 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B14C2318DD5D8A003F2A88 /* Security.framework */; };
 		C6B1508C18DD6CDF003F2A88 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B1508B18DD6CDF003F2A88 /* AddressBook.framework */; };
 		C6B1508E18DD6CF0003F2A88 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B1508D18DD6CF0003F2A88 /* MediaPlayer.framework */; };
@@ -113,6 +115,10 @@
 		4ECE3DED18DFC13100DC26FB /* GooglePlus.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlus.bundle; path = "Pods/OvershareKit/Dependencies/GooglePlus-SDK/GooglePlus.bundle"; sourceTree = "<group>"; };
 		4ECE3DEE18DFC13100DC26FB /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = "Pods/OvershareKit/Dependencies/GooglePlus-SDK/GooglePlus.framework"; sourceTree = "<group>"; };
 		C05D4F76DE524C07AE8AB7E9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C620B90618E23F8B007AB81D /* TNCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNCommentCell.h; sourceTree = "<group>"; };
+		C620B90718E23F8B007AB81D /* TNCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNCommentCell.m; sourceTree = "<group>"; };
+		C620B90918E2403F007AB81D /* TNCommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNCommentsViewController.h; sourceTree = "<group>"; };
+		C620B90A18E2403F007AB81D /* TNCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNCommentsViewController.m; sourceTree = "<group>"; };
 		C6B14C2318DD5D8A003F2A88 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C6B1508B18DD6CDF003F2A88 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		C6B1508D18DD6CF0003F2A88 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -276,6 +282,8 @@
 				4E84011618E17B4F00E3AB34 /* DNFeedViewController.m */,
 				4EBB4E9918D7B626008BB571 /* TNPostViewController.h */,
 				4EBB4E9818D7B626008BB571 /* TNPostViewController.m */,
+				C620B90918E2403F007AB81D /* TNCommentsViewController.h */,
+				C620B90A18E2403F007AB81D /* TNCommentsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -300,6 +308,8 @@
 				4E4E1BC818AD98A100B87E7A /* TNFeedViewCell.m */,
 				4EBB4EA218D7B655008BB571 /* TNMenuView.h */,
 				4EBB4EA118D7B655008BB571 /* TNMenuView.m */,
+				C620B90618E23F8B007AB81D /* TNCommentCell.h */,
+				C620B90718E23F8B007AB81D /* TNCommentCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -439,6 +449,7 @@
 				4E84011718E17B4F00E3AB34 /* DNFeedViewController.m in Sources */,
 				4E4E1BC218AD989300B87E7A /* TNLaunchViewController.m in Sources */,
 				4EBB4E9E18D7B626008BB571 /* TNPostViewController.m in Sources */,
+				C620B90818E23F8B007AB81D /* TNCommentCell.m in Sources */,
 				4E84011118E1783C00E3AB34 /* DNComment.m in Sources */,
 				4E84011318E1783C00E3AB34 /* DNStory.m in Sources */,
 				4E4E1BC118AD989300B87E7A /* TNHomeViewController.m in Sources */,
@@ -451,6 +462,7 @@
 				4EBB4EA518D7B655008BB571 /* TNMenuView.m in Sources */,
 				4E84011418E1783C00E3AB34 /* DNUser.m in Sources */,
 				4E783D3218AD7D7D00D78B20 /* main.m in Sources */,
+				C620B90B18E2403F007AB81D /* TNCommentsViewController.m in Sources */,
 				4E4E1BC018AD989300B87E7A /* TNFeedViewController.m in Sources */,
 				4E4E1BC418AD989300B87E7A /* TNSignupViewController.m in Sources */,
 				4E4E1BCD18AD98A100B87E7A /* TNTextField.m in Sources */,
