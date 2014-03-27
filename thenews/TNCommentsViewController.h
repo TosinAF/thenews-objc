@@ -11,13 +11,14 @@
 #import "RDRStickyKeyboardView.h"
 #import "TNTypeEnum.h"
 
-@interface TNCommentsViewController : UITableViewController
+@interface TNCommentsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UITextViewDelegate>
 @property (nonatomic) int storyID;
 @property (nonatomic) NSNumber *replyToID;
 @property (nonatomic) NSNumber *network;
 @property (nonatomic) NSArray *commentsData;
 @property (nonatomic, strong) DesignerNewsAPIClient *api;
 @property (nonatomic, strong) RDRStickyKeyboardView *keyboardView;
+@property (nonatomic, strong) UITableView *tableView;
 
 
 @end

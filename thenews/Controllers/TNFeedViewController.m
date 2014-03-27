@@ -163,7 +163,7 @@ static NSString *CellIdentifier = @"TNFeedCell";
     }];
 
     [cell setSwipeGestureWithView:commentView color:[UIColor dnColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        [self showCommentView:[indexPath row]];
+        [self showCommentView:(int)[indexPath row]];
     }];
 }
 

@@ -16,15 +16,6 @@
 
 @implementation TNCommentsViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -32,39 +23,8 @@
     self.commentsData = [[NSArray alloc] init];
     self.title = @"Comments";
     
-    switch ([self.network intValue]) {
-        case TNTypeDesignerNews: {
-            [self.api getCommentsForStoryWithID:[NSString stringWithFormat:@"%d", self.storyID]
-                                        success:^(NSArray *comments) {
-                                            self.commentsData = comments;
-                                            [self.tableView reloadData];
-                                        }
-                                        failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                            NSLog(@"The task: %@ failed with error: %@", task, error);
-                                        }];
-        }
-            break;
-        case TNTypeHackerNews: {
-            // get hacker news posts
-        }
-            break;
-    }
-    
-    self.keyboardView = [[RDRStickyKeyboardView alloc] initWithScrollView:self.tableView];
-    self.keyboardView.frame = self.view.bounds;
-    [self.keyboardView.inputView.rightButton addTarget:self action:@selector(postButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.keyboardView.inputView.textView.text = @"Testing the API. If anyone sees this, you are probably playing with the API as well so please excuse me if the comment is posted multipul times on accident.";
-    self.keyboardView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-#warning The next line (commented) causes an EXC_BAD_ACCESS errror for an unknown reason. I contacted the original developer for help. Until then, I implemented everything as if it worked. For example calling [button sendActionsForControlEvents:UIControlEventTouchUpInside]; will act as if send was clicked. The text for the comment will be "test" as set above but removing that line will cause it to work normally and will take the value from the text field.
-    //  [self.view addSubview:keyboardView];
-# warning The next lines should be removed as well once keyboard works.
-    UIBarButtonItem *commentButton = [[UIBarButtonItem alloc]
-                                      initWithTitle:@"Simulate Direct"
-                                      style:UIBarButtonItemStyleBordered
-                                      target:self
-                                      action:@selector(postButtonAction:)];
-    commentButton.tag = 6;
-    self.navigationItem.rightBarButtonItem = commentButton;
+    [self updateTableData];
+
     UIColor *navBarColor;
     switch ([self.network intValue]) {
         case TNTypeDesignerNews:
@@ -82,10 +42,9 @@
 }
 
 - (void)postButtonAction:(id)sender {
-    if ([sender tag] == 6) self.replyToID = nil; // This line is associated with the simulation button only.
     NSLog(@"%@", self.keyboardView.inputView.textView.text);
     [self postComment:self.keyboardView.inputView.textView.text inReplyTo:self.replyToID];
-    [self.tableView reloadData];
+    [self updateTableData];
 }
 
 - (void)postComment:(NSString *)comment inReplyTo:(NSNumber *)originalCommentID {
@@ -93,7 +52,7 @@
         NSLog(@"Replying to original story");
         [self.api replyStoryWithID:[NSString stringWithFormat:@"%d", self.storyID] comment:comment
                            success:^{
-                               // This would be a good time to give feedback via the nav bar or something
+                               [self updateTableData];
                            }
                            failure:^(NSURLSessionDataTask *task, NSError *error){
                                // cries
@@ -102,7 +61,7 @@
         NSLog(@"Replying to comment.");
         [self.api replyCommentWithID:[NSString stringWithFormat:@"%d", self.storyID] comment:comment
                              success:^{
-                                 // Yay! How should we say how awesome there comment was posted?
+                                 [self updateTableData];
                              }
                              failure:^(NSURLSessionDataTask *task, NSError *error) {
                                  // This is bad.
@@ -111,9 +70,20 @@
     
 }
 
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
+    self.keyboardView = [[RDRStickyKeyboardView alloc] initWithScrollView:self.tableView];
+    self.keyboardView.frame = self.view.bounds;
+    [self.keyboardView.inputView.rightButton addTarget:self action:@selector(postButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.keyboardView.inputView.leftButton.hidden = YES;
+    self.keyboardView.inputView.textView.delegate = self;
+    [self.keyboardView.inputView.leftButton setTitle:NSLocalizedString(@"↳", nil) forState:UIControlStateNormal];
+    self.keyboardView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:self.keyboardView];
     self.navigationController.navigationBarHidden = NO;
 }
 
@@ -123,8 +93,36 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)updateTableData {
+    switch ([self.network intValue]) {
+        case TNTypeDesignerNews: {
+            [self.api getCommentsForStoryWithID:[NSString stringWithFormat:@"%d", self.storyID]
+                                        success:^(NSArray *comments) {
+                                            self.commentsData = comments;
+                                            [self.tableView reloadData];
+                                        }
+                                        failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                            NSLog(@"The task: %@ failed with error: %@", task, error);
+                                        }];
+        }
+            break;
+        case TNTypeHackerNews: {
+            // get hacker news posts
+        }
+            break;
+    }
+}
+
+- (void)cancelReply {
+    self.replyToID = nil;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] init];
+}
+
 #pragma mark - Table view data source
 
+-(void)tableView:(UITableView *)tableView :(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -155,7 +153,15 @@
     
     DNComment *comment = [self.commentsData objectAtIndex:[indexPath row]];
     cell.commentTextView.text = comment.body;
-    cell.commentAuthorLabel.text = [NSString stringWithFormat:@"%@ Points by %@", comment.voteCount, comment.author];
+    [cell.commentTextView  sizeToFit];
+    
+    // Moves the author label to under the text view
+    int textViewHeight = cell.commentTextView.frame.size.height;
+    CGRect authorLabelFrame = cell.commentAuthorLabel.frame;
+    authorLabelFrame.origin.y = 10 + textViewHeight + 5;
+    cell.commentAuthorLabel.frame = authorLabelFrame;
+    
+    cell.commentAuthorLabel.text = [NSString stringWithFormat:@"%@ Votes by %@", comment.voteCount, comment.author];
     UIView *replyView = [self viewWithImageName:@"Comment"];
     UIView *upvoteView = [self viewWithImageName:@"Upvote"];
     UIColor *tealColor = [UIColor colorWithRed:0.631 green:0.890 blue:0.812 alpha:1];
@@ -171,21 +177,21 @@
     // Setting the default inactive state color to the tableView background color.
     [cell setDefaultColor:self.tableView.backgroundView.backgroundColor];
     
-    [cell.textLabel setText:@"Switch Mode Cell"];
-    [cell.detailTextLabel setText:@"Swipe to switch"];
-    
     // Adding gestures per state basis.
     [cell setSwipeGestureWithView:replyView color:networkColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        self.replyToID = [NSNumber numberWithInt:[indexPath row]];
-        [self.keyboardView.inputView.textView becomeFirstResponder];
-#warning The next line simulates clicking the comment button. Remove this once the text view works.
-        [self.keyboardView.inputView.rightButton sendActionsForControlEvents:UIControlEventTouchUpInside];
-    }];
+        self.replyToID = [NSNumber numberWithInteger:[indexPath row]];
+        UIBarButtonItem *commentButton = [[UIBarButtonItem alloc]
+                                          initWithTitle:@"Cancel Reply"
+                                          style:UIBarButtonItemStyleBordered
+                                          target:self
+                                          action:@selector(cancelReply)];
+        self.navigationItem.rightBarButtonItem = commentButton;
+            }];
     
     [cell setSwipeGestureWithView:upvoteView color:tealColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        [self.api upvoteCommentWithID:comment.commentID
+        [self.api upvoteCommentWithID:[NSString stringWithFormat:@"%@", comment.commentID]
                               success:^{
-                                  [self.tableView reloadData];
+                                  [self updateTableData];
                               }
                               failure:^(NSURLSessionDataTask *task, NSError *error){
                                   //comment not upvoted
@@ -197,8 +203,17 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-#warning Insert dynamic height code here ;)
-    return 200;
+    TNCommentCell *cell = [[TNCommentCell alloc] init];
+    DNComment *comment = [self.commentsData objectAtIndex:[indexPath row]];
+    
+    // First lets get the main text view height
+    cell.commentTextView.text = comment.body;
+    [cell.commentTextView  sizeToFit];
+    int textViewHeight = cell.commentTextView.frame.size.height;
+    
+    int authorLabelHeight = cell.commentAuthorLabel.frame.size.height;
+    // Now let's return all of them added up :)
+    return textViewHeight + authorLabelHeight + 40;
 }
 
 #pragma mark - MCSwipeTableView
@@ -209,4 +224,17 @@
     imageView.contentMode = UIViewContentModeCenter;
     return imageView;
 }
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    
+    return YES;
+}
+
 @end

@@ -14,6 +14,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.commentTextView = [[UITextView alloc] initWithFrame:CGRectMake(5, 10, 300, 100)];
         self.commentTextView.textColor = [UIColor blackColor];
         self.commentTextView.editable = NO;
@@ -24,7 +25,7 @@
         self.commentAuthorLabel.textColor = [UIColor blackColor];
         self.commentAuthorLabel.text = @"Comment Author";
         [self addSubview:self.commentAuthorLabel];
-        
+
         #warning Why won't this button appear?
         UIButton *upvoteButton = [[UIButton alloc] initWithFrame:CGRectMake(255, 110, 50, 15)];
         upvoteButton.titleLabel.text = @"Upvote";
