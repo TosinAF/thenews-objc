@@ -40,6 +40,7 @@ int passwordLengthMin = 6;
                 [textField setPlaceholderColor:[UIColor redColor]];
                 validEmailField = NO;
             } else {
+                self.username = textField.text;
                 [self resetTextField:self.emailField];
                 validEmailField = YES;
             }
@@ -51,6 +52,7 @@ int passwordLengthMin = 6;
                 [textField setPlaceholderColor:[UIColor redColor]];
                 validPasswordField = NO;
             } else {
+                self.password = textField.text;
                 [self resetTextField:self.passwordField];
                 validPasswordField = YES;
             }

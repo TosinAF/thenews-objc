@@ -1,9 +1,0 @@
-[submodule "Pocket-ObjC-SDK"]
-	path = Pocket-ObjC-SDK
-	url = https://github.com/Pocket/Pocket-ObjC-SDK.git
-[submodule "overshare-kit"]
-	path = overshare-kit
-	url = https://github.com/overshare/overshare-kit.git
-[submodule "ADNLogin-SDK-iOS"]
-	path = ADNLogin-SDK-iOS
-	url = https://github.com/appdotnet/ADNLogin-SDK-iOS.git

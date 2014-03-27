@@ -30,6 +30,9 @@ typedef NS_ENUM (NSInteger, TNTextFieldType) {
 @property (strong, nonatomic) TNTextField *passwordField;
 @property (strong, nonatomic) UILabel *errorLabel;
 
+@property (strong, nonatomic) NSString *username;
+@property (strong, nonatomic) NSString *password;
+
 - (void)pushHomeView;
 
 - (void)checkAllFields;

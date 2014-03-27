@@ -12,6 +12,8 @@
 #import "UIColor+TNColors.h"
 #import "TNPostViewController.h"
 #import "TNFeedViewController.h"
+#import "TNCommentsViewController.h"
+#import "DesignerNewsAPIClient.h"
 
 static int CELL_HEIGHT = 70;
 static int NUMBER_OF_POSTS_TO_DOWNLOAD = 10;
@@ -77,7 +79,10 @@ static NSString *CellIdentifier = @"TNFeedCell";
 	[cell setFeedType:[self.feedType intValue]];
     [cell configureForPost:(self.posts)[[indexPath row]]];
 
-    [self addSwipeGesturesToCell:cell atIndexPath:indexPath];
+    [cell setCommentBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        NSLog(@"im here");
+        [self showCommentView:(int)[indexPath row]];
+    }];
 
     return cell;
 }
@@ -148,30 +153,6 @@ static NSString *CellIdentifier = @"TNFeedCell";
 
 #pragma mark - Gesture Methods
 
-- (void)addSwipeGesturesToCell:(TNFeedViewCell*)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    UIView *upvoteView = [self viewWithImageName:@"Upvote"];
-    UIView *commentView = [self viewWithImageName:@"Comment"];
-    UIColor *lightGreen = [UIColor colorWithRed:0.631 green:0.890 blue:0.812 alpha:1];
-
-    [cell setDefaultColor:[UIColor tnLightGreyColor]];
-
-    [cell setSwipeGestureWithView:upvoteView color:lightGreen mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        [self upvotePost];
-    }];
-
-    [cell setSwipeGestureWithView:commentView color:[UIColor dnColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        [self showCommentView];
-    }];
-}
-
-- (UIView *)viewWithImageName:(NSString *)imageName {
-    UIImage *image = [UIImage imageNamed:imageName];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    imageView.contentMode = UIViewContentModeCenter;
-    return imageView;
-}
-
 #pragma mark - Notification Methods
 
 - (NSDictionary *)defaultNotificationOptions
@@ -218,9 +199,14 @@ static NSString *CellIdentifier = @"TNFeedCell";
     [self showNotification];
 }
 
-- (void)showCommentView
+- (void)showCommentView:(int )row
 {
-    NSLog(@"CommentViewShown");
+    #warning The current feed is fetched without using the API. For this reason, the network and postID are set statically because the currently used API does not have postIDs.
+    NSLog(@"%d", row);
+    TNCommentsViewController *vc = [[TNCommentsViewController alloc] init];
+    vc.network = TNTypeDesignerNews;
+    vc.storyID = 1;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)dismissPostView {

@@ -109,14 +109,16 @@
 - (void)validateLogin
 {
     DesignerNewsAPIClient *DNClient = [DesignerNewsAPIClient sharedClient];
+
     [DNClient authenticateUser:self.emailField.text password:self.passwordField.text success:^(NSString *accessToken) {
 
         [self pushHomeView];
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+
         NSLog(@"%@", [[error userInfo] objectForKey:@"NSLocalizedDescription"]);
         [self.view addSubview:self.errorLabel];
+
     }];
 }
 
