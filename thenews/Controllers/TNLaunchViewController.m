@@ -7,7 +7,6 @@
 //
 
 #import "TNLaunchViewController.h"
-#import "TNSignupViewController.h"
 #import "TNLoginViewController.h"
 #import "TNHomeViewController.h"
 #import "TNButton.h"
@@ -101,11 +100,6 @@ BOOL registrationSkipped;
     [self.view addSubview:self.skip];
 }
 
-- (void)signupButtonPressed:(id)selector
-{
-    TNSignupViewController *signupViewController = [[TNSignupViewController alloc] init];
-    [self.navigationController pushViewController:signupViewController animated:YES];
-}
 
 - (void)loginButtonPressed:(id)selector
 {

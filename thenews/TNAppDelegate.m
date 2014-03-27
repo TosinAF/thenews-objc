@@ -11,7 +11,10 @@
 #import "OSKADNLoginManager.h"
 #import "GTScrollNavigationBar.h"
 #import "TNLaunchViewController.h"
+#import "TNHomeViewController.h"
+#import "DesignerNewsAPIClient.h"
 #import <GooglePlus/GooglePlus.h>
+#import "AFNetworkActivityIndicatorManager.h"
 
 @implementation TNAppDelegate
 
@@ -20,17 +23,29 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor tnLightGreyColor];
 
-    [[PocketAPI sharedAPI] setConsumerKey:@"25320-2c296baa9f562cd41e0259f9"];
-
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Light" size:16.0f], NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
 
+    [[PocketAPI sharedAPI] setConsumerKey:@"25320-2c296baa9f562cd41e0259f9"];
+
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+
     UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[GTScrollNavigationBar class] toolbarClass:nil];
-    TNLaunchViewController *launchViewController = [[TNLaunchViewController alloc] init];
 
-    [navController setViewControllers:@[launchViewController] animated:NO];
+    UIViewController *rootViewController;
 
+    // Check if already logged in
+
+    DesignerNewsAPIClient *DNClient = [DesignerNewsAPIClient sharedClient];
+    
+    if ([DNClient isUserAuthenticated]) {
+        rootViewController = [[TNHomeViewController alloc] init];
+    } else {
+        rootViewController = [[TNLaunchViewController alloc] init];
+    }
+
+    [navController setViewControllers:@[rootViewController] animated:NO];
     self.window.rootViewController = navController;
     
     [self.window makeKeyAndVisible];

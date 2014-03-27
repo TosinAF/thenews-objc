@@ -10,4 +10,6 @@
 
 @interface DNFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIPageViewControllerDelegate>
 
+@property (nonatomic, strong) NSNumber *feedType;
+
 @end

@@ -11,8 +11,8 @@
 
 static NSString * const DNAPIAccessToken    = @"DNAPIAccessToken";
 static NSString * const DNAPIBaseURLString  = @"https://api-news.layervault.com/api/v1";
-static NSString * const DNAPIClientID       = @"";
-static NSString * const DNAPIClientSecret   = @"";
+static NSString * const DNAPIClientID       = @"3ba6addb82f5746189bbf3e59ac06a0d498f02309ae4d7119655be174528ad44";
+static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745e45e940bc7a6192014a0131f40397f78";
 
 @interface DesignerNewsAPIClient ()
 

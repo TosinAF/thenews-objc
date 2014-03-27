@@ -7,6 +7,7 @@
 //
 
 #import "TNMenuView.h"
+#import "DNFeedViewController.h"
 #import "TNFeedViewController.h"
 #import "TNContainerViewController.h"
 
@@ -32,11 +33,6 @@ __weak TNContainerViewController *weakSelf;
 @end
 
 @implementation TNContainerViewController
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
-}
 
 - (id)initWithType:(TNType)type {
 	self = [super init];
@@ -82,7 +78,15 @@ __weak TNContainerViewController *weakSelf;
     [self configureMenu];
 
     /* Set up First Child View Controller */
-    TNFeedViewController *feedViewController = [[TNFeedViewController alloc] initWithType:[self.feedType intValue]];
+
+    UIViewController *feedViewController;
+
+    if ([self.feedType intValue] == 0) {
+        feedViewController = [[DNFeedViewController alloc] init];
+    } else {
+        feedViewController = [[TNFeedViewController alloc] initWithType:[self.feedType intValue]];
+    }
+
     self.currentViewController = feedViewController;
     [self addChildViewController:feedViewController];
     [self.view addSubview:feedViewController.view];

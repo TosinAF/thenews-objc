@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TNFormViewController.h"
 
 @interface TNLoginViewController : TNFormViewController 
 

@@ -6,20 +6,23 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
-#import "Post.h"
-#import "CRToast.h"
+#import "TNNotification.h"
+#import "UIScrollView+SVPullToRefresh.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 #import "TNFeedViewCell.h"
 #import "TNPostViewController.h"
 #import "DNFeedViewController.h"
 #import "DesignerNewsAPIClient.h"
 
+
 static int CELL_HEIGHT = 70;
-static int NUMBER_OF_POSTS_TO_DOWNLOAD = 10;
 static NSString *CellIdentifier = @"TNFeedCell";
+
+DesignerNewsAPIClient *DNClient;
 
 @interface DNFeedViewController () 
 
-@property (nonatomic, strong) NSMutableArray *posts;
+@property (nonatomic, strong) NSMutableArray *stories;
 @property (nonatomic, strong) UITableView *feedView;
 
 @end
@@ -29,13 +32,17 @@ static NSString *CellIdentifier = @"TNFeedCell";
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
+    [self setFeedType:TNTypeDesignerNews];
+
+    self.stories = [[NSMutableArray alloc] init];
+    DNClient = [DesignerNewsAPIClient sharedClient];
+    [self downloadFeedAndReset:NO];
 
 	CGFloat navBarHeight = 64.0;
 	CGSize screenSize = self.view.frame.size;
     CGRect contentViewFrame = CGRectMake(0, navBarHeight, screenSize.width, screenSize.height - navBarHeight);
 
 	self.feedView = [[UITableView alloc] initWithFrame:contentViewFrame];
-
 	[self.feedView setDelegate:self];
 	[self.feedView setDataSource:self];
 	[self.feedView setSeparatorInset:UIEdgeInsetsZero];
@@ -43,6 +50,20 @@ static NSString *CellIdentifier = @"TNFeedCell";
 	[self.feedView registerClass:[TNFeedViewCell class] forCellReuseIdentifier:CellIdentifier];
 
 	[self.view addSubview:self.feedView];
+
+    /* Pull To Refresh & Infinite Scrolling */
+
+    __weak DNFeedViewController *weakself = self;
+    [self.feedView addPullToRefreshWithActionHandler:^{
+        [weakself downloadFeedAndReset:YES];
+    }];
+
+    [self.feedView addInfiniteScrollingWithActionHandler:^{
+        [weakself downloadFeedAndReset:NO];
+    }];
+
+    [self.feedView.pullToRefreshView setTitle:@"Pull To Refresh" forState:SVPullToRefreshStateTriggered];
+    [self.feedView.pullToRefreshView setTitle:@"Delievering The Latest" forState:SVPullToRefreshStateLoading];
 }
 
 #pragma mark - Table View Data Source
@@ -52,18 +73,32 @@ static NSString *CellIdentifier = @"TNFeedCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [self.posts count];
+	return [self.stories count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	TNFeedViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
+    DNStory *story = (self.stories)[[indexPath row]];
+
 	[cell setForReuse];
 	[cell setFrameHeight:CELL_HEIGHT];
 	[cell setFeedType:TNTypeDesignerNews];
-    [cell configureForPost:(self.posts)[[indexPath row]]];
+    [cell configureForStory:story index:(int)[indexPath row] + 1];
 
-    [self addSwipeGesturesToCell:cell atIndexPath:indexPath];
+    [cell setUpvoteBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+
+        TNFeedViewCell *tncell = (TNFeedViewCell *)cell;
+        DNStory *story = [tncell story];
+        [self upvoteStoryWithID:[story storyID]];
+
+    }];
+
+    [cell setCommentBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        [self showCommentView];
+    }];
+
+    [cell setSeparatorInset:UIEdgeInsetsZero];
 
     return cell;
 }
@@ -76,8 +111,8 @@ static NSString *CellIdentifier = @"TNFeedCell";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Post *post = (self.posts)[[indexPath row]];
-    TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[post link]] type:TNTypeDesignerNews];
+    DNStory *story = (self.stories)[[indexPath row]];
+    TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[story URL]] type:TNTypeDesignerNews];
 
     __weak DNFeedViewController *weakSelf = self;
     [postViewController setDismissAction:^{ [weakSelf.navigationController popViewControllerAnimated:YES]; }];
@@ -85,78 +120,46 @@ static NSString *CellIdentifier = @"TNFeedCell";
     [self.navigationController pushViewController:postViewController animated:YES];
 }
 
+#pragma mark - Network Methods
 
-
-#pragma mark - Gesture Methods
-
-- (void)addSwipeGesturesToCell:(TNFeedViewCell*)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)downloadFeedAndReset:(BOOL)reset
 {
-    UIView *upvoteView = [self viewWithImageName:@"Upvote"];
-    UIView *commentView = [self viewWithImageName:@"Comment"];
-    UIColor *lightGreen = [UIColor colorWithRed:0.631 green:0.890 blue:0.812 alpha:1];
+    static int page = 0;
 
-    [cell setDefaultColor:[UIColor tnLightGreyColor]];
-
-    [cell setSwipeGestureWithView:upvoteView color:lightGreen mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        [self upvotePost];
-    }];
-
-    [cell setSwipeGestureWithView:commentView color:[UIColor dnColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        [self showCommentView];
-    }];
-}
-
-- (UIView *)viewWithImageName:(NSString *)imageName {
-    UIImage *image = [UIImage imageNamed:imageName];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    imageView.contentMode = UIViewContentModeCenter;
-    return imageView;
-}
-
-#pragma mark - Notification Methods
-
-- (NSDictionary *)defaultNotificationOptions
-{
-    NSDictionary *options = @{
-                              kCRToastTextKey : @"Post Upvote Successful",
-                              kCRToastTextAlignmentKey : @(NSTextAlignmentLeft),
-                              kCRToastSubtitleTextAlignmentKey : @(NSTextAlignmentLeft),
-                              kCRToastFontKey : [UIFont fontWithName:@"Avenir-Light" size:14],
-                              kCRToastSubtitleFontKey : [UIFont fontWithName:@"Avenir-Light" size:9],
-                              kCRToastBackgroundColorKey : [UIColor colorWithRed:0.086 green:0.627 blue:0.522 alpha:1],
-                              kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
-                              kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeLinear),
-                              kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
-                              kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop),
-                              kCRToastNotificationPresentationTypeKey : @(YES),
-                              kCRToastNotificationTypeKey : @(YES),
-                              kCRToastUnderStatusBarKey: @(NO),
-                              kCRToastStatusBarStyle : @(UIStatusBarStyleLightContent),
-                              kCRToastImageKey : [UIImage imageNamed:@"Checkmark"]
-                              };
-    return options;
-}
-
-- (void)showNotification
-{
-    NSMutableDictionary *options = [NSMutableDictionary dictionaryWithDictionary:[self defaultNotificationOptions]];
-
-    if (rand() % 2) {
-        // Upvote Failed
-        options[kCRToastTextKey] = @"Post Upvote Failed";
-        options[kCRToastSubtitleTextKey] = @"Authentication Error";
-        options[kCRToastImageKey] = [UIImage imageNamed:@"Error"];
-        options[kCRToastBackgroundColorKey] = [UIColor colorWithRed:0.906 green:0.298 blue:0.235 alpha:1];
+    if(reset) {
+        page = 0;
     }
 
-    [CRToastManager showNotificationWithOptions:options completionBlock:^{}];
+    page++;
+
+    [DNClient getStoriesOnPage:[NSString stringWithFormat:@"%d", page] feedType:DNFeedTypeTop success:^(NSArray *dnStories) {
+
+        [self.stories addObjectsFromArray:dnStories];
+        [self.feedView reloadData];
+        [self.feedView.pullToRefreshView stopAnimating];
+        [self.feedView.pullToRefreshView stopAnimating];
+
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+
+        NSLog(@"%@", [[error userInfo] objectForKey:@"NSLocalizedDescription"]);
+
+    }];
 }
 
-#pragma mark - Private Methods
-
-- (void)upvotePost
+- (void)upvoteStoryWithID:(NSNumber *)storyID
 {
-    [self showNotification];
+    TNNotification *notification = [[TNNotification alloc] init];
+
+    [DNClient upvoteStoryWithID:[storyID stringValue] success:^{
+
+        [notification showSuccessNotification:@"Story Upvote Successful" subtitle:nil];
+
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+
+        //NSString *errorMsg = [[error userInfo] objectForKey:@"NSLocalizedDescription"];
+        [notification showFailureNotification:@"Story Upvote Failed" subtitle:@"You can only upvote a story once."];
+
+    }];
 }
 
 - (void)showCommentView

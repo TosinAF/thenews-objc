@@ -9,8 +9,6 @@
 #import "TNTextField.h"
 #import "TNFormViewController.h"
 #import "TNHomeViewController.h"
-#import "TNSignupViewController.h"
-#import "TNLoginViewController.h"
 
 int passwordLengthMin = 6;
 
@@ -74,63 +72,6 @@ int passwordLengthMin = 6;
     [textField setTextColor:[UIColor blackColor]];
 }
 
-- (void)gotoLoginView:(id)selector
-{
-    int viewControllersInStack = (int)[self.navigationController.viewControllers count];
-    TNLoginViewController *loginViewController;
-
-    if ( viewControllersInStack <= 2 ) {
-
-        loginViewController = [[TNLoginViewController alloc] init];
-        [self.navigationController pushViewController:loginViewController animated:YES];
-
-    } else {
-
-        // Prevent loop of Signup & Login View Controllers
-
-        NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-
-        for (id vc in viewControllers) {
-            if ([vc isMemberOfClass:[TNLoginViewController class]]) {
-                loginViewController = vc;
-                [viewControllers removeObject:vc];
-                break;
-            }
-        }
-
-        [self.navigationController setViewControllers:viewControllers];
-        [self.navigationController pushViewController:loginViewController animated:YES];
-    }
-}
-
-- (void)gotoSignupView:(id)selector
-{
-    int viewControllersInStack = (int)[self.navigationController.viewControllers count];
-    TNSignupViewController *signupViewController;
-
-    if ( viewControllersInStack <= 2 ) {
-
-        signupViewController = [[TNSignupViewController alloc] init];
-        [self.navigationController pushViewController:signupViewController animated:YES];
-
-    } else {
-
-        // Prevent loop of Signup & Login View Controllers
-
-        NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-
-        for (id vc in viewControllers) {
-            if ([vc isMemberOfClass:[TNSignupViewController class]]) {
-                signupViewController = vc;
-                [viewControllers removeObject:vc];
-                break;
-            }
-        }
-
-        [self.navigationController setViewControllers:viewControllers];
-        [self.navigationController pushViewController:signupViewController animated:YES];
-    }
-}
 
 - (void)pushHomeView
 {

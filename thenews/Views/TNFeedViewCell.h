@@ -7,15 +7,22 @@
 //
 
 #import "Post.h"
+#import "DNStory.h"
 #import <UIKit/UIKit.h>
 #import "TNFeedViewController.h"
 #import "MCSwipeTableViewCell.h"
 
 @interface TNFeedViewCell : MCSwipeTableViewCell
 
+@property (strong, nonatomic) DNStory *story;
+
 - (void)setForReuse;
-- (void)setFrameHeight:(CGFloat)height;
 - (void)setFeedType:(TNType)feedType;
+- (void)setUpvoteBlock:(MCSwipeCompletionBlock)block;
+- (void)setCommentBlock:(MCSwipeCompletionBlock)block;
+- (void)setFrameHeight:(CGFloat)height;
+
 - (void)configureForPost:(Post *)post;
+- (void)configureForStory:(DNStory *)story index:(int)index;
 
 @end

@@ -202,11 +202,13 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 
 - (void)addBarButtonItems
 {
-    self.shareButton = [[UIBarButtonItem alloc]
-                                   initWithTitle:@"Share"
-                                   style:UIBarButtonItemStyleBordered
-                                   target:self
-                            action:@selector(shareAction)];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"Share"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 30, 30)];
+
+    self.shareButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+
     self.navigationItem.rightBarButtonItem = self.shareButton;
 }
 

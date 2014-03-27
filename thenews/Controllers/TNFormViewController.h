@@ -31,8 +31,6 @@ typedef NS_ENUM (NSInteger, TNTextFieldType) {
 @property (strong, nonatomic) UILabel *errorLabel;
 
 - (void)pushHomeView;
-- (void)gotoLoginView:(id)selector;
-- (void)gotoSignupView:(id)selector;
 
 - (void)checkAllFields;
 - (void)checkField:(TNTextField *)textField;

@@ -7,10 +7,9 @@
 //
 
 #import "TNTextField.h"
-#import "UIColor+TNColors.h"
-#import "TNSignupViewController.h"
-#import "TNLoginViewController.h"
 #import "TNHomeViewController.h"
+#import "DesignerNewsAPIClient.h"
+#import "TNLoginViewController.h"
 
 @interface TNLoginViewController ()
 
@@ -70,19 +69,6 @@
         [self.view addSubview:border];
     }
 
-    // Button to go to Sign Up View Instead
-
-    UIButton *gotoSignupView = [[UIButton alloc] init];
-    [gotoSignupView setFrame:CGRectMake(95, 200, 130, 50)];
-    [gotoSignupView setTitle:@"FORGOT YOUR PASSWORD?" forState:UIControlStateNormal];
-    [gotoSignupView setTitleColor:[UIColor hnColor] forState:UIControlStateNormal];
-    [gotoSignupView setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-    [[gotoSignupView titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:15.0f]];
-    [[gotoSignupView titleLabel] setNumberOfLines:3];
-    [[gotoSignupView titleLabel] setTextAlignment:NSTextAlignmentCenter];
-    [[gotoSignupView titleLabel] setLineBreakMode:NSLineBreakByWordWrapping];
-    [gotoSignupView  addTarget:self action:@selector(gotoSignupView:) forControlEvents:UIControlEventTouchUpInside];
-
     // Error Label
 
     self.errorLabel = ({
@@ -94,7 +80,6 @@
         errorLabel;
     });
 
-    [self.view addSubview:gotoSignupView];
     [self.view addSubview:self.emailField];
     [self.view addSubview:self.passwordField];
 }
@@ -112,11 +97,27 @@
             break;
 
         case 1:
-            [self pushHomeView];
+            [self validateLogin];
             break;
     }
     
     return NO;
+}
+
+//text view began editing, hide error label
+
+- (void)validateLogin
+{
+    DesignerNewsAPIClient *DNClient = [DesignerNewsAPIClient sharedClient];
+    [DNClient authenticateUser:self.emailField.text password:self.passwordField.text success:^(NSString *accessToken) {
+
+        [self pushHomeView];
+
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+        NSLog(@"%@", [[error userInfo] objectForKey:@"NSLocalizedDescription"]);
+        [self.view addSubview:self.errorLabel];
+    }];
 }
 
 @end

@@ -20,11 +20,6 @@
 
 @implementation TNHomeViewController
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -35,6 +30,8 @@
 - (void)viewDidLoad {
 
 	[super viewDidLoad];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 
 	self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
