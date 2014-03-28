@@ -92,7 +92,7 @@ KeyboardWillAppearBlock keyboardWillAppearAction;
     UIButton *cancelSearch = [UIButton buttonWithType:UIButtonTypeSystem];
     [cancelSearch setTintColor:[UIColor lightGrayColor]];
     [cancelSearch setImage:cancelButtonImage forState:UIControlStateNormal];
-    [cancelSearch setFrame:CGRectMake(0, 0, cancelButtonImage.size.width, cancelButtonImage.size.height)];
+    [cancelSearch setFrame:CGRectMake(-20, -20, cancelButtonImage.size.width + 20, cancelButtonImage.size.height + 20)];
     [cancelSearch addTarget:self action:@selector(clearTextField) forControlEvents:UIControlEventTouchUpInside];
 
     [self.searchField setRightView:cancelSearch];

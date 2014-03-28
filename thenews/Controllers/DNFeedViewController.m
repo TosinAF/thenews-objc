@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import "TNRefreshView.h"
 #import "TNNotification.h"
-#import "UIScrollView+SVPullToRefresh.h"
-#import "UIScrollView+SVInfiniteScrolling.h"
 #import "TNFeedViewCell.h"
+#import "SVPullToRefresh.h"
 #import "TNPostViewController.h"
 #import "DNFeedViewController.h"
 #import "DesignerNewsAPIClient.h"
@@ -50,20 +50,7 @@ DesignerNewsAPIClient *DNClient;
 	[self.feedView registerClass:[TNFeedViewCell class] forCellReuseIdentifier:CellIdentifier];
 
 	[self.view addSubview:self.feedView];
-
-    /* Pull To Refresh & Infinite Scrolling */
-
-    __weak DNFeedViewController *weakself = self;
-    [self.feedView addPullToRefreshWithActionHandler:^{
-        [weakself downloadFeedAndReset:YES];
-    }];
-
-    [self.feedView addInfiniteScrollingWithActionHandler:^{
-        [weakself downloadFeedAndReset:NO];
-    }];
-
-    [self.feedView.pullToRefreshView setTitle:@"Pull To Refresh" forState:SVPullToRefreshStateTriggered];
-    [self.feedView.pullToRefreshView setTitle:@"Delievering The Latest" forState:SVPullToRefreshStateLoading];
+    [self setupRefreshControl];
 }
 
 #pragma mark - Table View Data Source
@@ -134,6 +121,10 @@ DesignerNewsAPIClient *DNClient;
 
     [DNClient getStoriesOnPage:[NSString stringWithFormat:@"%d", page] feedType:DNFeedTypeTop success:^(NSArray *dnStories) {
 
+        if (reset) {
+            [self.stories removeAllObjects];
+        }
+
         [self.stories addObjectsFromArray:dnStories];
         [self.feedView reloadData];
         [self.feedView.pullToRefreshView stopAnimating];
@@ -165,6 +156,30 @@ DesignerNewsAPIClient *DNClient;
 - (void)showCommentView
 {
     NSLog(@"CommentViewShown");
+}
+
+#pragma mark - Private Methods
+
+- (void)setupRefreshControl
+{
+
+    /* Pull To Refresh & Infinite Scrolling */
+
+    __weak DNFeedViewController *weakself = self;
+
+    [self.feedView addPullToRefreshWithActionHandler:^{
+        [weakself downloadFeedAndReset:YES];
+    }];
+
+    [self.feedView addInfiniteScrollingWithActionHandler:^{
+        [weakself downloadFeedAndReset:NO];
+    }];
+
+    TNRefreshView *pulling = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, 320, 60) state:TNRefreshStatePulling];
+    TNRefreshView *loading = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, 320, 60) state:TNRefreshStateLoading];
+
+    [[self.feedView pullToRefreshView] setCustomView:loading forState:SVPullToRefreshStateAll];
+    [[self.feedView pullToRefreshView] setCustomView:pulling forState:SVPullToRefreshStateTriggered];
 }
 
 @end
