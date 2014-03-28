@@ -34,6 +34,7 @@ DesignerNewsAPIClient *DNClient;
 	[super viewDidLoad];
     [self setFeedType:TNTypeDesignerNews];
 
+
     self.stories = [[NSMutableArray alloc] init];
     DNClient = [DesignerNewsAPIClient sharedClient];
     [self downloadFeedAndReset:NO];
@@ -50,7 +51,6 @@ DesignerNewsAPIClient *DNClient;
 	[self.feedView registerClass:[TNFeedViewCell class] forCellReuseIdentifier:CellIdentifier];
 
 	[self.view addSubview:self.feedView];
-    [self setupRefreshControl];
 }
 
 #pragma mark - Table View Data Source
@@ -127,7 +127,8 @@ DesignerNewsAPIClient *DNClient;
 
         [self.stories addObjectsFromArray:dnStories];
         [self.feedView reloadData];
-        [self.feedView.pullToRefreshView stopAnimating];
+        // Avoid bug of adding refresh control too early
+        [self setupRefreshControl];
         [self.feedView.pullToRefreshView stopAnimating];
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -178,8 +179,8 @@ DesignerNewsAPIClient *DNClient;
     TNRefreshView *pulling = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, 320, 60) state:TNRefreshStatePulling];
     TNRefreshView *loading = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, 320, 60) state:TNRefreshStateLoading];
 
-    [[self.feedView pullToRefreshView] setCustomView:loading forState:SVPullToRefreshStateAll];
-    [[self.feedView pullToRefreshView] setCustomView:pulling forState:SVPullToRefreshStateTriggered];
+    [[self.feedView pullToRefreshView] setCustomView:pulling forState:SVPullToRefreshStateAll];
+    [[self.feedView pullToRefreshView] setCustomView:loading forState:SVPullToRefreshStateLoading];
 }
 
 @end

@@ -8,10 +8,7 @@
 
 #import "FBShimmering.h"
 #import "FBShimmeringView.h"
-
 #import "TNRefreshView.h"
-
-
 
 @implementation TNRefreshView
 
@@ -22,15 +19,15 @@
 
         switch (state) {
             case TNRefreshStatePulling:
-                [self xWithText:@"Pull To Refresh"];
+                [self setupWithText:@"Pull To Refresh"];
                 break;
 
             case TNRefreshStateLoading:
-                [self setupWithText:@"Delievering The Latest..."];
+                [self setupWithShimmer:@"Delievering The Latest..."];
                 break;
 
             case TNRefreshStateEnded:
-                [self xWithText:@"Enjoy!"];
+                [self setupWithText:@"Enjoy!"];
                 break;
 
         }
@@ -38,7 +35,7 @@
     return self;
 }
 
-- (void)setupWithText:(NSString *)text
+- (void)setupWithShimmer:(NSString *)text
 {
 
     UIView *containerView = [[UIView alloc] initWithFrame:self.frame];
@@ -53,6 +50,7 @@
     [loadingLabel setFont:[UIFont fontWithName:@"Avenir-Light" size:15.0f]];
 
     loadingIndicator.contentView = loadingLabel;
+    // need to stop shimmering somehow
     loadingIndicator.shimmering = YES;
 
     [containerView addSubview:loadingIndicator];
@@ -60,7 +58,7 @@
 
 }
 
-- (void)xWithText:(NSString *)text
+- (void)setupWithText:(NSString *)text
 {
     UIView *containerView = [[UIView alloc] initWithFrame:self.frame];
     [containerView setBackgroundColor:[UIColor tnLightGreyColor]];
