@@ -46,22 +46,17 @@ BOOL registrationSkipped;
     CGRect skipFrame = self.skip.frame;
     skipFrame.origin.y = 458;
 
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
-    [UIView setAnimationDelay:0];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-
-    self.login.frame = loginFrame;
-    self.skip.frame = skipFrame;
-
-    [UIView commitAnimations];
+    [UIView animateWithDuration:0.8 animations:^ {
+        self.login.frame = loginFrame;
+        self.skip.frame = skipFrame;
+    }];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor tnColor]];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
 
     CGSize screenSize = self.view.bounds.size;
 
