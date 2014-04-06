@@ -300,12 +300,7 @@
 				4E4E1BC618AD98A100B87E7A /* TNButton.m */,
 				4E4E1BC918AD98A100B87E7A /* TNTextField.h */,
 				4E4E1BCA18AD98A100B87E7A /* TNTextField.m */,
-				4E4E1BC718AD98A100B87E7A /* TNFeedViewCell.h */,
-				4E4E1BC818AD98A100B87E7A /* TNFeedViewCell.m */,
-				4EC1409418F145330082E3C3 /* DNFeedViewCell.h */,
-				4EC1409518F145330082E3C3 /* DNFeedViewCell.m */,
-				4EC1409718F145D20082E3C3 /* HNFeedViewCell.h */,
-				4EC1409818F145D20082E3C3 /* HNFeedViewCell.m */,
+				4EC1409A18F149A30082E3C3 /* FeedViewCell */,
 				4EBB4EA218D7B655008BB571 /* TNMenuView.h */,
 				4EBB4EA118D7B655008BB571 /* TNMenuView.m */,
 				C620B90618E23F8B007AB81D /* TNCommentCell.h */,
@@ -339,6 +334,19 @@
 				4E84010F18E1783C00E3AB34 /* DNUser.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4EC1409A18F149A30082E3C3 /* FeedViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				4E4E1BC718AD98A100B87E7A /* TNFeedViewCell.h */,
+				4E4E1BC818AD98A100B87E7A /* TNFeedViewCell.m */,
+				4EC1409418F145330082E3C3 /* DNFeedViewCell.h */,
+				4EC1409518F145330082E3C3 /* DNFeedViewCell.m */,
+				4EC1409718F145D20082E3C3 /* HNFeedViewCell.h */,
+				4EC1409818F145D20082E3C3 /* HNFeedViewCell.m */,
+			);
+			name = FeedViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -18,6 +18,8 @@ static int CELL_HEIGHT = 85;
 static NSString *CellIdentifier = @"DNFeedCell";
 
 DesignerNewsAPIClient *DNClient;
+__weak DNFeedViewController *weakself;
+
 
 @interface DNFeedViewController () 
 
@@ -34,6 +36,7 @@ DesignerNewsAPIClient *DNClient;
     [self setFeedType:TNTypeDesignerNews];
 
     dnFeedType = DNFeedTypeTop;
+    weakself = self;
 
     self.stories = [[NSMutableArray alloc] init];
     DNClient = [DesignerNewsAPIClient sharedClient];
@@ -76,16 +79,16 @@ DesignerNewsAPIClient *DNClient;
 
     [cell setUpvoteBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
 
-        TNFeedViewCell *tncell = (TNFeedViewCell *)cell;
-        DNStory *story = [tncell story];
+        DNFeedViewCell *dncell = (DNFeedViewCell *)cell;
+        DNStory *story = [dncell story];
         [self upvoteStoryWithID:[story storyID]];
 
     }];
 
     [cell setCommentBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
 
-        TNFeedViewCell *tncell = (TNFeedViewCell *)cell;
-        DNStory *story = [tncell story];
+        DNFeedViewCell *dncell = (DNFeedViewCell *)cell;
+        DNStory *story = [dncell story];
         [self showCommentsForStoryWithID:[story storyID]];
     }];
 
@@ -194,10 +197,6 @@ DesignerNewsAPIClient *DNClient;
 
 - (void)setupRefreshControl
 {
-    /* Pull To Refresh & Infinite Scrolling */
-
-    __weak DNFeedViewController *weakself = self;
-
     [self.feedView addPullToRefreshWithActionHandler:^{
         [weakself downloadFeedAndReset:YES];
     }];

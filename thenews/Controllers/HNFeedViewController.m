@@ -17,6 +17,8 @@
 static int CELL_HEIGHT = 85;
 static NSString *CellIdentifier = @"HNFeedCell";
 
+__weak HNFeedViewController *weakSelf;
+
 @interface HNFeedViewController ()
 
 @property (nonatomic, strong) NSMutableArray *posts;
@@ -31,6 +33,7 @@ static NSString *CellIdentifier = @"HNFeedCell";
 	[super viewDidLoad];
     [self setFeedType:@(TNTypeHackerNews)];
     //[self setupRefreshControl];
+    weakSelf = self;
 
     self.posts = [[NSMutableArray alloc] init];
 
@@ -95,7 +98,6 @@ static NSString *CellIdentifier = @"HNFeedCell";
     HNPost *post = (self.posts)[[indexPath row]];
     TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[post UrlString]] type:TNTypeHackerNews];
 
-    __weak HNFeedViewController *weakSelf = self;
     [postViewController setDismissAction:^{ [weakSelf.navigationController popViewControllerAnimated:YES]; }];
 
     [self.navigationController pushViewController:postViewController animated:YES];
@@ -127,11 +129,6 @@ static NSString *CellIdentifier = @"HNFeedCell";
 
 - (void)setupRefreshControl
 {
-
-    /* Pull To Refresh & Infinite Scrolling */
-
-    __weak HNFeedViewController *weakself = self;
-
     [self.feedView addPullToRefreshWithActionHandler:^{
 
     }];
