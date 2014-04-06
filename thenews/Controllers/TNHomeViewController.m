@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
-#import "TNFeedViewController.h"
 #import "TNHomeViewController.h"
 #import "TNContainerViewController.h"
 
@@ -45,7 +44,6 @@
 	self.dnViewController = [[TNContainerViewController alloc] initWithType:TNTypeDesignerNews];
 
 
-
 	NSArray *viewControllers = @[self.dnViewController];
 	[self.pageViewController setViewControllers:viewControllers
 	                                  direction:UIPageViewControllerNavigationDirectionForward
@@ -61,7 +59,7 @@
 #pragma mark - UIPageViewControllerDataSource Methods
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
-      viewControllerBeforeViewController:(TNFeedViewController *)viewController
+      viewControllerBeforeViewController:(TNContainerViewController *)viewController
 {
     NSNumber *feedType = viewController.feedType;
 
@@ -78,7 +76,7 @@
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
-       viewControllerAfterViewController:(TNFeedViewController *)viewController
+       viewControllerAfterViewController:(TNContainerViewController *)viewController
 {
     NSNumber *feedType = viewController.feedType;
 

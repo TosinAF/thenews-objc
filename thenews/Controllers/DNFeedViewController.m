@@ -11,6 +11,7 @@
 #import "TNFeedViewCell.h"
 #import "SVPullToRefresh.h"
 #import "TNPostViewController.h"
+#import "TNCommentsViewController.h"
 #import "DNFeedViewController.h"
 
 static int CELL_HEIGHT = 85;
@@ -31,7 +32,6 @@ DesignerNewsAPIClient *DNClient;
 {
 	[super viewDidLoad];
     [self setFeedType:TNTypeDesignerNews];
-    [self setupRefreshControl];
 
     dnFeedType = DNFeedTypeTop;
 
@@ -71,7 +71,7 @@ DesignerNewsAPIClient *DNClient;
 	[cell setForReuse];
 	[cell setFrameHeight:CELL_HEIGHT];
 	[cell setFeedType:TNTypeDesignerNews];
-    [cell configureForStory:story index:(int)[indexPath row] + 1];
+    [cell configureForStory:story];
 
     [cell setUpvoteBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
 
@@ -82,7 +82,10 @@ DesignerNewsAPIClient *DNClient;
     }];
 
     [cell setCommentBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        [self showCommentView];
+
+        TNFeedViewCell *tncell = (TNFeedViewCell *)cell;
+        DNStory *story = [tncell story];
+        [self showCommentsForStoryWithID:[story storyID]];
     }];
 
     [cell setSeparatorInset:UIEdgeInsetsZero];
@@ -119,8 +122,6 @@ DesignerNewsAPIClient *DNClient;
 
     page++;
 
-    NSLog(@"Called");
-
     [DNClient getStoriesOnPage:[NSString stringWithFormat:@"%d", page] feedType:dnFeedType success:^(NSArray *dnStories) {
 
         if (reset) {
@@ -130,6 +131,8 @@ DesignerNewsAPIClient *DNClient;
 
         [self.stories addObjectsFromArray:dnStories];
         [self.feedView reloadData];
+
+        [self setupRefreshControl];
         [self.feedView.infiniteScrollingView stopAnimating];
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -155,9 +158,14 @@ DesignerNewsAPIClient *DNClient;
     }];
 }
 
-- (void)showCommentView
+- (void)showCommentsForStoryWithID:(NSNumber *)storyID
 {
     NSLog(@"CommentViewShown");
+
+    TNCommentsViewController *vc = [[TNCommentsViewController alloc] init];
+    vc.network = TNTypeDesignerNews;
+    vc.storyID = [storyID intValue];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)switchDnFeedType
@@ -185,7 +193,6 @@ DesignerNewsAPIClient *DNClient;
 
 - (void)setupRefreshControl
 {
-
     /* Pull To Refresh & Infinite Scrolling */
 
     __weak DNFeedViewController *weakself = self;

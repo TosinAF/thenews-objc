@@ -11,7 +11,7 @@
 
 int dnFeedType;
 
-@interface DNFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIPageViewControllerDelegate>
+@interface DNFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSNumber *feedType;
 

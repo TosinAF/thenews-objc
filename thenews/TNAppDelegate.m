@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import "libHN.h"
 #import "PocketAPI.h"
 #import "TNAppDelegate.h"
 #import "OSKADNLoginManager.h"
@@ -35,9 +36,10 @@
 
     UIViewController *rootViewController;
 
-    // Check if already logged in
-
+    [[HNManager sharedManager] startSession];
     DesignerNewsAPIClient *DNClient = [DesignerNewsAPIClient sharedClient];
+
+    // Check if already logged in to HN or DN
     
     if ([DNClient isUserAuthenticated]) {
         rootViewController = [[TNHomeViewController alloc] init];

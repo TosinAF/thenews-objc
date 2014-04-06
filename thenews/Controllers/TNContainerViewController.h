@@ -10,6 +10,8 @@
 
 @interface TNContainerViewController : UIViewController
 
+@property (nonatomic, strong) NSNumber *feedType;
+
 - (id)initWithType:(TNType)type;
 
 @end

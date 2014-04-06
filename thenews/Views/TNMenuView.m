@@ -10,6 +10,10 @@
 #import "TNMenuView.h"
 #import "UIColor+TNColors.h"
 
+MenuButtonBlock button1;
+MenuButtonBlock button2;
+MenuButtonBlock button3;
+
 KeyboardWillAppearBlock keyboardWillAppearAction;
 
 @interface TNMenuView ()
@@ -17,9 +21,6 @@ KeyboardWillAppearBlock keyboardWillAppearAction;
 @property (nonatomic, strong) NSNumber *type;
 @property (strong, nonatomic) UIColor *themeColor;
 
-@property (nonatomic,strong) UIButton *motdButton;
-@property (nonatomic,strong) UIButton *storiesButton;
-@property (nonatomic,strong) UIButton *settingsButton;
 @property (nonatomic,strong) UITextField *searchField;
 
 @end
@@ -52,13 +53,13 @@ KeyboardWillAppearBlock keyboardWillAppearAction;
 
     /* Menu Buttons */
 
-    NSArray *buttonTitles = @[@"Recent Stories", @"M.O.T.D", @"Settings"];
+    self.buttonTitles = [NSMutableArray arrayWithObjects:@"Recent Stories", @"M.O.T.D", @"Settings", nil];
 
-    for (int i = 0; i < [buttonTitles count]; i++) {
+    for (int i = 0; i < [self.buttonTitles count]; i++) {
 
         int yPos = 0 + (i * 50);
 
-        NSString *title = buttonTitles[i];
+        NSString *title = self.buttonTitles[i];
 
         UIButton *menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [menuButton setTitle:title forState:UIControlStateNormal];
@@ -104,10 +105,54 @@ KeyboardWillAppearBlock keyboardWillAppearAction;
     [self addSubview:self.searchField];
 }
 
+- (void)setBlockForButton:(int)number block:(MenuButtonBlock)block
+{
+    switch (number) {
+        case 0:
+            button1 = block;
+            break;
+
+        case 1:
+            button2 = block;
+            break;
+
+        case 2:
+            button3 = block;
+            break;
+    }
+}
+
 - (void)menuButtonClicked:(UIButton*)selector
 {
-    NSDictionary *dict = @{@"buttonTag":[NSNumber numberWithLong:selector.tag], @"type":self.type};
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"menuButtonClicked" object:nil userInfo:dict];
+    int buttonTag = (int)selector.tag;
+
+    switch (buttonTag) {
+        case 0:
+            button1();
+
+            // Slight Hack to change the button text on click
+            if ( [self.buttonTitles[2] isEqualToString:@"Recent Stories"]) {
+                NSLog(@"yeah");
+                //[self.buttonTitles removeObjectAtIndex:0];
+                //[self.buttonTitles insertObject:@"Top Stories" atIndex:0];
+                //self.buttonTitles[2] = @"Top Stories";
+            } else {
+                NSLog(@"yeah yeah");
+                //[self.buttonTitles removeObjectAtIndex:0];
+                //[self.buttonTitles insertObject:@"Recent Stories" atIndex:0];
+                //self.buttonTitles[2] = @"Recent Stories";
+            }
+            break;
+
+        case 1:
+            button2();
+            break;
+
+        case 2:
+            button3();
+            break;
+    }
+
 }
 
 - (void)toDefaultState

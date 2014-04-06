@@ -8,8 +8,10 @@
 
 #import "TNMenuView.h"
 #import "DNFeedViewController.h"
-#import "TNFeedViewController.h"
+#import "HNFeedViewController.h"
 #import "TNContainerViewController.h"
+
+int menuIndex = 1;
 
 CAShapeLayer *openMenuShape;
 UITapGestureRecognizer *exitMenuTap;
@@ -17,8 +19,6 @@ UITapGestureRecognizer *exitMenuTap;
 __weak TNContainerViewController *weakSelf;
 
 @interface TNContainerViewController ()
-
-@property (nonatomic, strong) NSNumber *feedType;
 
 @property (nonatomic, strong) NSString *navTitle;
 @property (nonatomic, strong) UIColor *navbarColor;
@@ -82,9 +82,9 @@ __weak TNContainerViewController *weakSelf;
     UIViewController *feedViewController;
 
     if ([self.feedType intValue] == 0) {
-        feedViewController = [[DNFeedViewController alloc] init];
+        feedViewController = [DNFeedViewController new];
     } else {
-        feedViewController = [[TNFeedViewController alloc] initWithType:[self.feedType intValue]];
+        feedViewController = [HNFeedViewController new];
     }
 
     self.currentViewController = feedViewController;
@@ -136,6 +136,17 @@ __weak TNContainerViewController *weakSelf;
     self.menu = [[TNMenuView alloc] initWithFrame:CGRectMake(0, -208, 320, 208) type:[self.feedType intValue]];
     [self.menu setHidden:YES];
     [self.menu setup];
+
+    __weak TNContainerViewController *weakSelf = self;
+
+    [self.menu setBlockForButton:0 block:^{
+        if (menuIndex == 1) {
+
+            DNFeedViewController *vc = (DNFeedViewController *)weakSelf.currentViewController;
+            [vc switchDnFeedType];
+            [weakSelf hideMenu];
+        }
+    }];
 
     weakSelf = self;
     [self.menu setKeyboardWillAppearAction:^{

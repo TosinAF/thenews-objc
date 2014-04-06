@@ -7,7 +7,6 @@
 //
 
 #import "TNFeedViewCell.h"
-#import "TNFeedViewController.h"
 
 MCSwipeCompletionBlock upvoteBlock;
 MCSwipeCompletionBlock commentBlock;
@@ -84,25 +83,25 @@ MCSwipeCompletionBlock commentBlock;
 	[self layoutSubviews];
 }
 
-- (void)configureForPost:(Post *)post
+// Could Refactor these two methods intp subclass hnfeedviewcell & dnfeedviewcell
+
+- (void)configureForPost:(HNPost *)post
 {
-    NSDictionary *cellContent = @{@"title":[post title],
-                                  @"author":[post author],
-                                  @"points":[post points],
-                                  @"index":[post position],
-                                  @"count":[post comments]};
+    NSDictionary *cellContent = @{@"title":[post Title],
+                                  @"author":[post Username],
+                                  @"points":@([post Points]),
+                                  @"count":@([post CommentCount])};
 
     [self updateLabels:cellContent];
 }
 
-- (void)configureForStory:(DNStory *)story index:(int)index
+- (void)configureForStory:(DNStory *)story
 {
     self.story = story;
 
     NSDictionary *cellContent = @{@"title":[story title],
                                   @"author":[story displayName],
                                   @"points":[story voteCount],
-                                  @"index":@(index),
                                   @"count":[story commentCount]};
 
     [self updateLabels:cellContent];

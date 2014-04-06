@@ -6,10 +6,9 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
-#import "Post.h"
+#import "HNPost.h"
 #import "DNStory.h"
 #import <UIKit/UIKit.h>
-#import "TNFeedViewController.h"
 #import "MCSwipeTableViewCell.h"
 
 @interface TNFeedViewCell : MCSwipeTableViewCell
@@ -22,7 +21,7 @@
 - (void)setCommentBlock:(MCSwipeCompletionBlock)block;
 - (void)setFrameHeight:(CGFloat)height;
 
-- (void)configureForPost:(Post *)post;
-- (void)configureForStory:(DNStory *)story index:(int)index;
+- (void)configureForPost:(HNPost *)post;
+- (void)configureForStory:(DNStory *)story;
 
 @end

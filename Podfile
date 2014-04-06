@@ -1,5 +1,6 @@
 platform :ios, "7.0"
 
+pod 'libHN'
 pod 'Shimmer'
 pod 'ionicons'
 pod 'ADNLogin'
