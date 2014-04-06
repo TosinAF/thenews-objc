@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DesignerNewsAPIClient.h"
+
+int dnFeedType;
 
 @interface DNFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIPageViewControllerDelegate>
 
 @property (nonatomic, strong) NSNumber *feedType;
+
+- (void)switchDnFeedType;
 
 @end

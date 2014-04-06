@@ -12,10 +12,8 @@
 #import "SVPullToRefresh.h"
 #import "TNPostViewController.h"
 #import "DNFeedViewController.h"
-#import "DesignerNewsAPIClient.h"
 
-
-static int CELL_HEIGHT = 70;
+static int CELL_HEIGHT = 85;
 static NSString *CellIdentifier = @"TNFeedCell";
 
 DesignerNewsAPIClient *DNClient;
@@ -33,7 +31,9 @@ DesignerNewsAPIClient *DNClient;
 {
 	[super viewDidLoad];
     [self setFeedType:TNTypeDesignerNews];
+    [self setupRefreshControl];
 
+    dnFeedType = DNFeedTypeTop;
 
     self.stories = [[NSMutableArray alloc] init];
     DNClient = [DesignerNewsAPIClient sharedClient];
@@ -119,17 +119,18 @@ DesignerNewsAPIClient *DNClient;
 
     page++;
 
-    [DNClient getStoriesOnPage:[NSString stringWithFormat:@"%d", page] feedType:DNFeedTypeTop success:^(NSArray *dnStories) {
+    NSLog(@"Called");
+
+    [DNClient getStoriesOnPage:[NSString stringWithFormat:@"%d", page] feedType:dnFeedType success:^(NSArray *dnStories) {
 
         if (reset) {
             [self.stories removeAllObjects];
+            [self.feedView.pullToRefreshView stopAnimating];
         }
 
         [self.stories addObjectsFromArray:dnStories];
         [self.feedView reloadData];
-        // Avoid bug of adding refresh control too early
-        [self setupRefreshControl];
-        [self.feedView.pullToRefreshView stopAnimating];
+        [self.feedView.infiniteScrollingView stopAnimating];
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
 
@@ -157,6 +158,27 @@ DesignerNewsAPIClient *DNClient;
 - (void)showCommentView
 {
     NSLog(@"CommentViewShown");
+}
+
+- (void)switchDnFeedType
+{
+    switch (dnFeedType) {
+
+        case DNFeedTypeTop:
+            dnFeedType = DNFeedTypeRecent;
+            break;
+
+        case DNFeedTypeRecent:
+            dnFeedType = DNFeedTypeTop;
+            break;
+
+        default:
+            break;
+    }
+
+    NSLog(@"%d", dnFeedType);
+
+    [self downloadFeedAndReset:YES];
 }
 
 #pragma mark - Private Methods

@@ -17,7 +17,6 @@ MCSwipeCompletionBlock commentBlock;
 @property (strong, nonatomic) UIColor *themeColor;
 @property (strong, nonatomic) UIColor *lightThemeColor;
 
-@property (strong, nonatomic) UILabel *indexLabel;
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *detailLabel;
 @property (strong, nonatomic) UILabel *commentCountLabel;
@@ -62,12 +61,10 @@ MCSwipeCompletionBlock commentBlock;
 - (void)layoutSubviews {
 	CGSize contentViewSize = self.frame.size;
 
-	self.indexLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 25, 20)];
-	self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, contentViewSize.width - 50, 20)];
-	self.detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 40, 145, 20)];
-	self.commentCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(190, 40, 100, 20)];
+	self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, contentViewSize.width - 50, 40)];
+	self.detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 55, 145, 20)];
+	self.commentCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(190, 55, 100, 20)];
 
-	//[self.contentView addSubview:self.indexLabel];
 	[self.contentView addSubview:self.titleLabel];
 	[self.contentView addSubview:self.detailLabel];
 	[self.contentView addSubview:self.commentCountLabel];
@@ -113,14 +110,12 @@ MCSwipeCompletionBlock commentBlock;
 
 - (void)updateLabels:(NSDictionary *)content
 {
-    /* --- Index Label --- */
-	[self.indexLabel setText:[NSString stringWithFormat:@"%@.", content[@"index"]]];
-	[self.indexLabel setTextColor:self.themeColor];
-	[self.indexLabel setFont:[UIFont fontWithName:@"Montserrat" size:15.0f]];
 
 	/* --- Title Label --- */
 	[self.titleLabel setText:content[@"title"]];
 	[self.titleLabel setTextColor:[UIColor blackColor]];
+    [self.titleLabel setNumberOfLines:2];
+    [self.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
 	[self.titleLabel setFont:[UIFont fontWithName:@"Montserrat" size:15.0f]];
 
 	/* --- Detail Label --- */
@@ -175,8 +170,5 @@ MCSwipeCompletionBlock commentBlock;
     imageView.contentMode = UIViewContentModeCenter;
     return imageView;
 }
-
-
-
 
 @end
