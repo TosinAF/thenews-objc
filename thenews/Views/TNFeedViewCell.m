@@ -83,30 +83,6 @@ MCSwipeCompletionBlock commentBlock;
 	[self layoutSubviews];
 }
 
-// Could Refactor these two methods intp subclass hnfeedviewcell & dnfeedviewcell
-
-- (void)configureForPost:(HNPost *)post
-{
-    NSDictionary *cellContent = @{@"title":[post Title],
-                                  @"author":[post Username],
-                                  @"points":@([post Points]),
-                                  @"count":@([post CommentCount])};
-
-    [self updateLabels:cellContent];
-}
-
-- (void)configureForStory:(DNStory *)story
-{
-    self.story = story;
-
-    NSDictionary *cellContent = @{@"title":[story title],
-                                  @"author":[story displayName],
-                                  @"points":[story voteCount],
-                                  @"count":[story commentCount]};
-
-    [self updateLabels:cellContent];
-}
-
 - (void)updateLabels:(NSDictionary *)content
 {
 

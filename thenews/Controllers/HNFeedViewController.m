@@ -9,13 +9,13 @@
 #import "libHN.h"
 #import "TNRefreshView.h"
 #import "TNNotification.h"
-#import "TNFeedViewCell.h"
+#import "HNFeedViewCell.h"
 #import "SVPullToRefresh.h"
 #import "TNPostViewController.h"
 #import "HNFeedViewController.h"
 
 static int CELL_HEIGHT = 85;
-static NSString *CellIdentifier = @"TNFeedCell";
+static NSString *CellIdentifier = @"HNFeedCell";
 
 @interface HNFeedViewController ()
 
@@ -60,7 +60,7 @@ static NSString *CellIdentifier = @"TNFeedCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	TNFeedViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	HNFeedViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     HNPost *post = (self.posts)[[indexPath row]];
 

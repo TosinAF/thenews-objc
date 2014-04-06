@@ -8,14 +8,14 @@
 
 #import "TNRefreshView.h"
 #import "TNNotification.h"
-#import "TNFeedViewCell.h"
+#import "DNFeedViewCell.h"
 #import "SVPullToRefresh.h"
 #import "TNPostViewController.h"
 #import "TNCommentsViewController.h"
 #import "DNFeedViewController.h"
 
 static int CELL_HEIGHT = 85;
-static NSString *CellIdentifier = @"TNFeedCell";
+static NSString *CellIdentifier = @"DNFeedCell";
 
 DesignerNewsAPIClient *DNClient;
 
@@ -64,7 +64,8 @@ DesignerNewsAPIClient *DNClient;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	TNFeedViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
+    DNFeedViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     DNStory *story = (self.stories)[[indexPath row]];
 

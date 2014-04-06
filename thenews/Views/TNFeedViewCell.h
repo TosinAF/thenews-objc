@@ -6,14 +6,11 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
-#import "HNPost.h"
-#import "DNStory.h"
 #import <UIKit/UIKit.h>
 #import "MCSwipeTableViewCell.h"
 
 @interface TNFeedViewCell : MCSwipeTableViewCell
 
-@property (strong, nonatomic) DNStory *story;
 
 - (void)setForReuse;
 - (void)setFeedType:(TNType)feedType;
@@ -21,7 +18,6 @@
 - (void)setCommentBlock:(MCSwipeCompletionBlock)block;
 - (void)setFrameHeight:(CGFloat)height;
 
-- (void)configureForPost:(HNPost *)post;
-- (void)configureForStory:(DNStory *)story;
+- (void)updateLabels:(NSDictionary *)content;
 
 @end
