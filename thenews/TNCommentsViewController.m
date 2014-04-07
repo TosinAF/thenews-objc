@@ -6,123 +6,103 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
-#import "TNCommentsViewController.h"
+#import "TNHeaderView.h"
 #import "TNCommentCell.h"
-#import "MCSwipeTableViewCell.h"
+#import "RDRStickyKeyboardView.h"
+#import "TNCommentsViewController.h"
+
+DesignerNewsAPIClient *DNClient;
 
 @interface TNCommentsViewController ()
+
+@property (nonatomic, strong) NSNumber *storyID;
+@property (nonatomic, strong) UIColor *navbarColor;
+
+@property (nonatomic, strong) DNStory *story;
+@property (nonatomic,   copy) NSArray *comments;
+@property (nonatomic, strong) UITableView *commentsView;
+
+@property (nonatomic, strong) RDRStickyKeyboardView *keyboardView;
 
 @end
 
 @implementation TNCommentsViewController
 
-- (void)viewDidLoad
+- (instancetype)initWithType:(TNType)type story:(DNStory *)story
 {
-    [super viewDidLoad];
-    self.api = [[DesignerNewsAPIClient alloc] init];
-    self.commentsData = [[NSArray alloc] init];
-    self.title = @"Comments";
-    
-    [self updateTableData];
+    self = [super init];
 
-    UIColor *navBarColor;
-    switch ([self.network intValue]) {
-        case TNTypeDesignerNews:
-            navBarColor = [UIColor dnColor];
-            break;
-            
-        case TNTypeHackerNews:
-            navBarColor = [UIColor hnColor];
-            break;
+    if (self) {
+
+        switch (type) {
+            case TNTypeDesignerNews:
+                self.title = @"DESIGNER NEWS";
+                self.navbarColor = [UIColor dnColor];
+                self.storyID = [story storyID];
+                break;
+
+            case TNTypeHackerNews:
+                self.title = @"HACKER NEWS";
+                self.navbarColor = [UIColor hnColor];
+                break;
+        }
+
+        self.story = story;
     }
-    [self.navigationController.navigationBar setBarTintColor:navBarColor];
-	[self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-	[self.navigationController.navigationBar setTitleTextAttributes:@{ NSFontAttributeName:[UIFont fontWithName:@"Montserrat" size:16.0f],
-	                                       NSForegroundColorAttributeName:[UIColor whiteColor] }];
-}
 
-- (void)postButtonAction:(id)sender {
-    NSLog(@"%@", self.keyboardView.inputView.textView.text);
-    [self postComment:self.keyboardView.inputView.textView.text inReplyTo:self.replyToID];
-    [self updateTableData];
-}
-
-- (void)postComment:(NSString *)comment inReplyTo:(NSNumber *)originalCommentID {
-    if (originalCommentID == nil) {
-        NSLog(@"Replying to original story");
-        [self.api replyStoryWithID:[NSString stringWithFormat:@"%d", self.storyID] comment:comment
-                           success:^{
-                               [self updateTableData];
-                           }
-                           failure:^(NSURLSessionDataTask *task, NSError *error){
-                               // cries
-                           }];
-    } else {
-        NSLog(@"Replying to comment.");
-        [self.api replyCommentWithID:[NSString stringWithFormat:@"%d", self.storyID] comment:comment
-                             success:^{
-                                 [self updateTableData];
-                             }
-                             failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                 // This is bad.
-                             }];
-    }
-    
+    return self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.view addSubview:self.tableView];
-    self.keyboardView = [[RDRStickyKeyboardView alloc] initWithScrollView:self.tableView];
-    self.keyboardView.frame = self.view.bounds;
-    [self.keyboardView.inputView.rightButton addTarget:self action:@selector(postButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.keyboardView.inputView.leftButton.hidden = YES;
-    self.keyboardView.inputView.textView.delegate = self;
-    [self.keyboardView.inputView.leftButton setTitle:NSLocalizedString(@"↳", nil) forState:UIControlStateNormal];
-    self.keyboardView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview:self.keyboardView];
-    self.navigationController.navigationBarHidden = NO;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
-- (void)didReceiveMemoryWarning
+-(void)viewWillDisappear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewWillDisappear:animated];
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
 }
 
-- (void)updateTableData {
-    switch ([self.network intValue]) {
-        case TNTypeDesignerNews: {
-            [self.api getCommentsForStoryWithID:[NSString stringWithFormat:@"%d", self.storyID]
-                                        success:^(NSArray *comments) {
-                                            self.commentsData = comments;
-                                            [self.tableView reloadData];
-                                        }
-                                        failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                            NSLog(@"The task: %@ failed with error: %@", task, error);
-                                        }];
-        }
-            break;
-        case TNTypeHackerNews: {
-            // get hacker news posts
-        }
-            break;
-    }
-}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self configureNavbar];
 
-- (void)cancelReply {
-    self.replyToID = nil;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] init];
+    DNClient = [DesignerNewsAPIClient sharedClient];
+    self.comments = [[NSArray alloc] init];
+    [self downloadComments];
+
+    /* Set up Comments Table View */
+
+    self.commentsView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    [self.commentsView setDelegate:self];
+    [self.commentsView setDataSource:self];
+    [self.commentsView setSeparatorColor:[UIColor tnLightGreyColor]];
+
+    [self.view addSubview:self.commentsView];
+
+    /* Set Up Sticky Keyboard */
+
+    [self configureKeyboard];
+
+    /* Set Up Table Header View */
+
+    TNHeaderView *headerView = [[TNHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 85) type:TNTypeDesignerNews];
+    [headerView configureForStory:self.story];
+
+    [self.commentsView setTableHeaderView:headerView];
+
+    /* Add Table View Bottom Border */
+
+    UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0, self.commentsView.tableHeaderView.bounds.origin.y + 85, self.view.bounds.size.width, 2)];
+    [border setBackgroundColor:[UIColor tnLightGreyColor]];
+
+    [self.commentsView addSubview:border];
 }
 
 #pragma mark - Table view data source
 
--(void)tableView:(UITableView *)tableView :(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -130,111 +110,120 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return [self.commentsData count];
+    return [self.comments count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TNCommentCell *cell = [[TNCommentCell alloc] init];
+
     if (!cell) {
         cell = [[TNCommentCell alloc] init];
-        
-        // Remove inset of iOS 7 separators.
-        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-            cell.separatorInset = UIEdgeInsetsZero;
-        }
-        
-        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
-        
-        // Setting the background color of the cell.
-        cell.contentView.backgroundColor = [UIColor whiteColor];
     }
-    
-    DNComment *comment = [self.commentsData objectAtIndex:[indexPath row]];
-    cell.commentTextView.text = comment.body;
-    [cell.commentTextView  sizeToFit];
-    
-    // Moves the author label to under the text view
-    int textViewHeight = cell.commentTextView.frame.size.height;
-    CGRect authorLabelFrame = cell.commentAuthorLabel.frame;
-    authorLabelFrame.origin.y = 10 + textViewHeight + 5;
-    cell.commentAuthorLabel.frame = authorLabelFrame;
-    
-    cell.commentAuthorLabel.text = [NSString stringWithFormat:@"%@ Votes by %@", comment.voteCount, comment.author];
-    UIView *replyView = [self viewWithImageName:@"Comment"];
-    UIView *upvoteView = [self viewWithImageName:@"Upvote"];
-    UIColor *tealColor = [UIColor colorWithRed:0.631 green:0.890 blue:0.812 alpha:1];
-    UIColor *networkColor;
-    switch ([self.network intValue]) {
-        case TNTypeDesignerNews:
-            networkColor = [UIColor dnColor];
-            break;
-        case TNTypeHackerNews:
-            networkColor = [UIColor hnColor];
-            break;
-    }
-    // Setting the default inactive state color to the tableView background color.
-    [cell setDefaultColor:self.tableView.backgroundView.backgroundColor];
-    
-    // Adding gestures per state basis.
-    [cell setSwipeGestureWithView:replyView color:networkColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        self.replyToID = [NSNumber numberWithInteger:[indexPath row]];
-        UIBarButtonItem *commentButton = [[UIBarButtonItem alloc]
-                                          initWithTitle:@"Cancel Reply"
-                                          style:UIBarButtonItemStyleBordered
-                                          target:self
-                                          action:@selector(cancelReply)];
-        self.navigationItem.rightBarButtonItem = commentButton;
-            }];
-    
-    [cell setSwipeGestureWithView:upvoteView color:tealColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        [self.api upvoteCommentWithID:[NSString stringWithFormat:@"%@", comment.commentID]
-                              success:^{
-                                  [self updateTableData];
-                              }
-                              failure:^(NSURLSessionDataTask *task, NSError *error){
-                                  //comment not upvoted
-                              }];
-    }];
-    
+
+    DNComment *comment = [self.comments objectAtIndex:[indexPath row]];
+    [cell configureForComment:comment];
+
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TNCommentCell *cell = [[TNCommentCell alloc] init];
-    DNComment *comment = [self.commentsData objectAtIndex:[indexPath row]];
-    
-    // First lets get the main text view height
-    cell.commentTextView.text = comment.body;
-    [cell.commentTextView  sizeToFit];
-    int textViewHeight = cell.commentTextView.frame.size.height;
-    
-    int authorLabelHeight = cell.commentAuthorLabel.frame.size.height;
-    // Now let's return all of them added up :)
-    return textViewHeight + authorLabelHeight + 40;
+    CGFloat height = [cell estimateHeightWithComment:self.comments[[indexPath row]]];
+
+    return height;
 }
 
-#pragma mark - MCSwipeTableView
+#pragma mark - Network Methods
 
-- (UIView *)viewWithImageName:(NSString *)imageName {
-    UIImage *image = [UIImage imageNamed:imageName];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    imageView.contentMode = UIViewContentModeCenter;
-    return imageView;
+- (void)postButtonAction:(id)sender {
+    NSLog(@"%@", self.keyboardView.inputView.textView.text);
+    [self postComment:self.keyboardView.inputView.textView.text inReplyTo:self.replyToID];
+    [self downloadComments];
+}
+
+- (void)postComment:(NSString *)comment inReplyTo:(NSNumber *)originalCommentID {
+
+    if (originalCommentID) {
+
+        [DNClient replyCommentWithID:[self.storyID stringValue] comment:comment success:^{
+
+            [self downloadComments];
+
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            NSString *errorMsg = [[error userInfo] objectForKey:@"NSLocalizedDescription"];
+            NSLog(@"%@", errorMsg);
+        }];
+
+    } else {
+
+        [DNClient replyStoryWithID:[self.storyID stringValue] comment:comment success:^{
+
+            [self downloadComments];
+
+        } failure:^(NSURLSessionDataTask *task, NSError *error){
+            NSString *errorMsg = [[error userInfo] objectForKey:@"NSLocalizedDescription"];
+            NSLog(@"%@", errorMsg);
+        }];
+    }
+
+}
+
+- (void)downloadComments {
+
+    [DNClient getCommentsForStoryWithID:[self.storyID stringValue] success:^(NSArray *comments) {
+
+        self.comments = comments;
+        [self.commentsView reloadData];
+
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+        NSLog(@"The task: %@ failed with error: %@", task, error);
+        
+    }];
 }
 
 #pragma mark - UITextViewDelegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    
+
     if([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
         return NO;
     }
-    
     return YES;
+}
+
+#pragma mark - Private Methods
+
+- (void)configureNavbar
+{
+    [self.navigationController.navigationBar setBarTintColor:self.navbarColor];
+	[self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+	[self.navigationController.navigationBar setTitleTextAttributes:@{ NSFontAttributeName:[UIFont fontWithName:@"Montserrat" size:16.0f],
+                                                                       NSForegroundColorAttributeName:[UIColor whiteColor] }];
+}
+
+- (void)configureKeyboard
+{
+    self.keyboardView = [[RDRStickyKeyboardView alloc] initWithScrollView:self.commentsView];
+
+    [self.keyboardView setFrame:self.view.bounds];
+    [self.keyboardView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
+
+    //[self.keyboardView.inputView.leftButton setHidden:YES];
+    [self.keyboardView.inputView.textView setDelegate:self];
+
+    //[self.keyboardView.inputView.leftButton setTitle:NSLocalizedString(@"↳", nil) forState:UIControlStateNormal];
+    [self.keyboardView.inputView.rightButton addTarget:self action:@selector(postButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+
+    [self.view addSubview:self.keyboardView];
+}
+
+- (void)cancelReply {
+    self.replyToID = nil;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] init];
 }
 
 @end

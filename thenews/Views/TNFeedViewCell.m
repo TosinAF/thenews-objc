@@ -20,8 +20,6 @@ MCSwipeCompletionBlock commentBlock;
 @property (strong, nonatomic) UILabel *detailLabel;
 @property (strong, nonatomic) UILabel *commentCountLabel;
 
-@property (strong, nonatomic) UIView *viewContainer;
-
 @end
 
 @implementation TNFeedViewCell
@@ -69,6 +67,7 @@ MCSwipeCompletionBlock commentBlock;
 	[self.contentView addSubview:self.commentCountLabel];
 
     [self addSwipeGesturesToCell];
+    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
 
 }
 
@@ -112,10 +111,6 @@ MCSwipeCompletionBlock commentBlock;
 	NSMutableAttributedString *commentCountAttr = [[NSMutableAttributedString alloc] initWithString:commentCountString attributes:commentAttr];
 	[commentCountAttr addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Entypo" size:15.0f] range:arrowRange];
 	[self.commentCountLabel setAttributedText:commentCountAttr];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-	//[super setSelected:selected animated:animated];
 }
 
 - (void)addSwipeGesturesToCell

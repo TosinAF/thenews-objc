@@ -46,7 +46,7 @@ __weak HNFeedViewController *weakSelf;
 	[self.feedView setDataSource:self];
 	[self.feedView setSeparatorInset:UIEdgeInsetsZero];
 	[self.feedView setSeparatorColor:[UIColor tnLightGreyColor]];
-	[self.feedView registerClass:[TNFeedViewCell class] forCellReuseIdentifier:CellIdentifier];
+	[self.feedView registerClass:[HNFeedViewCell class] forCellReuseIdentifier:CellIdentifier];
 
 	[self.view addSubview:self.feedView];
     [self downloadPosts];

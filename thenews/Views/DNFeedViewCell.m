@@ -13,6 +13,7 @@
 - (void)configureForStory:(DNStory *)story
 {
     self.story = story;
+    [self setFeedType:TNTypeDesignerNews];
 
     NSDictionary *cellContent = @{@"title":[story title],
                                   @"author":[story displayName],

@@ -11,7 +11,6 @@
 
 @interface TNFeedViewCell : MCSwipeTableViewCell
 
-
 - (void)setForReuse;
 - (void)setFeedType:(TNType)feedType;
 - (void)setUpvoteBlock:(MCSwipeCompletionBlock)block;

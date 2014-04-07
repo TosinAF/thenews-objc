@@ -26,9 +26,6 @@
     return self;
 }
 
-
-
-
 - (NSDate *)formatDate:(NSString *)date
 {
     NSDateFormatter *format = [[NSDateFormatter alloc] init];

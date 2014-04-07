@@ -8,37 +8,102 @@
 
 #import "TNCommentCell.h"
 
+@interface TNCommentCell ()
+
+@property (strong, nonatomic) UIColor *themeColor;
+@property (strong, nonatomic) UIColor *lightThemeColor;
+
+@property (nonatomic, strong) DNComment *comment;
+
+@end
+
 @implementation TNCommentCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.commentTextView = [[UITextView alloc] initWithFrame:CGRectMake(5, 10, 300, 100)];
-        self.commentTextView.textColor = [UIColor blackColor];
-        self.commentTextView.editable = NO;
-        self.commentTextView.text = @"Comment String";
-        [self addSubview:self.commentTextView];
-        
-        self.commentAuthorLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 110, 250, 15)];
-        self.commentAuthorLabel.textColor = [UIColor blackColor];
-        self.commentAuthorLabel.text = @"Comment Author";
-        [self addSubview:self.commentAuthorLabel];
 
-        #warning Why won't this button appear?
-        UIButton *upvoteButton = [[UIButton alloc] initWithFrame:CGRectMake(255, 110, 50, 15)];
-        upvoteButton.titleLabel.text = @"Upvote";
-        [self addSubview:upvoteButton];
+        self.commentView = [[UITextView alloc] initWithFrame:CGRectMake(20, 10, 250, 50)];
+        [self.commentView setEditable:NO];
+        [self.commentView setScrollEnabled:NO];
+        [self.commentView setTextColor:[UIColor blackColor]];
+        [self.commentView setFont:[UIFont fontWithName:@"Montserrat" size:12.0f]];
+
+        self.detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 110, 250, 15)];
+
+        [self setSelectionStyle:UITableViewCellSelectionStyleNone];
+        [self setSeparatorInset:UIEdgeInsetsZero];
+
+        [self addSubview:self.commentView];
+        [self addSubview:self.detailLabel];
     }
     return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+- (void)configureForComment:(DNComment *)comment
 {
-    [super setSelected:selected animated:animated];
+    self.comment = comment;
+    [self setFeedType:TNTypeDesignerNews];
 
-    // Configure the view for the selected state
+    [self.commentView setText:[comment body]];
+
+    /* --- Attributed Detail Text --- */
+
+	NSString *detailString = [NSString stringWithFormat:@"%@ Points by %@", [comment voteCount], [comment author]];
+	NSRange authorRange = [detailString rangeOfString:[comment author]];
+	NSDictionary *textAttr = @{ NSFontAttributeName:[UIFont fontWithName:@"Montserrat-Bold" size:10.0f],
+		                        NSForegroundColorAttributeName:[UIColor tnGreyColor] };
+
+	NSMutableAttributedString *detailAttr = [[NSMutableAttributedString alloc] initWithString:detailString attributes:textAttr];
+	[detailAttr addAttribute:NSForegroundColorAttributeName value:self.lightThemeColor range:authorRange];
+
+	[self.detailLabel setAttributedText:detailAttr];
+
+    [self adjustFrames];
+}
+
+- (void)adjustFrames
+{
+    [self.commentView sizeToFit];
+
+    /* Move Author Label Below Comment */
+
+    CGRect commentViewFrame = self.commentView.frame;
+    int commentViewHeight = commentViewFrame.size.height;
+
+    CGRect detailFrame = self.detailLabel.frame;
+    detailFrame.origin.y = 10 + commentViewHeight + 5;
+    self.detailLabel.frame = detailFrame;
+}
+
+- (CGFloat)estimateHeightWithComment:(DNComment *)comment
+{
+    // First lets get the main text view height
+
+    [self.commentView setText:[comment body]];
+    [self.commentView  sizeToFit];
+
+    int commentViewHeight = self.commentView.frame.size.height;
+    int detailLabelHeight = self.detailLabel.frame.size.height;
+
+    // Now let's return all of them added up :)
+    return commentViewHeight + detailLabelHeight + 25;
+}
+
+- (void)setFeedType:(TNType)feedType {
+
+	switch (feedType) {
+		case TNTypeDesignerNews:
+			self.themeColor = [UIColor dnColor];
+			self.lightThemeColor = [UIColor dnLightColor];
+			break;
+
+		case TNTypeHackerNews:
+			self.themeColor = [UIColor hnColor];
+			self.lightThemeColor = [UIColor hnLightColor];
+			break;
+	}
 }
 
 @end

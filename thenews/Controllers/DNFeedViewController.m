@@ -51,7 +51,7 @@ __weak DNFeedViewController *weakself;
 	[self.feedView setDataSource:self];
 	[self.feedView setSeparatorInset:UIEdgeInsetsZero];
 	[self.feedView setSeparatorColor:[UIColor tnLightGreyColor]];
-	[self.feedView registerClass:[TNFeedViewCell class] forCellReuseIdentifier:CellIdentifier];
+	[self.feedView registerClass:[DNFeedViewCell class] forCellReuseIdentifier:CellIdentifier];
 
 	[self.view addSubview:self.feedView];
 }
@@ -74,7 +74,6 @@ __weak DNFeedViewController *weakself;
 
 	[cell setForReuse];
 	[cell setFrameHeight:CELL_HEIGHT];
-	[cell setFeedType:TNTypeDesignerNews];
     [cell configureForStory:story];
 
     [cell setUpvoteBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
@@ -89,7 +88,7 @@ __weak DNFeedViewController *weakself;
 
         DNFeedViewCell *dncell = (DNFeedViewCell *)cell;
         DNStory *story = [dncell story];
-        [self showCommentsForStoryWithID:[story storyID]];
+        [self showCommentsForStory:story];
     }];
 
     [cell setSeparatorInset:UIEdgeInsetsZero];
@@ -103,7 +102,7 @@ __weak DNFeedViewController *weakself;
 	return CELL_HEIGHT;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DNStory *story = (self.stories)[[indexPath row]];
     TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[story URL]] type:TNTypeDesignerNews];
@@ -162,13 +161,9 @@ __weak DNFeedViewController *weakself;
     }];
 }
 
-- (void)showCommentsForStoryWithID:(NSNumber *)storyID
+- (void)showCommentsForStory:(DNStory *)story
 {
-    NSLog(@"CommentViewShown");
-
-    TNCommentsViewController *vc = [[TNCommentsViewController alloc] init];
-    vc.network = TNTypeDesignerNews;
-    vc.storyID = [storyID intValue];
+    TNCommentsViewController *vc = [[TNCommentsViewController alloc] initWithType:TNTypeDesignerNews story:story];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -13,6 +13,7 @@
 - (void)configureForPost:(HNPost *)post
 {
     self.post = post;
+    [self setFeedType:TNTypeHackerNews];
 
     NSDictionary *cellContent = @{@"title":[post Title],
                                   @"author":[post Username],
