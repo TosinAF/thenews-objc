@@ -27,11 +27,12 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
 
-        self.commentView = [[UITextView alloc] initWithFrame:CGRectMake(20, 10, 250, 50)];
+        self.commentView = [[UITextView alloc] initWithFrame:CGRectMake(20, 10, 270, 50)];
         [self.commentView setEditable:NO];
         [self.commentView setScrollEnabled:NO];
+        [self.commentView setSelectable:YES];
         [self.commentView setTextColor:[UIColor blackColor]];
-        [self.commentView setFont:[UIFont fontWithName:@"Montserrat" size:12.0f]];
+        [self.commentView setFont:[UIFont fontWithName:@"Avenir" size:13.0f]];
 
         self.detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 110, 250, 15)];
 
@@ -49,13 +50,14 @@
     self.comment = comment;
     [self setFeedType:TNTypeDesignerNews];
 
+
     [self.commentView setText:[comment body]];
 
     /* --- Attributed Detail Text --- */
 
 	NSString *detailString = [NSString stringWithFormat:@"%@ Points by %@", [comment voteCount], [comment author]];
 	NSRange authorRange = [detailString rangeOfString:[comment author]];
-	NSDictionary *textAttr = @{ NSFontAttributeName:[UIFont fontWithName:@"Montserrat-Bold" size:10.0f],
+	NSDictionary *textAttr = @{ NSFontAttributeName:[UIFont fontWithName:@"Avenir" size:10.0f],
 		                        NSForegroundColorAttributeName:[UIColor tnGreyColor] };
 
 	NSMutableAttributedString *detailAttr = [[NSMutableAttributedString alloc] initWithString:detailString attributes:textAttr];
@@ -77,7 +79,15 @@
 
     CGRect detailFrame = self.detailLabel.frame;
     detailFrame.origin.y = 10 + commentViewHeight + 5;
+
+    /* Handle Nested Comments */
+
+    NSNumber *depth = [self.comment depth];
+    [self.commentView setTextContainerInset:UIEdgeInsetsMake(0, 15 * [depth intValue] , 0, 0)];
+    detailFrame.origin.x = 25 + 15 * [depth intValue];
+
     self.detailLabel.frame = detailFrame;
+
 }
 
 - (CGFloat)estimateHeightWithComment:(DNComment *)comment
