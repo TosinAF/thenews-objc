@@ -13,6 +13,9 @@
 @property (strong, nonatomic) UIColor *themeColor;
 @property (strong, nonatomic) UIColor *lightThemeColor;
 
+@property (nonatomic, strong) UILabel *detailLabel;
+@property (nonatomic, strong) UITextView *commentView;
+
 @property (nonatomic, strong) DNComment *comment;
 
 @end

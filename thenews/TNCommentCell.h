@@ -12,9 +12,6 @@
 
 @interface TNCommentCell : MCSwipeTableViewCell
 
-@property (nonatomic, strong) UITextView *commentView;
-@property (nonatomic, strong) UILabel *detailLabel;
-
 - (void)configureForComment:(DNComment *)comment;
 - (CGFloat)estimateHeightWithComment:(DNComment *)comment;
 
