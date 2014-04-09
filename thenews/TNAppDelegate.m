@@ -7,13 +7,13 @@
 //
 
 #import "libHN.h"
+#import "DNManager.h"
 #import "PocketAPI.h"
 #import "TNAppDelegate.h"
 #import "OSKADNLoginManager.h"
 #import "GTScrollNavigationBar.h"
 #import "TNLaunchViewController.h"
 #import "TNHomeViewController.h"
-#import "DesignerNewsAPIClient.h"
 #import <GooglePlus/GooglePlus.h>
 #import "AFNetworkActivityIndicatorManager.h"
 
@@ -24,27 +24,31 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor tnLightGreyColor];
 
+    // Set up defaults
+
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Light" size:16.0f], NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
+
+    // Network Stuff & API's
 
     [[PocketAPI sharedAPI] setConsumerKey:@"25320-2c296baa9f562cd41e0259f9"];
 
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 
-    UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[GTScrollNavigationBar class] toolbarClass:nil];
-
-    UIViewController *rootViewController;
-
     [[HNManager sharedManager] startSession];
 
     // Check if already logged in to HN or DN
+
+    UIViewController *rootViewController;
     
     if ([self isUserLoggedIn]) {
         rootViewController = [TNHomeViewController new];
     } else {
         rootViewController = [TNLaunchViewController new];
     }
+
+    UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[GTScrollNavigationBar class] toolbarClass:nil];
 
     [navController setViewControllers:@[rootViewController] animated:NO];
     self.window.rootViewController = navController;
@@ -99,7 +103,9 @@
 }
 
 - (void)setNetworkActivityIndicatorVisible:(BOOL)setVisible {
+
     static NSInteger NumberOfCallsToSetVisible = 0;
+
     if (setVisible)
         NumberOfCallsToSetVisible++;
     else
@@ -116,7 +122,7 @@
 
 - (BOOL)isUserLoggedIn
 {
-    return [[HNManager sharedManager] userIsLoggedIn] || [[DesignerNewsAPIClient sharedClient] isUserAuthenticated];
+    return [[HNManager sharedManager] userIsLoggedIn] || [[DNManager sharedClient] isUserAuthenticated];
 }
 
 @end
