@@ -17,7 +17,7 @@
 static int CELL_HEIGHT = 85;
 static NSString *CellIdentifier = @"DNFeedCell";
 
-DesignerNewsAPIClient *DNClient;
+DNManager *DNClient;
 __weak DNFeedViewController *weakself;
 
 
@@ -39,7 +39,7 @@ __weak DNFeedViewController *weakself;
     weakself = self;
 
     self.stories = [[NSMutableArray alloc] init];
-    DNClient = [DesignerNewsAPIClient sharedClient];
+    DNClient = [DNManager sharedClient];
     [self downloadFeedAndReset:NO];
 
 	CGFloat navBarHeight = 64.0;
@@ -155,7 +155,6 @@ __weak DNFeedViewController *weakself;
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
 
-        //NSString *errorMsg = [[error userInfo] objectForKey:@"NSLocalizedDescription"];
         [notification showFailureNotification:@"Story Upvote Failed" subtitle:@"You can only upvote a story once."];
 
     }];

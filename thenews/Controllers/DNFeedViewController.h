@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DesignerNewsAPIClient.h"
+#import "DNManager.h"
 
 int dnFeedType;
 

@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import "DNManager.h"
 #import <UIKit/UIKit.h>
-#import "DesignerNewsAPIClient.h"
 
 @interface TNCommentsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UITextViewDelegate>
 

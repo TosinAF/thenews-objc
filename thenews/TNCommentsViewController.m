@@ -11,7 +11,7 @@
 #import "RDRStickyKeyboardView.h"
 #import "TNCommentsViewController.h"
 
-DesignerNewsAPIClient *DNClient;
+DNManager *DNClient;
 
 @interface TNCommentsViewController ()
 
@@ -69,7 +69,7 @@ DesignerNewsAPIClient *DNClient;
     [super viewDidLoad];
     [self configureNavbar];
 
-    DNClient = [DesignerNewsAPIClient sharedClient];
+    DNClient = [DNManager sharedClient];
     self.comments = [[NSArray alloc] init];
     [self downloadComments];
 

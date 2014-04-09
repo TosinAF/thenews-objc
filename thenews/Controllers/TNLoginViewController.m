@@ -7,10 +7,10 @@
 //
 
 #import "libHN.h"
+#import "DNManager.h"
 #import "TNTextField.h"
 #import "TNNotification.h"
 #import "TNHomeViewController.h"
-#import "DesignerNewsAPIClient.h"
 #import "TNLoginViewController.h"
 
 TNType currentAuthType;
@@ -172,7 +172,7 @@ TNType currentAuthType;
 
 - (void)dnLogin
 {
-    DesignerNewsAPIClient *DNClient = [DesignerNewsAPIClient sharedClient];
+    DNManager *DNClient = [DNManager sharedClient];
 
     [DNClient authenticateUser:self.emailField.text password:self.passwordField.text success:^(NSString *accessToken) {
 
@@ -240,7 +240,7 @@ TNType currentAuthType;
 
 - (BOOL)userCompletedLoginForBoth
 {
-    return [[HNManager sharedManager] userIsLoggedIn] && [[DesignerNewsAPIClient sharedClient] isUserAuthenticated];
+    return [[HNManager sharedManager] userIsLoggedIn] && [[DNManager sharedClient] isUserAuthenticated];
 }
 
 - (void)showAuthenticationError

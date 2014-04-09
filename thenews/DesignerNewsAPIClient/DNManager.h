@@ -30,7 +30,7 @@ typedef NS_ENUM (NSInteger, DNObjectType) {
 typedef void (^ActionSuccessBlock) ();
 typedef void (^RequestFailureBlock) (NSURLSessionDataTask *task, NSError *error);
 
-@interface DesignerNewsAPIClient : AFHTTPSessionManager
+@interface DNManager : AFHTTPSessionManager
 
 #pragma mark - Singleton Method
 

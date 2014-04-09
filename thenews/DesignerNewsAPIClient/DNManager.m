@@ -7,7 +7,7 @@
 //
 
 
-#import "DesignerNewsAPIClient.h"
+#import "DNManager.h"
 
 // This is not the actual access token but rather the key it is stored under in NSUserDefaults.
 // A login request is preformed using the below to retreive the actual access token.
@@ -17,23 +17,23 @@ static NSString * const DNAPIBaseURLString  = @"https://api-news.layervault.com/
 static NSString * const DNAPIClientID       = @"3ba6addb82f5746189bbf3e59ac06a0d498f02309ae4d7119655be174528ad44";
 static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745e45e940bc7a6192014a0131f40397f78";
 
-@interface DesignerNewsAPIClient ()
+@interface DNManager ()
 
 @property (nonatomic, strong) NSMutableArray *allCommentsForStory;
 
 @end
 
-@implementation DesignerNewsAPIClient
+@implementation DNManager
 
 
 #pragma mark - Singleton Method
 
 + (instancetype)sharedClient {
 
-    static DesignerNewsAPIClient *_sharedClient = nil;
+    static DNManager *_sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedClient = [[DesignerNewsAPIClient alloc] initWithBaseURL:[NSURL URLWithString:DNAPIBaseURLString]];
+        _sharedClient = [[DNManager alloc] initWithBaseURL:[NSURL URLWithString:DNAPIBaseURLString]];
     });
 
     return _sharedClient;
