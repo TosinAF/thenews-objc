@@ -37,14 +37,13 @@
     UIViewController *rootViewController;
 
     [[HNManager sharedManager] startSession];
-    DesignerNewsAPIClient *DNClient = [DesignerNewsAPIClient sharedClient];
 
     // Check if already logged in to HN or DN
     
-    if ([DNClient isUserAuthenticated]) {
-        rootViewController = [[TNHomeViewController alloc] init];
+    if ([self isUserLoggedIn]) {
+        rootViewController = [TNHomeViewController new];
     } else {
-        rootViewController = [[TNLaunchViewController alloc] init];
+        rootViewController = [TNLaunchViewController new];
     }
 
     [navController setViewControllers:@[rootViewController] animated:NO];
@@ -113,6 +112,11 @@
 
     // Display the indicator as long as our static counter is > 0.
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:(NumberOfCallsToSetVisible > 0)];
+}
+
+- (BOOL)isUserLoggedIn
+{
+    return [[HNManager sharedManager] userIsLoggedIn] || [[DesignerNewsAPIClient sharedClient] isUserAuthenticated];
 }
 
 @end

@@ -8,6 +8,9 @@
 
 #import "TNCommentCell.h"
 
+MCSwipeCompletionBlock upvoteBlock;
+MCSwipeCompletionBlock commentBlock;
+
 @interface TNCommentCell ()
 
 @property (strong, nonatomic) UIColor *themeColor;
@@ -117,6 +120,44 @@
 			self.lightThemeColor = [UIColor hnLightColor];
 			break;
 	}
+}
+
+- (void)addSwipeGesturesToCell
+{
+    UIView *upvoteView = [self viewWithImageName:@"Upvote"];
+    UIView *commentView = [self viewWithImageName:@"Comment"];
+    UIColor *lightGreen = [UIColor colorWithRed:0.631 green:0.890 blue:0.812 alpha:1];
+
+    [self setDefaultColor:[UIColor tnLightGreyColor]];
+
+    [self setSwipeGestureWithView:upvoteView color:lightGreen mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+
+        upvoteBlock(cell, state, mode);
+    }];
+
+    [self setSwipeGestureWithView:commentView color:[UIColor dnColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+
+        commentBlock(cell, state, mode);
+    }];
+}
+
+- (void)setUpvoteBlock:(MCSwipeCompletionBlock)block
+{
+    upvoteBlock = block;
+}
+
+- (void)setCommentBlock:(MCSwipeCompletionBlock)block
+{
+    commentBlock = block;
+}
+
+#pragma mark - Private Methods
+
+- (UIView *)viewWithImageName:(NSString *)imageName {
+    UIImage *image = [UIImage imageNamed:imageName];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.contentMode = UIViewContentModeCenter;
+    return imageView;
 }
 
 @end

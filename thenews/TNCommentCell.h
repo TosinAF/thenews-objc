@@ -14,5 +14,9 @@
 
 - (void)configureForComment:(DNComment *)comment;
 - (CGFloat)estimateHeightWithComment:(DNComment *)comment;
+- (void)addSwipeGesturesToCell;
+
+- (void)setUpvoteBlock:(MCSwipeCompletionBlock)block;
+- (void)setCommentBlock:(MCSwipeCompletionBlock)block;
 
 @end

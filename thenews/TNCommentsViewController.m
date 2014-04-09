@@ -123,6 +123,27 @@ DesignerNewsAPIClient *DNClient;
 
     DNComment *comment = [self.comments objectAtIndex:[indexPath row]];
     [cell configureForComment:comment];
+    [cell addSwipeGesturesToCell];
+
+    [cell setUpvoteBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+
+        //DNFeedViewCell *dncell = (DNFeedViewCell *)cell;
+        //DNStory *story = [dncell story];
+        //[self upvoteStoryWithID:[story storyID]];
+
+        NSLog(@"upvote");
+
+    }];
+
+    [cell setCommentBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+
+        //DNFeedViewCell *dncell = (DNFeedViewCell *)cell;
+        //DNStory *story = [dncell story];
+        //[self showCommentsForStory:story];
+
+        NSLog(@"comment");
+    }];
+
 
     return cell;
 }
@@ -212,7 +233,7 @@ DesignerNewsAPIClient *DNClient;
     [self.keyboardView setFrame:self.view.bounds];
     [self.keyboardView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
 
-    //[self.keyboardView.inputView.leftButton setHidden:YES];
+    [self.keyboardView.inputView.leftButton removeFromSuperview];
     [self.keyboardView.inputView.textView setDelegate:self];
 
     //[self.keyboardView.inputView.leftButton setTitle:NSLocalizedString(@"↳", nil) forState:UIControlStateNormal];

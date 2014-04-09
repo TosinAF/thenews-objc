@@ -65,7 +65,7 @@
 
     self.upvoteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.upvoteButton setFrame:CGRectMake(200, 55, 100, 20)];
-    [self.upvoteButton setTitle:@"Upvote" forState:UIControlStateNormal];
+    [self.upvoteButton setTitle:@"Comment" forState:UIControlStateNormal];
     [[self.upvoteButton titleLabel] setFont:[UIFont fontWithName:@"Montserrat-Bold" size:10.0f]];
     [[self.upvoteButton titleLabel] setTextColor:self.lightThemeColor];
 

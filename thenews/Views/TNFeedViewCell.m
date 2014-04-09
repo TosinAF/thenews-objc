@@ -45,16 +45,6 @@ MCSwipeCompletionBlock commentBlock;
 	}
 }
 
-- (void)setUpvoteBlock:(MCSwipeCompletionBlock)block
-{
-    upvoteBlock = block;
-}
-
-- (void)setCommentBlock:(MCSwipeCompletionBlock)block
-{
-    commentBlock = block;
-}
-
 - (void)layoutSubviews {
 	CGSize contentViewSize = self.frame.size;
 
@@ -130,6 +120,16 @@ MCSwipeCompletionBlock commentBlock;
 
         commentBlock(cell, state, mode);
     }];
+}
+
+- (void)setUpvoteBlock:(MCSwipeCompletionBlock)block
+{
+    upvoteBlock = block;
+}
+
+- (void)setCommentBlock:(MCSwipeCompletionBlock)block
+{
+    commentBlock = block;
 }
 
 #pragma mark - Private Methods
