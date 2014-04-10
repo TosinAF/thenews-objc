@@ -26,7 +26,7 @@ typedef NS_ENUM (NSInteger, TNTextFieldType) {
 };
 
 @property (strong, nonatomic) TNTextField *nameField;
-@property (strong, nonatomic) TNTextField *emailField;
+@property (strong, nonatomic) TNTextField *usernameField;
 @property (strong, nonatomic) TNTextField *passwordField;
 @property (strong, nonatomic) UILabel *errorLabel;
 

@@ -43,19 +43,17 @@ TNType currentAuthType;
     [[UINavigationBar appearance] setTitleTextAttributes: @{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Light" size:18.0f],
                                                             NSForegroundColorAttributeName:[UIColor whiteColor]}];
 
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(pushHomeView)];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"The News" style:UIBarButtonItemStylePlain target:self action:@selector(pushHomeView)];
 
     [[self navigationItem] setRightBarButtonItem:rightItem];
 
-
-
     // Setup Text Fields & Borders
 
-    self.emailField = [[TNTextField alloc] initWithFrame:CGRectMake(50, 70, screenSize.width, 50)];
-    [self.emailField setDelegate:self];
-    [self.emailField setPlaceholder:@"Email"];
-    [self.emailField setTag:0];
-    [self.emailField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+    self.usernameField = [[TNTextField alloc] initWithFrame:CGRectMake(50, 70, screenSize.width, 50)];
+    [self.usernameField setDelegate:self];
+    [self.usernameField setPlaceholder:@"Email"];
+    [self.usernameField setTag:0];
+    [self.usernameField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
 
     self.passwordField = [[TNTextField alloc] initWithFrame:CGRectMake(50, 130, screenSize.width, 50)];
     [self.passwordField setDelegate:self];
@@ -83,7 +81,7 @@ TNType currentAuthType;
 
         UIButton *addDN = [UIButton buttonWithType:UIButtonTypeCustom];
         [addDN setFrame:CGRectMake(20, 210, screenSize.width  - 40, 50)];
-        [addDN setTitle:@"Enter DN Credentials" forState:UIControlStateNormal];
+        [addDN setTitle:@"Login?" forState:UIControlStateNormal];
         [addDN setTitleColor:[UIColor dnColor] forState:UIControlStateNormal];
 
         [[addDN titleLabel] setTextAlignment:NSTextAlignmentCenter];
@@ -120,7 +118,7 @@ TNType currentAuthType;
         addHN;
     });
 
-    [self.view addSubview:self.emailField];
+    [self.view addSubview:self.usernameField];
     [self.view addSubview:self.passwordField];
     [self.view addSubview:self.addDN];
     [self.view addSubview:self.addHN];
@@ -154,18 +152,32 @@ TNType currentAuthType;
 
 - (void)dnButtonClicked
 {
-    currentAuthType = TNTypeDesignerNews;
-    [self.addDN setTitle:@"Enter DN Credentials" forState:UIControlStateNormal];
-    [self.addHN setTitle:@"Add HN Account" forState:UIControlStateNormal];
-    [self.emailField becomeFirstResponder];
+    if ( (currentAuthType == TNTypeDesignerNews) && [self textFieldsAreFilled] ) {
+
+        [self dnLogin];
+
+    } else {
+
+        currentAuthType = TNTypeDesignerNews;
+        [self.addDN setTitle:@"Login?" forState:UIControlStateNormal];
+        [self.addHN setTitle:@"Add HN Account" forState:UIControlStateNormal];
+        [self.usernameField becomeFirstResponder];
+    }
 }
 
 - (void)hnButtonClicked
 {
-    currentAuthType = TNTypeHackerNews;
-    [self.addHN setTitle:@"Enter HN Credentials" forState:UIControlStateNormal];
-    [self.addDN setTitle:@"Add DN Account" forState:UIControlStateNormal];
-    [self.emailField becomeFirstResponder];
+    if ( (currentAuthType == TNTypeHackerNews) && [self textFieldsAreFilled] ) {
+
+        [self hnLogin];
+
+    } else {
+
+        currentAuthType = TNTypeHackerNews;
+        [self.addHN setTitle:@"Login?" forState:UIControlStateNormal];
+        [self.addDN setTitle:@"Add DN Account" forState:UIControlStateNormal];
+        [self.usernameField becomeFirstResponder];
+    }
 }
 
 #pragma mark - Network Methods
@@ -174,7 +186,7 @@ TNType currentAuthType;
 {
     DNManager *DNClient = [DNManager sharedClient];
 
-    [DNClient authenticateUser:self.emailField.text password:self.passwordField.text success:^(NSString *accessToken) {
+    [DNClient authenticateUser:self.usernameField.text password:self.passwordField.text success:^(NSString *accessToken) {
 
         [self.addDN setSelected:YES];
         [self.addDN setUserInteractionEnabled:NO];
@@ -196,7 +208,8 @@ TNType currentAuthType;
 - (void)hnLogin
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [[HNManager sharedManager] loginWithUsername:self.emailField.text password:self.passwordField.text completion:^(HNUser *user){
+    
+    [[HNManager sharedManager] loginWithUsername:self.usernameField.text password:self.passwordField.text completion:^(HNUser *user){
 
         if (user) {
 
@@ -241,6 +254,11 @@ TNType currentAuthType;
 - (BOOL)userCompletedLoginForBoth
 {
     return [[HNManager sharedManager] userIsLoggedIn] && [[DNManager sharedClient] isUserAuthenticated];
+}
+
+- (BOOL)textFieldsAreFilled
+{
+    return ( [self.usernameField.text length] != 0 && [self.passwordField.text length] != 0 );
 }
 
 - (void)showAuthenticationError

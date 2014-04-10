@@ -41,7 +41,7 @@ int passwordLengthMin = 6;
                 validEmailField = NO;
             } else {
                 self.username = textField.text;
-                [self resetTextField:self.emailField];
+                [self resetTextField:self.usernameField];
                 validEmailField = YES;
             }
             break;
@@ -63,7 +63,7 @@ int passwordLengthMin = 6;
 - (void)checkAllFields
 {
     [self checkField:self.nameField];
-    [self checkField:self.emailField];
+    [self checkField:self.usernameField];
     [self checkField:self.passwordField];
 }
 
