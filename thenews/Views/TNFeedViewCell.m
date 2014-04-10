@@ -56,7 +56,7 @@ MCSwipeCompletionBlock commentBlock;
 	[self.contentView addSubview:self.detailLabel];
 	[self.contentView addSubview:self.commentCountLabel];
 
-    [self addSwipeGesturesToCell];
+    [self setDefaultColor:[UIColor tnLightGreyColor]];
     [self setSelectionStyle:UITableViewCellSelectionStyleNone];
 
 }
@@ -103,18 +103,21 @@ MCSwipeCompletionBlock commentBlock;
 	[self.commentCountLabel setAttributedText:commentCountAttr];
 }
 
-- (void)addSwipeGesturesToCell
+- (void)addUpvoteGesture
 {
     UIView *upvoteView = [self viewWithImageName:@"Upvote"];
-    UIView *commentView = [self viewWithImageName:@"Comment"];
     UIColor *lightGreen = [UIColor colorWithRed:0.631 green:0.890 blue:0.812 alpha:1];
-
-    [self setDefaultColor:[UIColor tnLightGreyColor]];
 
     [self setSwipeGestureWithView:upvoteView color:lightGreen mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
 
-            upvoteBlock(cell, state, mode);
+        upvoteBlock(cell, state, mode);
+
     }];
+}
+
+- (void)addViewCommentsGesture
+{
+    UIView *commentView = [self viewWithImageName:@"Comment"];
 
     [self setSwipeGestureWithView:commentView color:[UIColor dnColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
 

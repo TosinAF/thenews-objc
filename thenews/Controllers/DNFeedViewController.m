@@ -76,13 +76,20 @@ __weak DNFeedViewController *weakself;
 	[cell setFrameHeight:CELL_HEIGHT];
     [cell configureForStory:story];
 
-    [cell setUpvoteBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+    if ([DNClient isUserAuthenticated]) {
 
-        DNFeedViewCell *dncell = (DNFeedViewCell *)cell;
-        DNStory *story = [dncell story];
-        [self upvoteStoryWithID:[story storyID]];
+        [cell addUpvoteGesture];
 
-    }];
+        [cell setUpvoteBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+
+            DNFeedViewCell *dncell = (DNFeedViewCell *)cell;
+            DNStory *story = [dncell story];
+            [self upvoteStoryWithID:[story storyID]];
+
+        }];
+    }
+
+    [cell addViewCommentsGesture];
 
     [cell setCommentBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
 
@@ -92,7 +99,6 @@ __weak DNFeedViewController *weakself;
     }];
 
     [cell setSeparatorInset:UIEdgeInsetsZero];
-
     return cell;
 }
 

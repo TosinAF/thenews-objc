@@ -18,5 +18,7 @@
 - (void)setFrameHeight:(CGFloat)height;
 
 - (void)updateLabels:(NSDictionary *)content;
+- (void)addUpvoteGesture;
+- (void)addViewCommentsGesture;
 
 @end

@@ -72,18 +72,24 @@ __weak HNFeedViewController *weakSelf;
 	[cell setFeedType:TNTypeHackerNews];
     [cell configureForPost:post];
 
-    [cell setUpvoteBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+    if ([[HNManager sharedManager] userIsLoggedIn]) {
+
+        [cell addUpvoteGesture];
+
+        [cell setUpvoteBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
 
 
+        }];
+    }
 
-    }];
+    [cell addViewCommentsGesture];
 
     [cell setCommentBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+
         [self showCommentView];
     }];
 
     [cell setSeparatorInset:UIEdgeInsetsZero];
-
     return cell;
 }
 
