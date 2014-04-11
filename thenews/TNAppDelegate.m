@@ -38,14 +38,18 @@
 
     [[HNManager sharedManager] startSession];
 
-    // Check if already logged in to HN or DN
+    // Check for App First Start
 
     UIViewController *rootViewController;
-    
-    if ([self isUserLoggedIn]) {
-        rootViewController = [TNHomeViewController new];
-    } else {
+
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"appFirstStart"]) {
+
         rootViewController = [TNLaunchViewController new];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"appFirstStart"];
+
+    } else {
+
+        rootViewController = [TNHomeViewController new];
     }
 
     UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[GTScrollNavigationBar class] toolbarClass:nil];
@@ -55,24 +59,6 @@
     
     [self.window makeKeyAndVisible];
     return YES;
-}
-
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    BOOL success = NO;
-    if ([[OSKADNLoginManager sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation]) {
-        success = YES;
-    }
-    else if ([[PocketAPI sharedAPI] handleOpenURL:url]){
-        success = YES;
-    }
-    else if ([GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation]) {
-        success = YES;
-    }
-    else {
-        // if you handle your own custom url-schemes, do it here
-        // success = whatever;
-    }
-    return success;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -102,6 +88,8 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+# pragma mark - Managing the Network Activity Indicator
+
 - (void)setNetworkActivityIndicatorVisible:(BOOL)setVisible {
 
     static NSInteger NumberOfCallsToSetVisible = 0;
@@ -120,9 +108,24 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:(NumberOfCallsToSetVisible > 0)];
 }
 
-- (BOOL)isUserLoggedIn
-{
-    return [[HNManager sharedManager] userIsLoggedIn] || [[DNManager sharedClient] isUserAuthenticated];
+# pragma mark - Share Kit Methods
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    BOOL success = NO;
+    if ([[OSKADNLoginManager sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation]) {
+        success = YES;
+    }
+    else if ([[PocketAPI sharedAPI] handleOpenURL:url]){
+        success = YES;
+    }
+    else if ([GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation]) {
+        success = YES;
+    }
+    else {
+        // if you handle your own custom url-schemes, do it here
+        // success = whatever;
+    }
+    return success;
 }
 
 @end
