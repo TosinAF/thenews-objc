@@ -11,9 +11,6 @@
 
 @interface TNCommentsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UITextViewDelegate>
 
-@property (nonatomic) NSNumber *replyToID;
-@property (nonatomic) NSNumber *network;
-
 - (instancetype)initWithType:(TNType)type story:(DNStory *)story;
 
 @end
