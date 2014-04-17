@@ -10,13 +10,19 @@
 #import "DNComment.h"
 #import "MCSwipeTableViewCell.h"
 
+@class TNCommentCell;
+
+typedef void (^TNSwipeCompletionBlock) (TNCommentCell *cell);
+
 @interface TNCommentCell : MCSwipeTableViewCell
 
+@property (nonatomic, strong) DNComment *comment;
+
+@property (readwrite, copy) TNSwipeCompletionBlock upvoteBlock;
+@property (readwrite, copy) TNSwipeCompletionBlock commentBlock;
+
+- (void)addSwipeGesturesToCell;
 - (void)configureForComment:(DNComment *)comment;
 - (CGFloat)estimateHeightWithComment:(DNComment *)comment;
-- (void)addSwipeGesturesToCell;
-
-- (void)setUpvoteBlock:(MCSwipeCompletionBlock)block;
-- (void)setCommentBlock:(MCSwipeCompletionBlock)block;
 
 @end

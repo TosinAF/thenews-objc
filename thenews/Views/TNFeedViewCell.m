@@ -43,6 +43,9 @@ MCSwipeCompletionBlock commentBlock;
 			self.lightThemeColor = [UIColor hnLightColor];
 			break;
 	}
+
+    // Other Defaults
+    [self setFirstTrigger:0.20];
 }
 
 - (void)layoutSubviews {
@@ -50,7 +53,7 @@ MCSwipeCompletionBlock commentBlock;
 
 	self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, contentViewSize.width - 50, 40)];
 	self.detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 55, 145, 20)];
-	self.commentCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(190, 55, 100, 20)];
+	self.commentCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 55, 100, 20)];
 
 	[self.contentView addSubview:self.titleLabel];
 	[self.contentView addSubview:self.detailLabel];
@@ -93,14 +96,20 @@ MCSwipeCompletionBlock commentBlock;
 	[self.detailLabel setAttributedText:detailAttr];
 
 	/* --- Comment Label --- */
-	NSString *commentCountString = [NSString stringWithFormat:@"%@ Comments \u2192", content[@"count"]];
-	NSRange arrowRange = [commentCountString rangeOfString:@"\u2192"];
-	NSDictionary *commentAttr = @{ NSFontAttributeName:[UIFont fontWithName:@"Montserrat" size:10.0f],
-		                           NSForegroundColorAttributeName:self.lightThemeColor };
 
-	NSMutableAttributedString *commentCountAttr = [[NSMutableAttributedString alloc] initWithString:commentCountString attributes:commentAttr];
-	[commentCountAttr addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Entypo" size:15.0f] range:arrowRange];
-	[self.commentCountLabel setAttributedText:commentCountAttr];
+
+    NSNumber *commentCount = content[@"count"];
+    NSString *commentCountString = [NSString new];
+
+    if ([commentCount intValue] == 1) {
+        commentCountString = [NSString stringWithFormat:@"%@ Comment", commentCount];
+    } else {
+        commentCountString = [NSString stringWithFormat:@"%@ Comments", commentCount];
+    }
+
+	[self.commentCountLabel setText:commentCountString];
+    [self.commentCountLabel setTextColor:self.lightThemeColor];
+    [self.commentCountLabel setFont:[UIFont fontWithName:@"Montserrat" size:10.0f]];
 }
 
 - (void)addUpvoteGesture
@@ -119,7 +128,7 @@ MCSwipeCompletionBlock commentBlock;
 {
     UIView *commentView = [self viewWithImageName:@"Comment"];
 
-    [self setSwipeGestureWithView:commentView color:[UIColor dnColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+    [self setSwipeGestureWithView:commentView color:self.lightThemeColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
 
         commentBlock(cell, state, mode);
     }];

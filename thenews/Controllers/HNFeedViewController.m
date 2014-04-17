@@ -113,7 +113,10 @@ __weak HNFeedViewController *weakSelf;
 
 - (void)downloadPosts
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     [[HNManager sharedManager] loadPostsWithFilter:PostFilterTypeTop completion:^(NSArray *posts){
+
         if (posts) {
             [self.posts addObjectsFromArray:posts];
             [self.feedView reloadData];
@@ -122,6 +125,8 @@ __weak HNFeedViewController *weakSelf;
             // No posts retrieved, handle the error
             NSLog(@"Error Occured");
         }
+
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
 

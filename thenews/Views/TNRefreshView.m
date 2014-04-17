@@ -19,17 +19,16 @@
 
         switch (state) {
             case TNRefreshStatePulling:
-                [self setupWithText:@"Pull To Refresh"];
+                [self setupWithText:@"PULL TO REFRESH"];
                 break;
 
             case TNRefreshStateLoading:
-                [self setupWithShimmer:@"Delievering The Latest..."];
+                [self setupWithShimmer:@"DELIVERING THE LATEST..."];
                 break;
 
             case TNRefreshStateEnded:
-                [self setupWithText:@"Enjoy!"];
+                [self setupWithText:@"ENJOY!"];
                 break;
-
         }
     }
     return self;
@@ -47,7 +46,7 @@
     [loadingLabel setText:text];
     [loadingLabel setTextColor:[UIColor blackColor]];
     [loadingLabel setTextAlignment:NSTextAlignmentCenter];
-    [loadingLabel setFont:[UIFont fontWithName:@"Avenir-Light" size:15.0f]];
+    [loadingLabel setFont:[UIFont fontWithName:@"Montserrat" size:15.0f]];
 
     loadingIndicator.contentView = loadingLabel;
     // need to stop shimmering somehow

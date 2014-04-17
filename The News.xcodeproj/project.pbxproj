@@ -32,6 +32,10 @@
 		4E84011718E17B4F00E3AB34 /* DNFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84011618E17B4F00E3AB34 /* DNFeedViewController.m */; };
 		4E84011D18E3468F00E3AB34 /* TNNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84011C18E3468F00E3AB34 /* TNNotification.m */; };
 		4E8402F718E4FDCD00E3AB34 /* TNRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8402F618E4FDCD00E3AB34 /* TNRefreshView.m */; };
+		4E93A48E18FF38E500B19EFB /* JSDismissiveTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E93A48818FF38E500B19EFB /* JSDismissiveTextView.m */; };
+		4E93A48F18FF38E500B19EFB /* JSMessageInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E93A48A18FF38E500B19EFB /* JSMessageInputView.m */; };
+		4E93A49018FF38E500B19EFB /* JSMessageTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E93A48C18FF38E500B19EFB /* JSMessageTextView.m */; };
+		4E93A49318FF3F9F00B19EFB /* NSString+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E93A49218FF3F9F00B19EFB /* NSString+JSMessagesView.m */; };
 		4EA7564318F1F0E30089346D /* TNHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7564218F1F0E30089346D /* TNHeaderView.m */; };
 		4EBB4E9718D7B60F008BB571 /* TNFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4E9518D7B60F008BB571 /* TNFormViewController.m */; };
 		4EBB4E9E18D7B626008BB571 /* TNPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4E9818D7B626008BB571 /* TNPostViewController.m */; };
@@ -103,6 +107,14 @@
 		4E84011C18E3468F00E3AB34 /* TNNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNNotification.m; path = Utility/TNNotification.m; sourceTree = "<group>"; };
 		4E8402F518E4FDCD00E3AB34 /* TNRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNRefreshView.h; path = Views/TNRefreshView.h; sourceTree = "<group>"; };
 		4E8402F618E4FDCD00E3AB34 /* TNRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNRefreshView.m; path = Views/TNRefreshView.m; sourceTree = "<group>"; };
+		4E93A48718FF38E500B19EFB /* JSDismissiveTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDismissiveTextView.h; sourceTree = "<group>"; };
+		4E93A48818FF38E500B19EFB /* JSDismissiveTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDismissiveTextView.m; sourceTree = "<group>"; };
+		4E93A48918FF38E500B19EFB /* JSMessageInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMessageInputView.h; sourceTree = "<group>"; };
+		4E93A48A18FF38E500B19EFB /* JSMessageInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMessageInputView.m; sourceTree = "<group>"; };
+		4E93A48B18FF38E500B19EFB /* JSMessageTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSMessageTextView.h; sourceTree = "<group>"; };
+		4E93A48C18FF38E500B19EFB /* JSMessageTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSMessageTextView.m; sourceTree = "<group>"; };
+		4E93A49118FF3F9F00B19EFB /* NSString+JSMessagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSMessagesView.h"; sourceTree = "<group>"; };
+		4E93A49218FF3F9F00B19EFB /* NSString+JSMessagesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSMessagesView.m"; sourceTree = "<group>"; };
 		4EA7564118F1F0E30089346D /* TNHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNHeaderView.h; path = Views/TNHeaderView.h; sourceTree = "<group>"; };
 		4EA7564218F1F0E30089346D /* TNHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNHeaderView.m; path = Views/TNHeaderView.m; sourceTree = "<group>"; };
 		4EBB4E9418D7B5F7008BB571 /* TNTypeEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNTypeEnum.h; path = Utility/TNTypeEnum.h; sourceTree = "<group>"; };
@@ -172,10 +184,10 @@
 		4E3B4C0218B61C0C00D8B75B /* Registration */ = {
 			isa = PBXGroup;
 			children = (
-				4EBB4E9618D7B60F008BB571 /* TNFormViewController.h */,
-				4EBB4E9518D7B60F008BB571 /* TNFormViewController.m */,
 				4E4E1BBC18AD989300B87E7A /* TNLoginViewController.h */,
 				4E4E1BBD18AD989300B87E7A /* TNLoginViewController.m */,
+				4EBB4E9618D7B60F008BB571 /* TNFormViewController.h */,
+				4EBB4E9518D7B60F008BB571 /* TNFormViewController.m */,
 			);
 			name = Registration;
 			sourceTree = "<group>";
@@ -237,6 +249,7 @@
 				4E3B4C0018B61BF200D8B75B /* Utility */,
 				4E783D5418AD7E5900D78B20 /* Controllers */,
 				4E783D5718AD7E7B00D78B20 /* Views */,
+				4E93A48418FF0CE200B19EFB /* JSMessage */,
 				4E84010418E1783C00E3AB34 /* DesignerNewsAPIClient */,
 				4E783D2C18AD7D7D00D78B20 /* Supporting Files */,
 				4E783D3718AD7D7D00D78B20 /* Images.xcassets */,
@@ -339,6 +352,22 @@
 				4E84010F18E1783C00E3AB34 /* DNUser.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4E93A48418FF0CE200B19EFB /* JSMessage */ = {
+			isa = PBXGroup;
+			children = (
+				4E93A49118FF3F9F00B19EFB /* NSString+JSMessagesView.h */,
+				4E93A49218FF3F9F00B19EFB /* NSString+JSMessagesView.m */,
+				4E93A48718FF38E500B19EFB /* JSDismissiveTextView.h */,
+				4E93A48818FF38E500B19EFB /* JSDismissiveTextView.m */,
+				4E93A48918FF38E500B19EFB /* JSMessageInputView.h */,
+				4E93A48A18FF38E500B19EFB /* JSMessageInputView.m */,
+				4E93A48B18FF38E500B19EFB /* JSMessageTextView.h */,
+				4E93A48C18FF38E500B19EFB /* JSMessageTextView.m */,
+			);
+			name = JSMessage;
+			path = DesignerNewsAPIClient;
 			sourceTree = "<group>";
 		};
 		4EC1409A18F149A30082E3C3 /* FeedViewCell */ = {
@@ -463,17 +492,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E783D3618AD7D7D00D78B20 /* TNAppDelegate.m in Sources */,
+				4E93A48E18FF38E500B19EFB /* JSDismissiveTextView.m in Sources */,
 				4E84011218E1783C00E3AB34 /* DNMOTD.m in Sources */,
 				4E4E1BCC18AD98A100B87E7A /* TNFeedViewCell.m in Sources */,
 				4E4E1BCB18AD98A100B87E7A /* TNButton.m in Sources */,
 				4E84011718E17B4F00E3AB34 /* DNFeedViewController.m in Sources */,
 				4E4E1BC218AD989300B87E7A /* TNLaunchViewController.m in Sources */,
 				4EBB4E9E18D7B626008BB571 /* TNPostViewController.m in Sources */,
+				4E93A48F18FF38E500B19EFB /* JSMessageInputView.m in Sources */,
 				C620B90818E23F8B007AB81D /* TNCommentCell.m in Sources */,
 				4E84011118E1783C00E3AB34 /* DNComment.m in Sources */,
 				4E8402F718E4FDCD00E3AB34 /* TNRefreshView.m in Sources */,
 				4E84011318E1783C00E3AB34 /* DNStory.m in Sources */,
 				4EC1409618F145330082E3C3 /* DNFeedViewCell.m in Sources */,
+				4E93A49318FF3F9F00B19EFB /* NSString+JSMessagesView.m in Sources */,
+				4E93A49018FF38E500B19EFB /* JSMessageTextView.m in Sources */,
 				4E4E1BC118AD989300B87E7A /* TNHomeViewController.m in Sources */,
 				4E4E1BD918AD98E000B87E7A /* UIColor+TNColors.m in Sources */,
 				4EBB4E9718D7B60F008BB571 /* TNFormViewController.m in Sources */,

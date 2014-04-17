@@ -53,6 +53,12 @@ __weak DNFeedViewController *weakself;
 	[self.feedView setSeparatorColor:[UIColor tnLightGreyColor]];
 	[self.feedView registerClass:[DNFeedViewCell class] forCellReuseIdentifier:CellIdentifier];
 
+    UIImage *emptyState = [UIImage imageNamed:@"Loading"];
+    UIImageView *emptyStateView = [[UIImageView alloc] initWithImage:emptyState];
+    [emptyStateView setFrame:CGRectMake(50, 150, emptyState.size.width, emptyState.size.height)];
+
+    //[self.view addSubview:emptyStateView];
+
 	[self.view addSubview:self.feedView];
 }
 
@@ -84,7 +90,7 @@ __weak DNFeedViewController *weakself;
 
             DNFeedViewCell *dncell = (DNFeedViewCell *)cell;
             DNStory *story = [dncell story];
-            [self upvoteStoryWithID:[story storyID]];
+            [weakself upvoteStoryWithID:[story storyID]];
 
         }];
     }
@@ -95,7 +101,8 @@ __weak DNFeedViewController *weakself;
 
         DNFeedViewCell *dncell = (DNFeedViewCell *)cell;
         DNStory *story = [dncell story];
-        [self showCommentsForStory:story];
+        [weakself showCommentsForStory:story];
+        
     }];
 
     [cell setSeparatorInset:UIEdgeInsetsZero];
@@ -172,27 +179,6 @@ __weak DNFeedViewController *weakself;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)switchDnFeedType
-{
-    switch (dnFeedType) {
-
-        case DNFeedTypeTop:
-            dnFeedType = DNFeedTypeRecent;
-            break;
-
-        case DNFeedTypeRecent:
-            dnFeedType = DNFeedTypeTop;
-            break;
-
-        default:
-            break;
-    }
-
-    NSLog(@"%d", dnFeedType);
-
-    [self downloadFeedAndReset:YES];
-}
-
 #pragma mark - Private Methods
 
 - (void)setupRefreshControl
@@ -210,6 +196,27 @@ __weak DNFeedViewController *weakself;
 
     [[self.feedView pullToRefreshView] setCustomView:pulling forState:SVPullToRefreshStateAll];
     [[self.feedView pullToRefreshView] setCustomView:loading forState:SVPullToRefreshStateLoading];
+}
+
+- (void)switchDnFeedType
+{
+    switch (dnFeedType) {
+
+        case DNFeedTypeTop:
+            dnFeedType = DNFeedTypeRecent;
+            break;
+
+        case DNFeedTypeRecent:
+            dnFeedType = DNFeedTypeTop;
+            break;
+
+        default:
+            break;
+    }
+
+    NSLog(@"%d", dnFeedType);
+    
+    [self downloadFeedAndReset:YES];
 }
 
 @end

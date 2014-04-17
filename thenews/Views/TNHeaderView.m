@@ -8,6 +8,8 @@
 
 #import "TNHeaderView.h"
 
+ButtonActionBlock buttonAction;
+
 @interface TNHeaderView ()
 
 @property (strong, nonatomic) UIColor *themeColor;
@@ -15,7 +17,7 @@
 
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *detailLabel;
-@property (strong, nonatomic) UIButton *upvoteButton;
+@property (strong, nonatomic) UIButton *button;
 
 @end
 
@@ -55,6 +57,22 @@
     [self updateLabels:cellContent];
 }
 
+- (void)setButtonTitle:(NSString *)title
+{
+    [self.button setTitle:title forState:UIControlStateNormal];
+    [self.button setTitle:title forState:UIControlStateSelected];
+}
+
+- (void)setButtonAction:(ButtonActionBlock)block
+{
+    buttonAction = block;
+}
+
+- (void)performButtonAction
+{
+    buttonAction();
+}
+
 - (void)layoutSubviews
 {
     CGSize contentViewSize = self.frame.size;
@@ -63,13 +81,16 @@
 
     self.detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 55, 145, 20)];
 
-    self.upvoteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.upvoteButton setFrame:CGRectMake(200, 55, 100, 20)];
-    [self.upvoteButton setTitle:@"Comment" forState:UIControlStateNormal];
-    [[self.upvoteButton titleLabel] setFont:[UIFont fontWithName:@"Montserrat-Bold" size:10.0f]];
-    [[self.upvoteButton titleLabel] setTextColor:self.lightThemeColor];
+    self.button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.button setFrame:CGRectMake(200, 55, 100, 20)];
+    [self.button setTitle:@"Comment" forState:UIControlStateNormal];
+    [self.button setTitleColor:self.lightThemeColor forState:UIControlStateNormal];
+    [self.button setTitleColor:self.lightThemeColor forState:UIControlStateSelected];
+    [[self.button titleLabel] setFont:[UIFont fontWithName:@"Montserrat-Bold" size:11.0f]];
 
-    [self addSubview:self.upvoteButton];
+    [self.button addTarget:self action:@selector(performButtonAction) forControlEvents:UIControlEventTouchUpInside];
+
+    [self addSubview:self.button];
 }
 
 - (void)updateLabels:(NSDictionary *)content
@@ -86,7 +107,7 @@
     
 	NSString *detailString = [NSString stringWithFormat:@"%@ Points by %@", content[@"points"], content[@"author"]];
 	NSRange authorRange = [detailString rangeOfString:content[@"author"]];
-	NSDictionary *textAttr = @{ NSFontAttributeName:[UIFont fontWithName:@"Montserrat" size:10.0f],
+	NSDictionary *textAttr = @{ NSFontAttributeName:[UIFont fontWithName:@"Montserrat" size:11.0f],
 		                        NSForegroundColorAttributeName:[UIColor tnGreyColor] };
 
 	NSMutableAttributedString *detailAttr = [[NSMutableAttributedString alloc] initWithString:detailString attributes:textAttr];

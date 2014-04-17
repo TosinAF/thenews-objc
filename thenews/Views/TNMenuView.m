@@ -186,6 +186,7 @@ KeyboardWillAppearBlock keyboardWillAppearAction;
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+    NSLog(@"reached");
     keyboardWillAppearAction();
     return YES;
 }

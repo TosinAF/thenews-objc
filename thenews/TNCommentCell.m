@@ -8,18 +8,15 @@
 
 #import "TNCommentCell.h"
 
-MCSwipeCompletionBlock upvoteBlock;
-MCSwipeCompletionBlock commentBlock;
+__weak TNCommentCell *weakSelf;
 
 @interface TNCommentCell ()
 
-@property (strong, nonatomic) UIColor *themeColor;
-@property (strong, nonatomic) UIColor *lightThemeColor;
+@property (nonatomic) UIColor *themeColor;
+@property (nonatomic) UIColor *lightThemeColor;
 
-@property (nonatomic, strong) UILabel *detailLabel;
-@property (nonatomic, strong) UITextView *commentView;
-
-@property (nonatomic, strong) DNComment *comment;
+@property (nonatomic) UILabel *detailLabel;
+@property (nonatomic) UITextView *commentView;
 
 @end
 
@@ -30,17 +27,21 @@ MCSwipeCompletionBlock commentBlock;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
 
-        self.commentView = [[UITextView alloc] initWithFrame:CGRectMake(20, 10, 270, 50)];
+        weakSelf = self;
+
+        self.commentView = [[UITextView alloc] initWithFrame:CGRectMake(20, 15, 270, 50)];
         [self.commentView setEditable:NO];
         [self.commentView setScrollEnabled:NO];
         [self.commentView setSelectable:YES];
         [self.commentView setTextColor:[UIColor blackColor]];
-        [self.commentView setFont:[UIFont fontWithName:@"Avenir" size:13.0f]];
+        [self.commentView setFont:[UIFont fontWithName:@"Avenir" size:14.0f]];
 
         self.detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 110, 250, 15)];
 
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
         [self setSeparatorInset:UIEdgeInsetsZero];
+
+        [self setFirstTrigger:0.20];
 
         [self addSubview:self.commentView];
         [self addSubview:self.detailLabel];
@@ -53,14 +54,13 @@ MCSwipeCompletionBlock commentBlock;
     self.comment = comment;
     [self setFeedType:TNTypeDesignerNews];
 
-
     [self.commentView setText:[comment body]];
 
     /* --- Attributed Detail Text --- */
 
 	NSString *detailString = [NSString stringWithFormat:@"%@ Points by %@", [comment voteCount], [comment author]];
 	NSRange authorRange = [detailString rangeOfString:[comment author]];
-	NSDictionary *textAttr = @{ NSFontAttributeName:[UIFont fontWithName:@"Avenir" size:10.0f],
+	NSDictionary *textAttr = @{ NSFontAttributeName:[UIFont fontWithName:@"Avenir" size:12.0f],
 		                        NSForegroundColorAttributeName:[UIColor tnGreyColor] };
 
 	NSMutableAttributedString *detailAttr = [[NSMutableAttributedString alloc] initWithString:detailString attributes:textAttr];
@@ -73,7 +73,12 @@ MCSwipeCompletionBlock commentBlock;
 
 - (void)adjustFrames
 {
-    [self.commentView sizeToFit];
+    /* Resize frame For Comment Body */
+
+    CGSize size = [self text:[self.comment body] sizeWithFont:self.commentView.font constrainedToSize:CGSizeMake(270, 500)];
+    CGRect frame = self.commentView.frame;
+    frame.size = size;
+    self.commentView.frame = frame;
 
     /* Move Author Label Below Comment */
 
@@ -81,7 +86,7 @@ MCSwipeCompletionBlock commentBlock;
     int commentViewHeight = commentViewFrame.size.height;
 
     CGRect detailFrame = self.detailLabel.frame;
-    detailFrame.origin.y = 10 + commentViewHeight + 5;
+    detailFrame.origin.y = 20 + commentViewHeight + 5;
 
     /* Handle Nested Comments */
 
@@ -90,21 +95,21 @@ MCSwipeCompletionBlock commentBlock;
     detailFrame.origin.x = 25 + 15 * [depth intValue];
 
     self.detailLabel.frame = detailFrame;
-
 }
 
 - (CGFloat)estimateHeightWithComment:(DNComment *)comment
 {
     // First lets get the main text view height
-
-    [self.commentView setText:[comment body]];
-    [self.commentView  sizeToFit];
+    CGSize size = [self text:[comment body] sizeWithFont:self.commentView.font constrainedToSize:CGSizeMake(270, 500)];
+    CGRect frame = self.commentView.frame;
+    frame.size = size;
+    self.commentView.frame = frame;
 
     int commentViewHeight = self.commentView.frame.size.height;
     int detailLabelHeight = self.detailLabel.frame.size.height;
 
     // Now let's return all of them added up :)
-    return commentViewHeight + detailLabelHeight + 25;
+    return commentViewHeight + detailLabelHeight + 35;
 }
 
 - (void)setFeedType:(TNType)feedType {
@@ -129,26 +134,19 @@ MCSwipeCompletionBlock commentBlock;
     UIColor *lightGreen = [UIColor colorWithRed:0.631 green:0.890 blue:0.812 alpha:1];
 
     [self setDefaultColor:[UIColor tnLightGreyColor]];
+    [self setFirstTrigger:0.15];
 
     [self setSwipeGestureWithView:upvoteView color:lightGreen mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
 
-        upvoteBlock(cell, state, mode);
+        weakSelf.upvoteBlock((TNCommentCell *)cell);
+        
     }];
 
     [self setSwipeGestureWithView:commentView color:[UIColor dnColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
 
-        commentBlock(cell, state, mode);
+        weakSelf.commentBlock((TNCommentCell *)cell);
+
     }];
-}
-
-- (void)setUpvoteBlock:(MCSwipeCompletionBlock)block
-{
-    upvoteBlock = block;
-}
-
-- (void)setCommentBlock:(MCSwipeCompletionBlock)block
-{
-    commentBlock = block;
 }
 
 #pragma mark - Private Methods
@@ -158,6 +156,15 @@ MCSwipeCompletionBlock commentBlock;
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.contentMode = UIViewContentModeCenter;
     return imageView;
+}
+
+- (CGSize)text:(NSString *)text sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size
+{
+    CGRect frame = [text boundingRectWithSize:size
+                                      options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
+                                   attributes:@{NSFontAttributeName:font}
+                                      context:nil];
+    return frame.size;
 }
 
 @end

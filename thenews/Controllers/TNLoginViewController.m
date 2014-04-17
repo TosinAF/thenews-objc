@@ -194,7 +194,6 @@ TNType currentAuthType;
         if ([self userCompletedLoginForBoth]) {
              [self performSelector:@selector(pushHomeView) withObject:nil afterDelay:0.5];
         } else {
-            // click other button automatically
             [self hnButtonClicked];
         }
 

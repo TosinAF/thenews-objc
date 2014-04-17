@@ -9,13 +9,13 @@
 #import "libHN.h"
 #import "DNManager.h"
 #import "PocketAPI.h"
-#import "TNAppDelegate.h"
 #import "OSKADNLoginManager.h"
 #import "GTScrollNavigationBar.h"
 #import "TNLaunchViewController.h"
 #import "TNHomeViewController.h"
 #import <GooglePlus/GooglePlus.h>
 #import "AFNetworkActivityIndicatorManager.h"
+#import "TNAppDelegate.h"
 
 @implementation TNAppDelegate
 
@@ -42,7 +42,9 @@
 
     UIViewController *rootViewController;
 
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"appFirstStart"]) {
+    // change to or
+
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"appFirstStart"] && ![[DNManager sharedClient] isUserAuthenticated]) {
 
         rootViewController = [TNLaunchViewController new];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"appFirstStart"];
