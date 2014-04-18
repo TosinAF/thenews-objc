@@ -15,19 +15,19 @@
 }
 
 + (UIColor *)dnColor {
-    return [UIColor colorWithRed:0.349 green:0.518 blue:0.816 alpha:1];
+    return [UIColor colorWithRed:0.176 green:0.447 blue:0.855 alpha:1];
 }
 
 + (UIColor *)dnLightColor {
-    return [UIColor colorWithRed:0.478 green:0.616 blue:0.851 alpha:1];
+    return [UIColor colorWithRed:0.412 green:0.608 blue:0.882 alpha:1];
 }
 
 + (UIColor *)hnColor {
-    return [UIColor colorWithRed:1.000 green:0.408 blue:0.216 alpha:1];
+    return [UIColor colorWithRed:1 green:0.4 blue:0 alpha:1.0];
 }
 
 + (UIColor *)hnLightColor {
-    return [UIColor colorWithRed:1.000 green:0.525 blue:0.373 alpha:1];
+    return [UIColor colorWithRed:0.992 green:0.584 blue:0.337 alpha:1];
 }
 
 + (UIColor *)tnGreyColor {

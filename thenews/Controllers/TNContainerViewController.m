@@ -245,11 +245,11 @@ __weak TNContainerViewController *weakSelf;
     // So as to match the Navbar Colours after Apple's meddling with the barTintColor
     switch ([self.feedType intValue]) {
         case TNTypeDesignerNews:
-            [openMenuShape setFillColor:[UIColor colorWithRed:0.416 green:0.565 blue:0.824 alpha:1].CGColor];
+            [openMenuShape setFillColor:[UIColor colorWithRed:0.310 green:0.533 blue:0.863 alpha:1].CGColor];
             break;
 
         case TNTypeHackerNews:
-            [openMenuShape setFillColor:[UIColor colorWithRed:0.992 green:0.467 blue:0.322 alpha:1].CGColor];
+            [openMenuShape setFillColor:[UIColor colorWithRed:0.992 green:0.486 blue:0.208 alpha:1].CGColor];
             break;
 
         default:
