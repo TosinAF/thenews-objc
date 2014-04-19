@@ -29,7 +29,7 @@ __weak TNCommentCell *weakSelf;
 
         weakSelf = self;
 
-        self.commentView = [[UITextView alloc] initWithFrame:CGRectMake(20, 15, 270, 50)];
+        self.commentView = [[UITextView alloc] initWithFrame:CGRectMake(20, 15, 270, 2000)];
         [self.commentView setEditable:NO];
         [self.commentView setScrollEnabled:NO];
         [self.commentView setSelectable:YES];
@@ -54,7 +54,9 @@ __weak TNCommentCell *weakSelf;
     self.comment = comment;
     [self setFeedType:TNTypeDesignerNews];
 
+    [self.commentView setText:nil];
     [self.commentView setText:[comment body]];
+    [self.commentView setDataDetectorTypes:UIDataDetectorTypeLink];
 
     /* --- Attributed Detail Text --- */
 
@@ -75,23 +77,21 @@ __weak TNCommentCell *weakSelf;
 {
     /* Resize frame For Comment Body */
 
-    CGSize size = [self text:[self.comment body] sizeWithFont:self.commentView.font constrainedToSize:CGSizeMake(270, 500)];
     CGRect frame = self.commentView.frame;
-    frame.size = size;
+    frame.size = CGSizeMake(270, [self getCommentViewHeight:[self.comment body]]);
     self.commentView.frame = frame;
 
     /* Move Author Label Below Comment */
 
-    CGRect commentViewFrame = self.commentView.frame;
-    int commentViewHeight = commentViewFrame.size.height;
+    int commentViewHeight = self.commentView.frame.size.height;
 
     CGRect detailFrame = self.detailLabel.frame;
-    detailFrame.origin.y = 20 + commentViewHeight + 5;
+    detailFrame.origin.y = 15 + commentViewHeight + 5;
 
     /* Handle Nested Comments */
 
     NSNumber *depth = [self.comment depth];
-    [self.commentView setTextContainerInset:UIEdgeInsetsMake(0, 15 * [depth intValue] , 0, 0)];
+    [self.commentView setTextContainerInset:UIEdgeInsetsMake(0, 15 * [depth intValue] , -5, 0)];
     detailFrame.origin.x = 25 + 15 * [depth intValue];
 
     self.detailLabel.frame = detailFrame;
@@ -99,17 +99,15 @@ __weak TNCommentCell *weakSelf;
 
 - (CGFloat)estimateHeightWithComment:(DNComment *)comment
 {
-    // First lets get the main text view height
-    CGSize size = [self text:[comment body] sizeWithFont:self.commentView.font constrainedToSize:CGSizeMake(270, 500)];
-    CGRect frame = self.commentView.frame;
-    frame.size = size;
-    self.commentView.frame = frame;
-
-    int commentViewHeight = self.commentView.frame.size.height;
+    int commentViewHeight = [self getCommentViewHeight:[comment body]];
     int detailLabelHeight = self.detailLabel.frame.size.height;
-
-    // Now let's return all of them added up :)
     return commentViewHeight + detailLabelHeight + 35;
+}
+
+- (CGFloat)getCommentViewHeight:(NSString *)comment
+{
+    CGSize size = [self text:comment sizeWithFont:[UIFont fontWithName:@"Avenir" size:15.0f] constrainedToSize:CGSizeMake(270, 5000)];
+    return floorf(size.height);
 }
 
 - (void)setFeedType:(TNType)feedType {
@@ -161,7 +159,7 @@ __weak TNCommentCell *weakSelf;
 - (CGSize)text:(NSString *)text sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size
 {
     CGRect frame = [text boundingRectWithSize:size
-                                      options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
+                                      options:(NSStringDrawingUsesLineFragmentOrigin )
                                    attributes:@{NSFontAttributeName:font}
                                       context:nil];
     return frame.size;
