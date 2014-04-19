@@ -11,7 +11,7 @@
 #import "DNFeedViewCell.h"
 #import "SVPullToRefresh.h"
 #import "TNPostViewController.h"
-#import "TNCommentsViewController.h"
+#import "DNCommentsViewController.h"
 #import "DNFeedViewController.h"
 
 static int CELL_HEIGHT = 85;
@@ -175,7 +175,7 @@ __weak DNFeedViewController *weakself;
 
 - (void)showCommentsForStory:(DNStory *)story
 {
-    TNCommentsViewController *vc = [[TNCommentsViewController alloc] initWithType:TNTypeDesignerNews story:story];
+    DNCommentsViewController *vc = [[DNCommentsViewController alloc] initWithStory:story];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

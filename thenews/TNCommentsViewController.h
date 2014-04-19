@@ -5,12 +5,36 @@
 //  Created by App Requests on 3/25/14.
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
+//  This Class has been been designed as a virtual/abstract class
 
-#import "DNManager.h"
+#import "JSMessageInputView.h"
 #import <UIKit/UIKit.h>
 
-@interface TNCommentsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UITextViewDelegate>
+@interface TNCommentsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>
 
-- (instancetype)initWithType:(TNType)type story:(DNStory *)story;
+@property (nonatomic) UIColor *themeColor;
+@property (nonatomic,   copy) NSArray *comments;
+
+@property (nonatomic, strong) NSNumber *replyToID;
+
+@property (nonatomic) UITableView *commentsView;
+@property (assign, nonatomic) CGFloat previousTextViewContentHeight;
+@property (weak, nonatomic, readonly) JSMessageInputView *commentInputView;
+
+- (void)postActionCompleted;
+
+// Methods to be overridden
+
+- (void)downloadComments;
+
+- (void)postButtonPressed;
+
+- (void)addTableHeaderView;
+
+- (void)registerClassForCell;
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

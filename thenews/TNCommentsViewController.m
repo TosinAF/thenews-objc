@@ -6,57 +6,15 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
-#import "TNHeaderView.h"
-#import "TNCommentCell.h"
-#import "TNNotification.h"
 #import "JSMessageTextView.h"
-#import "JSMessageInputView.h"
 #import "NSString+JSMessagesView.h"
 #import "TNCommentsViewController.h"
 
-DNManager *DNClient;
-static NSString *CellIdentifier = @"TNCommentCell";
-
 @interface TNCommentsViewController () <UITextViewDelegate, JSDismissiveTextViewDelegate>
-
-@property (nonatomic) DNStory *story;
-@property (nonatomic) UIColor *themeColor;
-@property (nonatomic,   copy) NSArray *comments;
-
-@property (nonatomic, strong) NSNumber *replyToID;
-
-@property (nonatomic) UITableView *commentsView;
-@property (assign, nonatomic) CGFloat previousTextViewContentHeight;
-@property (weak, nonatomic, readonly) JSMessageInputView *commentInputView;
 
 @end
 
 @implementation TNCommentsViewController
-
-- (instancetype)initWithType:(TNType)type story:(DNStory *)story
-{
-    self = [super init];
-
-    if (self) {
-
-        switch (type) {
-            case TNTypeDesignerNews:
-                self.title = @"DESIGNER NEWS";
-                self.themeColor = [UIColor dnColor];
-                break;
-
-            case TNTypeHackerNews:
-                self.title = @"HACKER NEWS";
-                self.themeColor = [UIColor hnColor];
-                break;
-        }
-
-        self.story = story;
-        self.comments = [NSArray new];
-    }
-
-    return self;
-}
 
 #pragma mark - View Lifecycle
 
@@ -87,38 +45,23 @@ static NSString *CellIdentifier = @"TNCommentCell";
     [super viewDidLoad];
     [self configureNavbar];
 
-    DNClient = [DNManager sharedClient];
     [self downloadComments];
 
     /* Set up Comments Table View */
-
-    self.commentsView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    // allocated in subclass
+    [self.commentsView setFrame:self.view.bounds];
     [self.commentsView setDelegate:self];
     [self.commentsView setDataSource:self];
     [self.commentsView setSeparatorColor:[UIColor tnLightGreyColor]];
-    [self.commentsView registerClass:[TNCommentCell class] forCellReuseIdentifier:CellIdentifier];
+    [self registerClassForCell];
 
     [self.view addSubview:self.commentsView];
 
     /* Set Up Keyboard */
 
     [self configureKeyboard];
+    [self addTableHeaderView];
 
-
-    /* Set Up Table Header View */
-
-    TNHeaderView *headerView = [[TNHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 85) type:TNTypeDesignerNews];
-    [headerView configureForStory:self.story];
-    [headerView setButtonTitle:@"Comment"];
-    [headerView setButtonAction:^{
-
-        self.replyToID = nil;
-        [self.commentInputView.textView becomeFirstResponder];
-        NSLog(@"%@",self.replyToID);
-
-    }];
-
-    [self.commentsView setTableHeaderView:headerView];
 
     /* Add Table View Bottom Border */
 
@@ -126,6 +69,16 @@ static NSString *CellIdentifier = @"TNCommentCell";
     [border setBackgroundColor:[UIColor tnLightGreyColor]];
 
     [self.commentsView addSubview:border];
+}
+
+- (void)addTableHeaderView
+{
+    NSAssert(NO, @"Subclasses need to overwrite this method");
+}
+
+- (void)registerClassForCell
+{
+    NSAssert(NO, @"Subclasses need to overwrite this method");
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -156,107 +109,34 @@ static NSString *CellIdentifier = @"TNCommentCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TNCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
-    DNComment *comment = [self.comments objectAtIndex:[indexPath row]];
-    [cell configureForComment:comment];
-    [cell addSwipeGesturesToCell];
-
-    [cell setUpvoteBlock:^(TNCommentCell *cell) {
-
-        TNNotification *notification = [[TNNotification alloc] init];
-        NSString *commentID = [[[cell comment] commentID] stringValue];
-
-        [DNClient upvoteCommentWithID:commentID success:^{
-
-            [notification showSuccessNotification:@"Comment Upvote Successful" subtitle:nil];
-
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-
-            [notification showFailureNotification:@"Comment Upvote Failed" subtitle:@"You can only upvote a comment once."];
-        }];
-    }];
-
-    [cell setCommentBlock:^(TNCommentCell *cell) {
-
-        self.replyToID = [comment commentID];
-        NSLog(@"reply is %@", self.replyToID);
-        [self.commentInputView.textView becomeFirstResponder];
-
-    }];
-
-    return cell;
+    NSAssert(NO, @"Subclasses need to overwrite this method");
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TNCommentCell *cell = [[TNCommentCell alloc] init];
-    CGFloat height = [cell estimateHeightWithComment:self.comments[[indexPath row]]];
-
-    return height;
+    NSAssert(NO, @"Subclasses need to overwrite this method");
+    return 0.0;
 }
 
 #pragma mark - Network Methods
 
 - (void)postButtonPressed {
-    [self postComment:self.commentInputView.textView.text inReplyTo:self.replyToID];
+    
+    NSAssert(NO, @"Subclasses need to overwrite this method");
 }
 
-- (void)postComment:(NSString *)comment inReplyTo:(NSNumber *)originalCommentID {
-
-    TNNotification *notification = [[TNNotification alloc] init];
-
-    if (originalCommentID) {
-
-        [DNClient replyCommentWithID:[[self.story storyID] stringValue] comment:comment success:^{
-
-            [self downloadComments];
-            [self finishSend];
-
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            NSString *errorMsg = [[error userInfo] objectForKey:@"NSLocalizedDescription"];
-            NSLog(@"%@", errorMsg);
-        }];
-
-    } else {
-
-        [DNClient replyStoryWithID:[[self.story storyID] stringValue] comment:comment success:^{
-
-            [self downloadComments];
-            [self finishSend];
-            [notification showSuccessNotification:@"Comment Post Successful" subtitle:nil];
-
-        } failure:^(NSURLSessionDataTask *task, NSError *error){
-
-            NSString *errorMsg = [[error userInfo] objectForKey:@"NSLocalizedDescription"];
-            NSLog(@"%@", errorMsg);
-            [notification showFailureNotification:@"Comment Post Failed" subtitle:nil];
-        }];
-    }
-
-}
 
 - (void)downloadComments {
 
-    [DNClient getCommentsForStoryWithID:[[self.story storyID] stringValue] success:^(NSArray *comments) {
-
-        self.comments = comments;
-        [self.commentsView reloadData];
-
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
-        NSLog(@"The task: %@ failed with error: %@", task, error);
-        
-    }];
+    NSAssert(NO, @"Subclasses need to overwrite this method");
 }
 
 #pragma mark - Keyboard Methods
 
 - (void)configureKeyboard
 {
-    JSMessageInputViewStyle inputViewStyle = JSMessageInputViewStyleFlat;
     CGFloat inputViewHeight = 45.0f;
-
     CGRect inputFrame = CGRectMake(0.0f,
                                    self.view.frame.size.height - inputViewHeight,
                                    self.view.frame.size.width,
@@ -264,26 +144,22 @@ static NSString *CellIdentifier = @"TNCommentCell";
 
     [self setTableViewInsetsWithBottomValue:inputViewHeight];
 
-    //UIPanGestureRecognizer *pan = _commentsView.panGestureRecognizer;
-
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGestureRecognizer:)];
     [_commentsView addGestureRecognizer:tap];
 
     JSMessageInputView *inputView = [[JSMessageInputView alloc] initWithFrame:inputFrame
-                                                                        style:inputViewStyle
+                                                                        style:JSMessageInputViewStyleFlat
                                                                      delegate:self
                                                          panGestureRecognizer:nil];
 
     [inputView setBackgroundColor:[UIColor colorWithRed:0.969 green:0.969 blue:0.969 alpha:1]];
     [inputView.textView setBackgroundColor:[UIColor whiteColor]];
+    [inputView.textView setTintColor:self.themeColor];
     [inputView.textView setPlaceHolder:@"New Comment"];
 
-    inputView.sendButton.enabled = NO;
-    [inputView.sendButton addTarget:self
-                             action:@selector(postButtonPressed)
-                   forControlEvents:UIControlEventTouchUpInside];
+    [inputView.sendButton setEnabled:NO];
+    [inputView.sendButton addTarget:self action:@selector(postButtonPressed) forControlEvents:UIControlEventTouchUpInside];
 
-    [inputView.textView setTintColor:[UIColor tnColor]];
 
     CALayer *TopBorder = [CALayer layer];
     TopBorder.frame = CGRectMake(0.0f, 0.0f, inputView.frame.size.width, 0.5f);
@@ -295,16 +171,10 @@ static NSString *CellIdentifier = @"TNCommentCell";
 
 }
 
-- (void)cancelReply {
-    self.replyToID = nil;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] init];
-}
-
-- (void)finishSend
+- (void)postActionCompleted
 {
     [self.commentInputView.textView setText:nil];
     [self textViewDidChange:self.commentInputView.textView];
-    [self.commentsView reloadData];
 }
 
 #pragma mark - Gesture Recognizers

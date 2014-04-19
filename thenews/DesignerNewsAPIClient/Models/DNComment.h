@@ -11,6 +11,7 @@
 @interface DNComment : NSObject
 
 @property (nonatomic, copy) NSString *body;
+@property (nonatomic, copy) NSString *bodyHTML;
 @property (nonatomic, copy) NSString *author;
 @property (nonatomic, strong) NSNumber *authorID;
 @property (nonatomic, strong) NSNumber *depth;

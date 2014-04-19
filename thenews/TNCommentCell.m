@@ -49,19 +49,16 @@ __weak TNCommentCell *weakSelf;
     return self;
 }
 
-- (void)configureForComment:(DNComment *)comment
+- (void)updateLabels
 {
-    self.comment = comment;
-    [self setFeedType:TNTypeDesignerNews];
-
     [self.commentView setText:nil];
-    [self.commentView setText:[comment body]];
+    [self.commentView setText:self.cellContent[@"comment"]];
     [self.commentView setDataDetectorTypes:UIDataDetectorTypeLink];
 
     /* --- Attributed Detail Text --- */
 
-	NSString *detailString = [NSString stringWithFormat:@"%@ Points by %@", [comment voteCount], [comment author]];
-	NSRange authorRange = [detailString rangeOfString:[comment author]];
+	NSString *detailString = [NSString stringWithFormat:@"%@ Points by %@", self.cellContent[@"voteCount"], self.cellContent[@"author"]];
+	NSRange authorRange = [detailString rangeOfString:self.cellContent[@"author"]];
 	NSDictionary *textAttr = @{ NSFontAttributeName:[UIFont fontWithName:@"Avenir" size:12.0f],
 		                        NSForegroundColorAttributeName:[UIColor tnGreyColor] };
 
@@ -73,12 +70,14 @@ __weak TNCommentCell *weakSelf;
     [self adjustFrames];
 }
 
+#pragma mark - Dynamic Height Methods
+
 - (void)adjustFrames
 {
     /* Resize frame For Comment Body */
 
     CGRect frame = self.commentView.frame;
-    frame.size = CGSizeMake(270, [self getCommentViewHeight:[self.comment body]]);
+    frame.size = CGSizeMake(270, [self getCommentViewHeight:self.cellContent[@"comment"]]);
     self.commentView.frame = frame;
 
     /* Move Author Label Below Comment */
@@ -90,16 +89,16 @@ __weak TNCommentCell *weakSelf;
 
     /* Handle Nested Comments */
 
-    NSNumber *depth = [self.comment depth];
+    NSNumber *depth = self.cellContent[@"depth"];
     [self.commentView setTextContainerInset:UIEdgeInsetsMake(0, 15 * [depth intValue] , -5, 0)];
     detailFrame.origin.x = 25 + 15 * [depth intValue];
 
     self.detailLabel.frame = detailFrame;
 }
 
-- (CGFloat)estimateHeightWithComment:(DNComment *)comment
+- (CGFloat)estimateCellHeightWithComment:(NSString *)comment
 {
-    int commentViewHeight = [self getCommentViewHeight:[comment body]];
+    int commentViewHeight = [self getCommentViewHeight:comment];
     int detailLabelHeight = self.detailLabel.frame.size.height;
     return commentViewHeight + detailLabelHeight + 35;
 }
@@ -108,6 +107,28 @@ __weak TNCommentCell *weakSelf;
 {
     CGSize size = [self text:comment sizeWithFont:[UIFont fontWithName:@"Avenir" size:15.0f] constrainedToSize:CGSizeMake(270, 5000)];
     return floorf(size.height);
+}
+
+- (void)addSwipeGesturesToCell
+{
+    UIView *upvoteView = [self viewWithImageName:@"Upvote"];
+    UIView *commentView = [self viewWithImageName:@"Comment"];
+    UIColor *lightGreen = [UIColor colorWithRed:0.631 green:0.890 blue:0.812 alpha:1];
+
+    [self setDefaultColor:[UIColor tnLightGreyColor]];
+    [self setFirstTrigger:0.15];
+
+    [self setSwipeGestureWithView:upvoteView color:lightGreen mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+
+        weakSelf.upvoteBlock(cell,state,mode);
+        
+    }];
+
+    [self setSwipeGestureWithView:commentView color:[UIColor dnColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+
+        weakSelf.commentBlock(cell,state,mode);
+
+    }];
 }
 
 - (void)setFeedType:(TNType)feedType {
@@ -123,28 +144,6 @@ __weak TNCommentCell *weakSelf;
 			self.lightThemeColor = [UIColor hnLightColor];
 			break;
 	}
-}
-
-- (void)addSwipeGesturesToCell
-{
-    UIView *upvoteView = [self viewWithImageName:@"Upvote"];
-    UIView *commentView = [self viewWithImageName:@"Comment"];
-    UIColor *lightGreen = [UIColor colorWithRed:0.631 green:0.890 blue:0.812 alpha:1];
-
-    [self setDefaultColor:[UIColor tnLightGreyColor]];
-    [self setFirstTrigger:0.15];
-
-    [self setSwipeGestureWithView:upvoteView color:lightGreen mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-
-        weakSelf.upvoteBlock((TNCommentCell *)cell);
-        
-    }];
-
-    [self setSwipeGestureWithView:commentView color:[UIColor dnColor] mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-
-        weakSelf.commentBlock((TNCommentCell *)cell);
-
-    }];
 }
 
 #pragma mark - Private Methods

@@ -16,6 +16,7 @@
 
     if (self) {
         [self setBody:dict[@"body"]];
+        [self setBodyHTML:dict[@"body_html"]];
         [self setAuthor:dict[@"user_display_name"]];
         [self setAuthorID:dict[@"user_id"]];
         [self setDepth:dict[@"depth"]];
