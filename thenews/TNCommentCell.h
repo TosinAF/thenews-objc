@@ -14,13 +14,19 @@
 @interface TNCommentCell : MCSwipeTableViewCell
 
 @property (nonatomic, strong) NSDictionary *cellContent;
-@property (readwrite, copy) MCSwipeCompletionBlock upvoteBlock;
-@property (readwrite, copy) MCSwipeCompletionBlock commentBlock;
+@property (copy) MCSwipeCompletionBlock upvoteBlock;
+@property (copy) MCSwipeCompletionBlock replyBlock;
 
 
 - (void)updateLabels;
 
-- (void)addSwipeGesturesToCell;
+- (void)addUpvoteGesture;
+
+- (void)configureUpvoteBlock:(MCSwipeCompletionBlock)block;
+
+- (void)addReplyCommentGesture;
+
+- (void)configureReplyBlock:(MCSwipeCompletionBlock)block;
 
 - (void)setFeedType:(TNType)feedType;
 

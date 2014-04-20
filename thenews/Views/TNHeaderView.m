@@ -46,13 +46,24 @@ ButtonActionBlock buttonAction;
 
 - (void)configureForStory:(DNStory *)story
 {
-    self.story = story;
     [self layoutSubviews];
 
     NSDictionary *cellContent = @{@"title":[story title],
                                   @"author":[story displayName],
                                   @"points":[story voteCount],
                                   @"count":[story commentCount]};
+
+    [self updateLabels:cellContent];
+}
+
+- (void)configureForPost:(HNPost *)post
+{
+    [self layoutSubviews];
+
+    NSDictionary *cellContent = @{@"title":[post Title],
+                                  @"author":[post Username],
+                                  @"points":@([post Points]),
+                                  @"count":@([post CommentCount])};
 
     [self updateLabels:cellContent];
 }

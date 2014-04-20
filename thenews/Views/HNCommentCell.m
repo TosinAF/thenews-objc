@@ -10,22 +10,17 @@
 
 @implementation HNCommentCell
 
-- (id)initWithFrame:(CGRect)frame
+- (void)configureForComment:(HNComment *)comment
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
+    [self setFeedType:TNTypeHackerNews];
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+    NSDictionary *cellContent = @{@"comment":[comment Text],
+                                  @"author":[comment Username],
+                                  @"depth":@([comment Level]),
+                                  @"commentID": [comment CommentId]};
 
+    // Should have abstracted this to a TNContent Model with a mutable dictionary
+    [self setCellContent:cellContent];
+    [self updateLabels];
+}
 @end

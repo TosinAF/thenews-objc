@@ -8,7 +8,6 @@
 
 #import "TNHeaderView.h"
 #import "DNCommentCell.h"
-#import "TNCommentCell.h"
 #import "TNNotification.h"
 #import "JSMessageInputView.h"
 #import "DNCommentsViewController.h"
@@ -72,9 +71,10 @@ static NSString *CellIdentifier = @"DNCommentCell";
 
     DNComment *comment = [self.comments objectAtIndex:[indexPath row]];
     [cell configureForComment:comment];
-    [cell addSwipeGesturesToCell];
+    [cell addUpvoteGesture];
+    [cell addReplyCommentGesture];
 
-    [cell setUpvoteBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+    [cell configureUpvoteBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
 
         DNCommentCell *dnCell = (DNCommentCell *)cell;
         NSString *commentID = [[[dnCell cellContent] objectForKey:@"commentID"] stringValue];
@@ -91,7 +91,7 @@ static NSString *CellIdentifier = @"DNCommentCell";
         }];
     }];
 
-    [cell setCommentBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+    [cell configureReplyBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
 
         DNCommentCell *dnCell = (DNCommentCell *)cell;
         self.replyToID = [[dnCell cellContent] objectForKey:@"commentID"];
@@ -105,7 +105,7 @@ static NSString *CellIdentifier = @"DNCommentCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TNCommentCell *cell = [[TNCommentCell alloc] init];
+    DNCommentCell *cell = [[DNCommentCell alloc] init];
     DNComment *comment = self.comments[[indexPath row]];
     NSString *commentStr = [comment body];
     CGFloat height = [cell estimateCellHeightWithComment:commentStr];

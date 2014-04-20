@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import "DNManager.h"
 #import "TNRefreshView.h"
 #import "TNNotification.h"
 #import "DNFeedViewCell.h"
@@ -21,7 +22,7 @@ DNManager *DNClient;
 __weak DNFeedViewController *weakself;
 
 
-@interface DNFeedViewController () 
+@interface DNFeedViewController () <TNFeedViewCellDelegate>
 
 @property (nonatomic, strong) NSMutableArray *stories;
 @property (nonatomic, strong) UITableView *feedView;
@@ -29,6 +30,20 @@ __weak DNFeedViewController *weakself;
 @end
 
 @implementation DNFeedViewController
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    NSArray *cells = [self.feedView visibleCells];
+
+    for (TNFeedViewCell *cell in cells) {
+        [cell setGestureDelegate:self];
+        NSLog(@"%@", [cell gestureDelegate]);
+    }
+
+    NSLog(@"view will appear");
+}
 
 - (void)viewDidLoad
 {
@@ -80,34 +95,19 @@ __weak DNFeedViewController *weakself;
 
 	[cell setForReuse];
 	[cell setFrameHeight:CELL_HEIGHT];
+    [cell setGestureDelegate:self];
     [cell configureForStory:story];
 
     if ([DNClient isUserAuthenticated]) {
 
         [cell addUpvoteGesture];
-
-        [cell setUpvoteBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-
-            DNFeedViewCell *dncell = (DNFeedViewCell *)cell;
-            DNStory *story = [dncell story];
-            [weakself upvoteStoryWithID:[story storyID]];
-
-        }];
     }
 
     [cell addViewCommentsGesture];
-
-    [cell setCommentBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-
-        DNFeedViewCell *dncell = (DNFeedViewCell *)cell;
-        DNStory *story = [dncell story];
-        [weakself showCommentsForStory:story];
-        
-    }];
-
     [cell setSeparatorInset:UIEdgeInsetsZero];
     return cell;
 }
+
 
 #pragma mark - Table View Delegate
 
@@ -124,6 +124,22 @@ __weak DNFeedViewController *weakself;
     [postViewController setDismissAction:^{ [weakSelf.navigationController popViewControllerAnimated:YES]; }];
 
     [self.navigationController pushViewController:postViewController animated:YES];
+}
+
+#pragma mark - TNFeedView Delegate
+
+- (void)upvoteActionForCell:(TNFeedViewCell *)cell
+{
+    DNFeedViewCell *dncell = (DNFeedViewCell *)cell;
+    DNStory *story = [dncell story];
+    [self upvoteStoryWithID:[story storyID]];
+}
+
+- (void)viewCommentsActionForCell:(TNFeedViewCell *)cell
+{
+    DNFeedViewCell *dncell = (DNFeedViewCell *)cell;
+    DNStory *story = [dncell story];
+    [self showCommentsForStory:story];
 }
 
 #pragma mark - Network Methods

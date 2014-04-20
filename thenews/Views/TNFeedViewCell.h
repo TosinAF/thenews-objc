@@ -9,16 +9,28 @@
 #import <UIKit/UIKit.h>
 #import "MCSwipeTableViewCell.h"
 
+@protocol TNFeedViewCellDelegate;
+
 @interface TNFeedViewCell : MCSwipeTableViewCell
+
+@property (nonatomic, weak) id<TNFeedViewCellDelegate> gestureDelegate;
 
 - (void)setForReuse;
 - (void)setFeedType:(TNType)feedType;
-- (void)setUpvoteBlock:(MCSwipeCompletionBlock)block;
-- (void)setCommentBlock:(MCSwipeCompletionBlock)block;
 - (void)setFrameHeight:(CGFloat)height;
 
 - (void)updateLabels:(NSDictionary *)content;
 - (void)addUpvoteGesture;
+
 - (void)addViewCommentsGesture;
+
+@end
+
+@protocol TNFeedViewCellDelegate <NSObject>
+
+@optional
+
+- (void)upvoteActionForCell:(TNFeedViewCell *)cell;
+- (void)viewCommentsActionForCell:(TNFeedViewCell *)cell;
 
 @end

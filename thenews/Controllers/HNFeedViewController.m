@@ -12,6 +12,7 @@
 #import "HNFeedViewCell.h"
 #import "SVPullToRefresh.h"
 #import "TNPostViewController.h"
+#import "HNCommentsViewController.h"
 #import "HNFeedViewController.h"
 
 static int CELL_HEIGHT = 85;
@@ -19,7 +20,7 @@ static NSString *CellIdentifier = @"HNFeedCell";
 
 __weak HNFeedViewController *weakSelf;
 
-@interface HNFeedViewController ()
+@interface HNFeedViewController () <TNFeedViewCellDelegate>
 
 @property (nonatomic, strong) NSMutableArray *posts;
 @property (nonatomic, strong) UITableView *feedView;
@@ -68,27 +69,14 @@ __weak HNFeedViewController *weakSelf;
     HNPost *post = (self.posts)[[indexPath row]];
 
 	[cell setForReuse];
+    [cell setGestureDelegate:self];
 	[cell setFrameHeight:CELL_HEIGHT];
 	[cell setFeedType:TNTypeHackerNews];
     [cell configureForPost:post];
 
-    if ([[HNManager sharedManager] userIsLoggedIn]) {
-
-        [cell addUpvoteGesture];
-
-        [cell setUpvoteBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-
-
-        }];
-    }
+    if ([[HNManager sharedManager] userIsLoggedIn]) [cell addUpvoteGesture];
 
     [cell addViewCommentsGesture];
-
-    [cell setCommentBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-
-        [self showCommentView];
-    }];
-
     [cell setSeparatorInset:UIEdgeInsetsZero];
     return cell;
 }
@@ -109,6 +97,36 @@ __weak HNFeedViewController *weakSelf;
     [self.navigationController pushViewController:postViewController animated:YES];
 }
 
+#pragma mark - TNFeedView Delegate
+
+- (void)upvoteActionForCell:(TNFeedViewCell *)cell
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
+    HNFeedViewCell *hnCell = (HNFeedViewCell *)cell;
+    TNNotification *notification = [[TNNotification alloc] init];
+    
+    [[HNManager sharedManager] voteOnPostOrComment:[hnCell post] direction:VoteDirectionUp completion:^(BOOL success){
+        if (success) {
+
+            [notification showSuccessNotification:@"Post Upvote Successful" subtitle:nil];
+            
+        } else {
+
+            [notification showFailureNotification:@"Post Upvote Failed" subtitle:@"You can only upvote a story once."];
+        }
+
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+}
+
+- (void)viewCommentsActionForCell:(TNFeedViewCell *)cell
+{
+    HNFeedViewCell *hnCell = (HNFeedViewCell *)cell;
+    [self showCommentsForPost:[hnCell post]];
+    NSLog(@"i reached here hn");
+}
+
 #pragma mark - Network Methods
 
 - (void)downloadPosts
@@ -122,7 +140,6 @@ __weak HNFeedViewController *weakSelf;
             [self.feedView reloadData];
         }
         else {
-            // No posts retrieved, handle the error
             NSLog(@"Error Occured");
         }
 
@@ -130,13 +147,13 @@ __weak HNFeedViewController *weakSelf;
     }];
 }
 
-- (void)showCommentView
-{
-    NSLog(@"CommentViewShown");
-}
-
-
 #pragma mark - Private Methods
+
+- (void)showCommentsForPost:(HNPost *)post
+{
+    HNCommentsViewController *vc = [[HNCommentsViewController alloc] initWithPost:post];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 - (void)setupRefreshControl
 {
@@ -154,6 +171,5 @@ __weak HNFeedViewController *weakSelf;
     [[self.feedView pullToRefreshView] setCustomView:pulling forState:SVPullToRefreshStateAll];
     [[self.feedView pullToRefreshView] setCustomView:loading forState:SVPullToRefreshStateLoading];
 }
-
 
 @end

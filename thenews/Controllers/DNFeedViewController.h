@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DNManager.h"
 
 int dnFeedType;
 

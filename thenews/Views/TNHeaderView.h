@@ -7,16 +7,16 @@
 //
 
 #import "DNStory.h"
+#import "HNPost.h"
 #import <UIKit/UIKit.h>
 
 typedef void (^ButtonActionBlock)(void);
 
 @interface TNHeaderView : UIView
 
-@property (strong, nonatomic) DNStory *story;
-
 - (id)initWithFrame:(CGRect)frame type:(TNType)type;
 - (void)configureForStory:(DNStory *)story;
+- (void)configureForPost:(HNPost *)post;
 
 - (void)setButtonTitle:(NSString *)title;
 - (void)setButtonAction:(ButtonActionBlock)block;

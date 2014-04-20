@@ -26,6 +26,7 @@
 		4E783D3818AD7D7D00D78B20 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E783D3718AD7D7D00D78B20 /* Images.xcassets */; };
 		4E7BFF411902E53100A49102 /* DNCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BFF401902E53100A49102 /* DNCommentCell.m */; };
 		4E7BFF441902E55000A49102 /* HNCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BFF431902E55000A49102 /* HNCommentCell.m */; };
+		4E7BFF4A1904232900A49102 /* HNCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BFF491904232900A49102 /* HNCommentsViewController.m */; };
 		4E84011018E1783C00E3AB34 /* DNManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84010618E1783C00E3AB34 /* DNManager.m */; };
 		4E84011118E1783C00E3AB34 /* DNComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84010918E1783C00E3AB34 /* DNComment.m */; };
 		4E84011218E1783C00E3AB34 /* DNMOTD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84010B18E1783C00E3AB34 /* DNMOTD.m */; };
@@ -99,6 +100,8 @@
 		4E7BFF401902E53100A49102 /* DNCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNCommentCell.m; path = Views/DNCommentCell.m; sourceTree = "<group>"; };
 		4E7BFF421902E55000A49102 /* HNCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNCommentCell.h; path = Views/HNCommentCell.h; sourceTree = "<group>"; };
 		4E7BFF431902E55000A49102 /* HNCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNCommentCell.m; path = Views/HNCommentCell.m; sourceTree = "<group>"; };
+		4E7BFF481904232900A49102 /* HNCommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNCommentsViewController.h; sourceTree = "<group>"; };
+		4E7BFF491904232900A49102 /* HNCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNCommentsViewController.m; sourceTree = "<group>"; };
 		4E84010518E1783C00E3AB34 /* DNManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNManager.h; sourceTree = "<group>"; };
 		4E84010618E1783C00E3AB34 /* DNManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNManager.m; sourceTree = "<group>"; };
 		4E84010818E1783C00E3AB34 /* DNComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNComment.h; sourceTree = "<group>"; };
@@ -311,16 +314,10 @@
 				4E4E1BB918AD989300B87E7A /* TNHomeViewController.m */,
 				4EBB4E9B18D7B626008BB571 /* TNContainerViewController.h */,
 				4EBB4E9A18D7B626008BB571 /* TNContainerViewController.m */,
-				4E84011518E17B4F00E3AB34 /* DNFeedViewController.h */,
-				4E84011618E17B4F00E3AB34 /* DNFeedViewController.m */,
-				4EC1409118F12F350082E3C3 /* HNFeedViewController.h */,
-				4EC1409218F12F350082E3C3 /* HNFeedViewController.m */,
+				4E7BFF461902F92C00A49102 /* FeedViewController */,
+				4E7BFF471902F93E00A49102 /* CommentsViewController */,
 				4EBB4E9918D7B626008BB571 /* TNPostViewController.h */,
 				4EBB4E9818D7B626008BB571 /* TNPostViewController.m */,
-				C620B90918E2403F007AB81D /* TNCommentsViewController.h */,
-				C620B90A18E2403F007AB81D /* TNCommentsViewController.m */,
-				4E93A4941901C79500B19EFB /* DNCommentsViewController.h */,
-				4E93A4951901C79500B19EFB /* DNCommentsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -333,20 +330,52 @@
 				4E4E1BC918AD98A100B87E7A /* TNTextField.h */,
 				4E4E1BCA18AD98A100B87E7A /* TNTextField.m */,
 				4EC1409A18F149A30082E3C3 /* FeedViewCell */,
+				4E7BFF451902F90100A49102 /* CommentViewCell */,
 				4EBB4EA218D7B655008BB571 /* TNMenuView.h */,
 				4EBB4EA118D7B655008BB571 /* TNMenuView.m */,
 				4EA7564118F1F0E30089346D /* TNHeaderView.h */,
 				4EA7564218F1F0E30089346D /* TNHeaderView.m */,
+				4E8402F518E4FDCD00E3AB34 /* TNRefreshView.h */,
+				4E8402F618E4FDCD00E3AB34 /* TNRefreshView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		4E7BFF451902F90100A49102 /* CommentViewCell */ = {
+			isa = PBXGroup;
+			children = (
 				C620B90618E23F8B007AB81D /* TNCommentCell.h */,
 				C620B90718E23F8B007AB81D /* TNCommentCell.m */,
 				4E7BFF3F1902E53100A49102 /* DNCommentCell.h */,
 				4E7BFF401902E53100A49102 /* DNCommentCell.m */,
 				4E7BFF421902E55000A49102 /* HNCommentCell.h */,
 				4E7BFF431902E55000A49102 /* HNCommentCell.m */,
-				4E8402F518E4FDCD00E3AB34 /* TNRefreshView.h */,
-				4E8402F618E4FDCD00E3AB34 /* TNRefreshView.m */,
 			);
-			name = Views;
+			name = CommentViewCell;
+			sourceTree = "<group>";
+		};
+		4E7BFF461902F92C00A49102 /* FeedViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E84011518E17B4F00E3AB34 /* DNFeedViewController.h */,
+				4E84011618E17B4F00E3AB34 /* DNFeedViewController.m */,
+				4EC1409118F12F350082E3C3 /* HNFeedViewController.h */,
+				4EC1409218F12F350082E3C3 /* HNFeedViewController.m */,
+			);
+			name = FeedViewController;
+			sourceTree = "<group>";
+		};
+		4E7BFF471902F93E00A49102 /* CommentsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C620B90918E2403F007AB81D /* TNCommentsViewController.h */,
+				C620B90A18E2403F007AB81D /* TNCommentsViewController.m */,
+				4E93A4941901C79500B19EFB /* DNCommentsViewController.h */,
+				4E93A4951901C79500B19EFB /* DNCommentsViewController.m */,
+				4E7BFF481904232900A49102 /* HNCommentsViewController.h */,
+				4E7BFF491904232900A49102 /* HNCommentsViewController.m */,
+			);
+			name = CommentsViewController;
 			sourceTree = "<group>";
 		};
 		4E84010418E1783C00E3AB34 /* DesignerNewsAPIClient */ = {
@@ -539,6 +568,7 @@
 				4EBB4E9F18D7B626008BB571 /* TNContainerViewController.m in Sources */,
 				4E7BFF411902E53100A49102 /* DNCommentCell.m in Sources */,
 				4EBB4EA518D7B655008BB571 /* TNMenuView.m in Sources */,
+				4E7BFF4A1904232900A49102 /* HNCommentsViewController.m in Sources */,
 				4EC1409918F145D20082E3C3 /* HNFeedViewCell.m in Sources */,
 				4E84011418E1783C00E3AB34 /* DNUser.m in Sources */,
 				4E783D3218AD7D7D00D78B20 /* main.m in Sources */,

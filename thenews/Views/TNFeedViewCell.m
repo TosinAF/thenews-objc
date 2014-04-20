@@ -8,9 +8,6 @@
 
 #import "TNFeedViewCell.h"
 
-MCSwipeCompletionBlock upvoteBlock;
-MCSwipeCompletionBlock commentBlock;
-
 @interface TNFeedViewCell ()
 
 @property (strong, nonatomic) UIColor *themeColor;
@@ -19,6 +16,9 @@ MCSwipeCompletionBlock commentBlock;
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *detailLabel;
 @property (strong, nonatomic) UILabel *commentCountLabel;
+
+@property (copy) MCSwipeCompletionBlock upvoteBlock;
+@property (copy) MCSwipeCompletionBlock commentBlock;
 
 @end
 
@@ -61,7 +61,6 @@ MCSwipeCompletionBlock commentBlock;
 
     [self setDefaultColor:[UIColor tnLightGreyColor]];
     [self setSelectionStyle:UITableViewCellSelectionStyleNone];
-
 }
 
 - (void)removeSubviews {
@@ -97,7 +96,6 @@ MCSwipeCompletionBlock commentBlock;
 
 	/* --- Comment Label --- */
 
-
     NSNumber *commentCount = content[@"count"];
     NSString *commentCountString = [NSString new];
 
@@ -114,34 +112,42 @@ MCSwipeCompletionBlock commentBlock;
 
 - (void)addUpvoteGesture
 {
+
     UIView *upvoteView = [self viewWithImageName:@"Upvote"];
     UIColor *lightGreen = [UIColor colorWithRed:0.631 green:0.890 blue:0.812 alpha:1];
 
+    __block TNFeedViewCell *blockSelf = self;
+
     [self setSwipeGestureWithView:upvoteView color:lightGreen mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
 
-        upvoteBlock(cell, state, mode);
+        TNFeedViewCell *tnCell = (TNFeedViewCell*)cell;
+        [blockSelf.gestureDelegate upvoteActionForCell:tnCell];
 
     }];
 }
 
 - (void)addViewCommentsGesture
 {
+    __block TNFeedViewCell *blockSelf = self;
+
     UIView *commentView = [self viewWithImageName:@"Comment"];
 
     [self setSwipeGestureWithView:commentView color:self.lightThemeColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
 
-        commentBlock(cell, state, mode);
+        TNFeedViewCell *tnCell = (TNFeedViewCell*)cell;
+        [blockSelf.gestureDelegate viewCommentsActionForCell:tnCell];
+
     }];
 }
 
-- (void)setUpvoteBlock:(MCSwipeCompletionBlock)block
+- (void)configureUpvoteBlock:(MCSwipeCompletionBlock)block
 {
-    upvoteBlock = block;
+    _upvoteBlock = [block copy];
 }
 
-- (void)setCommentBlock:(MCSwipeCompletionBlock)block
+- (void)configureViewCommentsBlock:(MCSwipeCompletionBlock)block
 {
-    commentBlock = block;
+    _commentBlock = [block copy];
 }
 
 #pragma mark - Private Methods

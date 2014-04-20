@@ -64,7 +64,7 @@
 
     UILabel *loadingLabel = [[UILabel alloc] initWithFrame:self.frame];
     loadingLabel.text = text;
-    [loadingLabel setFont:[UIFont fontWithName:@"Avenir-Light" size:15.0f]];
+    [loadingLabel setFont:[UIFont fontWithName:@"Montserrat" size:15.0f]];
     [loadingLabel setTextColor:[UIColor blackColor]];
     [loadingLabel setTextAlignment:NSTextAlignmentCenter];
 
