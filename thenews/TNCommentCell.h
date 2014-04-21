@@ -7,30 +7,32 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DNComment.h"
 #import "MCSwipeTableViewCell.h"
 
+@protocol TNCommentCellDelegate;
 
 @interface TNCommentCell : MCSwipeTableViewCell
 
 @property (nonatomic, strong) NSDictionary *cellContent;
-@property (copy) MCSwipeCompletionBlock upvoteBlock;
-@property (copy) MCSwipeCompletionBlock replyBlock;
-
+@property (nonatomic, weak) id<TNCommentCellDelegate> gestureDelegate;
 
 - (void)updateLabels;
 
 - (void)addUpvoteGesture;
 
-- (void)configureUpvoteBlock:(MCSwipeCompletionBlock)block;
-
 - (void)addReplyCommentGesture;
-
-- (void)configureReplyBlock:(MCSwipeCompletionBlock)block;
 
 - (void)setFeedType:(TNType)feedType;
 
 - (CGFloat)estimateCellHeightWithComment:(NSString *)comment;
 
+@end
+
+@protocol TNCommentCellDelegate <NSObject>
+
+@optional
+
+- (void)upvoteActionForCell:(TNCommentCell *)cell;
+- (void)replyActionForCell:(TNCommentCell *)cell;
 
 @end

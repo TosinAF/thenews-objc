@@ -15,7 +15,7 @@
 DNManager *DNClient;
 static NSString *CellIdentifier = @"DNCommentCell";
 
-@interface DNCommentsViewController ()
+@interface DNCommentsViewController () <TNCommentCellDelegate>
 
 @property (nonatomic, strong) DNStory *story;
 
@@ -68,37 +68,12 @@ static NSString *CellIdentifier = @"DNCommentCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DNCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
     DNComment *comment = [self.comments objectAtIndex:[indexPath row]];
+
+    [cell setGestureDelegate:self];
     [cell configureForComment:comment];
     [cell addUpvoteGesture];
     [cell addReplyCommentGesture];
-
-    [cell configureUpvoteBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-
-        DNCommentCell *dnCell = (DNCommentCell *)cell;
-        NSString *commentID = [[[dnCell cellContent] objectForKey:@"commentID"] stringValue];
-
-         TNNotification *notification = [[TNNotification alloc] init];
-
-        [DNClient upvoteCommentWithID:commentID success:^{
-
-            [notification showSuccessNotification:@"Comment Upvote Successful" subtitle:nil];
-
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-
-            [notification showFailureNotification:@"Comment Upvote Failed" subtitle:@"You can only upvote a comment once."];
-        }];
-    }];
-
-    [cell configureReplyBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-
-        DNCommentCell *dnCell = (DNCommentCell *)cell;
-        self.replyToID = [[dnCell cellContent] objectForKey:@"commentID"];
-        NSLog(@"reply is %@", self.replyToID);
-        [self.commentInputView.textView becomeFirstResponder];
-        
-    }];
     
     return cell;
 }
@@ -108,17 +83,42 @@ static NSString *CellIdentifier = @"DNCommentCell";
     DNCommentCell *cell = [[DNCommentCell alloc] init];
     DNComment *comment = self.comments[[indexPath row]];
     NSString *commentStr = [comment body];
-    CGFloat height = [cell estimateCellHeightWithComment:commentStr];
 
-    return height;
+    return [cell estimateCellHeightWithComment:commentStr];
+}
+
+#pragma mark - TNCommentCell Gesture Delegate
+
+- (void)upvoteActionForCell:(TNCommentCell *)cell
+{
+    DNCommentCell *dnCell = (DNCommentCell *)cell;
+    NSString *commentID = [[[dnCell cellContent] objectForKey:@"commentID"] stringValue];
+
+    TNNotification *notification = [[TNNotification alloc] init];
+
+    [DNClient upvoteCommentWithID:commentID success:^{
+
+        [notification showSuccessNotification:@"Comment Upvote Successful" subtitle:nil];
+
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+
+        [notification showFailureNotification:@"Comment Upvote Failed" subtitle:@"You can only upvote a comment once."];
+    }];
+}
+
+- (void)replyActionForCell:(TNCommentCell *)cell
+{
+    DNCommentCell *dnCell = (DNCommentCell *)cell;
+    self.replyToID = [[dnCell cellContent] objectForKey:@"commentID"];
+    NSLog(@"reply is %@", self.replyToID);
+    [self.commentInputView.textView becomeFirstResponder];
 }
 
 #pragma mark - Network Methods
 
 - (void)downloadComments {
 
-    DNClient = [DNManager sharedClient];
-    [DNClient getCommentsForStoryWithID:[[self.story storyID] stringValue] success:^(NSArray *comments) {
+    [[DNManager sharedManager] getCommentsForStoryWithID:[[self.story storyID] stringValue] success:^(NSArray *comments) {
 
         self.comments = comments;
         [self.commentsView reloadData];

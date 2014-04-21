@@ -62,7 +62,7 @@ TNType type;
 
         NSString *detailString = [NSString stringWithFormat:@"%@", self.cellContent[@"author"]];
         [self.detailLabel setText:detailString];
-        [self.detailLabel setFont:[UIFont fontWithName:@"Avenir" size:12.0f]];
+        [self.detailLabel setFont:[UIFont fontWithName:@"Avenir" size:14.0f]];
         [self.detailLabel setTextColor:self.themeColor];
 
     } else {
@@ -122,35 +122,33 @@ TNType type;
     return floorf(size.height) + padding;
 }
 
+#pragma mark - Swipe Gesture Methods
+
 - (void)addUpvoteGesture
 {
     UIView *upvoteView = [self viewWithImageName:@"Upvote"];
     UIColor *lightGreen = [UIColor colorWithRed:0.631 green:0.890 blue:0.812 alpha:1];
 
+    __block TNCommentCell *blockSelf = self;
+
     [self setSwipeGestureWithView:upvoteView color:lightGreen mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
 
-        weakSelf.upvoteBlock(cell, state, mode);
+        TNCommentCell *tnCell = (TNCommentCell *)cell;
+        [blockSelf.gestureDelegate upvoteActionForCell:tnCell];
 
     }];
-}
-
-- (void)configureUpvoteBlock:(MCSwipeCompletionBlock)block
-{
-    _upvoteBlock = [block copy];
-}
-
-- (void)configureReplyBlock:(MCSwipeCompletionBlock)block
-{
-    _replyBlock = [block copy];
 }
 
 - (void)addReplyCommentGesture
 {
     UIView *commentView = [self viewWithImageName:@"Comment"];
 
+    __block TNCommentCell *blockSelf = self;
+
     [self setSwipeGestureWithView:commentView color:self.lightThemeColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
 
-        weakSelf.replyBlock(cell, state, mode);
+        TNCommentCell *tnCell = (TNCommentCell *)cell;
+        [blockSelf.gestureDelegate replyActionForCell:tnCell];
     }];
 }
 

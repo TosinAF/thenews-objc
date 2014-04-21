@@ -18,9 +18,7 @@
 static int CELL_HEIGHT = 85;
 static NSString *CellIdentifier = @"DNFeedCell";
 
-DNManager *DNClient;
 __weak DNFeedViewController *weakself;
-
 
 @interface DNFeedViewController () <TNFeedViewCellDelegate>
 
@@ -31,18 +29,10 @@ __weak DNFeedViewController *weakself;
 
 @implementation DNFeedViewController
 
-- (void)viewWillAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    NSArray *cells = [self.feedView visibleCells];
-
-    for (TNFeedViewCell *cell in cells) {
-        [cell setGestureDelegate:self];
-        NSLog(@"%@", [cell gestureDelegate]);
-    }
-
-    NSLog(@"view will appear");
+    [self setupRefreshControl];
 }
 
 - (void)viewDidLoad
@@ -54,7 +44,6 @@ __weak DNFeedViewController *weakself;
     weakself = self;
 
     self.stories = [[NSMutableArray alloc] init];
-    DNClient = [DNManager sharedClient];
     [self downloadFeedAndReset:NO];
 
 	CGFloat navBarHeight = 64.0;
@@ -98,7 +87,7 @@ __weak DNFeedViewController *weakself;
     [cell setGestureDelegate:self];
     [cell configureForStory:story];
 
-    if ([DNClient isUserAuthenticated]) {
+    if ([[DNManager sharedManager] isUserAuthenticated]) {
 
         [cell addUpvoteGesture];
     }
@@ -154,7 +143,7 @@ __weak DNFeedViewController *weakself;
 
     page++;
 
-    [DNClient getStoriesOnPage:[NSString stringWithFormat:@"%d", page] feedType:dnFeedType success:^(NSArray *dnStories) {
+    [[DNManager sharedManager] getStoriesOnPage:[NSString stringWithFormat:@"%d", page] feedType:dnFeedType success:^(NSArray *dnStories) {
 
         if (reset) {
             [self.stories removeAllObjects];
@@ -164,7 +153,7 @@ __weak DNFeedViewController *weakself;
         [self.stories addObjectsFromArray:dnStories];
         [self.feedView reloadData];
 
-        [self setupRefreshControl];
+
         [self.feedView.infiniteScrollingView stopAnimating];
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -178,7 +167,7 @@ __weak DNFeedViewController *weakself;
 {
     TNNotification *notification = [[TNNotification alloc] init];
 
-    [DNClient upvoteStoryWithID:[storyID stringValue] success:^{
+    [[DNManager sharedManager] upvoteStoryWithID:[storyID stringValue] success:^{
 
         [notification showSuccessNotification:@"Story Upvote Successful" subtitle:nil];
 

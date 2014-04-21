@@ -22,6 +22,7 @@
 {
     [super viewWillAppear:animated];
 
+    [self configureNavbar];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self
@@ -43,7 +44,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self configureNavbar];
 
     [self downloadComments];
 
@@ -184,7 +184,7 @@
     [self.commentInputView.textView resignFirstResponder];
 }
 
-#pragma mark - Text view delegate
+#pragma mark - Text View delegate
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {

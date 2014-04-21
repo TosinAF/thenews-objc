@@ -34,7 +34,7 @@ typedef void (^RequestFailureBlock) (NSURLSessionDataTask *task, NSError *error)
 
 #pragma mark - Singleton Method
 
-+ (instancetype)sharedClient;
++ (instancetype)sharedManager;
 
 #pragma mark - Authentication methods
 

@@ -13,9 +13,10 @@
 
 static NSString *CellIdentifier = @"HNCommentCell";
 
-@interface HNCommentsViewController ()
+@interface HNCommentsViewController () <TNCommentCellDelegate>
 
 @property (nonatomic, strong) HNPost *post;
+@property (nonatomic, strong) id replyToObject;
 
 @end
 
@@ -28,6 +29,7 @@ static NSString *CellIdentifier = @"HNCommentCell";
     if (self) {
         self.title = @"HACKER NEWS";
         self.post = post;
+        self.replyToObject = post;
         self.themeColor = [UIColor hnColor];
         self.comments = [NSArray new];
         self.commentsView = [UITableView new];
@@ -48,9 +50,9 @@ static NSString *CellIdentifier = @"HNCommentCell";
     [headerView setButtonTitle:@"Comment"];
     [headerView setButtonAction:^{
 
-        self.replyToID = nil;
+        self.replyToObject = self.post;
         [self.commentInputView.textView becomeFirstResponder];
-        NSLog(@"%@",self.replyToID);
+        NSLog(@"%@",self.replyToObject);
 
     }];
 
@@ -67,19 +69,11 @@ static NSString *CellIdentifier = @"HNCommentCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HNCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
     HNComment *comment = [self.comments objectAtIndex:[indexPath row]];
+
+    [cell setGestureDelegate:self];
     [cell configureForComment:comment];
     [cell addReplyCommentGesture];
-
-    [cell configureReplyBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-
-        HNCommentCell *hnCell = (HNCommentCell *)cell;
-        self.replyToID = [[hnCell cellContent] objectForKey:@"CommentId"];
-        NSLog(@"reply is %@", self.replyToID);
-        [self.commentInputView.textView becomeFirstResponder];
-
-    }];
 
     return cell;
 }
@@ -93,9 +87,21 @@ static NSString *CellIdentifier = @"HNCommentCell";
     return [cell estimateCellHeightWithComment:commentStr];
 }
 
+#pragma mark - TNCommentCell Delegate
+
+-(void)replyActionForCell:(TNCommentCell *)cell
+{
+    HNCommentCell *hnCell = (HNCommentCell *)cell;
+    self.replyToObject = [hnCell comment];
+    NSLog(@"reply is %@", self.replyToObject);
+    [self.commentInputView.textView becomeFirstResponder];
+}
+
 #pragma mark - Network Methods
 
 - (void)downloadComments {
+
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
     [[HNManager sharedManager] loadCommentsFromPost:self.post completion:^(NSArray *comments){
         if (comments) {
@@ -107,11 +113,31 @@ static NSString *CellIdentifier = @"HNCommentCell";
 
            NSLog(@"The task failed.");
         }
+
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
 
 - (void)postButtonPressed {
-    //[self postComment:self.commentInputView.textView.text inReplyTo:self.replyToID];
+
+    TNNotification *notification = [[TNNotification alloc] init];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+    [[HNManager sharedManager] replyToPostOrComment:self.replyToObject withText:self.commentInputView.textView.text completion:^(BOOL success){
+        if (success) {
+
+           [notification showSuccessNotification:@"Comment Post Successful" subtitle:nil];
+            [self postActionCompleted];
+
+        } else {
+            NSLog(@"Error occurred");
+            [notification showFailureNotification:@"Comment Post Failed" subtitle:nil];
+        }
+
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
 }
+
+
 
 @end

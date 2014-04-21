@@ -15,8 +15,6 @@
 @property (nonatomic) UIColor *themeColor;
 @property (nonatomic,   copy) NSArray *comments;
 
-@property (nonatomic, strong) NSNumber *replyToID;
-
 @property (nonatomic) UITableView *commentsView;
 @property (assign, nonatomic) CGFloat previousTextViewContentHeight;
 @property (weak, nonatomic, readonly) JSMessageInputView *commentInputView;

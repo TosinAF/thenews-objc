@@ -184,7 +184,7 @@ TNType currentAuthType;
 
 - (void)dnLogin
 {
-    DNManager *DNClient = [DNManager sharedClient];
+    DNManager *DNClient = [DNManager sharedManager];
 
     [DNClient authenticateUser:self.usernameField.text password:self.passwordField.text success:^(NSString *accessToken) {
 
@@ -252,7 +252,7 @@ TNType currentAuthType;
 
 - (BOOL)userCompletedLoginForBoth
 {
-    return [[HNManager sharedManager] userIsLoggedIn] && [[DNManager sharedClient] isUserAuthenticated];
+    return [[HNManager sharedManager] userIsLoggedIn] && [[DNManager sharedManager] isUserAuthenticated];
 }
 
 - (BOOL)textFieldsAreFilled

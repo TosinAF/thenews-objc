@@ -29,11 +29,16 @@ __weak HNFeedViewController *weakSelf;
 
 @implementation HNFeedViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setupRefreshControl];
+}
+
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
     [self setFeedType:@(TNTypeHackerNews)];
-    //[self setupRefreshControl];
     weakSelf = self;
 
     self.posts = [[NSMutableArray alloc] init];
@@ -101,30 +106,38 @@ __weak HNFeedViewController *weakSelf;
 
 - (void)upvoteActionForCell:(TNFeedViewCell *)cell
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-
     HNFeedViewCell *hnCell = (HNFeedViewCell *)cell;
     TNNotification *notification = [[TNNotification alloc] init];
-    
-    [[HNManager sharedManager] voteOnPostOrComment:[hnCell post] direction:VoteDirectionUp completion:^(BOOL success){
-        if (success) {
+    BOOL hasVoted = [[HNManager sharedManager] hasVotedOnObject:[hnCell post]];
 
-            [notification showSuccessNotification:@"Post Upvote Successful" subtitle:nil];
-            
-        } else {
+    if (hasVoted) {
 
-            [notification showFailureNotification:@"Post Upvote Failed" subtitle:@"You can only upvote a story once."];
-        }
+        [notification showFailureNotification:@"Post Upvote Failed" subtitle:@"You can only upvote a post once."];
 
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    }];
+    } else {
+
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
+        [[HNManager sharedManager] voteOnPostOrComment:[hnCell post] direction:VoteDirectionUp completion:^(BOOL success){
+            if (success) {
+
+                [notification showSuccessNotification:@"Post Upvote Successful" subtitle:nil];
+                [[HNManager sharedManager] addHNObjectToVotedOnDictionary:[hnCell post] direction:VoteDirectionUp];
+
+            } else {
+
+                [notification showFailureNotification:@"Network Error." subtitle:@"Check your internet connection."];
+            }
+
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }];
+    }
 }
 
 - (void)viewCommentsActionForCell:(TNFeedViewCell *)cell
 {
     HNFeedViewCell *hnCell = (HNFeedViewCell *)cell;
     [self showCommentsForPost:[hnCell post]];
-    NSLog(@"i reached here hn");
 }
 
 #pragma mark - Network Methods
@@ -136,14 +149,38 @@ __weak HNFeedViewController *weakSelf;
     [[HNManager sharedManager] loadPostsWithFilter:PostFilterTypeTop completion:^(NSArray *posts){
 
         if (posts) {
+
+            [self.posts removeAllObjects];
             [self.posts addObjectsFromArray:posts];
             [self.feedView reloadData];
-        }
-        else {
+
+        } else {
+
             NSLog(@"Error Occured");
         }
 
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [[self.feedView pullToRefreshView] stopAnimating];
+    }];
+}
+
+- (void)downloadEvenMorePosts
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
+    [[HNManager sharedManager] loadPostsWithUrlAddition:[[HNManager sharedManager] postUrlAddition] completion:^(NSArray *posts){
+        if (posts && posts.count > 0) {
+
+            [self.posts addObjectsFromArray:posts];
+            [self.feedView reloadData];
+
+        } else {
+
+            NSLog(@"Error Occured");
+        }
+
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [[self.feedView infiniteScrollingView] stopAnimating];
     }];
 }
 
@@ -157,12 +194,14 @@ __weak HNFeedViewController *weakSelf;
 
 - (void)setupRefreshControl
 {
-    [self.feedView addPullToRefreshWithActionHandler:^{
+    __block HNFeedViewController *blockSelf = self;
 
+    [self.feedView addPullToRefreshWithActionHandler:^{
+        [blockSelf downloadPosts];
     }];
 
     [self.feedView addInfiniteScrollingWithActionHandler:^{
-
+        [blockSelf downloadEvenMorePosts];
     }];
 
     TNRefreshView *pulling = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, 320, 60) state:TNRefreshStatePulling];

@@ -11,6 +11,8 @@
 
 @interface HNCommentCell : TNCommentCell
 
+@property (nonatomic, strong) HNComment *comment;
+
 - (void)configureForComment:(HNComment *)comment;
 
 @end

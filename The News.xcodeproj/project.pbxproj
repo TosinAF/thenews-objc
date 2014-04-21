@@ -40,7 +40,6 @@
 		4E93A49018FF38E500B19EFB /* JSMessageTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E93A48C18FF38E500B19EFB /* JSMessageTextView.m */; };
 		4E93A49318FF3F9F00B19EFB /* NSString+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E93A49218FF3F9F00B19EFB /* NSString+JSMessagesView.m */; };
 		4E93A4961901C79500B19EFB /* DNCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E93A4951901C79500B19EFB /* DNCommentsViewController.m */; };
-		4E93A4991902A4F200B19EFB /* JTSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E93A4981902A4F200B19EFB /* JTSTextView.m */; };
 		4EA7564318F1F0E30089346D /* TNHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7564218F1F0E30089346D /* TNHeaderView.m */; };
 		4EBB4E9718D7B60F008BB571 /* TNFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4E9518D7B60F008BB571 /* TNFormViewController.m */; };
 		4EBB4E9E18D7B626008BB571 /* TNPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4E9818D7B626008BB571 /* TNPostViewController.m */; };
@@ -128,8 +127,6 @@
 		4E93A49218FF3F9F00B19EFB /* NSString+JSMessagesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSMessagesView.m"; sourceTree = "<group>"; };
 		4E93A4941901C79500B19EFB /* DNCommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNCommentsViewController.h; sourceTree = "<group>"; };
 		4E93A4951901C79500B19EFB /* DNCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNCommentsViewController.m; sourceTree = "<group>"; };
-		4E93A4971902A4F200B19EFB /* JTSTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSTextView.h; sourceTree = "<group>"; };
-		4E93A4981902A4F200B19EFB /* JTSTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSTextView.m; sourceTree = "<group>"; };
 		4EA7564118F1F0E30089346D /* TNHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNHeaderView.h; path = Views/TNHeaderView.h; sourceTree = "<group>"; };
 		4EA7564218F1F0E30089346D /* TNHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNHeaderView.m; path = Views/TNHeaderView.m; sourceTree = "<group>"; };
 		4EBB4E9418D7B5F7008BB571 /* TNTypeEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNTypeEnum.h; path = Utility/TNTypeEnum.h; sourceTree = "<group>"; };
@@ -259,8 +256,6 @@
 		4E783D2B18AD7D7D00D78B20 /* thenews */ = {
 			isa = PBXGroup;
 			children = (
-				4E93A4971902A4F200B19EFB /* JTSTextView.h */,
-				4E93A4981902A4F200B19EFB /* JTSTextView.m */,
 				4E783D3418AD7D7D00D78B20 /* TNAppDelegate.h */,
 				4E783D3518AD7D7D00D78B20 /* TNAppDelegate.m */,
 				4E3B4C0018B61BF200D8B75B /* Utility */,
@@ -574,7 +569,6 @@
 				4E783D3218AD7D7D00D78B20 /* main.m in Sources */,
 				C620B90B18E2403F007AB81D /* TNCommentsViewController.m in Sources */,
 				4E84011D18E3468F00E3AB34 /* TNNotification.m in Sources */,
-				4E93A4991902A4F200B19EFB /* JTSTextView.m in Sources */,
 				4E4E1BCD18AD98A100B87E7A /* TNTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

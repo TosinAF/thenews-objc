@@ -28,7 +28,7 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
 
 #pragma mark - Singleton Method
 
-+ (instancetype)sharedClient {
++ (instancetype)sharedManager {
 
     static DNManager *_sharedClient = nil;
     static dispatch_once_t onceToken;

@@ -81,7 +81,7 @@
 	[self.titleLabel setText:content[@"title"]];
 	[self.titleLabel setTextColor:[UIColor blackColor]];
     [self.titleLabel setNumberOfLines:2];
-    [self.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    [self.titleLabel setLineBreakMode:NSLineBreakByTruncatingTail];
 	[self.titleLabel setFont:[UIFont fontWithName:@"Montserrat" size:15.0f]];
 
 	/* --- Detail Label --- */

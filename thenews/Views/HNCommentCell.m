@@ -13,6 +13,7 @@
 - (void)configureForComment:(HNComment *)comment
 {
     [self setFeedType:TNTypeHackerNews];
+    self.comment = comment;
 
     NSDictionary *cellContent = @{@"comment":[comment Text],
                                   @"author":[comment Username],

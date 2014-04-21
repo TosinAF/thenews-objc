@@ -15,6 +15,4 @@
 
 - (void)configureForStory:(DNStory *)story;
 
-
-
 @end
