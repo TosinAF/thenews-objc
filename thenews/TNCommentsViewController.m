@@ -64,8 +64,8 @@
 
 
     /* Add Table View Bottom Border */
-
-    UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0, self.commentsView.tableHeaderView.bounds.origin.y + 85, self.view.bounds.size.width, 2)];
+    CGFloat viewHeaderHeight = self.commentsView.tableHeaderView.bounds.origin.y + self.commentsView.tableHeaderView.frame.size.height;
+    UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0, viewHeaderHeight, self.view.bounds.size.width, 2)];
     [border setBackgroundColor:[UIColor tnLightGreyColor]];
 
     [self.commentsView addSubview:border];

@@ -101,7 +101,7 @@ ButtonActionBlock buttonAction;
 
     [self.button addTarget:self action:@selector(performButtonAction) forControlEvents:UIControlEventTouchUpInside];
 
-    [self addSubview:self.button];
+
 }
 
 - (void)updateLabels:(NSDictionary *)content
@@ -110,9 +110,12 @@ ButtonActionBlock buttonAction;
 
 	[self.titleLabel setText:content[@"title"]];
 	[self.titleLabel setTextColor:[UIColor blackColor]];
-    [self.titleLabel setNumberOfLines:2];
+    [self.titleLabel setNumberOfLines:0];
     [self.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
 	[self.titleLabel setFont:[UIFont fontWithName:@"Montserrat" size:15.0f]];
+
+    [self.titleLabel sizeToFit];
+    [self adjustViewsRelativeToTitleLabel];
 
 	/* --- Detail Label --- */
     
@@ -127,6 +130,26 @@ ButtonActionBlock buttonAction;
 
     [self addSubview:self.titleLabel];
     [self addSubview:self.detailLabel];
+    [self addSubview:self.button];
+
+}
+
+- (void)adjustViewsRelativeToTitleLabel
+{
+    CGFloat yOrigin = self.titleLabel.frame.size.height + 15;
+
+    CGRect frame = self.detailLabel.frame;
+    frame.origin.y = yOrigin;
+    [self.detailLabel setFrame:frame];
+
+    frame = self.button.frame;
+    frame.origin.y = yOrigin;
+    [self.button setFrame:frame];
+
+    CGFloat entireViewHeight = yOrigin + self.detailLabel.frame.size.height + 10;
+    frame = self.frame;
+    frame.size.height = entireViewHeight;
+    [self setFrame:frame];
 
 }
 
