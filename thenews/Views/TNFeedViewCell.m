@@ -17,9 +17,6 @@
 @property (strong, nonatomic) UILabel *detailLabel;
 @property (strong, nonatomic) UILabel *commentCountLabel;
 
-@property (copy) MCSwipeCompletionBlock upvoteBlock;
-@property (copy) MCSwipeCompletionBlock commentBlock;
-
 @end
 
 @implementation TNFeedViewCell
@@ -138,16 +135,6 @@
         [blockSelf.gestureDelegate viewCommentsActionForCell:tnCell];
 
     }];
-}
-
-- (void)configureUpvoteBlock:(MCSwipeCompletionBlock)block
-{
-    _upvoteBlock = [block copy];
-}
-
-- (void)configureViewCommentsBlock:(MCSwipeCompletionBlock)block
-{
-    _commentBlock = [block copy];
 }
 
 #pragma mark - Private Methods

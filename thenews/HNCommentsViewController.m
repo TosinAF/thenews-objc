@@ -128,8 +128,10 @@ static NSString *CellIdentifier = @"HNCommentCell";
 
            [notification showSuccessNotification:@"Comment Post Successful" subtitle:nil];
             [self postActionCompleted];
+            [self.commentsView reloadData];
 
         } else {
+            
             NSLog(@"Error occurred");
             [notification showFailureNotification:@"Comment Post Failed" subtitle:nil];
         }

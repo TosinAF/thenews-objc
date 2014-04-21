@@ -12,7 +12,6 @@
 #import "JSMessageInputView.h"
 #import "DNCommentsViewController.h"
 
-DNManager *DNClient;
 static NSString *CellIdentifier = @"DNCommentCell";
 
 @interface DNCommentsViewController () <TNCommentCellDelegate>
@@ -96,7 +95,7 @@ static NSString *CellIdentifier = @"DNCommentCell";
 
     TNNotification *notification = [[TNNotification alloc] init];
 
-    [DNClient upvoteCommentWithID:commentID success:^{
+    [[DNManager sharedManager] upvoteCommentWithID:commentID success:^{
 
         [notification showSuccessNotification:@"Comment Upvote Successful" subtitle:nil];
 
@@ -140,7 +139,7 @@ static NSString *CellIdentifier = @"DNCommentCell";
 
     if (originalCommentID) {
 
-        [DNClient replyCommentWithID:[[self.story storyID] stringValue] comment:comment success:^{
+        [[DNManager sharedManager] replyCommentWithID:[[self.story storyID] stringValue] comment:comment success:^{
 
             [self downloadComments];
             [self postActionCompleted];
@@ -152,7 +151,7 @@ static NSString *CellIdentifier = @"DNCommentCell";
 
     } else {
 
-        [DNClient replyStoryWithID:[[self.story storyID] stringValue] comment:comment success:^{
+        [[DNManager sharedManager] replyStoryWithID:[[self.story storyID] stringValue] comment:comment success:^{
 
             [self downloadComments];
             [self postActionCompleted];
