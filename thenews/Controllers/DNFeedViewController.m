@@ -7,9 +7,13 @@
 //
 
 #import "DNManager.h"
+#import "Reachability.h"
+
 #import "TNRefreshView.h"
 #import "TNNotification.h"
 #import "DNFeedViewCell.h"
+#import "TNEmptyStateView.h"
+
 #import "SVPullToRefresh.h"
 #import "TNPostViewController.h"
 #import "DNCommentsViewController.h"
@@ -18,18 +22,30 @@
 static int CELL_HEIGHT = 85;
 static NSString *CellIdentifier = @"DNFeedCell";
 
-__weak DNFeedViewController *weakself;
-
 @interface DNFeedViewController () <TNFeedViewCellDelegate>
 
 @property (nonatomic, strong) NSMutableArray *stories;
 @property (nonatomic, strong) UITableView *feedView;
+@property (nonatomic, strong) TNEmptyStateView *emptyStateView;
+@property (nonatomic, strong) NSString *emptyStateText;
 
 @end
 
 @implementation DNFeedViewController
 
--(void)viewWillAppear:(BOOL)animated
+- (instancetype)init
+{
+    self = [super init];
+
+    if (self) {
+        self.emptyStateView = [TNEmptyStateView new];
+        [self addReachabilitykCheck];
+    }
+
+    return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self setupRefreshControl];
@@ -41,10 +57,8 @@ __weak DNFeedViewController *weakself;
     [self setFeedType:TNTypeDesignerNews];
 
     dnFeedType = DNFeedTypeTop;
-    weakself = self;
 
     self.stories = [[NSMutableArray alloc] init];
-    [self downloadFeedAndReset:NO];
 
 	CGFloat navBarHeight = 64.0;
 	CGSize screenSize = self.view.frame.size;
@@ -57,13 +71,8 @@ __weak DNFeedViewController *weakself;
 	[self.feedView setSeparatorColor:[UIColor tnLightGreyColor]];
 	[self.feedView registerClass:[DNFeedViewCell class] forCellReuseIdentifier:CellIdentifier];
 
-    UIImage *emptyState = [UIImage imageNamed:@"Loading"];
-    UIImageView *emptyStateView = [[UIImageView alloc] initWithImage:emptyState];
-    [emptyStateView setFrame:CGRectMake(50, 150, emptyState.size.width, emptyState.size.height)];
-
-    //[self.view addSubview:emptyStateView];
-
-	[self.view addSubview:self.feedView];
+    [self.emptyStateView setFrame:self.view.bounds];
+    [self.view addSubview:self.emptyStateView];
 }
 
 #pragma mark - Table View Data Source
@@ -152,14 +161,14 @@ __weak DNFeedViewController *weakself;
 
         [self.stories addObjectsFromArray:dnStories];
         [self.feedView reloadData];
-
+        [self removeEmptyState];
 
         [self.feedView.infiniteScrollingView stopAnimating];
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
 
         NSLog(@"%@", [[error userInfo] objectForKey:@"NSLocalizedDescription"]);
-
+        [self.emptyStateView.infoLabel setText:@"NO INTERNET CONNECTION :("];
     }];
 }
 
@@ -184,16 +193,43 @@ __weak DNFeedViewController *weakself;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+#pragma mark - Network Reachablity Methods
+
+- (void)addReachabilitykCheck
+{
+    Reachability * reach = [Reachability reachabilityWithHostname:@"www.google.com"];
+
+    reach.reachableBlock = ^(Reachability * reachability)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.emptyStateView showDownloadingText];
+            [self downloadFeedAndReset:NO];
+        });
+    };
+
+    reach.unreachableBlock = ^(Reachability * reachability)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.emptyStateView showErrorText];
+            NSLog(@"No Internet Connection");
+        });
+    };
+
+    [reach startNotifier];
+}
+
 #pragma mark - Private Methods
 
 - (void)setupRefreshControl
 {
+    __block DNFeedViewController *blockSelf = self;
+
     [self.feedView addPullToRefreshWithActionHandler:^{
-        [weakself downloadFeedAndReset:YES];
+        [blockSelf downloadFeedAndReset:YES];
     }];
 
     [self.feedView addInfiniteScrollingWithActionHandler:^{
-        [weakself downloadFeedAndReset:NO];
+        [blockSelf downloadFeedAndReset:NO];
     }];
 
     TNRefreshView *pulling = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, 320, 60) state:TNRefreshStatePulling];
@@ -201,6 +237,19 @@ __weak DNFeedViewController *weakself;
 
     [[self.feedView pullToRefreshView] setCustomView:pulling forState:SVPullToRefreshStateAll];
     [[self.feedView pullToRefreshView] setCustomView:loading forState:SVPullToRefreshStateLoading];
+}
+
+- (void)removeEmptyState
+{
+    [self.feedView setAlpha:0.0];
+    [self.view addSubview:self.feedView];
+
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.emptyStateView setAlpha:0.0];
+        [self.feedView setAlpha:1.0];
+    } completion:^(BOOL finished) {
+        [self.emptyStateView removeFromSuperview];
+    }];
 }
 
 - (void)switchDnFeedType

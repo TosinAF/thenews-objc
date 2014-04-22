@@ -7,9 +7,13 @@
 //
 
 #import "libHN.h"
+#import "Reachability.h"
+
+#import "TNEmptyStateView.h"
 #import "TNRefreshView.h"
 #import "TNNotification.h"
 #import "HNFeedViewCell.h"
+
 #import "SVPullToRefresh.h"
 #import "TNPostViewController.h"
 #import "HNCommentsViewController.h"
@@ -18,16 +22,27 @@
 static int CELL_HEIGHT = 85;
 static NSString *CellIdentifier = @"HNFeedCell";
 
-__weak HNFeedViewController *weakSelf;
-
 @interface HNFeedViewController () <TNFeedViewCellDelegate>
 
 @property (nonatomic, strong) NSMutableArray *posts;
 @property (nonatomic, strong) UITableView *feedView;
+@property (nonatomic, strong) TNEmptyStateView *emptyStateView;
 
 @end
 
 @implementation HNFeedViewController
+
+- (instancetype)init
+{
+    self = [super init];
+
+    if (self) {
+        self.emptyStateView = [TNEmptyStateView new];
+        [self addReachabilitykCheck];
+    }
+
+    return self;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -39,7 +54,6 @@ __weak HNFeedViewController *weakSelf;
 {
 	[super viewDidLoad];
     [self setFeedType:@(TNTypeHackerNews)];
-    weakSelf = self;
 
     self.posts = [[NSMutableArray alloc] init];
 
@@ -54,8 +68,8 @@ __weak HNFeedViewController *weakSelf;
 	[self.feedView setSeparatorColor:[UIColor tnLightGreyColor]];
 	[self.feedView registerClass:[HNFeedViewCell class] forCellReuseIdentifier:CellIdentifier];
 
-	[self.view addSubview:self.feedView];
-    [self downloadPosts];
+    [self.emptyStateView setFrame:self.view.bounds];
+    [self.view addSubview:self.emptyStateView];
 }
 
 #pragma mark - Table View Data Source
@@ -97,7 +111,7 @@ __weak HNFeedViewController *weakSelf;
     HNPost *post = (self.posts)[[indexPath row]];
     TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[post UrlString]] type:TNTypeHackerNews];
 
-    [postViewController setDismissAction:^{ [weakSelf.navigationController popViewControllerAnimated:YES]; }];
+    [postViewController setDismissAction:^{ [self.navigationController popViewControllerAnimated:YES]; }];
 
     [self.navigationController pushViewController:postViewController animated:YES];
 }
@@ -150,6 +164,7 @@ __weak HNFeedViewController *weakSelf;
 
         if (posts) {
 
+            [self removeEmptyState];
             [self.posts removeAllObjects];
             [self.posts addObjectsFromArray:posts];
             [self.feedView reloadData];
@@ -184,6 +199,31 @@ __weak HNFeedViewController *weakSelf;
     }];
 }
 
+#pragma mark - Network Reachablity Methods
+
+- (void)addReachabilitykCheck
+{
+    Reachability * reach = [Reachability reachabilityWithHostname:@"www.google.com"];
+
+    reach.reachableBlock = ^(Reachability * reachability)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.emptyStateView showDownloadingText];
+            [self downloadPosts];
+        });
+    };
+
+    reach.unreachableBlock = ^(Reachability * reachability)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.emptyStateView showErrorText];
+            NSLog(@"No Internet Connection");
+        });
+    };
+
+    [reach startNotifier];
+}
+
 #pragma mark - Private Methods
 
 - (void)showCommentsForPost:(HNPost *)post
@@ -209,6 +249,19 @@ __weak HNFeedViewController *weakSelf;
     
     [[self.feedView pullToRefreshView] setCustomView:pulling forState:SVPullToRefreshStateAll];
     [[self.feedView pullToRefreshView] setCustomView:loading forState:SVPullToRefreshStateLoading];
+}
+
+- (void)removeEmptyState
+{
+    [self.feedView setAlpha:0.0];
+    [self.view addSubview:self.feedView];
+
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.emptyStateView setAlpha:0.0];
+        [self.feedView setAlpha:1.0];
+    } completion:^(BOOL finished) {
+        [self.emptyStateView removeFromSuperview];
+    }];
 }
 
 @end

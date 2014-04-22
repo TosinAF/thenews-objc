@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SystemConfiguration/SystemConfiguration.h>
 
 @interface HNFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 

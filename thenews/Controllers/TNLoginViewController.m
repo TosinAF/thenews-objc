@@ -218,7 +218,7 @@ TNType currentAuthType;
 
             if ([self userCompletedLoginForBoth]) {
                 // add delay
-                [self performSelector:@selector(pushHomeView) withObject:nil afterDelay:0.4];
+                [self performSelector:@selector(pushHomeView) withObject:nil afterDelay:0.5];
             } else {
                 // click other button automatically
                 [self dnButtonClicked];

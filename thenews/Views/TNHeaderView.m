@@ -136,6 +136,7 @@ ButtonActionBlock buttonAction;
 
 - (void)adjustViewsRelativeToTitleLabel
 {
+    // Feels hacky but honestly niggas are tired
     CGFloat yOrigin = self.titleLabel.frame.size.height + 15;
 
     CGRect frame = self.detailLabel.frame;
@@ -150,7 +151,6 @@ ButtonActionBlock buttonAction;
     frame = self.frame;
     frame.size.height = entireViewHeight;
     [self setFrame:frame];
-
 }
 
 @end

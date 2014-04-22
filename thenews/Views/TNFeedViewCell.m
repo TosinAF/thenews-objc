@@ -73,7 +73,6 @@
 
 - (void)updateLabels:(NSDictionary *)content
 {
-
 	/* --- Title Label --- */
 	[self.titleLabel setText:content[@"title"]];
 	[self.titleLabel setTextColor:[UIColor blackColor]];

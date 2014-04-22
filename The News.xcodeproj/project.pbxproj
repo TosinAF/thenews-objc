@@ -27,6 +27,10 @@
 		4E7BFF411902E53100A49102 /* DNCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BFF401902E53100A49102 /* DNCommentCell.m */; };
 		4E7BFF441902E55000A49102 /* HNCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BFF431902E55000A49102 /* HNCommentCell.m */; };
 		4E7BFF4A1904232900A49102 /* HNCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BFF491904232900A49102 /* HNCommentsViewController.m */; };
+		4E7BFF4E1906708E00A49102 /* TNEmptyStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BFF4D1906708E00A49102 /* TNEmptyStateView.m */; };
+		4E7BFF51190671A400A49102 /* LoadingIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7BFF4F190671A400A49102 /* LoadingIcon.png */; };
+		4E7BFF52190671A400A49102 /* LoadingIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7BFF50190671A400A49102 /* LoadingIcon@2x.png */; };
+		4E7BFF541906A72E00A49102 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E7BFF531906A72E00A49102 /* SystemConfiguration.framework */; };
 		4E84011018E1783C00E3AB34 /* DNManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84010618E1783C00E3AB34 /* DNManager.m */; };
 		4E84011118E1783C00E3AB34 /* DNComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84010918E1783C00E3AB34 /* DNComment.m */; };
 		4E84011218E1783C00E3AB34 /* DNMOTD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E84010B18E1783C00E3AB34 /* DNMOTD.m */; };
@@ -101,6 +105,11 @@
 		4E7BFF431902E55000A49102 /* HNCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNCommentCell.m; path = Views/HNCommentCell.m; sourceTree = "<group>"; };
 		4E7BFF481904232900A49102 /* HNCommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNCommentsViewController.h; sourceTree = "<group>"; };
 		4E7BFF491904232900A49102 /* HNCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNCommentsViewController.m; sourceTree = "<group>"; };
+		4E7BFF4C1906708E00A49102 /* TNEmptyStateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNEmptyStateView.h; path = Views/TNEmptyStateView.h; sourceTree = "<group>"; };
+		4E7BFF4D1906708E00A49102 /* TNEmptyStateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNEmptyStateView.m; path = Views/TNEmptyStateView.m; sourceTree = "<group>"; };
+		4E7BFF4F190671A400A49102 /* LoadingIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoadingIcon.png; sourceTree = "<group>"; };
+		4E7BFF50190671A400A49102 /* LoadingIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoadingIcon@2x.png"; sourceTree = "<group>"; };
+		4E7BFF531906A72E00A49102 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4E84010518E1783C00E3AB34 /* DNManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNManager.h; sourceTree = "<group>"; };
 		4E84010618E1783C00E3AB34 /* DNManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNManager.m; sourceTree = "<group>"; };
 		4E84010818E1783C00E3AB34 /* DNComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNComment.h; sourceTree = "<group>"; };
@@ -164,6 +173,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E7BFF541906A72E00A49102 /* SystemConfiguration.framework in Frameworks */,
 				4ECE3DEF18DFC13100DC26FB /* GoogleOpenSource.framework in Frameworks */,
 				C6B1509218DD6D3A003F2A88 /* CoreMotion.framework in Frameworks */,
 				C6B1509018DD6D18003F2A88 /* CoreLocation.framework in Frameworks */,
@@ -236,6 +246,7 @@
 		4E783D2418AD7D7D00D78B20 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E7BFF531906A72E00A49102 /* SystemConfiguration.framework */,
 				4ECE3DEC18DFC13100DC26FB /* GoogleOpenSource.framework */,
 				4ECE3DED18DFC13100DC26FB /* GooglePlus.bundle */,
 				4ECE3DEE18DFC13100DC26FB /* GooglePlus.framework */,
@@ -256,13 +267,14 @@
 		4E783D2B18AD7D7D00D78B20 /* thenews */ = {
 			isa = PBXGroup;
 			children = (
+				4E7BFF4F190671A400A49102 /* LoadingIcon.png */,
+				4E7BFF50190671A400A49102 /* LoadingIcon@2x.png */,
 				4E783D3418AD7D7D00D78B20 /* TNAppDelegate.h */,
 				4E783D3518AD7D7D00D78B20 /* TNAppDelegate.m */,
 				4E3B4C0018B61BF200D8B75B /* Utility */,
 				4E783D5418AD7E5900D78B20 /* Controllers */,
 				4E783D5718AD7E7B00D78B20 /* Views */,
-				4E93A48418FF0CE200B19EFB /* JSMessage */,
-				4E84010418E1783C00E3AB34 /* DesignerNewsAPIClient */,
+				4E7BFF4B19066EF500A49102 /* Third Party Libraries */,
 				4E783D2C18AD7D7D00D78B20 /* Supporting Files */,
 				4E783D3718AD7D7D00D78B20 /* Images.xcassets */,
 			);
@@ -332,6 +344,8 @@
 				4EA7564218F1F0E30089346D /* TNHeaderView.m */,
 				4E8402F518E4FDCD00E3AB34 /* TNRefreshView.h */,
 				4E8402F618E4FDCD00E3AB34 /* TNRefreshView.m */,
+				4E7BFF4C1906708E00A49102 /* TNEmptyStateView.h */,
+				4E7BFF4D1906708E00A49102 /* TNEmptyStateView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -373,13 +387,23 @@
 			name = CommentsViewController;
 			sourceTree = "<group>";
 		};
-		4E84010418E1783C00E3AB34 /* DesignerNewsAPIClient */ = {
+		4E7BFF4B19066EF500A49102 /* Third Party Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				4E84010418E1783C00E3AB34 /* DNManager */,
+				4E93A48418FF0CE200B19EFB /* JSMessage */,
+			);
+			name = "Third Party Libraries";
+			sourceTree = "<group>";
+		};
+		4E84010418E1783C00E3AB34 /* DNManager */ = {
 			isa = PBXGroup;
 			children = (
 				4E84010518E1783C00E3AB34 /* DNManager.h */,
 				4E84010618E1783C00E3AB34 /* DNManager.m */,
 				4E84010718E1783C00E3AB34 /* Models */,
 			);
+			name = DNManager;
 			path = DesignerNewsAPIClient;
 			sourceTree = "<group>";
 		};
@@ -488,10 +512,12 @@
 			files = (
 				4E4E1BD718AD98E000B87E7A /* Montserrat-Bold.ttf in Resources */,
 				4E783D3018AD7D7D00D78B20 /* InfoPlist.strings in Resources */,
+				4E7BFF51190671A400A49102 /* LoadingIcon.png in Resources */,
 				4E4E1BD618AD98E000B87E7A /* Entypo.ttf in Resources */,
 				4E4E1BD818AD98E000B87E7A /* Montserrat-Regular.ttf in Resources */,
 				4ECE3DF018DFC13100DC26FB /* GooglePlus.bundle in Resources */,
 				4E783D3818AD7D7D00D78B20 /* Images.xcassets in Resources */,
+				4E7BFF52190671A400A49102 /* LoadingIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,6 +567,7 @@
 				4E4E1BCC18AD98A100B87E7A /* TNFeedViewCell.m in Sources */,
 				4E4E1BCB18AD98A100B87E7A /* TNButton.m in Sources */,
 				4E84011718E17B4F00E3AB34 /* DNFeedViewController.m in Sources */,
+				4E7BFF4E1906708E00A49102 /* TNEmptyStateView.m in Sources */,
 				4E4E1BC218AD989300B87E7A /* TNLaunchViewController.m in Sources */,
 				4EBB4E9E18D7B626008BB571 /* TNPostViewController.m in Sources */,
 				4E93A48F18FF38E500B19EFB /* JSMessageInputView.m in Sources */,
