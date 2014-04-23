@@ -158,6 +158,9 @@
     [inputView.textView setPlaceHolder:@"New Comment"];
 
     [inputView.sendButton setEnabled:NO];
+    [[inputView.sendButton titleLabel] setFont:[UIFont boldSystemFontOfSize:14.0f]];
+    [inputView.sendButton setTitleColor:self.themeColor forState:UIControlStateNormal];
+    [inputView.sendButton setTitleColor:self.themeColor forState:UIControlStateSelected];
     [inputView.sendButton addTarget:self action:@selector(postButtonPressed) forControlEvents:UIControlEventTouchUpInside];
 
 
