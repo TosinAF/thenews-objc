@@ -164,14 +164,19 @@ static NSString *CellIdentifier = @"HNFeedCell";
 
         if (posts) {
 
-            [self removeEmptyState];
             [self.posts removeAllObjects];
             [self.posts addObjectsFromArray:posts];
             [self.feedView reloadData];
 
+            // Only remove if it exists
+            if (self.emptyStateView) {
+                [self removeEmptyState];
+            }
+
         } else {
 
             NSLog(@"Error Occured");
+            [self.emptyStateView showErrorWithText:@"HN MIGHT BE DOWN :("];
         }
 
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -261,6 +266,7 @@ static NSString *CellIdentifier = @"HNFeedCell";
         [self.feedView setAlpha:1.0];
     } completion:^(BOOL finished) {
         [self.emptyStateView removeFromSuperview];
+        self.emptyStateView = nil;
     }];
 }
 

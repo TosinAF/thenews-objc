@@ -5,6 +5,7 @@
 //  Created by Tosin Afolabi on 22/04/2014.
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
+// The frame should be of the entire window excluding the nav bar
 
 #import "TNEmptyStateView.h"
 #import "FBShimmeringView.h"
@@ -30,19 +31,9 @@
     return self;
 }
 
-// The frame should be of the entire window excluding the nav bar
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self configureSubviews];
-    }
-    return self;
-}
-
 - (void)configureSubviews
 {
-    UIImage *loadingIcon = [UIImage imageNamed:@"LoadingIcon"];
+    UIImage *loadingIcon = [UIImage imageNamed:@"Loading"];
 
     CGRect imageViewFrame = CGRectMake(80, 200, loadingIcon.size.width, loadingIcon.size.height);
     CGRect labelFrame = CGRectMake(0, 200 + loadingIcon.size.height + 25, 320, 15);
@@ -76,30 +67,19 @@
 - (void)showDownloadingText
 {
     [self setText:@"DELIVERING THE NEWS..."];
-    [self.labelShimmeringView setShimmering:NO];
+    [self.labelShimmeringView setShimmering:YES];
 }
 
 - (void)showErrorText
 {
     [self setText:@"NO INTERNET CONNECTION :("];
-    [self.labelShimmeringView setShimmering:YES];
+    [self.labelShimmeringView setShimmering:NO];
 }
 
-#pragma mark - Private Methods
-
-- (UIImage *)imageWithColor:(UIColor *)color {
-
-    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-
-    CGContextSetFillColorWithColor(context, [color CGColor]);
-    CGContextFillRect(context, rect);
-
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-
-    return image;
+- (void)showErrorWithText:(NSString *)text
+{
+    [self setText:text];
+    [self.labelShimmeringView setShimmering:NO];
 }
 
 @end

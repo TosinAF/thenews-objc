@@ -7,6 +7,8 @@
 //
 
 #import "TNMenuView.h"
+#import "DNMOTDViewController.h"
+#import "DNPresentMOTDTransition.h"
 #import "DNFeedViewController.h"
 #import "HNFeedViewController.h"
 #import "TNContainerViewController.h"
@@ -18,17 +20,12 @@ UITapGestureRecognizer *exitMenuTap;
 
 __weak TNContainerViewController *weakSelf;
 
-@interface TNContainerViewController ()
+@interface TNContainerViewController () <UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong) NSString *navTitle;
 @property (nonatomic, strong) UIColor *navbarColor;
 @property (nonatomic, strong) UINavigationBar *navBar;
 @property (nonatomic, strong) UINavigationItem *navItem;
-
-@property (nonatomic, strong) TNMenuView *menu;
-@property (nonatomic, strong) UIButton *menuButton;
-
-@property (weak,nonatomic) UIViewController *currentViewController;
 
 @end
 
@@ -137,16 +134,6 @@ __weak TNContainerViewController *weakSelf;
     [self.menu setHidden:YES];
     [self.menu setup];
 
-    __weak TNContainerViewController *weakSelf = self;
-
-    [self.menu setBlockForButton:0 block:^{
-        if (menuIndex == 1) {
-
-            DNFeedViewController *vc = (DNFeedViewController *)weakSelf.currentViewController;
-            [vc switchDnFeedType];
-            [weakSelf hideMenu];
-        }
-    }];
 
     weakSelf = self;
     [self.menu setKeyboardWillAppearAction:^{
@@ -156,11 +143,29 @@ __weak TNContainerViewController *weakSelf;
     [self.view addSubview:self.menu];
 }
 
+#pragma Mark Transitioning Delegate
+/*
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    return [[DNPresentMOTDTransition alloc] init];
+}
+
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    //return [[THDismissDetailTransition alloc] init];
+}
+ */
+
+
 - (void)toggleMenu {
+
     if(self.menu.hidden) {
+
         [self showMenu];
         [self.menuButton setSelected:YES];
+
     } else {
+        
         [self hideMenu];
     }
 }

@@ -130,20 +130,6 @@ KeyboardWillAppearBlock keyboardWillAppearAction;
         case 0:
             button1();
 
-            // Slight Hack to change the button text on click
-            if ( [self.buttonTitles[2] isEqualToString:@"Recent Stories"]) {
-                NSLog(@"yeah");
-                //[self.buttonTitles removeObjectAtIndex:0];
-                //[self.buttonTitles insertObject:@"Top Stories" atIndex:0];
-                //self.buttonTitles[2] = @"Top Stories";
-            } else {
-                NSLog(@"yeah yeah");
-                //[self.buttonTitles removeObjectAtIndex:0];
-                //[self.buttonTitles insertObject:@"Recent Stories" atIndex:0];
-                //self.buttonTitles[2] = @"Recent Stories";
-            }
-            break;
-
         case 1:
             button2();
             break;

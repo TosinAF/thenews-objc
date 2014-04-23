@@ -14,5 +14,7 @@
 
 - (void)showErrorText;
 - (void)showDownloadingText;
+- (void)showErrorWithText:(NSString *)text;
+
 
 @end

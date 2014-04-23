@@ -5,6 +5,9 @@
 //  Created by Tosin Afolabi on 25/03/2014.
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
+//  This & HNFeed have a bunch of repeated code so beware
+//  Right now, it's about getting the product out
+//  If people like it so much, then i use that motivation to improve the codebase & add new features
 
 #import "DNManager.h"
 #import "Reachability.h"
@@ -54,7 +57,7 @@ static NSString *CellIdentifier = @"DNFeedCell";
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-    [self setFeedType:TNTypeDesignerNews];
+    [self setFeedType:@(TNTypeDesignerNews)];
 
     dnFeedType = DNFeedTypeTop;
 
@@ -161,15 +164,22 @@ static NSString *CellIdentifier = @"DNFeedCell";
 
         [self.stories addObjectsFromArray:dnStories];
         [self.feedView reloadData];
-        [self removeEmptyState];
 
-        [self.feedView.infiniteScrollingView stopAnimating];
+        if (self.emptyStateView) {
+            [self removeEmptyState];
+        }
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
 
+        // maybe a tnnotification?
         NSLog(@"%@", [[error userInfo] objectForKey:@"NSLocalizedDescription"]);
         [self.emptyStateView.infoLabel setText:@"NO INTERNET CONNECTION :("];
+        [self.feedView.pullToRefreshView stopAnimating];
+        [self.feedView.infiniteScrollingView stopAnimating];
     }];
+
+
+
 }
 
 - (void)upvoteStoryWithID:(NSNumber *)storyID
@@ -249,6 +259,7 @@ static NSString *CellIdentifier = @"DNFeedCell";
         [self.feedView setAlpha:1.0];
     } completion:^(BOOL finished) {
         [self.emptyStateView removeFromSuperview];
+        self.emptyStateView = nil;
     }];
 }
 
