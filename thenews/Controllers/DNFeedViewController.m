@@ -22,6 +22,7 @@
 #import "DNCommentsViewController.h"
 #import "DNFeedViewController.h"
 
+int dnFeedType;
 static int CELL_HEIGHT = 85;
 static NSString *CellIdentifier = @"DNFeedCell";
 
@@ -263,7 +264,7 @@ static NSString *CellIdentifier = @"DNFeedCell";
     }];
 }
 
-- (void)switchDnFeedType
+- (int)switchDNFeedType
 {
     switch (dnFeedType) {
 
@@ -274,14 +275,10 @@ static NSString *CellIdentifier = @"DNFeedCell";
         case DNFeedTypeRecent:
             dnFeedType = DNFeedTypeTop;
             break;
-
-        default:
-            break;
     }
 
-    NSLog(@"%d", dnFeedType);
-    
     [self downloadFeedAndReset:YES];
+    return dnFeedType;
 }
 
 @end

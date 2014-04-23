@@ -9,12 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 
-int dnFeedType;
-
 @interface DNFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSNumber *feedType;
 
-- (void)switchDnFeedType;
+- (int)switchDNFeedType;
 
 @end
