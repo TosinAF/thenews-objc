@@ -13,8 +13,6 @@
 #import "HNFeedViewController.h"
 #import "TNContainerViewController.h"
 
-int menuIndex = 1;
-
 CAShapeLayer *openMenuShape;
 UITapGestureRecognizer *exitMenuTap;
 
@@ -24,8 +22,6 @@ __weak TNContainerViewController *weakSelf;
 
 @property (nonatomic, strong) NSString *navTitle;
 @property (nonatomic, strong) UIColor *navbarColor;
-@property (nonatomic, strong) UINavigationBar *navBar;
-@property (nonatomic, strong) UINavigationItem *navItem;
 
 @end
 
@@ -130,20 +126,22 @@ __weak TNContainerViewController *weakSelf;
 
 - (void)configureMenu {
 
-    self.menu = [[TNMenuView alloc] initWithFrame:CGRectMake(0, -208, 320, 208) type:[self.feedType intValue]];
+    if (self.menu) {
+        [self.menu setFrame:CGRectMake(0, -208, 320, 208)];
+    } else {
+        self.menu = [[TNMenuView alloc] initWithFrame:CGRectMake(0, -208, 320, 208) type:[self.feedType intValue]];
+    }
+
     [self.menu setHidden:YES];
     [self.menu setup];
 
 
-    weakSelf = self;
-    [self.menu setKeyboardWillAppearAction:^{
-        [weakSelf fadeOutChildViewController];
-    }];
+    
 
     [self.view addSubview:self.menu];
 }
 
-#pragma Mark Transitioning Delegate
+//#pragma mark - Transitioning Delegate
 /*
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
@@ -191,7 +189,7 @@ __weak TNContainerViewController *weakSelf;
                      animations:^{
                          [self.menu setFrame:menuFrame];
                          [self.currentViewController.view setFrame:containerFrame];
-                         [self.currentViewController.view setAlpha: containerAlpha];
+                         [self.currentViewController.view setAlpha:containerAlpha];
                      }
                      completion:^(BOOL finished){
                      }];
@@ -267,7 +265,6 @@ __weak TNContainerViewController *weakSelf;
 }
 
 - (void)exitMenuOnTapRecognizer:(UITapGestureRecognizer *)recognizer {
-    // Get the location of the gesture
     CGPoint tapLocation = [recognizer locationInView:self.view];
     //NSLog(@"Tap location X:%1.0f, Y:%1.0f", tapLocation.x, tapLocation.y);
 
@@ -281,47 +278,9 @@ __weak TNContainerViewController *weakSelf;
 
     [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         [weakSelf.currentViewController.view setAlpha:0.0f];
+                         [self.currentViewController.view setAlpha:0.0f];
                      }
                      completion:nil];
 }
-
-/*
-- (void)changeChildViewController:(NSNotification *)notification
-{
-
-    NSNumber *identifier = [[notification userInfo] valueForKey:@"type"];
-
-    if ( [identifier isEqualToNumber:self.feedType]) {
-        NSLog(@"yeah");
-    }
-
-
-    TNViewController *nextViewController = [[TNViewController alloc] init];
-    // Add nextViewController as child of container view controller.
-    [self addChildViewController:nextViewController];
-    // Tell current View controller that it will be removed.
-    [self willMoveToParentViewController:nil];
-
-    // Set the frame of the next view controller to equal the outgoing (current) view controller
-    nextViewController.view.frame = self.currentViewController.view.frame;
-
-    // Make the transition with a very short Cross disolve animation
-    [self transitionFromViewController:self.currentViewController
-                                         toViewController:nextViewController
-                                                 duration:0.1f
-                                                  options:UIViewAnimationOptionTransitionCrossDissolve
-                                               animations:^{
-
-                                               }
-                                               completion:^(BOOL finished) {
-                                                   self.currentViewController = nextViewController;
-                                                   [self.currentViewController removeFromParentViewController];
-                                                   [self hideMenu];
-                                                   [nextViewController didMoveToParentViewController:self];
-                                               }];
-
-}
-*/
 
 @end

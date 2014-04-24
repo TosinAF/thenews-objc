@@ -14,5 +14,6 @@
 @property (nonatomic, strong) NSNumber *feedType;
 
 - (int)switchDNFeedType;
+- (void)downloadFeedAndReset:(BOOL)reset;
 
 @end

@@ -33,9 +33,9 @@
 
      self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
 
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    //UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
 
-    [self.view addGestureRecognizer:pan];
+    //[self.view addGestureRecognizer:pan];
 
     //UIDynamicItemBehavior* dynamic = [[UIDynamicItemBehavior alloc] initWithItems:@[self.view]];
     //dynamic.allowsRotation = NO;

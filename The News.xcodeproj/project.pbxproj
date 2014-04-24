@@ -45,6 +45,7 @@
 		4E93A49018FF38E500B19EFB /* JSMessageTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E93A48C18FF38E500B19EFB /* JSMessageTextView.m */; };
 		4E93A49318FF3F9F00B19EFB /* NSString+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E93A49218FF3F9F00B19EFB /* NSString+JSMessagesView.m */; };
 		4E93A4961901C79500B19EFB /* DNCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E93A4951901C79500B19EFB /* DNCommentsViewController.m */; };
+		4EA0BDB8190852D400E3FDE8 /* DNSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0BDB7190852D400E3FDE8 /* DNSearchViewController.m */; };
 		4EA7564318F1F0E30089346D /* TNHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7564218F1F0E30089346D /* TNHeaderView.m */; };
 		4EBB4E9718D7B60F008BB571 /* TNFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4E9518D7B60F008BB571 /* TNFormViewController.m */; };
 		4EBB4E9E18D7B626008BB571 /* TNPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4E9818D7B626008BB571 /* TNPostViewController.m */; };
@@ -141,6 +142,8 @@
 		4E93A49218FF3F9F00B19EFB /* NSString+JSMessagesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSMessagesView.m"; sourceTree = "<group>"; };
 		4E93A4941901C79500B19EFB /* DNCommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNCommentsViewController.h; sourceTree = "<group>"; };
 		4E93A4951901C79500B19EFB /* DNCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNCommentsViewController.m; sourceTree = "<group>"; };
+		4EA0BDB6190852D400E3FDE8 /* DNSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNSearchViewController.h; path = Controllers/DNSearchViewController.h; sourceTree = "<group>"; };
+		4EA0BDB7190852D400E3FDE8 /* DNSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNSearchViewController.m; path = Controllers/DNSearchViewController.m; sourceTree = "<group>"; };
 		4EA7564118F1F0E30089346D /* TNHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNHeaderView.h; path = Views/TNHeaderView.h; sourceTree = "<group>"; };
 		4EA7564218F1F0E30089346D /* TNHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNHeaderView.m; path = Views/TNHeaderView.m; sourceTree = "<group>"; };
 		4EBB4E9418D7B5F7008BB571 /* TNTypeEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNTypeEnum.h; path = Utility/TNTypeEnum.h; sourceTree = "<group>"; };
@@ -332,6 +335,8 @@
 				4E7BFF471902F93E00A49102 /* CommentsViewController */,
 				4EBB4E9918D7B626008BB571 /* TNPostViewController.h */,
 				4EBB4E9818D7B626008BB571 /* TNPostViewController.m */,
+				4EA0BDB6190852D400E3FDE8 /* DNSearchViewController.h */,
+				4EA0BDB7190852D400E3FDE8 /* DNSearchViewController.m */,
 				4E7BFF551906BA3B00A49102 /* DNMOTDViewController.h */,
 				4E7BFF561906BA3B00A49102 /* DNMOTDViewController.m */,
 			);
@@ -570,6 +575,7 @@
 			files = (
 				4E783D3618AD7D7D00D78B20 /* TNAppDelegate.m in Sources */,
 				4E93A48E18FF38E500B19EFB /* JSDismissiveTextView.m in Sources */,
+				4EA0BDB8190852D400E3FDE8 /* DNSearchViewController.m in Sources */,
 				4E84011218E1783C00E3AB34 /* DNMOTD.m in Sources */,
 				4E4E1BCC18AD98A100B87E7A /* TNFeedViewCell.m in Sources */,
 				4E4E1BCB18AD98A100B87E7A /* TNButton.m in Sources */,

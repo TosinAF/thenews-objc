@@ -22,7 +22,6 @@
 #import "DNCommentsViewController.h"
 #import "DNFeedViewController.h"
 
-int dnFeedType;
 static int CELL_HEIGHT = 85;
 static NSString *CellIdentifier = @"DNFeedCell";
 
@@ -32,6 +31,7 @@ static NSString *CellIdentifier = @"DNFeedCell";
 @property (nonatomic, strong) UITableView *feedView;
 @property (nonatomic, strong) TNEmptyStateView *emptyStateView;
 @property (nonatomic, strong) NSString *emptyStateText;
+@property (nonatomic, strong) NSNumber *dnFeedType;
 
 @end
 
@@ -60,7 +60,7 @@ static NSString *CellIdentifier = @"DNFeedCell";
 	[super viewDidLoad];
     [self setFeedType:@(TNTypeDesignerNews)];
 
-    dnFeedType = DNFeedTypeTop;
+    self.dnFeedType = @(DNFeedTypeTop);
 
     self.stories = [[NSMutableArray alloc] init];
 
@@ -156,7 +156,7 @@ static NSString *CellIdentifier = @"DNFeedCell";
 
     page++;
 
-    [[DNManager sharedManager] getStoriesOnPage:[NSString stringWithFormat:@"%d", page] feedType:dnFeedType success:^(NSArray *dnStories) {
+    [[DNManager sharedManager] getStoriesOnPage:[NSString stringWithFormat:@"%d", page] feedType:[self.dnFeedType intValue] success:^(NSArray *dnStories) {
 
         if (reset) {
             [self.stories removeAllObjects];
@@ -178,9 +178,6 @@ static NSString *CellIdentifier = @"DNFeedCell";
         [self.feedView.pullToRefreshView stopAnimating];
         [self.feedView.infiniteScrollingView stopAnimating];
     }];
-
-
-
 }
 
 - (void)upvoteStoryWithID:(NSNumber *)storyID
@@ -214,7 +211,7 @@ static NSString *CellIdentifier = @"DNFeedCell";
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.emptyStateView showDownloadingText];
-            [self downloadFeedAndReset:NO];
+            [self downloadFeedAndReset:YES];
         });
     };
 
@@ -266,19 +263,21 @@ static NSString *CellIdentifier = @"DNFeedCell";
 
 - (int)switchDNFeedType
 {
-    switch (dnFeedType) {
+    int type = [self.dnFeedType intValue];
+
+    switch (type) {
 
         case DNFeedTypeTop:
-            dnFeedType = DNFeedTypeRecent;
+            self.dnFeedType = @(DNFeedTypeRecent);
             break;
 
         case DNFeedTypeRecent:
-            dnFeedType = DNFeedTypeTop;
+            self.dnFeedType = @(DNFeedTypeTop);
             break;
     }
 
     [self downloadFeedAndReset:YES];
-    return dnFeedType;
+    return type;
 }
 
 @end

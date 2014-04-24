@@ -121,7 +121,7 @@ static NSString *CellIdentifier = @"HNCommentCell";
 - (void)postButtonPressed {
 
     TNNotification *notification = [[TNNotification alloc] init];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
     [[HNManager sharedManager] replyToPostOrComment:self.replyToObject withText:self.commentInputView.textView.text completion:^(BOOL success){
         if (success) {

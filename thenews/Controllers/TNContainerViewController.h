@@ -17,7 +17,16 @@
 @property (nonatomic, strong) UIButton *menuButton;
 
 @property (weak,nonatomic) UIViewController *currentViewController;
+@property (weak,nonatomic) UIViewController *nextViewController;
+
+@property (nonatomic, strong) UINavigationBar *navBar;
+@property (nonatomic, strong) UINavigationItem *navItem;
 
 - (id)initWithType:(TNType)type;
+
+- (void)toggleMenu;
+- (void)hideMenu;
+
+- (void)fadeOutChildViewController;
 
 @end
