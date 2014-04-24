@@ -8,6 +8,7 @@
 
 #import "TNHomeViewController.h"
 #import "TNContainerViewController.h"
+#import "DNContainerViewController.h"
 
 @interface TNHomeViewController ()
 
@@ -41,7 +42,7 @@
 
 
 	self.hnViewController = [[TNContainerViewController alloc] initWithType:TNTypeHackerNews];
-	self.dnViewController = [[TNContainerViewController alloc] initWithType:TNTypeDesignerNews];
+	self.dnViewController = [DNContainerViewController new];
 
 
 	NSArray *viewControllers = @[self.dnViewController];
