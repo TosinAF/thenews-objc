@@ -8,18 +8,29 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^KeyboardWillAppearBlock)(void);
-typedef void (^MenuButtonBlock) (void);
+@protocol TNMenuViewDelegate;
 
 @interface TNMenuView : UIView <UITextFieldDelegate>
 
+@property (nonatomic,strong) UIButton *buttonOne;
 @property (nonatomic, copy) NSMutableArray *buttonTitles;
+@property (nonatomic, weak) id<TNMenuViewDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame type:(TNType)type;
 
 - (void)setup;
 - (void)toDefaultState;
-- (void)setKeyboardWillAppearAction:(KeyboardWillAppearBlock)block;
-- (void)setBlockForButton:(int)number block:(MenuButtonBlock)block;
+
+@end
+
+@protocol TNMenuViewDelegate <NSObject>
+
+@optional
+
+- (void)menuActionForButtonOne;
+- (void)menuActionForButtonTwo;
+- (void)menuActionForButtonThree;
+- (void)menuActionForSearchFieldWithText:(NSString *)text;
+- (void)menuActionForKeyboardWillAppear;
 
 @end

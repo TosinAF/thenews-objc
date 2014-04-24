@@ -6,15 +6,7 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
-#import "TNTypeEnum.h"
 #import "TNMenuView.h"
-#import "UIColor+TNColors.h"
-
-MenuButtonBlock button1;
-MenuButtonBlock button2;
-MenuButtonBlock button3;
-
-KeyboardWillAppearBlock keyboardWillAppearAction;
 
 @interface TNMenuView ()
 
@@ -77,26 +69,14 @@ KeyboardWillAppearBlock keyboardWillAppearAction;
 
         [self addSubview:border];
         [self addSubview:menuButton];
+
+        if (i == 0) {
+            self.buttonOne = menuButton;
+        }
     }
 
-    /* Search TextField */
+    [self addTextFieldForSearch];
 
-    self.searchField = [[UITextField alloc] initWithFrame:CGRectMake(40, 150, viewSize.width - 65, 50)];
-    [self.searchField setDelegate:self];
-    [self.searchField setTextColor:[UIColor dnColor]];
-    [self.searchField setPlaceholder:@"Search Stories"];
-    [self.searchField setRightViewMode:UITextFieldViewModeWhileEditing];
-    [self.searchField setFont:[UIFont fontWithName:@"Avenir-Medium" size:20.0f]];
-
-    UIImage *cancelButtonImage = [UIImage imageNamed:@"Error"];
-
-    UIButton *cancelSearch = [UIButton buttonWithType:UIButtonTypeSystem];
-    [cancelSearch setTintColor:[UIColor lightGrayColor]];
-    [cancelSearch setImage:cancelButtonImage forState:UIControlStateNormal];
-    [cancelSearch setFrame:CGRectMake(-20, -20, cancelButtonImage.size.width + 20, cancelButtonImage.size.height + 20)];
-    [cancelSearch addTarget:self action:@selector(clearTextField) forControlEvents:UIControlEventTouchUpInside];
-
-    [self.searchField setRightView:cancelSearch];
 
     UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0, 200, viewSize.width, 8)];
     [border setBackgroundColor:[UIColor tnLightGreyColor]];
@@ -105,40 +85,23 @@ KeyboardWillAppearBlock keyboardWillAppearAction;
     [self addSubview:self.searchField];
 }
 
-- (void)setBlockForButton:(int)number block:(MenuButtonBlock)block
-{
-    switch (number) {
-        case 0:
-            button1 = block;
-            break;
-
-        case 1:
-            button2 = block;
-            break;
-
-        case 2:
-            button3 = block;
-            break;
-    }
-}
-
 - (void)menuButtonClicked:(UIButton*)selector
 {
     int buttonTag = (int)selector.tag;
 
     switch (buttonTag) {
         case 0:
-            button1();
+            [self.delegate menuActionForButtonOne];
+            break;
 
         case 1:
-            button2();
+            [self.delegate menuActionForButtonTwo];
             break;
 
         case 2:
-            button3();
+            [self.delegate menuActionForButtonThree];
             break;
     }
-
 }
 
 - (void)toDefaultState
@@ -165,16 +128,43 @@ KeyboardWillAppearBlock keyboardWillAppearAction;
 
 #pragma mark - UITextField Delegate
 
-- (void)setKeyboardWillAppearAction:(KeyboardWillAppearBlock)block
-{
-    keyboardWillAppearAction = block;
-}
-
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    NSLog(@"reached");
-    keyboardWillAppearAction();
+    [self.delegate menuActionForKeyboardWillAppear];
     return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.delegate menuActionForSearchFieldWithText:textField.text];
+    return YES;
+}
+
+#pragma mark - Private Methods
+
+- (void)addTextFieldForSearch
+{
+    /* Search TextField */
+
+    self.searchField = [[UITextField alloc] initWithFrame:CGRectMake(40, 150, self.frame.size.width - 65, 50)];
+    [self.searchField setDelegate:self];
+    [self.searchField setTextColor:[UIColor dnColor]];
+    [self.searchField setPlaceholder:@"Search Stories"];
+    [self.searchField setRightViewMode:UITextFieldViewModeWhileEditing];
+    [self.searchField setFont:[UIFont fontWithName:@"Avenir-Medium" size:20.0f]];
+
+    [self.searchField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+    //[self.searchField setAutocorrectionType:UITextAutocorrectionTypeNo];
+
+    UIImage *cancelButtonImage = [UIImage imageNamed:@"Error"];
+
+    UIButton *cancelSearch = [UIButton buttonWithType:UIButtonTypeSystem];
+    [cancelSearch setTintColor:[UIColor lightGrayColor]];
+    [cancelSearch setImage:cancelButtonImage forState:UIControlStateNormal];
+    [cancelSearch setFrame:CGRectMake(-20, -20, cancelButtonImage.size.width + 20, cancelButtonImage.size.height + 20)];
+    [cancelSearch addTarget:self action:@selector(clearTextField) forControlEvents:UIControlEventTouchUpInside];
+
+    [self.searchField setRightView:cancelSearch];
 }
 
 @end
