@@ -272,6 +272,13 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
     [self performActionOnMOTD:@"downvote" success:success failure:failure];
 }
 
+#pragma mark - Auxillary Methods
+
+- (void)cancelAllRequests
+{
+    [self.operationQueue cancelAllOperations];
+}
+
 #pragma mark - Private Methods
 
 - (NSString *)getAccessToken
@@ -382,7 +389,5 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
     
     return;
 }
-
-// get response header info
 
 @end

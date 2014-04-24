@@ -96,10 +96,17 @@ typedef void (^RequestFailureBlock) (NSURLSessionDataTask *task, NSError *error)
 
 #pragma mark - DN MOTD Methods
 
+- (void)getMOTD:(void (^) (DNMOTD *motd))success
+        failure:(RequestFailureBlock)failure;
+
 - (void)upvoteMOTD:(void (^) (NSURLSessionDataTask *task, id responseObject))success
            failure:(RequestFailureBlock)failure;
 
 - (void)downvoteMOTD:(void (^) (NSURLSessionDataTask *task, id responseObject))success
              failure:(RequestFailureBlock)failure;
+
+#pragma mark - Auxillary Methods
+
+- (void)cancelAllRequests;
 
 @end
