@@ -108,6 +108,8 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
     // Ignore First Page Load
     if (navigationType != UIWebViewNavigationTypeOther) {
 
@@ -149,6 +151,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
     [self updateToolbarButtonState];
 
     self.navigationController.scrollNavigationBar.scrollView = self.webView.scrollView;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 - (void)updateTitleLabel
