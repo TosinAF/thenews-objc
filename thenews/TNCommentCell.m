@@ -126,6 +126,7 @@ TNType type;
 
 - (void)addUpvoteGesture
 {
+    [self setDefaultColor:[UIColor tnLightGreyColor]];
     UIView *upvoteView = [self viewWithImageName:@"Upvote"];
     UIColor *lightGreen = [UIColor colorWithRed:0.631 green:0.890 blue:0.812 alpha:1];
 
@@ -141,6 +142,7 @@ TNType type;
 
 - (void)addReplyCommentGesture
 {
+    [self setDefaultColor:[UIColor tnLightGreyColor]];
     UIView *commentView = [self viewWithImageName:@"Comment"];
 
     __block TNCommentCell *blockSelf = self;
