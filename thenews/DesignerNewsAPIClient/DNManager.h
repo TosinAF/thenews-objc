@@ -45,7 +45,7 @@ typedef void (^RequestFailureBlock) (NSURLSessionDataTask *task, NSError *error)
 
 - (BOOL)isUserAuthenticated;
 
-- (void)signOut;
+- (void)logout;
 
 #pragma mark - DN User Methods
 

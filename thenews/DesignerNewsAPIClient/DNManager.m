@@ -78,7 +78,7 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
     return true;
 }
 
-- (void)signOut
+- (void)logout
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:nil forKey:DNAPIAccessToken];
