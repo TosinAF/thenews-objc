@@ -13,7 +13,7 @@
 @interface TNMenuView : UIView <UITextFieldDelegate>
 
 @property (nonatomic,strong) UIButton *buttonOne;
-@property (nonatomic, copy) NSMutableArray *buttonTitles;
+@property (nonatomic, copy) NSArray *buttonTitles;
 @property (nonatomic, weak) id<TNMenuViewDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame type:(TNType)type;
@@ -30,6 +30,7 @@
 - (void)menuActionForButtonOne;
 - (void)menuActionForButtonTwo;
 - (void)menuActionForButtonThree;
+- (void)menuActionForButtonFour;
 - (void)menuActionForSearchFieldWithText:(NSString *)text;
 - (void)menuActionForKeyboardWillAppear;
 

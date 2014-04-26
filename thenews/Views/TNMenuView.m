@@ -45,7 +45,9 @@
 
     /* Menu Buttons */
 
-    self.buttonTitles = [NSMutableArray arrayWithObjects:@"Recent Stories", @"M.O.T.D", @"Settings", nil];
+    if (!self.buttonTitles) {
+        self.buttonTitles = @[@"Recent Stories", @"M.O.T.D", @"Settings"];
+    }
 
     for (int i = 0; i < [self.buttonTitles count]; i++) {
 
@@ -70,13 +72,10 @@
         [self addSubview:border];
         [self addSubview:menuButton];
 
-        if (i == 0) {
-            self.buttonOne = menuButton;
-        }
+        if (i == 0) self.buttonOne = menuButton;
     }
 
-    [self addTextFieldForSearch];
-
+    if (self.type == TNTypeDesignerNews) [self addTextFieldForSearch];
 
     UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0, 200, viewSize.width, 8)];
     [border setBackgroundColor:[UIColor tnLightGreyColor]];
@@ -100,6 +99,10 @@
 
         case 2:
             [self.delegate menuActionForButtonThree];
+            break;
+
+        case 3:
+            [self.delegate menuActionForButtonFour];
             break;
     }
 }
