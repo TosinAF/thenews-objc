@@ -117,9 +117,9 @@ TNType type;
 
 - (CGFloat)getCommentViewHeight:(NSString *)comment
 {
-    int padding = 20;
+    //int padding = 20;
     CGSize size = [self text:comment sizeWithFont:[UIFont fontWithName:@"Avenir-Book" size:14.0f] constrainedToSize:CGSizeMake(270, 5000)];
-    return floorf(size.height) + padding;
+    return floorf( 1.2 * size.height);
 }
 
 #pragma mark - Swipe Gesture Methods
