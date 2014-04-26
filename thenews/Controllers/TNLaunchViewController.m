@@ -46,10 +46,15 @@ BOOL registrationSkipped;
     CGRect skipFrame = self.skip.frame;
     skipFrame.origin.y = 458;
 
-    [UIView animateWithDuration:0.8 animations:^ {
+    [UIView animateWithDuration:0.8
+                          delay:0
+         usingSpringWithDamping:10.0
+          initialSpringVelocity:5.0
+                        options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                            
         self.login.frame = loginFrame;
         self.skip.frame = skipFrame;
-    }];
+    } completion:nil];
 }
 
 - (void)viewDidLoad
