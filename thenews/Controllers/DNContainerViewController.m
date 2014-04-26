@@ -7,13 +7,17 @@
 //
 
 #import "TNMenuView.h"
+#import "DNPresentMOTDTransition.h"
+#import "DNDismissMOTDTransistion.h"
+#import "DNMOTDViewController.h"
+#import "DNSettingsViewController.h"
 #import "DNFeedViewController.h"
 #import "DNSearchViewController.h"
 #import "DNContainerViewController.h"
 
 int menuIndex = 1;
 
-@interface DNContainerViewController () <TNMenuViewDelegate>
+@interface DNContainerViewController () <TNMenuViewDelegate, UIViewControllerTransitioningDelegate>
 
 @end
 
@@ -61,12 +65,28 @@ int menuIndex = 1;
 
 - (void)menuActionForButtonTwo
 {
+    DNMOTDViewController *vc = [DNMOTDViewController new];
+    vc.modalPresentationStyle = UIModalPresentationCustom;
+    vc.transitioningDelegate = self;
 
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)menuActionForButtonThree
 {
-    NSLog(@"Button Three Called");
+    if (menuIndex == 3) {
+
+        [self hideMenu];
+
+    } else {
+
+        DNSettingsViewController *vc = [DNSettingsViewController new];
+        self.nextViewController = vc;
+        [self changeChildViewController];
+        [self.navItem setTitle:@"SETTINGS"];
+        [self.menu.buttonOne setTitle:@"Top Stories" forState:UIControlStateNormal];
+        menuIndex = 3;
+    }
 }
 
 - (void)menuActionForSearchFieldWithText:(NSString *)text
@@ -85,32 +105,14 @@ int menuIndex = 1;
     [self fadeOutChildViewController];
 }
 
-#pragma mark - Private Methods
+#pragma mark - Transitioning Delegate
 
- - (void)changeChildViewController
- {
-     [self addChildViewController:self.nextViewController];
-     [self.currentViewController willMoveToParentViewController:nil];
-     [self hideMenu];
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    return [DNPresentMOTDTransition new];
+}
 
-     // Make the transition with a very short Cross disolve animation
-     [self transitionFromViewController:self.currentViewController
-                       toViewController:self.nextViewController
-                               duration:0.1f
-                                options:UIViewAnimationOptionTransitionCrossDissolve
-                             animations:^{
-
-     }
-                             completion:^(BOOL finished) {
-                                 [self.currentViewController removeFromParentViewController];
-                                 [self.view addSubview:self.nextViewController.view];
-                                 [self.nextViewController didMoveToParentViewController:self];
-                                 self.currentViewController = self.nextViewController;
-
-                                 [self.navBar removeFromSuperview];
-                                 [self.view addSubview:self.navBar];
-
-     }];
- }
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    return [DNDismissMOTDTransistion new];
+}
 
 @end
