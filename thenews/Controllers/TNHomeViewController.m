@@ -7,7 +7,7 @@
 //
 
 #import "TNHomeViewController.h"
-#import "TNContainerViewController.h"
+#import "HNContainerViewController.h"
 #import "DNContainerViewController.h"
 
 @interface TNHomeViewController ()
@@ -41,7 +41,7 @@
     self.pageViewController.delegate = self;
 
 
-	self.hnViewController = [[TNContainerViewController alloc] initWithType:TNTypeHackerNews];
+	self.hnViewController = [HNContainerViewController new];
 	self.dnViewController = [DNContainerViewController new];
 
 
