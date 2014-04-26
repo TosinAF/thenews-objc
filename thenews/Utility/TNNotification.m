@@ -62,7 +62,4 @@
     [CRToastManager showNotificationWithOptions:options completionBlock:^{}];
 }
 
-
-
-
 @end
