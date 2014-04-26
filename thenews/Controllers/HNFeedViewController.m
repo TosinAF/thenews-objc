@@ -19,6 +19,7 @@
 #import "HNCommentsViewController.h"
 #import "HNFeedViewController.h"
 
+PostFilterType hnPostFilterType;
 static int CELL_HEIGHT = 85;
 static NSString *CellIdentifier = @"HNFeedCell";
 
@@ -38,6 +39,7 @@ static NSString *CellIdentifier = @"HNFeedCell";
 
     if (self) {
         self.emptyStateView = [TNEmptyStateView new];
+        hnPostFilterType = PostFilterTypeTop;
         [self addReachabilitykCheck];
     }
 
@@ -160,7 +162,7 @@ static NSString *CellIdentifier = @"HNFeedCell";
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
-    [[HNManager sharedManager] loadPostsWithFilter:PostFilterTypeTop completion:^(NSArray *posts){
+    [[HNManager sharedManager] loadPostsWithFilter:hnPostFilterType completion:^(NSArray *posts){
 
         if (posts) {
 
@@ -268,6 +270,12 @@ static NSString *CellIdentifier = @"HNFeedCell";
         [self.emptyStateView removeFromSuperview];
         self.emptyStateView = nil;
     }];
+}
+
+- (void)setPostFilterType:(int)type
+{
+    hnPostFilterType = type;
+    [self downloadPosts];
 }
 
 @end

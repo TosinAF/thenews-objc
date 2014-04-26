@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) NSNumber *feedType;
 
+- (void)setPostFilterType:(int)type;
+
 @end
