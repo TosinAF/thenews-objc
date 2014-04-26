@@ -7,8 +7,6 @@
 //
 
 #import "TNMenuView.h"
-#import "DNMOTDViewController.h"
-#import "DNPresentMOTDTransition.h"
 #import "DNFeedViewController.h"
 #import "HNFeedViewController.h"
 #import "TNContainerViewController.h"
@@ -47,6 +45,8 @@ __weak TNContainerViewController *weakSelf;
 	}
 	return self;
 }
+
+#pragma mark - View Lifecycle
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -134,26 +134,8 @@ __weak TNContainerViewController *weakSelf;
 
     [self.menu setHidden:YES];
     [self.menu setup];
-
-
-    
-
     [self.view addSubview:self.menu];
 }
-
-//#pragma mark - Transitioning Delegate
-/*
-
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    return [[DNPresentMOTDTransition alloc] init];
-}
-
-
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-    //return [[THDismissDetailTransition alloc] init];
-}
- */
-
 
 - (void)toggleMenu {
 
@@ -182,7 +164,6 @@ __weak TNContainerViewController *weakSelf;
     menuFrame.origin.y = self.navBar.frame.size.height;
     CGRect containerFrame = self.currentViewController.view.frame;
     containerFrame.origin.y = self.navBar.frame.size.height + 208 - 64;
-
 
     [UIView animateWithDuration:0.4 delay:0.0 usingSpringWithDamping:1.0 initialSpringVelocity:4.0
                         options: UIViewAnimationOptionCurveEaseInOut
@@ -266,7 +247,6 @@ __weak TNContainerViewController *weakSelf;
 
 - (void)exitMenuOnTapRecognizer:(UITapGestureRecognizer *)recognizer {
     CGPoint tapLocation = [recognizer locationInView:self.view];
-    //NSLog(@"Tap location X:%1.0f, Y:%1.0f", tapLocation.x, tapLocation.y);
 
     // If menu is open, and the tap is outside of the menu, close it.
     if (!CGRectContainsPoint(self.menu.frame, tapLocation) && !self.menu.hidden) {
@@ -283,4 +263,30 @@ __weak TNContainerViewController *weakSelf;
                      completion:nil];
 }
 
+
+- (void)changeChildViewController
+{
+    [self addChildViewController:self.nextViewController];
+    [self.currentViewController willMoveToParentViewController:nil];
+    [self hideMenu];
+
+    // Make the transition with a very short Cross disolve animation
+    [self transitionFromViewController:self.currentViewController
+                      toViewController:self.nextViewController
+                              duration:0.1f
+                               options:UIViewAnimationOptionTransitionCrossDissolve
+                            animations:^{
+
+                            }
+                            completion:^(BOOL finished) {
+                                [self.currentViewController removeFromParentViewController];
+                                [self.view addSubview:self.nextViewController.view];
+                                [self.nextViewController didMoveToParentViewController:self];
+                                self.currentViewController = self.nextViewController;
+
+                                [self.navBar removeFromSuperview];
+                                [self.view addSubview:self.navBar];
+                                
+                            }];
+}
 @end

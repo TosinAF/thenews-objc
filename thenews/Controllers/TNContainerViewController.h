@@ -16,17 +16,17 @@
 @property (nonatomic, strong) TNMenuView *menu;
 @property (nonatomic, strong) UIButton *menuButton;
 
-@property (weak,nonatomic) UIViewController *currentViewController;
-@property (weak,nonatomic) UIViewController *nextViewController;
-
 @property (nonatomic, strong) UINavigationBar *navBar;
 @property (nonatomic, strong) UINavigationItem *navItem;
 
+@property (weak,nonatomic) UIViewController *currentViewController;
+@property (weak,nonatomic) UIViewController *nextViewController;
+
+
 - (id)initWithType:(TNType)type;
 
-- (void)toggleMenu;
 - (void)hideMenu;
-
 - (void)fadeOutChildViewController;
+- (void)changeChildViewController;
 
 @end
