@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+
 #import "libHN.h"
 #import "DNManager.h"
 #import "PocketAPI.h"
@@ -53,6 +54,7 @@
 
         rootViewController = [TNHomeViewController new];
     }
+
 
     UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[GTScrollNavigationBar class] toolbarClass:nil];
 
