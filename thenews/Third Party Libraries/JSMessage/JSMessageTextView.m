@@ -173,12 +173,15 @@
                                             NSParagraphStyleAttributeName : paragraphStyle }];
         }
         else {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
             [self.placeHolder drawInRect:placeHolderRect
                                 withFont:self.font
                            lineBreakMode:NSLineBreakByTruncatingTail
                                alignment:self.textAlignment];
         }
     }
+#pragma clang diagnostic pop
 }
 
 #pragma mark - Notifications
