@@ -83,7 +83,8 @@ static NSString *CellIdentifier = @"HNCommentCell";
     HNCommentCell *cell = [[HNCommentCell alloc] init];
     HNComment *comment = self.comments[[indexPath row]];
     NSString *commentStr = [comment Text];
-    
+
+    [cell setCellContent:@{@"comment":[comment Text], @"depth":@([comment Level])}];
     return [cell estimateCellHeightWithComment:commentStr];
 }
 

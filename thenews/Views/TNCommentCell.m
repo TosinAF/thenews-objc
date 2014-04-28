@@ -52,8 +52,8 @@ TNType type;
 
 - (void)updateLabels
 {
-    [self.commentView setText:nil];
-    [self.commentView setText:self.cellContent[@"comment"]];
+    //[self.commentView setText:nil];
+    //[self.commentView setText:];
     [self.commentView setDataDetectorTypes:UIDataDetectorTypeLink];
 
     /* --- Attributed Detail Text --- */
@@ -61,6 +61,7 @@ TNType type;
     if (type == TNTypeHackerNews) {
 
         NSString *detailString = [NSString stringWithFormat:@"%@", self.cellContent[@"author"]];
+        [self.detailLabel setText:nil];
         [self.detailLabel setText:detailString];
         [self.detailLabel setFont:[UIFont fontWithName:@"Avenir" size:14.0f]];
         [self.detailLabel setTextColor:self.themeColor];
@@ -87,9 +88,14 @@ TNType type;
 - (void)adjustFrames
 {
     /* Resize frame For Comment Body */
-
+    NSNumber *depth = self.cellContent[@"depth"];
     CGRect frame = self.commentView.frame;
-    frame.size = CGSizeMake(270, [self getCommentViewHeight:self.cellContent[@"comment"]]);
+    //frame.size = CGSizeMake(270, [self getCommentViewHeight:self.cellContent[@"comment"]]);
+
+
+    CGFloat height = [self textViewHeightForString:self.cellContent[@"comment"] andWidth:(270 - (15 * [depth intValue]))];
+
+    frame.size.height = height;
     self.commentView.frame = frame;
 
     /* Move Author Label Below Comment */
@@ -101,8 +107,7 @@ TNType type;
 
     /* Handle Nested Comments */
 
-    NSNumber *depth = self.cellContent[@"depth"];
-    [self.commentView setTextContainerInset:UIEdgeInsetsMake(0, 15 * [depth intValue] , -5, 0)];
+    [self.commentView setTextContainerInset:UIEdgeInsetsMake(0, 15 * [depth intValue] , 0, 0)];
     detailFrame.origin.x = 25 + 15 * [depth intValue];
 
     self.detailLabel.frame = detailFrame;
@@ -110,14 +115,20 @@ TNType type;
 
 - (CGFloat)estimateCellHeightWithComment:(NSString *)comment
 {
-    int commentViewHeight = [self getCommentViewHeight:comment];
-    int detailLabelHeight = self.detailLabel.frame.size.height;
-    return commentViewHeight + detailLabelHeight + 35;
+    //int commentViewHeight = [self getCommentViewHeight:comment];
+    //int detailLabelHeight = self.detailLabel.frame.size.height;
+    //return commentViewHeight + detailLabelHeight + 35;
+
+    NSNumber *depth = self.cellContent[@"depth"];
+    comment = self.cellContent[@"comment"];
+
+    CGFloat x = [self textViewHeightForString:comment andWidth:(270 - (15 * [depth intValue]))] + 15 + 35;
+    NSLog(@"%f",x);
+    return x;
 }
 
 - (CGFloat)getCommentViewHeight:(NSString *)comment
 {
-    //int padding = 20;
     CGSize size = [self text:comment sizeWithFont:[UIFont fontWithName:@"Avenir-Book" size:14.0f] constrainedToSize:CGSizeMake(270, 5000)];
     return floorf( 1.2 * size.height);
 }
@@ -178,6 +189,20 @@ TNType type;
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.contentMode = UIViewContentModeCenter;
     return imageView;
+}
+
+- (CGFloat)textViewHeightForString:(NSString*)text andWidth:(CGFloat)width {
+
+    NSDictionary *textAttr = @{ NSFontAttributeName:[UIFont fontWithName:@"Avenir-Book" size:14.0f],
+                                NSForegroundColorAttributeName:[UIColor blackColor] };
+
+    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:text attributes:textAttr];
+
+    //NSLog(@"%f", width);
+    [self.commentView setAttributedText:nil];
+    [self.commentView setAttributedText:attrString];
+    CGSize size = [self.commentView sizeThatFits:CGSizeMake(width, FLT_MAX)];
+    return size.height;
 }
 
 - (CGSize)text:(NSString *)text sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size

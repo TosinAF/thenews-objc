@@ -93,7 +93,7 @@
 	/* --- Comment Label --- */
 
     NSNumber *commentCount = content[@"count"];
-    NSString *commentCountString = [NSString new];
+    NSString *commentCountString;
 
     if ([commentCount intValue] == 1) {
         commentCountString = [NSString stringWithFormat:@"%@ Comment", commentCount];
