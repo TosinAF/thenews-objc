@@ -22,7 +22,6 @@
 
     // Should have abstracted this to a TNContent Model with a mutable dictionary
     [self setCellContent:cellContent];
-    [self updateLabels];
 }
 
 

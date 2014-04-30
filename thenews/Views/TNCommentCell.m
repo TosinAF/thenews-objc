@@ -8,7 +8,6 @@
 
 #import "TNCommentCell.h"
 
-__weak TNCommentCell *weakSelf;
 TNType type;
 
 @interface TNCommentCell ()
@@ -26,111 +25,70 @@ TNType type;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
 
-        weakSelf = self;
+    if (self) {
 
         self.commentView = [[UITextView alloc] initWithFrame:CGRectMake(20, 15, 270, 2000)];
         [self.commentView setEditable:NO];
         [self.commentView setScrollEnabled:NO];
         [self.commentView setSelectable:YES];
-        [self.commentView setTextColor:[UIColor blackColor]];
-        [self.commentView setFont:[UIFont fontWithName:@"Avenir-Book" size:14.0f]];
+        [self.commentView setDataDetectorTypes:UIDataDetectorTypeLink];
 
-        self.detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 110, 250, 15)];
+        [self addSubview:self.commentView];
 
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
         [self setSeparatorInset:UIEdgeInsetsZero];
-
         [self setFirstTrigger:0.20];
 
-        [self addSubview:self.commentView];
-        [self addSubview:self.detailLabel];
     }
+
     return self;
 }
 
-- (void)updateLabels
+- (void)setFeedType:(TNType)feedType {
+
+	switch (feedType) {
+		case TNTypeDesignerNews:
+			self.themeColor = [UIColor dnColor];
+			self.lightThemeColor = [UIColor dnLightColor];
+			break;
+
+		case TNTypeHackerNews:
+			self.themeColor = [UIColor hnColor];
+			self.lightThemeColor = [UIColor hnLightColor];
+			break;
+	}
+
+    type = feedType;
+}
+
+- (CGFloat)updateSubviews
 {
-    //[self.commentView setText:nil];
-    //[self.commentView setText:];
-    [self.commentView setDataDetectorTypes:UIDataDetectorTypeLink];
+    NSLog(@"%@", self.cellContent[@"comment"]);
+    NSAttributedString *attrString = [self configureAttributedString];
+    CGFloat textInset = (15 * [self.cellContent[@"depth"] intValue]);
+    CGFloat width = 270 - textInset;
+    CGFloat height = [self textViewHeightForString:attrString width:width];
 
-    /* --- Attributed Detail Text --- */
+    CGRect frame = self.commentView.frame;
+    frame.size.height = height;
+    self.commentView.frame = frame;
 
-    if (type == TNTypeHackerNews) {
+    [self.commentView setTextContainerInset:UIEdgeInsetsMake(0, textInset, 0, 0)];
 
-        NSString *detailString = [NSString stringWithFormat:@"%@", self.cellContent[@"author"]];
-        [self.detailLabel setText:nil];
-        [self.detailLabel setText:detailString];
-        [self.detailLabel setFont:[UIFont fontWithName:@"Avenir" size:14.0f]];
-        [self.detailLabel setTextColor:self.themeColor];
-
-    } else {
-
-        NSString *detailString = [NSString stringWithFormat:@"%@ Points by %@", self.cellContent[@"voteCount"], self.cellContent[@"author"]];
-        NSRange authorRange = [detailString rangeOfString:self.cellContent[@"author"]];
-        NSDictionary *textAttr = @{ NSFontAttributeName:[UIFont fontWithName:@"Avenir" size:12.0f],
-                                    NSForegroundColorAttributeName:[UIColor tnGreyColor] };
-
-        NSMutableAttributedString *detailAttr = [[NSMutableAttributedString alloc] initWithString:detailString attributes:textAttr];
-        [detailAttr addAttribute:NSForegroundColorAttributeName value:self.lightThemeColor range:authorRange];
-
-        [self.detailLabel setAttributedText:detailAttr];
-
-    }
-
-    [self adjustFrames];
+    return height + 25; // Height to be used for height for row at index path
 }
 
 #pragma mark - Dynamic Height Methods
 
-- (void)adjustFrames
-{
-    /* Resize frame For Comment Body */
-    NSNumber *depth = self.cellContent[@"depth"];
-    CGRect frame = self.commentView.frame;
-    //frame.size = CGSizeMake(270, [self getCommentViewHeight:self.cellContent[@"comment"]]);
+- (CGFloat)textViewHeightForString:(NSAttributedString *)text width:(CGFloat)width {
 
+    [self.commentView setAttributedText:nil];
+    [self.commentView setAttributedText:text];
 
-    CGFloat height = [self textViewHeightForString:self.cellContent[@"comment"] andWidth:(270 - (15 * [depth intValue]))];
+    CGSize size = [self.commentView sizeThatFits:CGSizeMake(width, FLT_MAX)];
 
-    frame.size.height = height;
-    self.commentView.frame = frame;
-
-    /* Move Author Label Below Comment */
-
-    int commentViewHeight = self.commentView.frame.size.height;
-
-    CGRect detailFrame = self.detailLabel.frame;
-    detailFrame.origin.y = commentViewHeight + 20;
-
-    /* Handle Nested Comments */
-
-    [self.commentView setTextContainerInset:UIEdgeInsetsMake(0, 15 * [depth intValue] , 0, 0)];
-    detailFrame.origin.x = 25 + 15 * [depth intValue];
-
-    self.detailLabel.frame = detailFrame;
-}
-
-- (CGFloat)estimateCellHeightWithComment:(NSString *)comment
-{
-    //int commentViewHeight = [self getCommentViewHeight:comment];
-    //int detailLabelHeight = self.detailLabel.frame.size.height;
-    //return commentViewHeight + detailLabelHeight + 35;
-
-    NSNumber *depth = self.cellContent[@"depth"];
-    comment = self.cellContent[@"comment"];
-
-    CGFloat x = [self textViewHeightForString:comment andWidth:(270 - (15 * [depth intValue]))] + 15 + 35;
-    NSLog(@"%f",x);
-    return x;
-}
-
-- (CGFloat)getCommentViewHeight:(NSString *)comment
-{
-    CGSize size = [self text:comment sizeWithFont:[UIFont fontWithName:@"Avenir-Book" size:14.0f] constrainedToSize:CGSizeMake(270, 5000)];
-    return floorf( 1.2 * size.height);
+    return size.height;
 }
 
 #pragma mark - Swipe Gesture Methods
@@ -165,23 +123,6 @@ TNType type;
     }];
 }
 
-- (void)setFeedType:(TNType)feedType {
-
-	switch (feedType) {
-		case TNTypeDesignerNews:
-			self.themeColor = [UIColor dnColor];
-			self.lightThemeColor = [UIColor dnLightColor];
-			break;
-
-		case TNTypeHackerNews:
-			self.themeColor = [UIColor hnColor];
-			self.lightThemeColor = [UIColor hnLightColor];
-			break;
-	}
-
-    type = feedType;
-}
-
 #pragma mark - Private Methods
 
 - (UIView *)viewWithImageName:(NSString *)imageName {
@@ -191,27 +132,55 @@ TNType type;
     return imageView;
 }
 
-- (CGFloat)textViewHeightForString:(NSString*)text andWidth:(CGFloat)width {
+- (NSAttributedString *)configureAttributedString
+{
+    NSMutableString *comment = [[NSMutableString alloc] initWithString:self.cellContent[@"comment"]];
+    comment = [[comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] mutableCopy];
 
     NSDictionary *textAttr = @{ NSFontAttributeName:[UIFont fontWithName:@"Avenir-Book" size:14.0f],
                                 NSForegroundColorAttributeName:[UIColor blackColor] };
 
-    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:text attributes:textAttr];
+    /* --- Comment Metadata --- */
 
-    //NSLog(@"%f", width);
-    [self.commentView setAttributedText:nil];
-    [self.commentView setAttributedText:attrString];
-    CGSize size = [self.commentView sizeThatFits:CGSizeMake(width, FLT_MAX)];
-    return size.height;
-}
+    NSString *detailString, *pointsString;
 
-- (CGSize)text:(NSString *)text sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size
-{
-    CGRect frame = [text boundingRectWithSize:size
-                                      options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
-                                   attributes:@{NSFontAttributeName:font}
-                                      context:nil];
-    return frame.size;
+    if (type == TNTypeHackerNews) {
+
+        detailString = [NSString stringWithFormat:@"\n\n%@", self.cellContent[@"author"]];
+
+    } else {
+
+        int voteCount = [self.cellContent[@"voteCount"] intValue];
+
+        if (voteCount == 1) {
+
+            detailString = [NSString stringWithFormat:@"\n\n1 Point by %@", self.cellContent[@"author"]];
+            pointsString = [NSString stringWithFormat:@"1 Point by"];
+
+        } else {
+
+            detailString = [NSString stringWithFormat:@"\n\n%@ Points by %@", self.cellContent[@"voteCount"], self.cellContent[@"author"]];
+            pointsString = [NSString stringWithFormat:@"%@ Points by", self.cellContent[@"voteCount"]];
+        }
+    }
+
+    [comment insertString:detailString atIndex:[comment length]];
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:comment attributes:textAttr];
+
+    NSRange authorRange = [comment rangeOfString:self.cellContent[@"author"]];
+    [attrString addAttribute:NSForegroundColorAttributeName value:self.lightThemeColor range:authorRange];
+    [attrString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Avenir" size:12.0f] range:authorRange];
+
+    if(type == TNTypeDesignerNews) {
+        NSRange pointsRange = [comment rangeOfString:pointsString];
+        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor tnGreyColor] range:pointsRange];
+        [attrString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Avenir" size:12.0f] range:pointsRange];
+    } else {
+        //increase font of author in hn
+        [attrString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Avenir" size:14.0f] range:authorRange];
+    }
+    
+    return [[NSAttributedString alloc] initWithAttributedString:attrString];
 }
 
 @end

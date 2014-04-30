@@ -16,15 +16,13 @@
 @property (nonatomic, strong) NSDictionary *cellContent;
 @property (nonatomic, weak) id<TNCommentCellDelegate> gestureDelegate;
 
-- (void)updateLabels;
+- (CGFloat)updateSubviews;
 
 - (void)addUpvoteGesture;
 
 - (void)addReplyCommentGesture;
 
 - (void)setFeedType:(TNType)feedType;
-
-- (CGFloat)estimateCellHeightWithComment:(NSString *)comment;
 
 @end
 
