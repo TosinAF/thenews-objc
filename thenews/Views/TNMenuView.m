@@ -75,7 +75,7 @@
         if (i == 0) self.buttonOne = menuButton;
     }
 
-    if (self.type == TNTypeDesignerNews) [self addTextFieldForSearch];
+    if ([self.type  isEqual:@(TNTypeDesignerNews)]) [self addTextFieldForSearch];
 
     UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0, 200, viewSize.width, 8)];
     [border setBackgroundColor:[UIColor tnLightGreyColor]];
