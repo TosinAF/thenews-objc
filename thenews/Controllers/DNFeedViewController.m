@@ -161,6 +161,9 @@ static NSString *CellIdentifier = @"DNFeedCell";
         if (reset) {
             [self.stories removeAllObjects];
             [self.feedView.pullToRefreshView stopAnimating];
+
+            // scroll to top
+            [self.feedView setContentOffset:CGPointZero animated:YES];
         }
 
         [self.stories addObjectsFromArray:dnStories];
@@ -197,6 +200,7 @@ static NSString *CellIdentifier = @"DNFeedCell";
 
 - (void)showCommentsForStory:(DNStory *)story
 {
+    NSLog(@"i was here");
     DNCommentsViewController *vc = [[DNCommentsViewController alloc] initWithStory:story];
     [self.navigationController pushViewController:vc animated:YES];
 }

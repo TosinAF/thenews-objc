@@ -175,6 +175,9 @@ static NSString *CellIdentifier = @"HNFeedCell";
                 [self removeEmptyState];
             }
 
+            // scroll to top
+            [self.feedView setContentOffset:CGPointZero animated:YES];
+
         } else {
 
             NSLog(@"Error Occured");
@@ -216,7 +219,8 @@ static NSString *CellIdentifier = @"HNFeedCell";
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.emptyStateView showDownloadingText];
-            [self downloadPosts];
+            [self setPostFilterType:hnPostFilterType];
+            //[self downloadPosts];
         });
     };
 
