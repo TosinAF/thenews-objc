@@ -56,7 +56,7 @@ __weak TNContainerViewController *weakSelf;
     exitMenuTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitMenuOnTapRecognizer:)];
 }
 
--(void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self drawOpenMenuShape];
 }
