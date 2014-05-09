@@ -15,6 +15,8 @@
 
 @property (nonatomic,strong) UITextField *searchField;
 
+@property (nonatomic,strong) UIView *indicator;
+
 @end
 
 @implementation TNMenuView
@@ -77,6 +79,9 @@
 
     if ([self.type  isEqual:@(TNTypeDesignerNews)]) [self addTextFieldForSearch];
 
+    if ([self.type  isEqual:@(TNTypeHackerNews)]) [self configureIndicatorView];
+
+
     UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0, 200, viewSize.width, 8)];
     [border setBackgroundColor:[UIColor tnLightGreyColor]];
 
@@ -113,6 +118,43 @@
     [self.searchField setText:@""];
     [self.searchField setPlaceholder:@"Search Stories"];
     [self.searchField resignFirstResponder];
+}
+
+#pragma mark - Indicator View
+
+- (void)configureIndicatorView
+{
+    self.indicator = [UIView new];
+    [self.indicator setBackgroundColor:[UIColor hnLightColor]];
+    [self.indicator setFrame:CGRectMake(281.5, 20, 10, 10)];
+    [[self.indicator layer] setCornerRadius:5];
+
+    [self addSubview:self.indicator];
+}
+
+- (void)moveIndicatorTo:(int)index
+{
+    CGRect frame = self.indicator.frame;
+
+    switch (index) {
+        case 0:
+            frame.origin.y = -20;
+            break;
+            
+        case 1:
+            frame.origin.y = 20;
+            break;
+
+        case 2:
+            frame.origin.y = 70;
+            break;
+
+        case 3:
+            frame.origin.y = 120;
+            break;
+    }
+
+    self.indicator.frame = frame;
 }
 
 #pragma mark - Private Methods
