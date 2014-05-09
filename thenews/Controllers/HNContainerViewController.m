@@ -7,6 +7,7 @@
 //
 
 #import "HNFeedViewController.h"
+#import "HNSettingsViewController.h"
 #import "HNContainerViewController.h"
 
 bool inSettingsView = false;
@@ -32,31 +33,82 @@ bool inSettingsView = false;
 
 - (void)menuActionForButtonOne
 {
-    HNFeedViewController* hnVC = (HNFeedViewController *)self.currentViewController;
-    [hnVC setPostFilterType:0];
+    HNFeedViewController *hnVC;
+
+    if (inSettingsView) {
+
+        hnVC = [HNFeedViewController new];
+        [hnVC setPostFilterType:0];
+        self.nextViewController = hnVC;
+        [self.navItem setTitle:@"HACKER NEWS"];
+        [self changeChildViewController];
+
+    } else {
+
+        hnVC = (HNFeedViewController *)self.currentViewController;
+        [hnVC setPostFilterType:0];
+    }
+
     [self hideMenu];
+    [self.menu moveIndicatorTo:1];
     inSettingsView = false;
 }
 
 - (void)menuActionForButtonTwo
 {
-    HNFeedViewController* hnVC = (HNFeedViewController *)self.currentViewController;
-    [hnVC setPostFilterType:2];
+    HNFeedViewController *hnVC;
+
+    if (inSettingsView) {
+
+        hnVC = [HNFeedViewController new];
+        [hnVC setPostFilterType:2];
+        self.nextViewController = hnVC;
+        [self.navItem setTitle:@"HACKER NEWS"];
+        [self changeChildViewController];
+
+    } else {
+
+        hnVC = (HNFeedViewController *)self.currentViewController;
+        [hnVC setPostFilterType:2];
+    }
+
     [self hideMenu];
+    [self.menu moveIndicatorTo:2];
     inSettingsView = false;
 }
 
 - (void)menuActionForButtonThree
 {
-    HNFeedViewController* hnVC = (HNFeedViewController *)self.currentViewController;
-    [hnVC setPostFilterType:1];
+    HNFeedViewController *hnVC;
+
+    if (inSettingsView) {
+        hnVC = [HNFeedViewController new];
+        [hnVC setPostFilterType:1];
+        self.nextViewController = hnVC;
+        [self.navItem setTitle:@"HACKER NEWS"];
+        [self changeChildViewController];
+
+    } else {
+
+        hnVC = (HNFeedViewController *)self.currentViewController;
+        [hnVC setPostFilterType:1];
+    }
+
     [self hideMenu];
+    [self.menu moveIndicatorTo:3];
     inSettingsView = false;
 }
 
 - (void)menuActionForButtonFour
 {
-    NSLog(@"Button four clicked");
+    if (!inSettingsView) {
+        HNSettingsViewController *settingsVC = [HNSettingsViewController new];
+        self.nextViewController = settingsVC;
+        [self.menu moveIndicatorTo:0];
+        [self.navItem setTitle:@"SETTINGS"];
+        [self changeChildViewController];
+    }
+
     [self hideMenu];
     inSettingsView = true;
 }
