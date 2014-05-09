@@ -101,6 +101,7 @@
 		4EAE9B05190C2B170003C829 /* tap-wooden.aif in Resources */ = {isa = PBXBuildFile; fileRef = 4EAE9AC9190C2B170003C829 /* tap-wooden.aif */; };
 		4EAE9B06190C2B170003C829 /* tap-zipper.aif in Resources */ = {isa = PBXBuildFile; fileRef = 4EAE9ACA190C2B170003C829 /* tap-zipper.aif */; };
 		4EAE9B07190C2B170003C829 /* UIControl+Sound.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE9ACD190C2B170003C829 /* UIControl+Sound.m */; };
+		4EB56CE2191D4C4B00DC151A /* HNSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB56CE1191D4C4B00DC151A /* HNSettingsViewController.m */; };
 		4EBB4E9718D7B60F008BB571 /* TNFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4E9518D7B60F008BB571 /* TNFormViewController.m */; };
 		4EBB4E9E18D7B626008BB571 /* TNPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4E9818D7B626008BB571 /* TNPostViewController.m */; };
 		4EBB4E9F18D7B626008BB571 /* TNContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBB4E9A18D7B626008BB571 /* TNContainerViewController.m */; };
@@ -258,6 +259,8 @@
 		4EAE9ACA190C2B170003C829 /* tap-zipper.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "tap-zipper.aif"; sourceTree = "<group>"; };
 		4EAE9ACC190C2B170003C829 /* UIControl+Sound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+Sound.h"; sourceTree = "<group>"; };
 		4EAE9ACD190C2B170003C829 /* UIControl+Sound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+Sound.m"; sourceTree = "<group>"; };
+		4EB56CE0191D4C4B00DC151A /* HNSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNSettingsViewController.h; path = Controllers/HNSettingsViewController.h; sourceTree = "<group>"; };
+		4EB56CE1191D4C4B00DC151A /* HNSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNSettingsViewController.m; path = Controllers/HNSettingsViewController.m; sourceTree = "<group>"; };
 		4EBB4E9418D7B5F7008BB571 /* TNTypeEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNTypeEnum.h; path = Utility/TNTypeEnum.h; sourceTree = "<group>"; };
 		4EBB4E9518D7B60F008BB571 /* TNFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNFormViewController.m; path = Controllers/TNFormViewController.m; sourceTree = "<group>"; };
 		4EBB4E9618D7B60F008BB571 /* TNFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNFormViewController.h; path = Controllers/TNFormViewController.h; sourceTree = "<group>"; };
@@ -437,20 +440,17 @@
 				4E3B4C0218B61C0C00D8B75B /* Registration */,
 				4E4E1BB818AD989300B87E7A /* TNHomeViewController.h */,
 				4E4E1BB918AD989300B87E7A /* TNHomeViewController.m */,
-				4EBB4E9B18D7B626008BB571 /* TNContainerViewController.h */,
-				4EBB4E9A18D7B626008BB571 /* TNContainerViewController.m */,
-				4E7BFF5B1906DAA800A49102 /* DNContainerViewController.h */,
-				4E7BFF5C1906DAA800A49102 /* DNContainerViewController.m */,
-				4EAE9A72190C15C40003C829 /* HNContainerViewController.h */,
-				4EAE9A73190C15C40003C829 /* HNContainerViewController.m */,
+				4EAE9B08190C2CA60003C829 /* ContainerViewController */,
 				4E7BFF461902F92C00A49102 /* FeedViewController */,
 				4E7BFF471902F93E00A49102 /* CommentsViewController */,
 				4EBB4E9918D7B626008BB571 /* TNPostViewController.h */,
 				4EBB4E9818D7B626008BB571 /* TNPostViewController.m */,
-				4EA0BDB6190852D400E3FDE8 /* DNSearchViewController.h */,
-				4EA0BDB7190852D400E3FDE8 /* DNSearchViewController.m */,
 				4E485E5A1909942900B0FC4C /* DNSettingsViewController.h */,
 				4E485E5B1909942900B0FC4C /* DNSettingsViewController.m */,
+				4EB56CE0191D4C4B00DC151A /* HNSettingsViewController.h */,
+				4EB56CE1191D4C4B00DC151A /* HNSettingsViewController.m */,
+				4EA0BDB6190852D400E3FDE8 /* DNSearchViewController.h */,
+				4EA0BDB7190852D400E3FDE8 /* DNSearchViewController.m */,
 				4E7BFF551906BA3B00A49102 /* DNMOTDViewController.h */,
 				4E7BFF561906BA3B00A49102 /* DNMOTDViewController.m */,
 			);
@@ -665,6 +665,19 @@
 			path = "UIControl+Sound";
 			sourceTree = "<group>";
 		};
+		4EAE9B08190C2CA60003C829 /* ContainerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4EBB4E9B18D7B626008BB571 /* TNContainerViewController.h */,
+				4EBB4E9A18D7B626008BB571 /* TNContainerViewController.m */,
+				4E7BFF5B1906DAA800A49102 /* DNContainerViewController.h */,
+				4E7BFF5C1906DAA800A49102 /* DNContainerViewController.m */,
+				4EAE9A72190C15C40003C829 /* HNContainerViewController.h */,
+				4EAE9A73190C15C40003C829 /* HNContainerViewController.m */,
+			);
+			name = ContainerViewController;
+			sourceTree = "<group>";
+		};
 		4EC1409A18F149A30082E3C3 /* FeedViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -855,6 +868,7 @@
 				4EAE9A80190C2AB70003C829 /* TNCommentCell.m in Sources */,
 				4EAE9A7C190C2A980003C829 /* HNCommentsViewController.m in Sources */,
 				4E7BFF571906BA3B00A49102 /* DNMOTDViewController.m in Sources */,
+				4EB56CE2191D4C4B00DC151A /* HNSettingsViewController.m in Sources */,
 				4E4E1BC118AD989300B87E7A /* TNHomeViewController.m in Sources */,
 				4E4E1BD918AD98E000B87E7A /* UIColor+TNColors.m in Sources */,
 				4EBB4E9718D7B60F008BB571 /* TNFormViewController.m in Sources */,

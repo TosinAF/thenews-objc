@@ -64,7 +64,6 @@ TNType type;
 
 - (CGFloat)updateSubviews
 {
-    NSLog(@"%@", self.cellContent[@"comment"]);
     NSAttributedString *attrString = [self configureAttributedString];
     CGFloat textInset = (15 * [self.cellContent[@"depth"] intValue]);
     CGFloat width = 270 - textInset;

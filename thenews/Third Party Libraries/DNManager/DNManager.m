@@ -9,10 +9,7 @@
 
 #import "DNManager.h"
 
-// This is not the actual access token but rather the key it is stored under in NSUserDefaults.
-// A login request is preformed using the below to retreive the actual access token.
-
-static NSString * const DNAPIAccessToken    = @"DNAPIAccessToken";
+static NSString * const DNAPIAccessTokenKey = @"DNAPIAccessTokenKey";
 static NSString * const DNAPIBaseURLString  = @"https://api-news.layervault.com/api/v1";
 static NSString * const DNAPIClientID       = @"3ba6addb82f5746189bbf3e59ac06a0d498f02309ae4d7119655be174528ad44";
 static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745e45e940bc7a6192014a0131f40397f78";
@@ -59,7 +56,7 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
 
         // Store Access Token
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:accessToken forKey:DNAPIAccessToken];
+        [defaults setObject:accessToken forKey:DNAPIAccessTokenKey];
         [defaults synchronize];
 
         success(accessToken);
@@ -70,7 +67,7 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
 - (BOOL)isUserAuthenticated
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *accessToken = [defaults objectForKey:DNAPIAccessToken];
+    NSString *accessToken = [defaults objectForKey:DNAPIAccessTokenKey];
 
     if ( accessToken == Nil ) {
         return false;
@@ -81,7 +78,7 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
 - (void)logout
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:nil forKey:DNAPIAccessToken];
+    [defaults setObject:nil forKey:DNAPIAccessTokenKey];
     [defaults synchronize];
 }
 
@@ -254,10 +251,7 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
         DNMOTD *motd = [[DNMOTD alloc] initWithDictionary:responseObject[@"motd"]];
         success(motd);
 
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"failure");
-    } ];
-
+    } failure:failure];
 }
 
 - (void)upvoteMOTD:(void (^) (NSURLSessionDataTask *task, id responseObject))success
@@ -284,7 +278,7 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
 - (NSString *)getAccessToken
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *accessToken = [defaults objectForKey:@"DNAPIAccessToken"];
+    NSString *accessToken = [defaults objectForKey:DNAPIAccessTokenKey];
     NSLog(@"Current access token is: %@", accessToken);
 
     return accessToken;

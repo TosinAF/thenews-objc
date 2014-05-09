@@ -17,7 +17,7 @@ static char const * const kSoundsKey = "kSoundsKey";
 - (void)setSoundNamed:(NSString *)name forControlEvent:(UIControlEvents)controlEvent
 {
 	// Remove the old UI sound.
-	NSString *oldSoundKey = [NSString stringWithFormat:@"%lu", controlEvent];
+	NSString *oldSoundKey = [NSString stringWithFormat:@"%u", controlEvent];
 	AVAudioPlayer *oldSound = [self sounds][oldSoundKey];
 	[self removeTarget:oldSound action:@selector(play) forControlEvents:controlEvent];
 	
@@ -34,7 +34,7 @@ static char const * const kSoundsKey = "kSoundsKey";
 	
 	// Create and prepare the sound.
 	AVAudioPlayer *tapSound = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:&error];
-	NSString *controlEventKey = [NSString stringWithFormat:@"%lu", controlEvent];
+	NSString *controlEventKey = [NSString stringWithFormat:@"%u", controlEvent];
 	NSMutableDictionary *sounds = [self sounds];
 	[sounds setObject:tapSound forKey:controlEventKey];
 	[tapSound prepareToPlay];
