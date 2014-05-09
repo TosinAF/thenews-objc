@@ -6,11 +6,15 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import "TNPostViewController.h"
 #import "JSMessageTextView.h"
 #import "NSString+JSMessagesView.h"
 #import "TNCommentsViewController.h"
 
 @interface TNCommentsViewController () <UITextViewDelegate, JSDismissiveTextViewDelegate>
+
+@property (nonatomic, strong) UIBarButtonItem *switchButton;
+
 
 @end
 
@@ -44,6 +48,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setTitle:@"COMMENTS"];
+
+    // Remove back button text in any view pushed on top
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 
     [self downloadComments];
 
@@ -57,6 +65,8 @@
 
     [self.view addSubview:self.commentsView];
 
+    [self addBarButtonItems];
+
     /* Set Up Keyboard */
 
     [self configureKeyboard];
@@ -69,6 +79,23 @@
     [border setBackgroundColor:[UIColor tnLightGreyColor]];
 
     [self.commentsView addSubview:border];
+}
+
+- (void)addBarButtonItems
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"Story"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(switchAction) forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, 30, 30)];
+
+    self.switchButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+
+    self.navigationItem.rightBarButtonItem = self.switchButton;
+}
+
+- (void)switchAction
+{
+    NSAssert(NO, @"Subclasses need to overwrite this method");
 }
 
 - (void)addTableHeaderView
