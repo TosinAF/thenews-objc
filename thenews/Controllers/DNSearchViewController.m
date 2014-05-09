@@ -43,6 +43,8 @@ static NSString *CellIdentifier = @"cell";
     [self.searchBar setDelegate:self];
 
     [self.searchBar setTintColor:[UIColor dnColor]];
+    // Set the tint color of cancel button to white
+    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
     [self.searchBar setBarTintColor:[UIColor colorWithRed:0.310 green:0.533 blue:0.863 alpha:1]];
     [self.searchBar setAutocapitalizationType:UITextAutocapitalizationTypeNone];
 
