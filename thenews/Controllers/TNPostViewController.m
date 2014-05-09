@@ -53,6 +53,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
     if (self) {
         self.url = url;
         self.titleStr = loadingText;
+        self.createdFromSwitch = NO;
 
         switch (type) {
 			case TNTypeDesignerNews:
@@ -76,7 +77,13 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[self navigationController] setNavigationBarHidden:YES animated:YES];
+    if (self.createdFromSwitch) {
+        // nav bar already up
+        [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    } else {
+        [[self navigationController] setNavigationBarHidden:YES animated:YES];
+    }
+
     [self.navigationController setToolbarHidden:YES];
     self.navigationController.scrollNavigationBar.scrollView = nil;
 }
