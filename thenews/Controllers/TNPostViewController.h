@@ -12,6 +12,8 @@ typedef void (^DismissActionBlock)(void);
 
 @interface TNPostViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate>
 
+@property (nonatomic, assign) BOOL createdFromSwitch;
+
 - (id)initWithURL:(NSURL *)url type:(TNType)type;
 - (void)setDismissAction:(DismissActionBlock)dismissActionBlock;
 
