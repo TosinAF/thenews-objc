@@ -10,11 +10,12 @@
 #import "DNCommentCell.h"
 #import "TNNotification.h"
 #import "JSMessageInputView.h"
+#import "TNPostViewController.h"
 #import "DNCommentsViewController.h"
 
 static NSString *CellIdentifier = @"DNCommentCell";
 
-@interface DNCommentsViewController () <TNCommentCellDelegate>
+@interface DNCommentsViewController () <TNCommentCellDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) DNStory *story;
 
@@ -66,26 +67,32 @@ static NSString *CellIdentifier = @"DNCommentCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DNCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    DNCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     DNComment *comment = [self.comments objectAtIndex:[indexPath row]];
 
-    [cell setGestureDelegate:self];
     [cell configureForComment:comment];
-    [cell addUpvoteGesture];
+    [cell setGestureDelegate:self];
     [cell addReplyCommentGesture];
+    [cell updateSubviews];
+
+    if ([[DNManager sharedManager] isUserAuthenticated]) {
+        [cell addUpvoteGesture];
+    }
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DNCommentCell *cell = [[DNCommentCell alloc] init];
-    DNComment *comment = self.comments[[indexPath row]];
+    static DNCommentCell *cell;
 
-    NSString *commentStr = [comment body];
-    [cell setCellContent: @{@"comment":[comment body],@"depth":[comment depth]}];
+    if (!cell){
+        cell = [[DNCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
 
-    return [cell estimateCellHeightWithComment:commentStr];
+    [cell configureForComment:self.comments[[indexPath row]]];
+
+    return [cell updateSubviews];
 }
 
 #pragma mark - TNCommentCell Gesture Delegate
@@ -167,6 +174,19 @@ static NSString *CellIdentifier = @"DNCommentCell";
         }];
     }
     
+}
+
+- (void)switchAction
+{
+    NSURL *storyURL = [NSURL URLWithString:[self.story URL]];
+
+    TNPostViewController *vc = [[TNPostViewController alloc] initWithURL:storyURL type:TNTypeDesignerNews];
+    vc.createdFromSwitch = YES;
+
+    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        [self.navigationController pushViewController:vc animated:NO];
+    } completion:nil];
 }
 
 @end

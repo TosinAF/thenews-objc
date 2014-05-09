@@ -9,6 +9,7 @@
 #import "TNHeaderView.h"
 #import "HNCommentCell.h"
 #import "TNNotification.h"
+#import "TNPostViewController.h"
 #import "HNCommentsViewController.h"
 
 static NSString *CellIdentifier = @"HNCommentCell";
@@ -68,24 +69,32 @@ static NSString *CellIdentifier = @"HNCommentCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HNCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    HNCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     HNComment *comment = [self.comments objectAtIndex:[indexPath row]];
 
-    [cell setGestureDelegate:self];
     [cell configureForComment:comment];
+    [cell setGestureDelegate:self];
     [cell addReplyCommentGesture];
+    [cell updateSubviews];
 
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 200.0;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HNCommentCell *cell = [[HNCommentCell alloc] init];
-    HNComment *comment = self.comments[[indexPath row]];
-    NSString *commentStr = [comment Text];
+    static HNCommentCell *cell;
 
-    [cell setCellContent:@{@"comment":[comment Text], @"depth":@([comment Level])}];
-    return [cell estimateCellHeightWithComment:commentStr];
+    if (!cell){
+        cell = [[HNCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+
+    [cell configureForComment:self.comments[[indexPath row]]];
+    return [cell updateSubviews];
 }
 
 #pragma mark - TNCommentCell Delegate
@@ -94,7 +103,6 @@ static NSString *CellIdentifier = @"HNCommentCell";
 {
     HNCommentCell *hnCell = (HNCommentCell *)cell;
     self.replyToObject = [hnCell comment];
-    NSLog(@"reply is %@", self.replyToObject);
     [self.commentInputView.textView becomeFirstResponder];
 }
 
@@ -139,6 +147,19 @@ static NSString *CellIdentifier = @"HNCommentCell";
 
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
+}
+
+- (void)switchAction
+{
+    NSURL *postURL = [NSURL URLWithString:[self.post UrlString]];
+
+    TNPostViewController *vc = [[TNPostViewController alloc] initWithURL:postURL type:TNTypeHackerNews];
+    vc.createdFromSwitch = YES;
+
+    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        [self.navigationController pushViewController:vc animated:NO];
+    } completion:nil];
 }
 
 
