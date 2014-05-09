@@ -42,7 +42,7 @@ static NSString *CellIdentifier = @"cell";
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 44.0f)];
     [self.searchBar setDelegate:self];
 
-    [self.searchBar setTintColor:[UIColor whiteColor]];
+    [self.searchBar setTintColor:[UIColor dnColor]];
     [self.searchBar setBarTintColor:[UIColor colorWithRed:0.310 green:0.533 blue:0.863 alpha:1]];
     [self.searchBar setAutocapitalizationType:UITextAutocapitalizationTypeNone];
 
