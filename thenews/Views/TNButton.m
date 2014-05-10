@@ -7,39 +7,41 @@
 //
 
 #import "TNButton.h"
-#import "UIColor+TNColors.h"
 
 @implementation TNButton
 
-- (void)withText:(NSString *)text normalColor:(UIColor *)normalColor highlightColor:(UIColor *)highlightColor border:(BOOL)borderExists
+- (void)setBackgroundImageWithNormalColor:(UIColor *)normalColor highlightColor:(UIColor *)highlightColor
 {
+    [self setBackgroundImage:[self roundedImageWithColor:normalColor] forState:UIControlStateNormal];
+    [self setBackgroundImage:[self roundedImageWithColor:highlightColor] forState:UIControlStateHighlighted];
+    [self setBackgroundImage:[self roundedImageWithColor:highlightColor] forState:UIControlStateSelected];
 
-    [self setTitleColor:normalColor forState:UIControlStateNormal];
-    [self setTitleColor:normalColor forState:UIControlStateSelected];
-    [self setTitle:text forState:UIControlStateNormal];
+    [self setTitleColor:highlightColor forState:UIControlStateNormal];
+    [self setTitleColor:normalColor forState:UIControlStateHighlighted];
+    [self setTitleColor:highlightColor forState:UIControlStateSelected];
+
     [[self titleLabel] setFont:[UIFont fontWithName:@"Montserrat-Regular" size:20]];
 
-    // remove this later
-    if (borderExists) {
-        [[self layer] setBorderColor:normalColor.CGColor];
-        [[self layer] setBorderWidth:2.0f];
-        [[self layer] setCornerRadius:30.0f];
-    }
+    [[self layer] setBorderColor:highlightColor.CGColor];
+    [[self layer] setBorderWidth:2.0f];
+    [[self layer] setCornerRadius:self.frame.size.height / 2];
 }
 
-- (UIImage *)imageWithColor:(UIColor *)color {
+- (void)removeHighlightBackgroundImage
+{
+    [self setBackgroundImage:[self roundedImageWithColor:[UIColor clearColor]] forState:UIControlStateHighlighted];
+}
 
-    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
+- (UIImage *)roundedImageWithColor:(UIColor *)color {
 
-    CGContextSetFillColorWithColor(context, [color CGColor]);
-    CGContextFillRect(context, rect);
+    UIView *imageView = [[UIView alloc] initWithFrame:self.frame];
+    [imageView setBackgroundColor:color];
+    [[imageView layer] setCornerRadius:self.frame.size.height / 2];
 
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    UIGraphicsBeginImageContext(imageView.frame.size);
+    [[imageView layer] renderInContext:UIGraphicsGetCurrentContext()];
 
-    return image;
+    return UIGraphicsGetImageFromCurrentImageContext();
 }
 
 @end

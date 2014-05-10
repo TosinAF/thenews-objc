@@ -10,6 +10,7 @@
 
 @interface TNButton : UIButton
 
-- (void)withText:(NSString *)text normalColor:(UIColor *)normalColor highlightColor:(UIColor *)highlightColor border:(BOOL)borderExists;
+- (void)setBackgroundImageWithNormalColor:(UIColor *)normalColor highlightColor:(UIColor *)highlightColor;
+- (void)removeHighlightBackgroundImage;
 
 @end
