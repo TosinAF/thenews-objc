@@ -211,11 +211,11 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
     } failure:failure];
 }
 
-- (void)upvoteCommentWithID:(NSString *)storyID
+- (void)upvoteCommentWithID:(NSString *)commentID
                   success:(ActionSuccessBlock)success
                   failure:(RequestFailureBlock)failure
 {
-    [self performActionOnObjectWithID:storyID
+    [self performActionOnObjectWithID:commentID
                                object:DNObjectTypeComment
                                action:DNActionTypeUpvote
                               comment:nil
@@ -225,12 +225,12 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
 
 
 
-- (void)replyCommentWithID:(NSString *)storyID
+- (void)replyCommentWithID:(NSString *)commentID
                    comment:(NSString *)comment
                    success:(ActionSuccessBlock)success
                    failure:(RequestFailureBlock)failure
 {
-    [self performActionOnObjectWithID:storyID
+    [self performActionOnObjectWithID:commentID
                                object:DNObjectTypeComment
                                action:DNActionTypeReply
                               comment:comment

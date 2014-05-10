@@ -85,11 +85,11 @@ typedef void (^RequestFailureBlock) (NSURLSessionDataTask *task, NSError *error)
                           success:(void (^) (NSArray *comments))success
                           failure:(RequestFailureBlock)failure;
 
-- (void)upvoteCommentWithID:(NSString *)storyID
+- (void)upvoteCommentWithID:(NSString *)commentID
                     success:(ActionSuccessBlock)success
                     failure:(RequestFailureBlock)failure;
 
-- (void)replyCommentWithID:(NSString *)storyID
+- (void)replyCommentWithID:(NSString *)commentID
                    comment:(NSString *)comment
                    success:(ActionSuccessBlock)success
                    failure:(RequestFailureBlock)failure;
