@@ -19,7 +19,7 @@
                               kCRToastSubtitleTextAlignmentKey : @(NSTextAlignmentLeft),
                               kCRToastFontKey : [UIFont fontWithName:@"Avenir-Light" size:14],
                               kCRToastSubtitleFontKey : [UIFont fontWithName:@"Avenir-Light" size:9],
-                              kCRToastBackgroundColorKey : [UIColor colorWithRed:0.086 green:0.627 blue:0.522 alpha:1],
+                              kCRToastBackgroundColorKey : [UIColor tnColor],
                               kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
                               kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeLinear),
                               kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
