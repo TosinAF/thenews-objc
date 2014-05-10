@@ -15,7 +15,6 @@ TNType type;
 @property (nonatomic) UIColor *themeColor;
 @property (nonatomic) UIColor *lightThemeColor;
 
-@property (nonatomic) UILabel *detailLabel;
 @property (nonatomic) UITextView *commentView;
 
 @end
@@ -33,8 +32,6 @@ TNType type;
         [self.commentView setScrollEnabled:NO];
         [self.commentView setSelectable:YES];
         [self.commentView setDataDetectorTypes:UIDataDetectorTypeLink];
-
-        [self addSubview:self.commentView];
 
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
         [self setSeparatorInset:UIEdgeInsetsZero];
@@ -75,7 +72,9 @@ TNType type;
 
     [self.commentView setTextContainerInset:UIEdgeInsetsMake(0, textInset, 0, 0)];
 
-    return height + 25; // Height to be used for height for row at index path
+    [self addSubview:self.commentView];
+
+    return height + 35; // Height to be used for height for row at index path
 }
 
 #pragma mark - Dynamic Height Methods
@@ -123,13 +122,6 @@ TNType type;
 }
 
 #pragma mark - Private Methods
-
-- (UIView *)viewWithImageName:(NSString *)imageName {
-    UIImage *image = [UIImage imageNamed:imageName];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    imageView.contentMode = UIViewContentModeCenter;
-    return imageView;
-}
 
 - (NSAttributedString *)configureAttributedString
 {
@@ -180,6 +172,13 @@ TNType type;
     }
     
     return [[NSAttributedString alloc] initWithAttributedString:attrString];
+}
+
+- (UIView *)viewWithImageName:(NSString *)imageName {
+    UIImage *image = [UIImage imageNamed:imageName];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.contentMode = UIViewContentModeCenter;
+    return imageView;
 }
 
 @end
