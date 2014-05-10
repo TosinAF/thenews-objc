@@ -117,8 +117,8 @@ static NSString *CellIdentifier = @"DNCommentCell";
 - (void)replyActionForCell:(TNCommentCell *)cell
 {
     DNCommentCell *dnCell = (DNCommentCell *)cell;
+
     self.replyToID = [[dnCell cellContent] objectForKey:@"commentID"];
-    NSLog(@"reply is %@", self.replyToID);
     [self.commentInputView.textView becomeFirstResponder];
 }
 
@@ -148,14 +148,16 @@ static NSString *CellIdentifier = @"DNCommentCell";
 
     if (originalCommentID) {
 
-        [[DNManager sharedManager] replyCommentWithID:[[self.story storyID] stringValue] comment:comment success:^{
+        [[DNManager sharedManager] replyCommentWithID:[originalCommentID stringValue] comment:comment success:^{
 
             [self downloadComments];
             [self postActionCompleted];
+            [notification showSuccessNotification:@"Comment Post Successful" subtitle:nil];
 
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSString *errorMsg = [[error userInfo] objectForKey:@"NSLocalizedDescription"];
             NSLog(@"%@", errorMsg);
+            [notification showFailureNotification:@"Comment Post Failed" subtitle:nil];
         }];
 
     } else {
