@@ -8,6 +8,7 @@
 
 #import "libHN.h"
 #import "DNManager.h"
+#import "TNButton.h"
 #import "TNTextField.h"
 #import "TNNotification.h"
 #import "TNHomeViewController.h"
@@ -17,8 +18,8 @@ TNType currentAuthType;
 
 @interface TNLoginViewController ()
 
-@property (nonatomic) UIButton *addDN;
-@property (nonatomic) UIButton *addHN;
+@property (nonatomic) TNButton *addDN;
+@property (nonatomic) TNButton *addHN;
 
 @end
 
@@ -32,8 +33,10 @@ TNType currentAuthType;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    currentAuthType = TNTypeDesignerNews;
     [self.view setBackgroundColor:[UIColor whiteColor]];
+
+    currentAuthType = TNTypeDesignerNews;
+    [[TNTextField appearance] setTintColor:[UIColor dnColor]];
 
     CGSize screenSize = self.view.bounds.size;
 
@@ -79,18 +82,17 @@ TNType currentAuthType;
 
     self.addDN = ({
 
-        UIButton *addDN = [UIButton buttonWithType:UIButtonTypeCustom];
-        [addDN setFrame:CGRectMake(20, 210, screenSize.width  - 40, 50)];
-        [addDN setTitle:@"Login?" forState:UIControlStateNormal];
-        [addDN setTitleColor:[UIColor dnColor] forState:UIControlStateNormal];
+        TNButton *addDN = [[TNButton alloc] initWithFrame:CGRectMake(20, 210, screenSize.width  - 40, 50)];
+        [addDN setBackgroundImageWithNormalColor:[UIColor whiteColor] highlightColor:[UIColor dnColor]];
+        [addDN removeHighlightBackgroundImage];
 
-        [[addDN titleLabel] setTextAlignment:NSTextAlignmentCenter];
+        [addDN setTitle:@"Login?" forState:UIControlStateNormal];
+        [addDN setTitleColor:[UIColor dnColor] forState:UIControlStateNormal | UIControlStateHighlighted];
+
+
         [[addDN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:14]];
-        [[addDN layer] setBorderColor:[[UIColor dnColor] CGColor]];
         [[addDN layer] setBorderWidth:1.0f];
 
-
-        [addDN setBackgroundImage:[self imageWithColor:[UIColor dnColor]] forState:UIControlStateSelected];
         [addDN setTitle:@"DN Account Added" forState:UIControlStateSelected];
         [addDN setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
 
@@ -99,18 +101,17 @@ TNType currentAuthType;
     });
 
     self.addHN = ({
-        UIButton *addHN = [UIButton buttonWithType:UIButtonTypeCustom];
-        [addHN setFrame:CGRectMake(20, 280, screenSize.width - 40, 50)];
-        [addHN setTitle:@"Add HN Account" forState:UIControlStateNormal];
-        [addHN setTitleColor:[UIColor hnColor] forState:UIControlStateNormal];
 
-        [[addHN titleLabel] setTextAlignment:NSTextAlignmentCenter];
+        TNButton *addHN = [[TNButton alloc] initWithFrame:CGRectMake(20, 280, screenSize.width  - 40, 50)];
+        [addHN setBackgroundImageWithNormalColor:[UIColor whiteColor] highlightColor:[UIColor hnColor]];
+        [addHN removeHighlightBackgroundImage];
+
+        [addHN setTitle:@"Add HN Account" forState:UIControlStateNormal];
+        [addHN setTitleColor:[UIColor hnColor] forState:UIControlStateNormal | UIControlStateHighlighted];
+
         [[addHN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:14]];
-        [[addHN layer] setBorderColor:[[UIColor hnColor] CGColor]];
         [[addHN layer] setBorderWidth:1.0f];
 
-
-        [addHN setBackgroundImage:[self imageWithColor:[UIColor hnColor]] forState:UIControlStateSelected];
         [addHN setTitle:@"HN Account Added" forState:UIControlStateSelected];
         [addHN setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
 
@@ -159,6 +160,7 @@ TNType currentAuthType;
     } else {
 
         currentAuthType = TNTypeDesignerNews;
+        [self changeCaretColor:TNTypeDesignerNews];
         [self.addDN setTitle:@"Login?" forState:UIControlStateNormal];
         [self.addHN setTitle:@"Add HN Account" forState:UIControlStateNormal];
         [self.usernameField becomeFirstResponder];
@@ -174,6 +176,7 @@ TNType currentAuthType;
     } else {
 
         currentAuthType = TNTypeHackerNews;
+        [self changeCaretColor:TNTypeHackerNews];
         [self.addHN setTitle:@"Login?" forState:UIControlStateNormal];
         [self.addDN setTitle:@"Add DN Account" forState:UIControlStateNormal];
         [self.usernameField becomeFirstResponder];
@@ -248,6 +251,24 @@ TNType currentAuthType;
     UIGraphicsEndImageContext();
 
     return image;
+}
+
+- (void)changeCaretColor:(TNType)type
+{
+    // change caret color of textfields
+
+    switch (type) {
+        case TNTypeDesignerNews:
+            [self.usernameField setTintColor:[UIColor dnColor]];
+            [self.passwordField setTintColor:[UIColor dnColor]];
+            break;
+
+        case TNTypeHackerNews:
+            [self.usernameField setTintColor:[UIColor hnColor]];
+            [self.passwordField setTintColor:[UIColor hnColor]];
+            break;
+    }
+
 }
 
 - (BOOL)userCompletedLoginForBoth
