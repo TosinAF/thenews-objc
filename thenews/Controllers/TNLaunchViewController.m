@@ -17,7 +17,6 @@ BOOL registrationSkipped;
 
 @property (strong, nonatomic) UILabel *appTitle;
 @property (strong, nonatomic) TNButton *login;
-@property (strong, nonatomic) TNButton *signup;
 @property (strong, nonatomic) UIButton *skip;
 
 @end
@@ -65,9 +64,6 @@ BOOL registrationSkipped;
 
     CGSize screenSize = self.view.bounds.size;
 
-    UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0, 380, 320, 200)];
-    [bottom setBackgroundColor:[UIColor whiteColor]];
-
     self.appTitle = ({
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, screenSize.width, 100)];
         [title setText:@"THE NEWS"];
@@ -79,7 +75,8 @@ BOOL registrationSkipped;
 
     self.login = ({
         TNButton *login = [[TNButton alloc] initWithFrame:CGRectMake(20, screenSize.height + 100, screenSize.width - 40, 60)];
-        [login withText:@"Log In" normalColor:[UIColor whiteColor] highlightColor:[UIColor whiteColor] border:YES];
+        [login setBackgroundImageWithNormalColor:[UIColor tnColor] highlightColor:[UIColor whiteColor]];
+        [login setTitle:@"Log In" forState:UIControlStateNormal];
         [login addTarget:self action:@selector(loginButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         login;
     });
@@ -89,7 +86,6 @@ BOOL registrationSkipped;
         [skip setFrame:CGRectMake(10, screenSize.height + 150, screenSize.width - 20, 50)];
         [skip setTitle:@"Skip to The News" forState:UIControlStateNormal];
         [skip setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        //[skip setTitleColor:[UIColor hnColor] forState:UIControlStateHighlighted];
         [[skip titleLabel] setFont:[UIFont fontWithName:@"Montserrat-Regular" size:20]];
         [skip addTarget:self action:@selector(skipButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         skip;
@@ -99,7 +95,6 @@ BOOL registrationSkipped;
     [self.view addSubview:self.login];
     [self.view addSubview:self.skip];
 }
-
 
 - (void)loginButtonPressed:(id)selector
 {
