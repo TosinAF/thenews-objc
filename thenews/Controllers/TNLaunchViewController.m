@@ -6,10 +6,12 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import <POP/POP.h>
 #import "TNLaunchViewController.h"
 #import "TNLoginViewController.h"
 #import "TNHomeViewController.h"
 #import "TNButton.h"
+
 
 BOOL registrationSkipped;
 
@@ -37,23 +39,19 @@ BOOL registrationSkipped;
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    // Animation to bring up the two buttons from the bottom of the screen
+    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionY];
+    anim.springBounciness = 10;
+    anim.springSpeed = 10;
+    anim.toValue = @(408);
 
-    CGRect loginFrame = self.login.frame;
-    loginFrame.origin.y = 388;
+    [self.login.layer pop_addAnimation:anim forKey:@"postionY"];
 
-    CGRect skipFrame = self.skip.frame;
-    skipFrame.origin.y = 458;
+    POPSpringAnimation *anim2 = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionY];
+    anim2.springBounciness = 10;
+    anim2.springSpeed = 10;
+    anim2.toValue = @(478);
 
-    [UIView animateWithDuration:0.8
-                          delay:0
-         usingSpringWithDamping:10.0
-          initialSpringVelocity:5.0
-                        options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                            
-        self.login.frame = loginFrame;
-        self.skip.frame = skipFrame;
-    } completion:nil];
+    [self.skip.layer pop_addAnimation:anim2 forKey:@"postionY"];
 }
 
 - (void)viewDidLoad
