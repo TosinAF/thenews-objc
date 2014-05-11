@@ -16,6 +16,7 @@ TNType type;
 @property (nonatomic) UIColor *lightThemeColor;
 
 @property (nonatomic) UITextView *commentView;
+@property (nonatomic) UIView *leftBorder;
 
 @end
 
@@ -27,16 +28,22 @@ TNType type;
 
     if (self) {
 
-        self.commentView = [[UITextView alloc] initWithFrame:CGRectMake(20, 15, 270, 2000)];
+        self.commentView = [[UITextView alloc] initWithFrame:CGRectMake(20, 15, 270, 1000)];
         [self.commentView setEditable:NO];
-        [self.commentView setScrollEnabled:NO];
         [self.commentView setSelectable:YES];
+        [self.commentView setScrollEnabled:NO];
+        [self.commentView setTextAlignment:NSTextAlignmentJustified];
         [self.commentView setDataDetectorTypes:UIDataDetectorTypeLink];
+
+        if (self.leftBorder) {
+            [self.leftBorder removeFromSuperview];
+        } else {
+            self.leftBorder = [UIView new];
+        }
 
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
         [self setSeparatorInset:UIEdgeInsetsZero];
         [self setFirstTrigger:0.20];
-
     }
 
     return self;
@@ -63,29 +70,37 @@ TNType type;
 {
     NSAttributedString *attrString = [self configureAttributedString];
     CGFloat textInset = (15 * [self.cellContent[@"depth"] intValue]);
-    CGFloat width = 270 - textInset;
-    CGFloat height = [self textViewHeightForString:attrString width:width];
+
+    [self.commentView setTextContainerInset:UIEdgeInsetsMake(0, textInset, 0, 0)];
+
+    CGFloat height = [self textViewHeightForString:attrString];
 
     CGRect frame = self.commentView.frame;
     frame.size.height = height;
     self.commentView.frame = frame;
 
-    [self.commentView setTextContainerInset:UIEdgeInsetsMake(0, textInset, 0, 0)];
-
     [self addSubview:self.commentView];
 
-    return height + 35; // Height to be used for height for row at index path
+    if ([self.cellContent[@"depth"] intValue] > 0) {
+
+        [self.leftBorder setFrame:CGRectMake(self.commentView.frame.origin.x + textInset - 5, self.commentView.frame.origin.y, 2, self.commentView.frame.size.height)];
+
+        [self.leftBorder setBackgroundColor:[UIColor tnLightGreyColor]];
+
+        [self addSubview:self.leftBorder];
+    }
+
+    return height + 45; // Height to be used for height for row at index path
 }
 
 #pragma mark - Dynamic Height Methods
 
-- (CGFloat)textViewHeightForString:(NSAttributedString *)text width:(CGFloat)width {
+- (CGFloat)textViewHeightForString:(NSAttributedString *)text {
 
     [self.commentView setAttributedText:nil];
     [self.commentView setAttributedText:text];
 
-    CGSize size = [self.commentView sizeThatFits:CGSizeMake(width, FLT_MAX)];
-
+    CGSize size = [self.commentView sizeThatFits:CGSizeMake(270, FLT_MAX)];
     return size.height;
 }
 
@@ -160,15 +175,15 @@ TNType type;
 
     NSRange authorRange = [comment rangeOfString:self.cellContent[@"author"]];
     [attrString addAttribute:NSForegroundColorAttributeName value:self.lightThemeColor range:authorRange];
-    [attrString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Avenir" size:12.0f] range:authorRange];
+    [attrString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Avenir-Book" size:12.0f] range:authorRange];
 
     if(type == TNTypeDesignerNews) {
         NSRange pointsRange = [comment rangeOfString:pointsString];
         [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor tnGreyColor] range:pointsRange];
-        [attrString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Avenir" size:12.0f] range:pointsRange];
+        [attrString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Avenir-Book" size:12.0f] range:pointsRange];
     } else {
         //increase font of author in hn
-        [attrString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Avenir" size:14.0f] range:authorRange];
+        [attrString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Avenir-Book" size:14.0f] range:authorRange];
     }
     
     return [[NSAttributedString alloc] initWithAttributedString:attrString];
