@@ -40,10 +40,10 @@ TNType currentAuthType;
 
     CGSize screenSize = self.view.bounds.size;
 
-    [self setTitle:@"Log In"];
+    [self setTitle:@"Login"];
     [[UINavigationBar appearance] setBarTintColor:[UIColor tnColor]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes: @{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Light" size:18.0f],
+    [[UINavigationBar appearance] setTitleTextAttributes: @{NSFontAttributeName:[UIFont fontWithName:@"Avenir" size:18.0f],
                                                             NSForegroundColorAttributeName:[UIColor whiteColor]}];
 
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"The News" style:UIBarButtonItemStylePlain target:self action:@selector(pushHomeView)];
@@ -86,11 +86,11 @@ TNType currentAuthType;
         [addDN setBackgroundImageWithNormalColor:[UIColor whiteColor] highlightColor:[UIColor dnColor]];
         [addDN removeHighlightBackgroundImage];
 
-        [addDN setTitle:@"Login?" forState:UIControlStateNormal];
+        [addDN setTitle:@"Login" forState:UIControlStateNormal];
         [addDN setTitleColor:[UIColor dnColor] forState:UIControlStateNormal | UIControlStateHighlighted];
 
 
-        [[addDN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:14]];
+        [[addDN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:18]];
         [[addDN layer] setBorderWidth:1.0f];
 
         [addDN setTitle:@"DN Account Added" forState:UIControlStateSelected];
@@ -109,7 +109,7 @@ TNType currentAuthType;
         [addHN setTitle:@"Add HN Account" forState:UIControlStateNormal];
         [addHN setTitleColor:[UIColor hnColor] forState:UIControlStateNormal | UIControlStateHighlighted];
 
-        [[addHN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:14]];
+        [[addHN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:18]];
         [[addHN layer] setBorderWidth:1.0f];
 
         [addHN setTitle:@"HN Account Added" forState:UIControlStateSelected];
@@ -161,7 +161,7 @@ TNType currentAuthType;
 
         currentAuthType = TNTypeDesignerNews;
         [self changeCaretColor:TNTypeDesignerNews];
-        [self.addDN setTitle:@"Login?" forState:UIControlStateNormal];
+        [self.addDN setTitle:@"Login" forState:UIControlStateNormal];
         [self.addHN setTitle:@"Add HN Account" forState:UIControlStateNormal];
         [self.usernameField becomeFirstResponder];
     }
@@ -177,7 +177,7 @@ TNType currentAuthType;
 
         currentAuthType = TNTypeHackerNews;
         [self changeCaretColor:TNTypeHackerNews];
-        [self.addHN setTitle:@"Login?" forState:UIControlStateNormal];
+        [self.addHN setTitle:@"Login" forState:UIControlStateNormal];
         [self.addDN setTitle:@"Add DN Account" forState:UIControlStateNormal];
         [self.usernameField becomeFirstResponder];
     }
