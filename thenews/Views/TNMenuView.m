@@ -63,12 +63,12 @@
         [menuButton setContentEdgeInsets:UIEdgeInsetsMake(0, 40, 0, 0)];
         [menuButton setTitleColor:self.themeColor forState:UIControlStateNormal];
         [menuButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        [[menuButton titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:20.0f]];
+        [[menuButton titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:18.0f]];
         [menuButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 
         [menuButton setTag:i];
 
-        UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0, yPos + 50, viewSize.width, 2)];
+        UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0, yPos + 50, viewSize.width, 1)];
         [border setBackgroundColor:[UIColor tnLightGreyColor]];
 
         [self addSubview:border];
@@ -125,7 +125,7 @@
 - (void)configureIndicatorView
 {
     self.indicator = [UIView new];
-    [self.indicator setBackgroundColor:[UIColor hnLightColor]];
+    [self.indicator setBackgroundColor:[UIColor hnNavBarColor]];
     [self.indicator setFrame:CGRectMake(281.5, 20, 10, 10)];
     [[self.indicator layer] setCornerRadius:5];
 
@@ -196,7 +196,7 @@
     [self.searchField setTextColor:[UIColor dnColor]];
     [self.searchField setPlaceholder:@"Search Stories"];
     [self.searchField setRightViewMode:UITextFieldViewModeWhileEditing];
-    [self.searchField setFont:[UIFont fontWithName:@"Avenir-Medium" size:20.0f]];
+    [self.searchField setFont:[UIFont fontWithName:@"Avenir-Medium" size:18.0f]];
 
     [self.searchField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     //[self.searchField setAutocorrectionType:UITextAutocorrectionTypeNo];
