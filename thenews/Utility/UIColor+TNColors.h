@@ -13,9 +13,11 @@
 + (UIColor *)tnColor;
  
 + (UIColor *) dnColor;
++ (UIColor *) dnNavBarColor;
 + (UIColor *) dnLightColor;
 
 + (UIColor *) hnColor;
++ (UIColor *) hnNavBarColor;
 + (UIColor *) hnLightColor;
 
 + (UIColor *) tnGreyColor;

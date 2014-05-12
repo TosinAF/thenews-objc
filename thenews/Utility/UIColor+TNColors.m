@@ -18,12 +18,20 @@
     return [UIColor colorWithRed:0.176 green:0.447 blue:0.855 alpha:1];
 }
 
++ (UIColor *)dnNavBarColor {
+    return [UIColor colorWithRed:0.310 green:0.533 blue:0.863 alpha:1];
+}
+
 + (UIColor *)dnLightColor {
     return [UIColor colorWithRed:0.412 green:0.608 blue:0.882 alpha:1];
 }
 
 + (UIColor *)hnColor {
     return [UIColor colorWithRed:1 green:0.4 blue:0 alpha:1.0];
+}
+
++ (UIColor *)hnNavBarColor {
+    return [UIColor colorWithRed:0.992 green:0.486 blue:0.208 alpha:1];
 }
 
 + (UIColor *)hnLightColor {
