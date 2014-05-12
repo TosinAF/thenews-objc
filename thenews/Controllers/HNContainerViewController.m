@@ -29,6 +29,14 @@ bool inSettingsView = false;
     return self;
 }
 
+- (void)navBarTapped
+{
+    if (!inSettingsView) {
+        HNFeedViewController* hnVC = (HNFeedViewController *)self.currentViewController;
+        [hnVC.feedView setContentOffset:CGPointMake(0,0) animated:YES];
+    }
+}
+
 #pragma mark - TNMenuView Delegate
 
 - (void)menuActionForButtonOne
@@ -38,7 +46,6 @@ bool inSettingsView = false;
     if (inSettingsView) {
 
         hnVC = [HNFeedViewController new];
-        [hnVC setPostFilterType:0];
         self.nextViewController = hnVC;
         [self.navItem setTitle:@"HACKER NEWS"];
         [self changeChildViewController];
@@ -60,8 +67,7 @@ bool inSettingsView = false;
 
     if (inSettingsView) {
 
-        hnVC = [HNFeedViewController new];
-        [hnVC setPostFilterType:2];
+        hnVC = [[HNFeedViewController alloc] initWithPostFilterType:2];
         self.nextViewController = hnVC;
         [self.navItem setTitle:@"HACKER NEWS"];
         [self changeChildViewController];
@@ -82,8 +88,7 @@ bool inSettingsView = false;
     HNFeedViewController *hnVC;
 
     if (inSettingsView) {
-        hnVC = [HNFeedViewController new];
-        [hnVC setPostFilterType:1];
+        hnVC = [[HNFeedViewController alloc] initWithPostFilterType:1];
         self.nextViewController = hnVC;
         [self.navItem setTitle:@"HACKER NEWS"];
         [self changeChildViewController];
@@ -102,14 +107,18 @@ bool inSettingsView = false;
 - (void)menuActionForButtonFour
 {
     if (!inSettingsView) {
+
         HNSettingsViewController *settingsVC = [HNSettingsViewController new];
         self.nextViewController = settingsVC;
+        [self changeChildViewController];
         [self.menu moveIndicatorTo:0];
         [self.navItem setTitle:@"SETTINGS"];
-        [self changeChildViewController];
+
+    } else {
+
+        [self hideMenu];
     }
 
-    [self hideMenu];
     inSettingsView = true;
 }
 

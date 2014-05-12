@@ -33,6 +33,14 @@ int menuIndex = 1;
     return self;
 }
 
+- (void)navBarTapped
+{
+    if (menuIndex == 1) {
+        DNFeedViewController* dnVC = (DNFeedViewController *)self.currentViewController;
+        [dnVC.feedView setContentOffset:CGPointMake(0,0) animated:YES];
+    }
+}
+
 #pragma mark - TNMenuView Delegate
 
 - (void)menuActionForButtonOne
