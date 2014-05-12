@@ -64,7 +64,7 @@ __weak TNContainerViewController *weakSelf;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setNavbarApperance];
+    [self configureNavbarApperance];
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
     /* Set Up Menu View */
@@ -88,7 +88,7 @@ __weak TNContainerViewController *weakSelf;
     [self.view addSubview:self.navBar];
 }
 
-- (void)setNavbarApperance
+- (void)configureNavbarApperance
 {
     CGFloat navBarHeight = 64.0;
 	CGSize screenSize = self.view.frame.size;
@@ -96,6 +96,9 @@ __weak TNContainerViewController *weakSelf;
 	self.navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, navBarHeight)];
 	self.navItem = [[UINavigationItem alloc] initWithTitle:self.navTitle];
     [self.navBar setTranslucent:YES];
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navBarTapped)];
+    [self.navBar addGestureRecognizer:tap];
 
     [self defaultNavbarOptions];
 
@@ -120,6 +123,11 @@ __weak TNContainerViewController *weakSelf;
 	[self.navBar setTintColor:[UIColor whiteColor]];
 	[self.navBar setTitleTextAttributes:@{ NSFontAttributeName:[UIFont fontWithName:@"Montserrat" size:16.0f],
 	                                       NSForegroundColorAttributeName:[UIColor whiteColor] }];
+}
+
+- (void)navBarTapped
+{
+    NSAssert(NO, @"Subclasses need to overwrite this method");
 }
 
 #pragma mark - Drop Down Menu Methods
@@ -229,11 +237,11 @@ __weak TNContainerViewController *weakSelf;
     // So as to match the Navbar Colours after Apple's meddling with the barTintColor
     switch ([self.feedType intValue]) {
         case TNTypeDesignerNews:
-            [openMenuShape setFillColor:[UIColor colorWithRed:0.310 green:0.533 blue:0.863 alpha:1].CGColor];
+            [openMenuShape setFillColor:[UIColor dnNavBarColor].CGColor];
             break;
 
         case TNTypeHackerNews:
-            [openMenuShape setFillColor:[UIColor colorWithRed:0.992 green:0.486 blue:0.208 alpha:1].CGColor];
+            [openMenuShape setFillColor:[UIColor hnNavBarColor].CGColor];
             break;
 
         default:

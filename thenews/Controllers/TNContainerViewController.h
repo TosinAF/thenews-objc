@@ -25,7 +25,9 @@
 
 - (id)initWithType:(TNType)type;
 
+
 - (void)hideMenu;
+- (void)navBarTapped;
 - (void)fadeOutChildViewController;
 - (void)changeChildViewController;
 
