@@ -59,6 +59,7 @@ BOOL registrationSkipped;
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor tnColor]];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 
     CGSize screenSize = self.view.bounds.size;
 
