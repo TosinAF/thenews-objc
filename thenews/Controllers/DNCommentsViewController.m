@@ -38,6 +38,14 @@ static NSString *CellIdentifier = @"DNCommentCell";
     return self;
 }
 
+#pragma mark - Keyboard Methods
+
+- (BOOL)shouldKeyboardBeAdded
+{
+    if ([[DNManager sharedManager] isUserAuthenticated]) return YES;
+    return NO;
+}
+
 #pragma mark - View Methods
 
 - (void)addTableHeaderView
@@ -46,14 +54,20 @@ static NSString *CellIdentifier = @"DNCommentCell";
 
     TNHeaderView *headerView = [[TNHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 85) type:TNTypeDesignerNews];
     [headerView configureForStory:self.story];
-    [headerView setButtonTitle:@"Comment"];
-    [headerView setButtonAction:^{
 
-        self.replyToID = nil;
-        [self.commentInputView.textView becomeFirstResponder];
-        NSLog(@"%@",self.replyToID);
+    if ([[DNManager sharedManager] isUserAuthenticated]) {
 
-    }];
+        [headerView setButtonTitle:@"Comment"];
+        [headerView setButtonAction:^{
+
+            self.replyToID = nil;
+            [self.commentInputView.textView becomeFirstResponder];
+            NSLog(@"%@",self.replyToID);
+            
+        }];
+
+        [headerView showButton];
+    }
 
     [self.commentsView setTableHeaderView:headerView];
 }
@@ -67,16 +81,21 @@ static NSString *CellIdentifier = @"DNCommentCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DNCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    DNCommentCell *cell;
+
+    if (!cell){
+        cell = [[DNCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+
     DNComment *comment = [self.comments objectAtIndex:[indexPath row]];
 
     [cell configureForComment:comment];
     [cell setGestureDelegate:self];
-    [cell addReplyCommentGesture];
     [cell updateSubviews];
 
     if ([[DNManager sharedManager] isUserAuthenticated]) {
         [cell addUpvoteGesture];
+        [cell addReplyCommentGesture];
     }
     
     return cell;

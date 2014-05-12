@@ -45,7 +45,7 @@
 
     // change to or
 
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"appFirstStart"] && ![[DNManager sharedManager] isUserAuthenticated]) {
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"appFirstStart"]) {
 
         rootViewController = [TNLaunchViewController new];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"appFirstStart"];

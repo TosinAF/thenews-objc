@@ -6,7 +6,9 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import <POP/POP.h>
 #import "DNManager.h"
+#import "TNButton.h"
 #import "TNTextField.h"
 #import "TNNotification.h"
 #import "DNSettingsViewController.h"
@@ -18,11 +20,12 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *jobLabel;
-@property (nonatomic, strong) UIButton *button;
+@property (nonatomic, strong) TNButton *button;
 
 @property (strong, nonatomic) TNTextField *usernameField;
 @property (strong, nonatomic) TNTextField *passwordField;
 @property (strong, nonatomic) UIView *border;
+@property (strong, nonatomic) UIView *border2;
 
 @end
 
@@ -43,29 +46,32 @@
     // Button
 
     self.button = ({
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setFrame:CGRectMake(20, 270, 320  - 40, 50)];
-        [button setTitleColor:[UIColor dnColor] forState:UIControlStateNormal];
 
-        [[button titleLabel] setTextAlignment:NSTextAlignmentCenter];
-        [[button titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:14]];
-        [[button layer] setBorderColor:[[UIColor dnColor] CGColor]];
-        [[button layer] setBorderWidth:1.0f];
+        TNButton *button;
 
-        [button setBackgroundImage:[self imageWithColor:[UIColor dnColor]] forState:UIControlStateSelected];
-        [button setTitle:@"Logged In!" forState:UIControlStateSelected];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
 
         if ([[DNManager sharedManager] isUserAuthenticated]) {
-            [button setTitle:@"Log Out?" forState:UIControlStateNormal];
+            button = [[TNButton alloc] initWithFrame:CGRectMake(20, 270, 320  - 40, 50)];
+            [button setTitle:@"Log Out" forState:UIControlStateNormal];
         } else {
-            [button setTitle:@"Login ?" forState:UIControlStateNormal];
+            button = [[TNButton alloc] initWithFrame:CGRectMake(20, 210, 320  - 40, 50)];
+            [button setTitle:@"Login" forState:UIControlStateNormal];
         }
+
+        [button setBackgroundImageWithNormalColor:[UIColor whiteColor] highlightColor:[UIColor dnNavBarColor]];
+        [button removeHighlightBackgroundImage];
+
+        [button setTitleColor:[UIColor dnColor] forState:UIControlStateNormal | UIControlStateHighlighted];
+
+        [[button titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:18]];
+        [[button layer] setBorderWidth:1.0f];
+
+        [button setTitle:@"Logged In!" forState:UIControlStateSelected];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
 
         [button addTarget:self action:@selector(buttonClicked) forControlEvents:UIControlEventTouchUpInside];
         button;
     });
-
 
     [self.view addSubview:self.button];
 }
@@ -117,7 +123,7 @@
 {
     if([[DNManager sharedManager] isUserAuthenticated]) {
         [[DNManager sharedManager] logout];
-        [self.button setTitle:@"Log in?" forState:UIControlStateNormal];
+        [self.button setTitle:@"Log in" forState:UIControlStateNormal];
         [self transitionToLoggedOutView];
 
     } else {
@@ -155,7 +161,7 @@
 
     // Labels
 
-    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 180, 320, 30)];
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 190, 320, 30)];
     [self.nameLabel setFont:[UIFont fontWithName:@"Montserrat" size:18.0f]];
     [self.nameLabel setText:@"John Doe"];
     [self.nameLabel setTextColor:[UIColor tnGreyColor]];
@@ -178,13 +184,13 @@
 {
     // Setup Text Fields & Borders
 
-    self.usernameField = [[TNTextField alloc] initWithFrame:CGRectMake(50, 140, 320, 50)];
+    self.usernameField = [[TNTextField alloc] initWithFrame:CGRectMake(50, 70, 320, 50)];
     [self.usernameField setDelegate:self];
     [self.usernameField setPlaceholder:@"Email"];
     [self.usernameField setTag:0];
     [self.usernameField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
 
-    self.passwordField = [[TNTextField alloc] initWithFrame:CGRectMake(50, 200, 320, 50)];
+    self.passwordField = [[TNTextField alloc] initWithFrame:CGRectMake(50, 130, 320, 50)];
     [self.passwordField setDelegate:self];
     [self.passwordField setPlaceholder:@"Password"];
     [self.passwordField setReturnKeyType:UIReturnKeyDone];
@@ -194,12 +200,16 @@
 
     // Add borders
 
-    self.border = [[UIView alloc] initWithFrame:CGRectMake(20, 190, 320 - 40, 2)];
-    [self.border setBackgroundColor:[UIColor tnGreyColor]];
+    self.border = [[UIView alloc] initWithFrame:CGRectMake(0, 120, 320, 2)];
+    [self.border setBackgroundColor:[UIColor tnLightGreyColor]];
+
+    self.border2 = [[UIView alloc] initWithFrame:CGRectMake(0, 180, 320, 2)];
+    [self.border2 setBackgroundColor:[UIColor tnLightGreyColor]];
 
     [self.view addSubview:self.usernameField];
     [self.view addSubview:self.passwordField];
     [self.view addSubview:self.border];
+    [self.view addSubview:self.border2];
 
 }
 
@@ -232,7 +242,12 @@
     [self.nameLabel setAlpha:0];
     [self.jobLabel setAlpha:0];
 
-    [UIView animateWithDuration:0.5 animations:^{
+    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionY];
+    anim.springBounciness = 5;
+    anim.springSpeed = 5;
+    anim.toValue = @(300);
+
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
         [self.imageView setAlpha:1];
         [self.nameLabel setAlpha:1];
         [self.jobLabel setAlpha:1];
@@ -240,11 +255,16 @@
         [self.usernameField setAlpha:0];
         [self.passwordField setAlpha:0];
         [self.border setAlpha:0];
+        [self.border2 setAlpha:0];
+
+        [self.button.layer pop_addAnimation:anim forKey:@"postionY"];
 
     } completion:^(BOOL finished) {
         [self.usernameField removeFromSuperview];
         [self.passwordField removeFromSuperview];
         [self.border removeFromSuperview];
+        [self.border2 removeFromSuperview];
+        NSLog(@"%f",self.button.frame.origin.y);
     }];
 }
 
@@ -254,21 +274,33 @@
     [self.usernameField setAlpha:0];
     [self.passwordField setAlpha:0];
     [self.border setAlpha:0];
+    [self.border2 setAlpha:0];
 
-    [UIView animateWithDuration:0.5 animations:^{
+    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionY];
+    anim.springBounciness = 5;
+    anim.springSpeed = 5;
+    anim.toValue = @(240);
+
+
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
 
         [self.usernameField setAlpha:1];
         [self.passwordField setAlpha:1];
         [self.border setAlpha:1];
+        [self.border2 setAlpha:1];
 
         [self.imageView setAlpha:0];
         [self.nameLabel setAlpha:0];
         [self.jobLabel setAlpha:0];
- 
+
+        [self.button.layer pop_addAnimation:anim forKey:@"postionY"];
+
+
     } completion:^(BOOL finished) {
         [self.imageView removeFromSuperview];
         [self.nameLabel removeFromSuperview];
         [self.jobLabel removeFromSuperview];
+        NSLog(@"%f",self.button.frame.origin.y);
     }];
 }
 

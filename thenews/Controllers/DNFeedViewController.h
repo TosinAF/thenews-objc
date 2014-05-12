@@ -12,6 +12,7 @@
 @interface DNFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSNumber *feedType;
+@property (nonatomic, strong) UITableView *feedView;
 
 - (int)switchDNFeedType;
 - (void)downloadFeedAndReset:(BOOL)reset;

@@ -37,7 +37,14 @@ static NSString *CellIdentifier = @"HNCommentCell";
     }
 
     return self;
-    
+}
+
+#pragma mark - Keyboard Methods
+
+- (BOOL)shouldKeyboardBeAdded
+{
+    if ([[HNManager sharedManager] userIsLoggedIn]) return YES;
+    return NO;
 }
 
 #pragma mark - View Methods
@@ -48,14 +55,20 @@ static NSString *CellIdentifier = @"HNCommentCell";
 
     TNHeaderView *headerView = [[TNHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 85) type:TNTypeHackerNews];
     [headerView configureForPost:self.post];
-    [headerView setButtonTitle:@"Comment"];
-    [headerView setButtonAction:^{
 
-        self.replyToObject = self.post;
-        [self.commentInputView.textView becomeFirstResponder];
-        NSLog(@"%@",self.replyToObject);
+    if ([[HNManager sharedManager] userIsLoggedIn]) {
 
-    }];
+        [headerView setButtonTitle:@"Comment"];
+        [headerView setButtonAction:^{
+
+            self.replyToObject = self.post;
+            [self.commentInputView.textView becomeFirstResponder];
+            NSLog(@"%@",self.replyToObject);
+            
+        }];
+
+        [headerView showButton];
+    }
 
     [self.commentsView setTableHeaderView:headerView];
 }
@@ -69,20 +82,21 @@ static NSString *CellIdentifier = @"HNCommentCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HNCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    HNCommentCell *cell;
+
+    if (!cell){
+        cell = [[HNCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+
     HNComment *comment = [self.comments objectAtIndex:[indexPath row]];
 
     [cell configureForComment:comment];
     [cell setGestureDelegate:self];
-    [cell addReplyCommentGesture];
     [cell updateSubviews];
 
-    return cell;
-}
+    if ([[HNManager sharedManager] userIsLoggedIn]) [cell addReplyCommentGesture];
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 200.0;
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
-#import "libHN.h"
 #import "Reachability.h"
 
 #import "TNEmptyStateView.h"
@@ -26,7 +25,6 @@ static NSString *CellIdentifier = @"HNFeedCell";
 @interface HNFeedViewController () <TNFeedViewCellDelegate>
 
 @property (nonatomic, strong) NSMutableArray *posts;
-@property (nonatomic, strong) UITableView *feedView;
 @property (nonatomic, strong) TNEmptyStateView *emptyStateView;
 
 @end
@@ -40,6 +38,19 @@ static NSString *CellIdentifier = @"HNFeedCell";
     if (self) {
         self.emptyStateView = [TNEmptyStateView new];
         hnPostFilterType = PostFilterTypeTop;
+        [self addReachabilitykCheck];
+    }
+
+    return self;
+}
+
+- (instancetype)initWithPostFilterType:(PostFilterType)type
+{
+    self = [super init];
+
+    if (self) {
+        self.emptyStateView = [TNEmptyStateView new];
+        hnPostFilterType = type;
         [self addReachabilitykCheck];
     }
 
@@ -219,8 +230,7 @@ static NSString *CellIdentifier = @"HNFeedCell";
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.emptyStateView showDownloadingText];
-            [self setPostFilterType:hnPostFilterType];
-            //[self downloadPosts];
+            [self downloadPosts];
         });
     };
 

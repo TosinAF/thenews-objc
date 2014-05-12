@@ -27,6 +27,8 @@
 
 - (void)postButtonPressed;
 
+- (BOOL)shouldKeyboardBeAdded;
+
 - (void)addTableHeaderView;
 
 - (void)registerClassForCell;

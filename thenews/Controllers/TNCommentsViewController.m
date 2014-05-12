@@ -14,6 +14,7 @@
 @interface TNCommentsViewController () <UITextViewDelegate, JSDismissiveTextViewDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem *switchButton;
+@property (nonatomic, strong) UITapGestureRecognizer *tap;
 
 
 @end
@@ -69,9 +70,11 @@
 
     /* Set Up Keyboard */
 
-    [self configureKeyboard];
-    [self addTableHeaderView];
+    if ([self shouldKeyboardBeAdded]) {
+        [self configureKeyboard];
+    }
 
+    [self addTableHeaderView];
 
     /* Add Table View Bottom Border */
     CGFloat viewHeaderHeight = self.commentsView.tableHeaderView.bounds.origin.y + self.commentsView.tableHeaderView.frame.size.height;
@@ -111,6 +114,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar removeGestureRecognizer:self.tap];
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
 
     [self.commentInputView resignFirstResponder];
@@ -160,6 +164,12 @@
 }
 
 #pragma mark - Keyboard Methods
+
+- (BOOL)shouldKeyboardBeAdded
+{
+    NSAssert(NO, @"Subclasses need to overwrite this method");
+    return NO;
+}
 
 - (void)configureKeyboard
 {
