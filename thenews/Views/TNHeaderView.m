@@ -68,6 +68,11 @@ ButtonActionBlock buttonAction;
     [self updateLabels:cellContent];
 }
 
+- (void)showButton
+{
+    [self addSubview:self.button];
+}
+
 - (void)setButtonTitle:(NSString *)title
 {
     [self.button setTitle:title forState:UIControlStateNormal];
@@ -130,8 +135,6 @@ ButtonActionBlock buttonAction;
 
     [self addSubview:self.titleLabel];
     [self addSubview:self.detailLabel];
-    [self addSubview:self.button];
-
 }
 
 - (void)adjustViewsRelativeToTitleLabel

@@ -18,6 +18,7 @@ typedef void (^ButtonActionBlock)(void);
 - (void)configureForStory:(DNStory *)story;
 - (void)configureForPost:(HNPost *)post;
 
+- (void)showButton;
 - (void)setButtonTitle:(NSString *)title;
 - (void)setButtonAction:(ButtonActionBlock)block;
 
