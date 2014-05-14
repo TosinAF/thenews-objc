@@ -39,19 +39,21 @@ BOOL registrationSkipped;
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionY];
+    CGSize screenSize = self.view.bounds.size;
+
+    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
     anim.springBounciness = 10;
     anim.springSpeed = 10;
-    anim.toValue = @(408);
+    anim.toValue = [NSValue valueWithCGRect:CGRectMake(20, screenSize.height - 180, screenSize.width - 40, 60)];;
 
-    [self.login.layer pop_addAnimation:anim forKey:@"postionY"];
+    [self.login.layer pop_addAnimation:anim forKey:@"frame"];
 
-    POPSpringAnimation *anim2 = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionY];
+    POPSpringAnimation *anim2 = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
     anim2.springBounciness = 10;
     anim2.springSpeed = 10;
-    anim2.toValue = @(478);
+    anim2.toValue = [NSValue valueWithCGRect:CGRectMake(10, screenSize.height - 110, 300, 50)];
 
-    [self.skip.layer pop_addAnimation:anim2 forKey:@"postionY"];
+    [self.skip.layer pop_addAnimation:anim2 forKey:@"frame"];
 }
 
 - (void)viewDidLoad
