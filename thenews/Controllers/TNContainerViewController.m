@@ -64,7 +64,6 @@ UIImageView *navBarHairlineImageView;
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
     if (![self.menu isHidden]) {
         [self hideMenu];
     }
