@@ -120,6 +120,19 @@ TNType currentAuthType;
         addHN;
     });
 
+    if (!(self.view.frame.size.height == 568)) {
+
+        // fix positioning for 3.5 inch devices
+
+        [self.addDN setFrame:CGRectMake(10, 200, screenSize.width / 2 - 15, 50)];
+        [self.addDN setBackgroundImageWithNormalColor:[UIColor whiteColor] highlightColor:[UIColor dnColor]];
+        [[self.addDN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:14]];
+
+        [self.addHN setFrame:CGRectMake(165, 200, screenSize.width / 2 - 15, 50)];
+        [self.addHN setBackgroundImageWithNormalColor:[UIColor whiteColor] highlightColor:[UIColor hnColor]];
+        [[self.addHN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:14]];
+    }
+
     [self.view addSubview:self.usernameField];
     [self.view addSubview:self.passwordField];
     [self.view addSubview:self.addDN];
