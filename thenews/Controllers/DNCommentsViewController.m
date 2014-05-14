@@ -28,6 +28,7 @@ static NSString *CellIdentifier = @"DNCommentCell";
     self = [super init];
 
     if (self) {
+        [self setScreenName:@"DNComments"];
         self.title = @"DESIGNER NEWS";
         self.story = story;
         self.themeColor = [UIColor dnColor];

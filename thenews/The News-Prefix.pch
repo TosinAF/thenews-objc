@@ -15,4 +15,6 @@
     #import <Foundation/Foundation.h>
     #import "UIColor+TNColors.h"
     #import "TNTypeEnum.h"
+    #import "GAI.h"
+    #import "GAIFields.h"
 #endif

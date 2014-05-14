@@ -51,7 +51,6 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
                                  @"client_secret" : DNAPIClientSecret };
 
     [self POST:authURL parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"%@", responseObject);
         NSString *accessToken = responseObject[@"access_token"];
 
         // Store Access Token
@@ -279,7 +278,6 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *accessToken = [defaults objectForKey:DNAPIAccessTokenKey];
-    NSLog(@"Current access token is: %@", accessToken);
 
     return accessToken;
 }

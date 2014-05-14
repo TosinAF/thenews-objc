@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TNLaunchViewController : UIViewController
+@interface TNLaunchViewController : GAITrackedViewController
 
 @end

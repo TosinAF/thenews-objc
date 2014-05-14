@@ -34,6 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setScreenName:@"DNSettings"];
     [self.view setBackgroundColor:[UIColor clearColor]];
 
 

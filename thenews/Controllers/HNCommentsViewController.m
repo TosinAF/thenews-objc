@@ -28,6 +28,7 @@ static NSString *CellIdentifier = @"HNCommentCell";
     self = [super init];
 
     if (self) {
+        [self setScreenName:@"DNComments"];
         self.title = @"HACKER NEWS";
         self.post = post;
         self.replyToObject = post;

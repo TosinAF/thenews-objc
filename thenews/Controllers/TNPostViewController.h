@@ -10,7 +10,7 @@
 
 typedef void (^DismissActionBlock)(void);
 
-@interface TNPostViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate>
+@interface TNPostViewController : GAITrackedViewController <UIWebViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, assign) BOOL createdFromSwitch;
 

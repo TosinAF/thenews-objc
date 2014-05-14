@@ -37,6 +37,7 @@ static NSString *CellIdentifier = @"cell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setScreenName:@"DNSearch"];
 
     // Search Bar
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 44.0f)];
@@ -45,8 +46,11 @@ static NSString *CellIdentifier = @"cell";
     [self.searchBar setTintColor:[UIColor dnColor]];
     // Set the tint color of cancel button to white
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
-    [self.searchBar setBarTintColor:[UIColor colorWithRed:0.310 green:0.533 blue:0.863 alpha:1]];
+    [self.searchBar setBarTintColor:[UIColor dnNavBarColor]];
     [self.searchBar setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+
+    self.searchBar.layer.borderWidth = 1;
+    self.searchBar.layer.borderColor = [[UIColor dnNavBarColor] CGColor];
 
     // Table View
 

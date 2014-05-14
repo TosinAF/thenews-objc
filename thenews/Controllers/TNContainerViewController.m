@@ -6,20 +6,21 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import <POP/POP.h>
 #import "TNMenuView.h"
 #import "DNFeedViewController.h"
 #import "HNFeedViewController.h"
 #import "TNContainerViewController.h"
 
-CAShapeLayer *openMenuShape;
 UITapGestureRecognizer *exitMenuTap;
+UIPanGestureRecognizer *exitMenuPan;
+UIImageView *navBarHairlineImageView;
 
-__weak TNContainerViewController *weakSelf;
-
-@interface TNContainerViewController () <UIViewControllerTransitioningDelegate>
+@interface TNContainerViewController () <UIViewControllerTransitioningDelegate, POPAnimationDelegate>
 
 @property (nonatomic, strong) NSString *navTitle;
 @property (nonatomic, strong) UIColor *navbarColor;
+@property (nonatomic, strong) CAShapeLayer *openMenuShape;
 
 @end
 
@@ -53,12 +54,20 @@ __weak TNContainerViewController *weakSelf;
     [super viewWillAppear:animated];
     [self defaultNavbarOptions];
     [self.navigationController setNavigationBarHidden:YES];
-    exitMenuTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitMenuOnTapRecognizer:)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self drawOpenMenuShape];
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (![self.menu isHidden]) {
+        [self hideMenu];
+    }
 }
 
 - (void)viewDidLoad
@@ -96,6 +105,9 @@ __weak TNContainerViewController *weakSelf;
 	self.navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, navBarHeight)];
 	self.navItem = [[UINavigationItem alloc] initWithTitle:self.navTitle];
     [self.navBar setTranslucent:YES];
+
+    navBarHairlineImageView = [self findHairlineImageViewUnder:self.navBar];
+    navBarHairlineImageView.hidden = YES;
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navBarTapped)];
     [self.navBar addGestureRecognizer:tap];
@@ -162,9 +174,7 @@ __weak TNContainerViewController *weakSelf;
 
     self.menu.hidden = NO;
     float containerAlpha = 0.5f;
-    [[[self view] layer] addSublayer:openMenuShape];
-    [self.view addGestureRecognizer:exitMenuTap];
-
+    [[[self view] layer] addSublayer:self.openMenuShape];
     [self.currentViewController.view setUserInteractionEnabled:NO];
 
     // Set new origin of menu
@@ -173,27 +183,35 @@ __weak TNContainerViewController *weakSelf;
     CGRect containerFrame = self.currentViewController.view.frame;
     containerFrame.origin.y = self.navBar.frame.size.height + 208 - 64;
 
-    [UIView animateWithDuration:0.4 delay:0.0 usingSpringWithDamping:1.0 initialSpringVelocity:4.0
-                        options: UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                         [self.menu setFrame:menuFrame];
-                         [self.currentViewController.view setFrame:containerFrame];
-                         [self.currentViewController.view setAlpha:containerAlpha];
-                     }
-                     completion:^(BOOL finished){
-                     }];
+    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
+    anim.delegate = self;
+    anim.springBounciness = 10;
+    anim.springSpeed = 10;
+    anim.toValue = [NSValue valueWithCGRect:menuFrame];
 
-    [UIView commitAnimations];
+    POPSpringAnimation *anim2 = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
+    anim.delegate = self;
+    anim2.springBounciness = 10;
+    anim2.springSpeed = 10;
+    anim2.toValue = [NSValue valueWithCGRect:containerFrame];
+
+    POPBasicAnimation *anim3 = [POPBasicAnimation animationWithPropertyNamed:kPOPViewAlpha];
+    anim3.fromValue = @(1.0);
+    anim3.toValue = @(containerAlpha);
+
+    [self.menu pop_addAnimation:anim forKey:@"frame"];
+    [self.currentViewController.view pop_addAnimation:anim2 forKey:@"frame"];
+    [self.currentViewController.view pop_addAnimation:anim3 forKey:@"alpha"];
 }
 
 - (void)hideMenu {
 
     float containerAlpha = 1.0f;
     [self.menuButton setSelected:NO];
-    [openMenuShape removeFromSuperlayer];
+    [self.openMenuShape removeFromSuperlayer];
     [self.view removeGestureRecognizer:exitMenuTap];
+    [self.view removeGestureRecognizer:exitMenuPan];
     [self.menu toDefaultState];
-    [self.currentViewController.view setUserInteractionEnabled:YES];
 
     // Set new origin of Menu & Contianer
     CGRect menuFrame = self.menu.frame;
@@ -210,14 +228,35 @@ __weak TNContainerViewController *weakSelf;
                      }
                      completion:^(BOOL finished){
                          self.menu.hidden = YES;
+                         [self.menu pop_removeAllAnimations];
+                         [self.currentViewController pop_removeAllAnimations];
+                         [self.currentViewController.view setUserInteractionEnabled:YES];
                      }];
 
     [UIView commitAnimations];
 }
 
+- (void)pop_animationDidStop:(POPAnimation *)anim finished:(BOOL)finished
+{
+    static int count = 0;
+
+    if (count % 2 == 0 && count != 0) {
+
+        // ensure animations are done, then add gesture recognizers
+        exitMenuTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitMenuOnTapRecognizer:)];
+        exitMenuPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(exitMenuOnPanRecognizer:)];
+
+        [self.view addGestureRecognizer:exitMenuTap];
+        [self.view addGestureRecognizer:exitMenuPan];
+
+    } else {
+        count++;
+    }
+}
+
 - (void)drawOpenMenuShape {
 
-    openMenuShape = [CAShapeLayer layer];
+    self.openMenuShape = [CAShapeLayer layer];
 
     // Constants to ease drawing the border and the stroke.
     int height = self.navBar.frame.size.height;
@@ -232,25 +271,25 @@ __weak TNContainerViewController *weakSelf;
     [triangleShape addLineToPoint:CGPointMake(trianglePosition+2*triangleSize, height)];
     [triangleShape addLineToPoint:CGPointMake(trianglePosition, height)];
 
-    [openMenuShape setPath:triangleShape.CGPath];
+    [self.openMenuShape setPath:triangleShape.CGPath];
 
     // So as to match the Navbar Colours after Apple's meddling with the barTintColor
     switch ([self.feedType intValue]) {
         case TNTypeDesignerNews:
-            [openMenuShape setFillColor:[UIColor dnNavBarColor].CGColor];
+            [self.openMenuShape setFillColor:[UIColor dnNavBarColor].CGColor];
             break;
 
         case TNTypeHackerNews:
-            [openMenuShape setFillColor:[UIColor hnNavBarColor].CGColor];
+            [self.openMenuShape setFillColor:[UIColor hnNavBarColor].CGColor];
             break;
 
         default:
             break;
     }
 
-    [openMenuShape setBounds:CGRectMake(0.0f, 0.0f, height+triangleSize, width)];
-    [openMenuShape setAnchorPoint:CGPointMake(0.0f, 0.0f)];
-    [openMenuShape setPosition:CGPointMake(0.0f, 0.0f)];
+    [self.openMenuShape setBounds:CGRectMake(0.0f, 0.0f, height+triangleSize, width)];
+    [self.openMenuShape setAnchorPoint:CGPointMake(0.0f, 0.0f)];
+    [self.openMenuShape setPosition:CGPointMake(0.0f, 0.0f)];
 }
 
 - (void)exitMenuOnTapRecognizer:(UITapGestureRecognizer *)recognizer {
@@ -259,6 +298,22 @@ __weak TNContainerViewController *weakSelf;
     // If menu is open, and the tap is outside of the menu, close it.
     if (!CGRectContainsPoint(self.menu.frame, tapLocation) && !self.menu.hidden) {
         [self hideMenu];
+    }
+}
+
+- (void)exitMenuOnPanRecognizer:(UIPanGestureRecognizer *)recognizer
+{
+    // Get the translation in the view
+    [recognizer setTranslation:CGPointZero inView:recognizer.view];
+
+    // But also, detect the swipe gesture
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+
+        CGPoint vel = [recognizer velocityInView:recognizer.view];
+
+        if (vel.y < -1000.0f) {
+            [self hideMenu];
+        }
     }
 }
 
@@ -296,5 +351,18 @@ __weak TNContainerViewController *weakSelf;
                                 [self.view addSubview:self.navBar];
                                 
                             }];
+}
+
+- (UIImageView *)findHairlineImageViewUnder:(UIView *)view {
+    if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
+        return (UIImageView *)view;
+    }
+    for (UIView *subview in view.subviews) {
+        UIImageView *imageView = [self findHairlineImageViewUnder:subview];
+        if (imageView) {
+            return imageView;
+        }
+    }
+    return nil;
 }
 @end

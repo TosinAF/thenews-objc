@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HNSettingsViewController : UIViewController
+@interface HNSettingsViewController : GAITrackedViewController
 
 @end

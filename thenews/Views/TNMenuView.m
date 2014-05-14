@@ -181,7 +181,11 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [self.delegate menuActionForSearchFieldWithText:textField.text];
+    if ([textField.text length] != 0) {
+        [self.delegate menuActionForSearchFieldWithText:textField.text];
+        return NO;
+    }
+
     return YES;
 }
 
@@ -198,8 +202,9 @@
     [self.searchField setRightViewMode:UITextFieldViewModeWhileEditing];
     [self.searchField setFont:[UIFont fontWithName:@"Avenir-Medium" size:18.0f]];
 
+    [self.searchField setReturnKeyType:UIReturnKeySearch];
     [self.searchField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
-    //[self.searchField setAutocorrectionType:UITextAutocorrectionTypeNo];
+    [self.searchField setAutocorrectionType:UITextAutocorrectionTypeNo];
 
     UIImage *cancelButtonImage = [UIImage imageNamed:@"Error"];
 

@@ -10,7 +10,7 @@
 #import "JSMessageInputView.h"
 #import <UIKit/UIKit.h>
 
-@interface TNCommentsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>
+@interface TNCommentsViewController : GAITrackedViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>
 
 @property (nonatomic) UIColor *themeColor;
 @property (nonatomic,   copy) NSArray *comments;

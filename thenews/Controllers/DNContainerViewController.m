@@ -27,6 +27,7 @@ int menuIndex = 1;
 {
     self = [super initWithType:TNTypeDesignerNews];
     if (self) {
+        [self setScreenName:@"DNContainer"];
         self.menu = [[TNMenuView alloc] initWithFrame:CGRectZero type:TNTypeDesignerNews];
         [self.menu setDelegate:self];
     }

@@ -30,6 +30,7 @@
 - (void)viewDidLoad {
 
 	[super viewDidLoad];
+    [self setScreenName:@"Home"];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
 
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];

@@ -28,7 +28,6 @@ static NSString *CellIdentifier = @"DNFeedCell";
 @interface DNFeedViewController () <TNFeedViewCellDelegate>
 
 @property (nonatomic, strong) NSMutableArray *stories;
-@property (nonatomic, strong) UITableView *feedView;
 @property (nonatomic, strong) TNEmptyStateView *emptyStateView;
 @property (nonatomic, strong) NSString *emptyStateText;
 @property (nonatomic, strong) NSNumber *dnFeedType;
@@ -52,7 +51,6 @@ static NSString *CellIdentifier = @"DNFeedCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self setupRefreshControl];
 }
 
 - (void)viewDidLoad
@@ -164,6 +162,10 @@ static NSString *CellIdentifier = @"DNFeedCell";
 
             // scroll to top
             [self.feedView setContentOffset:CGPointZero animated:YES];
+
+        } else {
+
+            [self.feedView.infiniteScrollingView stopAnimating];
         }
 
         [self.stories addObjectsFromArray:dnStories];
@@ -200,7 +202,6 @@ static NSString *CellIdentifier = @"DNFeedCell";
 
 - (void)showCommentsForStory:(DNStory *)story
 {
-    NSLog(@"i was here");
     DNCommentsViewController *vc = [[DNCommentsViewController alloc] initWithStory:story];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -255,6 +256,7 @@ static NSString *CellIdentifier = @"DNFeedCell";
 {
     [self.feedView setAlpha:0.0];
     [self.view addSubview:self.feedView];
+    [self setupRefreshControl];
 
     [UIView animateWithDuration:0.5 animations:^{
         [self.emptyStateView setAlpha:0.0];

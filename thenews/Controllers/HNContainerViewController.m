@@ -22,6 +22,7 @@ bool inSettingsView = false;
 {
     self = [super initWithType:TNTypeHackerNews];
     if (self) {
+        [self setScreenName:@"HNContainer"];
         self.menu = [[TNMenuView alloc] initWithFrame:CGRectZero type:TNTypeHackerNews];
         [self.menu setButtonTitles:@[@"Top Posts", @"New Posts", @"Ask HN", @"Settings"]];
         [self.menu setDelegate:self];

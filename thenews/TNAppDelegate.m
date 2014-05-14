@@ -43,8 +43,6 @@
 
     UIViewController *rootViewController;
 
-    // change to or
-
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"appFirstStart"]) {
 
         rootViewController = [TNLaunchViewController new];
@@ -55,11 +53,17 @@
         rootViewController = [TNHomeViewController new];
     }
 
-
     UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[GTScrollNavigationBar class] toolbarClass:nil];
 
     [navController setViewControllers:@[rootViewController] animated:NO];
     self.window.rootViewController = navController;
+
+    // Google Analytics Tracking
+
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [GAI sharedInstance].dispatchInterval = 20;
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-46757742-4"];
     
     [self.window makeKeyAndVisible];
     return YES;

@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import "JCRBlurView.h"
 #import "DNDismissMOTDTransistion.h"
 
 @implementation DNDismissMOTDTransistion
@@ -15,14 +16,27 @@
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
 
+    UIView *blurView;
+
+    for (UIView *subview in toVC.view.subviews)
+    {
+        if([subview isKindOfClass:[JCRBlurView class]])
+        {
+            blurView = subview;
+        }
+    }
+
     [UIView animateWithDuration:0.3 animations:^{
+
         [fromVC.view setAlpha:0.0];
-        [toVC.view setAlpha:1.0];
+        [blurView setAlpha:0.0];
+
     } completion:^(BOOL finished) {
+
+        [blurView removeFromSuperview];
         [fromVC.view removeFromSuperview];
         [transitionContext completeTransition:YES];
     }];
-
 }
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {

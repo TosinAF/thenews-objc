@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DNSearchViewController : UIViewController
+@interface DNSearchViewController : GAITrackedViewController
 
 - (instancetype)initWithQuery:(NSString *)query;
 

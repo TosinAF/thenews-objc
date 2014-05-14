@@ -17,7 +17,7 @@ static NSString *authErrorMessage = @"Your login credentials are invalid";
 static NSString *networkErrorMessage = @"There is no network connection";
 static NSString *invalidFieldErrorMessage = @"Please correct the indicated errors.";
 
-@interface TNFormViewController : UIViewController <UITextFieldDelegate>
+@interface TNFormViewController : GAITrackedViewController <UITextFieldDelegate>
 
 typedef NS_ENUM (NSInteger, TNTextFieldType) {
 	TNTextFieldTypeName,

@@ -9,7 +9,7 @@
 #import "TNMenuView.h"
 #import <UIKit/UIKit.h>
 
-@interface TNContainerViewController : UIViewController
+@interface TNContainerViewController : GAITrackedViewController
 
 @property (nonatomic, strong) NSNumber *feedType;
 
@@ -24,7 +24,6 @@
 
 
 - (id)initWithType:(TNType)type;
-
 
 - (void)hideMenu;
 - (void)navBarTapped;

@@ -33,6 +33,7 @@ TNType currentAuthType;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setScreenName:@"Log In"];
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
     currentAuthType = TNTypeDesignerNews;

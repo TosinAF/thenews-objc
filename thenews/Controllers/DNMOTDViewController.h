@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DNMOTDViewController : UIViewController
+@interface DNMOTDViewController : GAITrackedViewController
 
 @end

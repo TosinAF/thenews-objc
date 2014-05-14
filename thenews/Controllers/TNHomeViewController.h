@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TNHomeViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface TNHomeViewController : GAITrackedViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @end

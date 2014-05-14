@@ -91,6 +91,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setScreenName:@"TNPost"];
 
     /* Set up Navigation Bar */
 

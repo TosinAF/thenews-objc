@@ -29,6 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setScreenName:@"HNComments"];
 
     if ([[HNManager sharedManager] userIsLoggedIn]) {
         [self configureViewForLoggedInState];
