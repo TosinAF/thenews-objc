@@ -218,7 +218,7 @@ UIImageView *navBarHairlineImageView;
     menuFrame.origin.y = self.navBar.frame.size.height-menuFrame.size.height;
     containerFrame.origin.y = 0.0f;
 
-    [UIView animateWithDuration:0.8f delay:0.0f usingSpringWithDamping:1.0 initialSpringVelocity:4.0
+    [UIView animateWithDuration:0.8f delay:0.0f usingSpringWithDamping:5.0 initialSpringVelocity:10.0
                         options: UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          [self.menu setFrame:menuFrame];
@@ -237,20 +237,13 @@ UIImageView *navBarHairlineImageView;
 
 - (void)pop_animationDidStop:(POPAnimation *)anim finished:(BOOL)finished
 {
-    static int count = 0;
+    // ensure animations are done, then add gesture recognizers
+    exitMenuTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitMenuOnTapRecognizer:)];
+    exitMenuPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(exitMenuOnPanRecognizer:)];
 
-    if (count % 2 == 0 && count != 0) {
+    [self.view addGestureRecognizer:exitMenuTap];
+    [self.view addGestureRecognizer:exitMenuPan];
 
-        // ensure animations are done, then add gesture recognizers
-        exitMenuTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitMenuOnTapRecognizer:)];
-        exitMenuPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(exitMenuOnPanRecognizer:)];
-
-        [self.view addGestureRecognizer:exitMenuTap];
-        [self.view addGestureRecognizer:exitMenuPan];
-
-    } else {
-        count++;
-    }
 }
 
 - (void)drawOpenMenuShape {
