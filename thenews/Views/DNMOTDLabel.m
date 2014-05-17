@@ -10,18 +10,11 @@
 
 @implementation DNMOTDLabel
 
-- (id)initWithFrame:(CGRect)frame
+- (void)setTextAndAdjustFrame:(NSString *)text
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self setNumberOfLines:4];
-    }
-    return self;
-}
-
-- (void)setText:(NSString *)text
-{
-    [super setText:text];
+    [self setText:text];
+    [self setNumberOfLines:4];
+    [self setLineBreakMode:NSLineBreakByWordWrapping];
 
     // Get Expected Size of String & Adjust Size of Label to Fit
     CGSize maximumLabelSize = CGSizeMake(280,150);

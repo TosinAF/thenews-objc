@@ -127,10 +127,12 @@ TNType currentAuthType;
         [self.addDN setFrame:CGRectMake(10, 200, screenSize.width / 2 - 15, 50)];
         [self.addDN setBackgroundImageWithNormalColor:[UIColor whiteColor] highlightColor:[UIColor dnColor]];
         [[self.addDN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:14]];
+        [[self.addDN layer] setBorderWidth:1.0f];
 
         [self.addHN setFrame:CGRectMake(165, 200, screenSize.width / 2 - 15, 50)];
         [self.addHN setBackgroundImageWithNormalColor:[UIColor whiteColor] highlightColor:[UIColor hnColor]];
         [[self.addHN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:14]];
+        [[self.addHN layer] setBorderWidth:1.0f];
     }
 
     [self.view addSubview:self.usernameField];

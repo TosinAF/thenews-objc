@@ -6,8 +6,11 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import "TTTAttributedLabel.h"
 #import <UIKit/UIKit.h>
 
-@interface DNMOTDLabel : UILabel
+@interface DNMOTDLabel : TTTAttributedLabel
+
+- (void)setTextAndAdjustFrame:(NSString *)text;
 
 @end

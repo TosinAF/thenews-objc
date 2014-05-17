@@ -35,8 +35,8 @@
 {
     UIImage *loadingIcon = [UIImage imageNamed:@"Loading"];
 
-    CGRect imageViewFrame = CGRectMake(80, 200, loadingIcon.size.width, loadingIcon.size.height);
-    CGRect labelFrame = CGRectMake(0, 200 + loadingIcon.size.height + 25, 320, 15);
+    CGRect imageViewFrame = CGRectMake(80, 170, loadingIcon.size.width, loadingIcon.size.height);
+    CGRect labelFrame = CGRectMake(0, 170 + loadingIcon.size.height + 25, 320, 15);
 
     self.loadingView = [[UIImageView alloc] initWithImage:loadingIcon];
     [self.loadingView setFrame:imageViewFrame];

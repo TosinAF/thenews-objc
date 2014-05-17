@@ -237,7 +237,7 @@ static NSString *CellIdentifier = @"HNFeedCell";
     reach.unreachableBlock = ^(Reachability * reachability)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.emptyStateView showErrorText];
+            [self.emptyStateView showErrorWithText:@"NO INTERNET CONNECTION"];
             NSLog(@"No Internet Connection");
         });
     };
