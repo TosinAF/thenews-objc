@@ -45,7 +45,7 @@
             button = [[TNButton alloc] initWithFrame:CGRectMake(20, 270, 320  - 40, 50)];
             [button setTitle:@"Log Out" forState:UIControlStateNormal];
         } else {
-            button = [[TNButton alloc] initWithFrame:CGRectMake(20, 210, 320  - 40, 50)];
+            button = [[TNButton alloc] initWithFrame:CGRectMake(20, 200, 320  - 40, 50)];
             [button setTitle:@"Login" forState:UIControlStateNormal];
         }
 
@@ -130,10 +130,10 @@
     [self.border setAlpha:0];
     [self.border2 setAlpha:0];
 
-    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionY];
+    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
     anim.springBounciness = 5;
     anim.springSpeed = 5;
-    anim.toValue = @(230);
+    anim.toValue = [NSValue valueWithCGRect:CGRectMake(20, 200, 320  - 40, 50)];
 
     [UIView animateWithDuration:0.5 animations:^{
 
