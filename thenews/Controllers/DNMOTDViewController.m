@@ -10,9 +10,11 @@
 #import "DNManager.h"
 #import "DNMOTDLabel.h"
 #import "TNNotification.h"
+#import "TTTAttributedLabel.h"
+#import "TNPostViewController.h"
 #import "DNMOTDViewController.h"
 
-@interface DNMOTDViewController () <UICollisionBehaviorDelegate>
+@interface DNMOTDViewController () <UICollisionBehaviorDelegate, TTTAttributedLabelDelegate>
 
 @property (nonatomic, strong) UIDynamicAnimator *animator;
 @property (nonatomic, strong) UIPushBehavior *pushBehavior;
@@ -82,9 +84,11 @@
 
     self.messageLabel = [[DNMOTDLabel alloc] initWithFrame:CGRectMake(10, 65, 280, 200)];
     [self.messageLabel setTextAlignment:NSTextAlignmentJustified];
+    [self.messageLabel setDelegate:self];
     [self.messageLabel setFont:[UIFont fontWithName:@"Avenir-BookOblique" size:20.0f]];
 
-    [self.messageLabel setText:@"What wise words shall we read now?"];
+    [self.messageLabel setEnabledTextCheckingTypes:NSTextCheckingTypeLink];
+    [self.messageLabel setTextAndAdjustFrame:@"What wise words shall we read now?"];
     [self.messageLabel setTextColor:[UIColor tnGreyColor]];
     [self.messageLabel setTextAlignment:NSTextAlignmentCenter];
 
@@ -127,7 +131,7 @@
         self.motd = motd;
 
         [self.messageLabel setTextColor:[UIColor blackColor]];
-        [self.messageLabel setText:[motd message]];
+        [self.messageLabel setTextAndAdjustFrame:[motd message]];
         [self.upvoteCountLabel setText:[[motd upvoteCount] stringValue]];
         [self.downvoteCountLabel setText:[[motd downvoteCount] stringValue]];
 
@@ -246,6 +250,13 @@
     _collisionBehavior = nil;
     [_contentView setHidden:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - TTTAttributedLabel Delegate
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url;
+{
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 @end
