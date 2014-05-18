@@ -29,6 +29,23 @@
     return self;
 }
 
+- (instancetype)initWithDictionaryForSearch:(NSDictionary *)dict
+{
+    self = [super init];
+
+    if (self) {
+
+        [self setStoryID:dict[@"id"]];
+        [self setTitle:dict[@"title"]];
+        [self setURL:dict[@"url"]];
+        [self setCreatedAt:[self formatDate:dict[@"created_at"]]];
+        [self setUserID:dict[@"submitter"][@"id"]];
+        [self setDisplayName:dict[@"submitter"][@"display_name"]];
+    }
+
+    return self;
+}
+
 - (NSDate *)formatDate:(NSString *)date
 {
     NSDateFormatter *format = [[NSDateFormatter alloc] init];

@@ -24,5 +24,6 @@
 
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
+- (instancetype)initWithDictionaryForSearch:(NSDictionary *)dict;
 
 @end

@@ -11,10 +11,6 @@
 @interface TNFeedViewCell ()
 
 @property (strong, nonatomic) UIColor *themeColor;
-@property (strong, nonatomic) UIColor *lightThemeColor;
-
-@property (strong, nonatomic) UILabel *titleLabel;
-@property (strong, nonatomic) UILabel *detailLabel;
 @property (strong, nonatomic) UILabel *commentCountLabel;
 
 @end

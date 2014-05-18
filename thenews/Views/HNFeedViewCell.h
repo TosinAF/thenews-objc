@@ -14,5 +14,6 @@
 @property (strong, nonatomic) HNPost *post;
 
 - (void)configureForPost:(HNPost *)post;
+- (void)incrementVoteCount;
 
 @end

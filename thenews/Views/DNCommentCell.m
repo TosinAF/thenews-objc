@@ -24,6 +24,18 @@
     [self setCellContent:cellContent];
 }
 
+- (void)incrementVoteCount
+{
+    int voteCount = [self.cellContent[@"voteCount"] intValue] + 1;
+
+    NSMutableDictionary *temp = [NSMutableDictionary dictionaryWithDictionary:self.cellContent];
+    temp[@"voteCount"] = @(voteCount);
+
+    self.cellContent = [NSDictionary dictionaryWithDictionary:temp];
+
+    [self updateSubviews];
+}
+
 
 
 @end

@@ -22,7 +22,6 @@
     [toVC.view setFrame:containerView.bounds];
 
     JCRBlurView *blurView = [JCRBlurView new];
-    [blurView setBlurTintColor:[UIColor blackColor]];
     [blurView setFrame:containerView.bounds];
     [blurView setAlpha:0.0];
     [fromVC.view addSubview:blurView];
@@ -38,7 +37,8 @@
     anim.toValue = [NSValue valueWithCGRect:containerView.bounds];
 
     [UIView animateWithDuration:0.5 animations:^{
-
+        
+        [blurView setBlurTintColor:[UIColor blackColor]];
         [blurView setAlpha:0.8];
         [toVC.view setAlpha:1.0];
         [toVC.view pop_addAnimation:anim forKey:@"frame"];

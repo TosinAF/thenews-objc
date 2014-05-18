@@ -11,6 +11,9 @@
 
 @interface DNCommentCell : TNCommentCell
 
+@property (nonatomic, strong) DNComment *comment;
+
 - (void)configureForComment:(DNComment *)comment;
+- (void)incrementVoteCount;
 
 @end

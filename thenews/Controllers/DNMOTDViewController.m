@@ -93,20 +93,20 @@
     [self.messageLabel setTextAlignment:NSTextAlignmentCenter];
 
     self.upvoteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.upvoteButton setFrame:CGRectMake(50, 220, 50, 57)];
-    [self.upvoteButton setBackgroundImage:[UIImage imageNamed:@"ThumbsUp"] forState:UIControlStateNormal];
-    [self.upvoteButton setBackgroundImage:[UIImage imageNamed:@"ThumbsUpSelected"] forState:UIControlStateSelected];
+    [self.upvoteButton setFrame:CGRectMake(30, 220, 100, 50)];
+    [self.upvoteButton setTitle:@"Upvote" forState:UIControlStateNormal];
+    [self.upvoteButton setTitle:@"Upvoted!" forState:UIControlStateSelected];
+    [self.upvoteButton setTitleColor:[UIColor tnColor] forState:UIControlStateNormal];
     [self.upvoteButton addTarget:self action:@selector(upvoteMOTD) forControlEvents:UIControlEventTouchUpInside];
-
-    self.upvoteCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 220, 30, 15)];
-    [self.upvoteCountLabel setTextColor:[UIColor tnColor]];
-    [self.upvoteCountLabel setFont:[UIFont fontWithName:@"Montserrat" size:15.0f]];
+    [[self.upvoteButton titleLabel] setFont:[UIFont fontWithName:@"Montserrat" size:18.0f]];
 
     self.downvoteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.downvoteButton setFrame:CGRectMake(200, 220, 50, 57)];
-    [self.downvoteButton setBackgroundImage:[UIImage imageNamed:@"ThumbsDown"] forState:UIControlStateNormal];
-    [self.downvoteButton setBackgroundImage:[UIImage imageNamed:@"ThumbsDownSelected"] forState:UIControlStateSelected];
+    [self.downvoteButton setFrame:CGRectMake(160, 220, 120, 50)];
+    [self.downvoteButton setTitle:@"Downvote" forState:UIControlStateNormal];
+    [self.downvoteButton setTitle:@"Downvoted!" forState:UIControlStateSelected];
+    [self.downvoteButton setTitleColor:[UIColor colorWithRed:0.949 green:0.635 blue:0.600 alpha:1] forState:UIControlStateNormal];
     [self.downvoteButton addTarget:self action:@selector(downvoteMOTD) forControlEvents:UIControlEventTouchUpInside];
+    [[self.downvoteButton titleLabel] setFont:[UIFont fontWithName:@"Montserrat" size:18.0f]];
 
     self.downvoteCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(260, 260, 30, 15)];
     [self.downvoteCountLabel setTextColor:[UIColor colorWithRed:0.949 green:0.635 blue:0.600 alpha:1]];
@@ -116,8 +116,8 @@
     [self.contentView addSubview:self.messageLabel];
     [self.contentView addSubview:self.upvoteButton];
     [self.contentView addSubview:self.downvoteButton];
-    [self.contentView addSubview:self.upvoteCountLabel];
-    [self.contentView addSubview:self.downvoteCountLabel];
+    //[self.contentView addSubview:self.upvoteCountLabel];
+    //[self.contentView addSubview:self.downvoteCountLabel];
 
     [self getMOTD];
 }
@@ -148,6 +148,7 @@
         [self.upvoteCountLabel setText:[upvoteCount stringValue]];
 
         [self.upvoteButton setSelected:YES];
+        [self.downvoteButton setEnabled:NO];
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
 
@@ -165,6 +166,7 @@
         [self.downvoteCountLabel setText:[downvoteCount stringValue]];
 
         [self.downvoteButton setSelected:YES];
+        [self.upvoteButton setEnabled:NO];
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
 

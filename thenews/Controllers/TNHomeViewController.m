@@ -41,7 +41,6 @@
     self.pageViewController.dataSource = self;
     self.pageViewController.delegate = self;
 
-
 	self.hnViewController = [HNContainerViewController new];
 	self.dnViewController = [DNContainerViewController new];
 

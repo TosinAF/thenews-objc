@@ -113,8 +113,10 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
 
     [self GET:resourceURL parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
 
+
+
         for (NSDictionary *story in responseObject) {
-            [stories addObject:[[DNStory alloc] initWithDictionary:story]];
+            [stories addObject:[[DNStory alloc] initWithDictionaryForSearch:story]];
         }
 
         success([NSArray arrayWithArray:stories]);

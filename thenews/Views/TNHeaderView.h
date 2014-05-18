@@ -14,6 +14,10 @@ typedef void (^ButtonActionBlock)(void);
 
 @interface TNHeaderView : UIView
 
+@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UILabel *detailLabel;
+@property (strong, nonatomic) UIColor *lightThemeColor;
+
 - (id)initWithFrame:(CGRect)frame type:(TNType)type;
 - (void)configureForStory:(DNStory *)story;
 - (void)configureForPost:(HNPost *)post;
@@ -21,5 +25,6 @@ typedef void (^ButtonActionBlock)(void);
 - (void)showButton;
 - (void)setButtonTitle:(NSString *)title;
 - (void)setButtonAction:(ButtonActionBlock)block;
+- (void)adjustViewsRelativeToTitleLabel;
 
 @end

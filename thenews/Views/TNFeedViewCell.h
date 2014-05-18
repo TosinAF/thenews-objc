@@ -13,6 +13,10 @@
 
 @interface TNFeedViewCell : MCSwipeTableViewCell
 
+
+@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UILabel *detailLabel;
+@property (strong, nonatomic) UIColor *lightThemeColor;
 @property (nonatomic, weak) id<TNFeedViewCellDelegate> gestureDelegate;
 
 - (void)setForReuse;

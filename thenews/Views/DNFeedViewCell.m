@@ -23,4 +23,17 @@
     [self updateLabels:cellContent];
 }
 
+- (void)incrementVoteCount
+{
+    int voteCount = [[self.story voteCount] intValue] + 1;
+
+    NSDictionary *cellContent = @{@"title":[self.story title],
+                                  @"author":[self.story displayName],
+                                  @"points":@(voteCount),
+                                  @"count":[self.story commentCount]};
+
+    [self setForReuse];
+    [self updateLabels:cellContent];
+}
+
 @end

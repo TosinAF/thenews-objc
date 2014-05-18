@@ -13,10 +13,7 @@ ButtonActionBlock buttonAction;
 @interface TNHeaderView ()
 
 @property (strong, nonatomic) UIColor *themeColor;
-@property (strong, nonatomic) UIColor *lightThemeColor;
 
-@property (strong, nonatomic) UILabel *titleLabel;
-@property (strong, nonatomic) UILabel *detailLabel;
 @property (strong, nonatomic) UIButton *button;
 
 @end
@@ -102,11 +99,9 @@ ButtonActionBlock buttonAction;
     [self.button setTitle:@"Comment" forState:UIControlStateNormal];
     [self.button setTitleColor:self.lightThemeColor forState:UIControlStateNormal];
     [self.button setTitleColor:self.lightThemeColor forState:UIControlStateSelected];
-    [[self.button titleLabel] setFont:[UIFont fontWithName:@"Montserrat-Bold" size:11.0f]];
+    [[self.button titleLabel] setFont:[UIFont fontWithName:@"Montserrat-Bold" size:10.0f]];
 
     [self.button addTarget:self action:@selector(performButtonAction) forControlEvents:UIControlEventTouchUpInside];
-
-
 }
 
 - (void)updateLabels:(NSDictionary *)content

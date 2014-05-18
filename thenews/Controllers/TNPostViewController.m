@@ -71,6 +71,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBarTintColor:self.themeColor];
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
 }
 

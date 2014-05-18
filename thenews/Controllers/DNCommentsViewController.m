@@ -17,8 +17,6 @@ static NSString *CellIdentifier = @"DNCommentCell";
 
 @interface DNCommentsViewController () <TNCommentCellDelegate, UINavigationControllerDelegate>
 
-@property (nonatomic, strong) DNStory *story;
-
 @end
 
 @implementation DNCommentsViewController
@@ -127,6 +125,7 @@ static NSString *CellIdentifier = @"DNCommentCell";
     [[DNManager sharedManager] upvoteCommentWithID:commentID success:^{
 
         [notification showSuccessNotification:@"Comment Upvote Successful" subtitle:nil];
+        [dnCell incrementVoteCount];
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
 

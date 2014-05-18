@@ -132,7 +132,19 @@ static NSString *CellIdentifier = @"DNFeedCell";
 {
     DNFeedViewCell *dncell = (DNFeedViewCell *)cell;
     DNStory *story = [dncell story];
-    [self upvoteStoryWithID:[story storyID]];
+
+    TNNotification *notification = [[TNNotification alloc] init];
+
+    [[DNManager sharedManager] upvoteStoryWithID:[[story storyID] stringValue] success:^{
+
+        [notification showSuccessNotification:@"Story Upvote Successful" subtitle:nil];
+        [dncell incrementVoteCount];
+
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+
+        [notification showFailureNotification:@"Story Upvote Failed" subtitle:@"You can only upvote a story once."];
+        
+    }];
 }
 
 - (void)viewCommentsActionForCell:(TNFeedViewCell *)cell

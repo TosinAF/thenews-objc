@@ -150,6 +150,7 @@ static NSString *CellIdentifier = @"HNFeedCell";
 
                 [notification showSuccessNotification:@"Post Upvote Successful" subtitle:nil];
                 [[HNManager sharedManager] addHNObjectToVotedOnDictionary:[hnCell post] direction:VoteDirectionUp];
+                [hnCell incrementVoteCount];
 
             } else {
 

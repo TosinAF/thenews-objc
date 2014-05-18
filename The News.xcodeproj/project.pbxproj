@@ -69,6 +69,9 @@
 		4EDADC2B1922E3B20097754A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EDADC2A1922E3B10097754A /* libz.dylib */; };
 		4EDADC2D1922E3D10097754A /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EDADC2C1922E3D10097754A /* AdSupport.framework */; };
 		4EDADC351922ECE30097754A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EDADC341922ECE30097754A /* libsqlite3.dylib */; };
+		4EF215451929187100D530F4 /* DNSearchViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF215441929187100D530F4 /* DNSearchViewCell.m */; };
+		4EF21548192922F700D530F4 /* TNSearchHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF21547192922F700D530F4 /* TNSearchHeaderView.m */; };
+		4EF2154B1929246800D530F4 /* DNCommentsSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2154A1929246800D530F4 /* DNCommentsSearchViewController.m */; };
 		ADD050CC668743E0B7EC0E0A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C05D4F76DE524C07AE8AB7E9 /* libPods.a */; };
 		C6B14C2418DD5D8A003F2A88 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B14C2318DD5D8A003F2A88 /* Security.framework */; };
 		C6B1508C18DD6CDF003F2A88 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B1508B18DD6CDF003F2A88 /* AddressBook.framework */; };
@@ -193,6 +196,12 @@
 		4EDADC2A1922E3B10097754A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		4EDADC2C1922E3D10097754A /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		4EDADC341922ECE30097754A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		4EF215431929187100D530F4 /* DNSearchViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNSearchViewCell.h; path = Views/DNSearchViewCell.h; sourceTree = "<group>"; };
+		4EF215441929187100D530F4 /* DNSearchViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNSearchViewCell.m; path = Views/DNSearchViewCell.m; sourceTree = "<group>"; };
+		4EF21546192922F700D530F4 /* TNSearchHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNSearchHeaderView.h; path = Views/TNSearchHeaderView.h; sourceTree = "<group>"; };
+		4EF21547192922F700D530F4 /* TNSearchHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNSearchHeaderView.m; path = Views/TNSearchHeaderView.m; sourceTree = "<group>"; };
+		4EF215491929246800D530F4 /* DNCommentsSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNCommentsSearchViewController.h; path = Controllers/DNCommentsSearchViewController.h; sourceTree = "<group>"; };
+		4EF2154A1929246800D530F4 /* DNCommentsSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNCommentsSearchViewController.m; path = Controllers/DNCommentsSearchViewController.m; sourceTree = "<group>"; };
 		C05D4F76DE524C07AE8AB7E9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6B14C2318DD5D8A003F2A88 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C6B1508B18DD6CDF003F2A88 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -396,6 +405,8 @@
 				4EBB4EA118D7B655008BB571 /* TNMenuView.m */,
 				4EA7564118F1F0E30089346D /* TNHeaderView.h */,
 				4EA7564218F1F0E30089346D /* TNHeaderView.m */,
+				4EF21546192922F700D530F4 /* TNSearchHeaderView.h */,
+				4EF21547192922F700D530F4 /* TNSearchHeaderView.m */,
 				4E8402F518E4FDCD00E3AB34 /* TNRefreshView.h */,
 				4E8402F618E4FDCD00E3AB34 /* TNRefreshView.m */,
 				4E7BFF4C1906708E00A49102 /* TNEmptyStateView.h */,
@@ -431,6 +442,8 @@
 		4E7BFF471902F93E00A49102 /* CommentsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				4EF215491929246800D530F4 /* DNCommentsSearchViewController.h */,
+				4EF2154A1929246800D530F4 /* DNCommentsSearchViewController.m */,
 				4EAE9A75190C2A980003C829 /* DNCommentsViewController.h */,
 				4EAE9A76190C2A980003C829 /* DNCommentsViewController.m */,
 				4EAE9A77190C2A980003C829 /* HNCommentsViewController.h */,
@@ -514,6 +527,8 @@
 				4EC1409518F145330082E3C3 /* DNFeedViewCell.m */,
 				4EC1409718F145D20082E3C3 /* HNFeedViewCell.h */,
 				4EC1409818F145D20082E3C3 /* HNFeedViewCell.m */,
+				4EF215431929187100D530F4 /* DNSearchViewCell.h */,
+				4EF215441929187100D530F4 /* DNSearchViewCell.m */,
 			);
 			name = FeedViewCell;
 			sourceTree = "<group>";
@@ -626,7 +641,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EF2154B1929246800D530F4 /* DNCommentsSearchViewController.m in Sources */,
 				4E783D3618AD7D7D00D78B20 /* TNAppDelegate.m in Sources */,
+				4EF21548192922F700D530F4 /* TNSearchHeaderView.m in Sources */,
 				4EA0BDB8190852D400E3FDE8 /* DNSearchViewController.m in Sources */,
 				4EAE9A71190BCCBB0003C829 /* DNDismissMOTDTransistion.m in Sources */,
 				4E4E1BCC18AD98A100B87E7A /* TNFeedViewCell.m in Sources */,
@@ -666,6 +683,7 @@
 				4EAE9AD5190C2B170003C829 /* JSMessageTextView.m in Sources */,
 				4E84011D18E3468F00E3AB34 /* TNNotification.m in Sources */,
 				4E7BFF5D1906DAA800A49102 /* DNContainerViewController.m in Sources */,
+				4EF215451929187100D530F4 /* DNSearchViewCell.m in Sources */,
 				4EAE9A7D190C2A980003C829 /* TNCommentsViewController.m in Sources */,
 				4EAE9AD4190C2B170003C829 /* JSMessageInputView.m in Sources */,
 				4EAE9ACE190C2B170003C829 /* DNManager.m in Sources */,

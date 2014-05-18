@@ -12,6 +12,7 @@
 @interface DNCommentsViewController : TNCommentsViewController
 
 @property (nonatomic, strong) NSNumber *replyToID;
+@property (nonatomic, strong) DNStory *story;
 
 - (instancetype)initWithStory:(DNStory *)story;
 

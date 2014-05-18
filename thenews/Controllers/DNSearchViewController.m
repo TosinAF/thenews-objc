@@ -7,13 +7,16 @@
 //
 
 #import "DNManager.h"
+#import "TNNotification.h"
+#import "DNSearchViewCell.h"
 #import "TNPostViewController.h"
 #import "DNSearchViewController.h"
+#import "DNCommentsSearchViewController.h"
 
-static int CELL_HEIGHT = 70;
-static NSString *CellIdentifier = @"cell";
+static int CELL_HEIGHT = 85;
+static NSString *CellIdentifier = @"DNSearchCell";
 
-@interface DNSearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
+@interface DNSearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, TNFeedViewCellDelegate>
 
 @property (nonatomic, strong) NSArray *stories;
 @property (nonatomic, strong) UISearchBar *searchBar;
@@ -64,7 +67,7 @@ static NSString *CellIdentifier = @"cell";
     [self.tableView setContentOffset:CGPointMake(0,44)];
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
 	[self.tableView setSeparatorColor:[UIColor tnLightGreyColor]];
-	[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
+	[self.tableView registerClass:[DNSearchViewCell class] forCellReuseIdentifier:CellIdentifier];
 
     [self.tableView setTableHeaderView:self.searchBar];
     [self.view addSubview:self.tableView];
@@ -82,18 +85,22 @@ static NSString *CellIdentifier = @"cell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
+    DNSearchViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     DNStory *story = (self.stories)[[indexPath row]];
 
-    [cell.textLabel setText:[story title]];
-    [cell.textLabel setTextColor:[UIColor blackColor]];
-    [cell.textLabel setNumberOfLines:2];
-    [cell.textLabel setLineBreakMode:NSLineBreakByTruncatingTail];
-	[cell.textLabel setFont:[UIFont fontWithName:@"Montserrat" size:15.0f]];
+	[cell setForReuse];
+	[cell setFrameHeight:CELL_HEIGHT];
+    [cell setGestureDelegate:self];
+    [cell configureForStory:story];
 
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    if ([[DNManager sharedManager] isUserAuthenticated]) {
+
+        [cell addUpvoteGesture];
+    }
+
+    [cell addViewCommentsGesture];
     [cell setSeparatorInset:UIEdgeInsetsZero];
+    
     return cell;
 }
 
@@ -158,6 +165,33 @@ static NSString *CellIdentifier = @"cell";
 
         NSLog(@"%@", [[error userInfo] objectForKey:@"NSLocalizedDescription"]);
     }];
+}
+
+- (void)upvoteActionForCell:(TNFeedViewCell *)cell
+{
+    DNSearchViewCell *dncell = (DNSearchViewCell *)cell;
+    DNStory *story = [dncell story];
+
+    TNNotification *notification = [[TNNotification alloc] init];
+
+    [[DNManager sharedManager] upvoteStoryWithID:[[story storyID] stringValue] success:^{
+
+        [notification showSuccessNotification:@"Story Upvote Successful" subtitle:nil];
+
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+
+        [notification showFailureNotification:@"Story Upvote Failed" subtitle:@"You can only upvote a story once."];
+
+    }];
+}
+
+- (void)viewCommentsActionForCell:(TNFeedViewCell *)cell
+{
+    DNSearchViewCell *dncell = (DNSearchViewCell *)cell;
+    DNStory *story = [dncell story];
+
+    DNCommentsSearchViewController *vc = [[DNCommentsSearchViewController alloc] initWithStory:story];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end
