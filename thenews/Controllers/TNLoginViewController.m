@@ -210,6 +210,9 @@ TNType currentAuthType;
         [self.addDN setSelected:YES];
         [self.addDN setUserInteractionEnabled:NO];
 
+        [self.usernameField setText:@""];
+        [self.passwordField setText:@""];
+
         if ([self userCompletedLoginForBoth]) {
              [self performSelector:@selector(pushHomeView) withObject:nil afterDelay:0.5];
         } else {
@@ -233,6 +236,9 @@ TNType currentAuthType;
 
             [self.addHN setSelected:YES];
             [self.addHN setUserInteractionEnabled:NO];
+
+            [self.usernameField setText:@""];
+            [self.passwordField setText:@""];
 
 
             if ([self userCompletedLoginForBoth]) {
