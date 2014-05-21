@@ -29,19 +29,19 @@
         switch (type) {
             case TNTutorialNavigationBarSwipe:
                 // Swipe to Hacker News
-                self.image = [UIImage imageNamed:@"IMG_8836"];
+                self.image = [UIImage imageNamed:@"hnGesture"];
                 self.text = @"Swipe Left on the Nav Bar to view Hacker News";
                 break;
 
             case TNTutorialRightTableViewCellSwipe:
                 // Upvote
-                self.image = [UIImage imageNamed:@"IMG_7813"];
+                self.image = [UIImage imageNamed:@"upvoteGesture"];
                 self.text = @"Swipe Right on the Post to Upvote";
                 break;
                 
             case TNTutorialLeftTableViewCellSwipe:
                 // View Comments
-                self.image = [UIImage imageNamed:@"IMG_3572"];
+                self.image = [UIImage imageNamed:@"commentGesture"];
                 self.text = @"Swipe Left on the Post to View Comments";
                 break;
         }

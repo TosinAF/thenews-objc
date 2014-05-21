@@ -38,9 +38,6 @@
 		4EA7564318F1F0E30089346D /* TNHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7564218F1F0E30089346D /* TNHeaderView.m */; };
 		4EA929DB192C345B0032E469 /* TNWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA929DA192C345B0032E469 /* TNWelcomeViewController.m */; };
 		4EA929DE192C347B0032E469 /* TNTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA929DD192C347B0032E469 /* TNTutorialViewController.m */; };
-		4EA929E2192C351C0032E469 /* IMG_3572@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EA929DF192C351C0032E469 /* IMG_3572@2x.png */; };
-		4EA929E3192C351C0032E469 /* IMG_8836@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EA929E0192C351C0032E469 /* IMG_8836@2x.png */; };
-		4EA929E4192C351C0032E469 /* IMG_7813@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EA929E1192C351C0032E469 /* IMG_7813@2x.png */; };
 		4EAE9A71190BCCBB0003C829 /* DNDismissMOTDTransistion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE9A70190BCCBB0003C829 /* DNDismissMOTDTransistion.m */; };
 		4EAE9A74190C15C40003C829 /* HNContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE9A73190C15C40003C829 /* HNContainerViewController.m */; };
 		4EAE9A7B190C2A980003C829 /* DNCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE9A76190C2A980003C829 /* DNCommentsViewController.m */; };
@@ -147,9 +144,6 @@
 		4EA929DA192C345B0032E469 /* TNWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNWelcomeViewController.m; path = Controllers/TNWelcomeViewController.m; sourceTree = "<group>"; };
 		4EA929DC192C347B0032E469 /* TNTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNTutorialViewController.h; path = Controllers/TNTutorialViewController.h; sourceTree = "<group>"; };
 		4EA929DD192C347B0032E469 /* TNTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNTutorialViewController.m; path = Controllers/TNTutorialViewController.m; sourceTree = "<group>"; };
-		4EA929DF192C351C0032E469 /* IMG_3572@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IMG_3572@2x.png"; sourceTree = "<group>"; };
-		4EA929E0192C351C0032E469 /* IMG_8836@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IMG_8836@2x.png"; sourceTree = "<group>"; };
-		4EA929E1192C351C0032E469 /* IMG_7813@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IMG_7813@2x.png"; sourceTree = "<group>"; };
 		4EAE9A6F190BCCBB0003C829 /* DNDismissMOTDTransistion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNDismissMOTDTransistion.h; path = Utility/DNDismissMOTDTransistion.h; sourceTree = "<group>"; };
 		4EAE9A70190BCCBB0003C829 /* DNDismissMOTDTransistion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNDismissMOTDTransistion.m; path = Utility/DNDismissMOTDTransistion.m; sourceTree = "<group>"; };
 		4EAE9A72190C15C40003C829 /* HNContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNContainerViewController.h; path = Controllers/HNContainerViewController.h; sourceTree = "<group>"; };
@@ -335,9 +329,6 @@
 		4E783D2B18AD7D7D00D78B20 /* thenews */ = {
 			isa = PBXGroup;
 			children = (
-				4EA929DF192C351C0032E469 /* IMG_3572@2x.png */,
-				4EA929E0192C351C0032E469 /* IMG_8836@2x.png */,
-				4EA929E1192C351C0032E469 /* IMG_7813@2x.png */,
 				4E783D3418AD7D7D00D78B20 /* TNAppDelegate.h */,
 				4E783D3518AD7D7D00D78B20 /* TNAppDelegate.m */,
 				4E3B4C0018B61BF200D8B75B /* Utility */,
@@ -691,15 +682,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EA929E4192C351C0032E469 /* IMG_7813@2x.png in Resources */,
 				4E4E1BD718AD98E000B87E7A /* Montserrat-Bold.ttf in Resources */,
 				4E783D3018AD7D7D00D78B20 /* InfoPlist.strings in Resources */,
 				4E4E1BD618AD98E000B87E7A /* Entypo.ttf in Resources */,
 				4E4E1BD818AD98E000B87E7A /* Montserrat-Regular.ttf in Resources */,
-				4EA929E3192C351C0032E469 /* IMG_8836@2x.png in Resources */,
 				4ECE3DF018DFC13100DC26FB /* GooglePlus.bundle in Resources */,
 				4E783D3818AD7D7D00D78B20 /* Images.xcassets in Resources */,
-				4EA929E2192C351C0032E469 /* IMG_3572@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

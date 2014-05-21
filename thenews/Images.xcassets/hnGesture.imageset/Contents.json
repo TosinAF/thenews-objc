@@ -2,12 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "hnGesture.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "thumbsUpSelected.png"
+      "filename" : "hnGesture@2x.png"
     }
   ],
   "info" : {
