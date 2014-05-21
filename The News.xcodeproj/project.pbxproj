@@ -36,6 +36,11 @@
 		4E8402F718E4FDCD00E3AB34 /* TNRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8402F618E4FDCD00E3AB34 /* TNRefreshView.m */; };
 		4EA0BDB8190852D400E3FDE8 /* DNSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0BDB7190852D400E3FDE8 /* DNSearchViewController.m */; };
 		4EA7564318F1F0E30089346D /* TNHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7564218F1F0E30089346D /* TNHeaderView.m */; };
+		4EA929DB192C345B0032E469 /* TNWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA929DA192C345B0032E469 /* TNWelcomeViewController.m */; };
+		4EA929DE192C347B0032E469 /* TNTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA929DD192C347B0032E469 /* TNTutorialViewController.m */; };
+		4EA929E2192C351C0032E469 /* IMG_3572@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EA929DF192C351C0032E469 /* IMG_3572@2x.png */; };
+		4EA929E3192C351C0032E469 /* IMG_8836@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EA929E0192C351C0032E469 /* IMG_8836@2x.png */; };
+		4EA929E4192C351C0032E469 /* IMG_7813@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EA929E1192C351C0032E469 /* IMG_7813@2x.png */; };
 		4EAE9A71190BCCBB0003C829 /* DNDismissMOTDTransistion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE9A70190BCCBB0003C829 /* DNDismissMOTDTransistion.m */; };
 		4EAE9A74190C15C40003C829 /* HNContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE9A73190C15C40003C829 /* HNContainerViewController.m */; };
 		4EAE9A7B190C2A980003C829 /* DNCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE9A76190C2A980003C829 /* DNCommentsViewController.m */; };
@@ -138,6 +143,13 @@
 		4EA0BDB7190852D400E3FDE8 /* DNSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNSearchViewController.m; path = Controllers/DNSearchViewController.m; sourceTree = "<group>"; };
 		4EA7564118F1F0E30089346D /* TNHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNHeaderView.h; path = Views/TNHeaderView.h; sourceTree = "<group>"; };
 		4EA7564218F1F0E30089346D /* TNHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNHeaderView.m; path = Views/TNHeaderView.m; sourceTree = "<group>"; };
+		4EA929D9192C345B0032E469 /* TNWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNWelcomeViewController.h; path = Controllers/TNWelcomeViewController.h; sourceTree = "<group>"; };
+		4EA929DA192C345B0032E469 /* TNWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNWelcomeViewController.m; path = Controllers/TNWelcomeViewController.m; sourceTree = "<group>"; };
+		4EA929DC192C347B0032E469 /* TNTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNTutorialViewController.h; path = Controllers/TNTutorialViewController.h; sourceTree = "<group>"; };
+		4EA929DD192C347B0032E469 /* TNTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TNTutorialViewController.m; path = Controllers/TNTutorialViewController.m; sourceTree = "<group>"; };
+		4EA929DF192C351C0032E469 /* IMG_3572@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IMG_3572@2x.png"; sourceTree = "<group>"; };
+		4EA929E0192C351C0032E469 /* IMG_8836@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IMG_8836@2x.png"; sourceTree = "<group>"; };
+		4EA929E1192C351C0032E469 /* IMG_7813@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IMG_7813@2x.png"; sourceTree = "<group>"; };
 		4EAE9A6F190BCCBB0003C829 /* DNDismissMOTDTransistion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNDismissMOTDTransistion.h; path = Utility/DNDismissMOTDTransistion.h; sourceTree = "<group>"; };
 		4EAE9A70190BCCBB0003C829 /* DNDismissMOTDTransistion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNDismissMOTDTransistion.m; path = Utility/DNDismissMOTDTransistion.m; sourceTree = "<group>"; };
 		4EAE9A72190C15C40003C829 /* HNContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNContainerViewController.h; path = Controllers/HNContainerViewController.h; sourceTree = "<group>"; };
@@ -254,7 +266,7 @@
 			name = Utility;
 			sourceTree = "<group>";
 		};
-		4E3B4C0218B61C0C00D8B75B /* Registration */ = {
+		4E3B4C0218B61C0C00D8B75B /* LoginViewController */ = {
 			isa = PBXGroup;
 			children = (
 				4E4E1BBC18AD989300B87E7A /* TNLoginViewController.h */,
@@ -262,7 +274,7 @@
 				4EBB4E9618D7B60F008BB571 /* TNFormViewController.h */,
 				4EBB4E9518D7B60F008BB571 /* TNFormViewController.m */,
 			);
-			name = Registration;
+			name = LoginViewController;
 			sourceTree = "<group>";
 		};
 		4E4E1BDA18AD98E500B87E7A /* Fonts */ = {
@@ -323,6 +335,9 @@
 		4E783D2B18AD7D7D00D78B20 /* thenews */ = {
 			isa = PBXGroup;
 			children = (
+				4EA929DF192C351C0032E469 /* IMG_3572@2x.png */,
+				4EA929E0192C351C0032E469 /* IMG_8836@2x.png */,
+				4EA929E1192C351C0032E469 /* IMG_7813@2x.png */,
 				4E783D3418AD7D7D00D78B20 /* TNAppDelegate.h */,
 				4E783D3518AD7D7D00D78B20 /* TNAppDelegate.m */,
 				4E3B4C0018B61BF200D8B75B /* Utility */,
@@ -368,24 +383,18 @@
 		4E783D5418AD7E5900D78B20 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4E4E1BBA18AD989300B87E7A /* TNLaunchViewController.h */,
-				4E4E1BBB18AD989300B87E7A /* TNLaunchViewController.m */,
-				4E3B4C0218B61C0C00D8B75B /* Registration */,
-				4E4E1BB818AD989300B87E7A /* TNHomeViewController.h */,
-				4E4E1BB918AD989300B87E7A /* TNHomeViewController.m */,
+				4EA86396192D09D500C3A79B /* WelcomeViewController */,
+				4EA86397192D09E100C3A79B /* TutorialViewController */,
+				4EA929D5192C31E60032E469 /* LaunchViewController */,
+				4EA929D4192C319D0032E469 /* HomeViewController */,
+				4E3B4C0218B61C0C00D8B75B /* LoginViewController */,
 				4EAE9B08190C2CA60003C829 /* ContainerViewController */,
 				4E7BFF461902F92C00A49102 /* FeedViewController */,
 				4E7BFF471902F93E00A49102 /* CommentsViewController */,
-				4EBB4E9918D7B626008BB571 /* TNPostViewController.h */,
-				4EBB4E9818D7B626008BB571 /* TNPostViewController.m */,
-				4E485E5A1909942900B0FC4C /* DNSettingsViewController.h */,
-				4E485E5B1909942900B0FC4C /* DNSettingsViewController.m */,
-				4EB56CE0191D4C4B00DC151A /* HNSettingsViewController.h */,
-				4EB56CE1191D4C4B00DC151A /* HNSettingsViewController.m */,
-				4EA0BDB6190852D400E3FDE8 /* DNSearchViewController.h */,
-				4EA0BDB7190852D400E3FDE8 /* DNSearchViewController.m */,
-				4E7BFF551906BA3B00A49102 /* DNMOTDViewController.h */,
-				4EDADC1719228A3E0097754A /* DNMOTDViewController.m */,
+				4EA929D6192C32060032E469 /* PostViewController */,
+				4EF2154F192941A800D530F4 /* SettingsViewController */,
+				4EA929D7192C32800032E469 /* SearchViewController */,
+				4EA929D8192C32A10032E469 /* MOTDViewController */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -393,24 +402,12 @@
 		4E783D5718AD7E7B00D78B20 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4E4E1BC518AD98A100B87E7A /* TNButton.h */,
-				4E4E1BC618AD98A100B87E7A /* TNButton.m */,
-				4E4E1BC918AD98A100B87E7A /* TNTextField.h */,
-				4E4E1BCA18AD98A100B87E7A /* TNTextField.m */,
-				4EDADBEE192243740097754A /* DNMOTDLabel.h */,
-				4EDADBEF192243740097754A /* DNMOTDLabel.m */,
+				4EF2154E1929416D00D530F4 /* Utility Views */,
+				4EF2154D1929413F00D530F4 /* Header View */,
 				4EC1409A18F149A30082E3C3 /* FeedViewCell */,
 				4E7BFF451902F90100A49102 /* CommentViewCell */,
 				4EBB4EA218D7B655008BB571 /* TNMenuView.h */,
 				4EBB4EA118D7B655008BB571 /* TNMenuView.m */,
-				4EA7564118F1F0E30089346D /* TNHeaderView.h */,
-				4EA7564218F1F0E30089346D /* TNHeaderView.m */,
-				4EF21546192922F700D530F4 /* TNSearchHeaderView.h */,
-				4EF21547192922F700D530F4 /* TNSearchHeaderView.m */,
-				4E8402F518E4FDCD00E3AB34 /* TNRefreshView.h */,
-				4E8402F618E4FDCD00E3AB34 /* TNRefreshView.m */,
-				4E7BFF4C1906708E00A49102 /* TNEmptyStateView.h */,
-				4E7BFF4D1906708E00A49102 /* TNEmptyStateView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -461,6 +458,69 @@
 				4EAE9A8D190C2B170003C829 /* JSMessage */,
 			);
 			name = "Third Party Libraries";
+			sourceTree = "<group>";
+		};
+		4EA86396192D09D500C3A79B /* WelcomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4EA929D9192C345B0032E469 /* TNWelcomeViewController.h */,
+				4EA929DA192C345B0032E469 /* TNWelcomeViewController.m */,
+			);
+			name = WelcomeViewController;
+			sourceTree = "<group>";
+		};
+		4EA86397192D09E100C3A79B /* TutorialViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4EA929DC192C347B0032E469 /* TNTutorialViewController.h */,
+				4EA929DD192C347B0032E469 /* TNTutorialViewController.m */,
+			);
+			name = TutorialViewController;
+			sourceTree = "<group>";
+		};
+		4EA929D4192C319D0032E469 /* HomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E4E1BB818AD989300B87E7A /* TNHomeViewController.h */,
+				4E4E1BB918AD989300B87E7A /* TNHomeViewController.m */,
+			);
+			name = HomeViewController;
+			sourceTree = "<group>";
+		};
+		4EA929D5192C31E60032E469 /* LaunchViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E4E1BBA18AD989300B87E7A /* TNLaunchViewController.h */,
+				4E4E1BBB18AD989300B87E7A /* TNLaunchViewController.m */,
+			);
+			name = LaunchViewController;
+			sourceTree = "<group>";
+		};
+		4EA929D6192C32060032E469 /* PostViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4EBB4E9918D7B626008BB571 /* TNPostViewController.h */,
+				4EBB4E9818D7B626008BB571 /* TNPostViewController.m */,
+			);
+			name = PostViewController;
+			sourceTree = "<group>";
+		};
+		4EA929D7192C32800032E469 /* SearchViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4EA0BDB6190852D400E3FDE8 /* DNSearchViewController.h */,
+				4EA0BDB7190852D400E3FDE8 /* DNSearchViewController.m */,
+			);
+			name = SearchViewController;
+			sourceTree = "<group>";
+		};
+		4EA929D8192C32A10032E469 /* MOTDViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E7BFF551906BA3B00A49102 /* DNMOTDViewController.h */,
+				4EDADC1719228A3E0097754A /* DNMOTDViewController.m */,
+			);
+			name = MOTDViewController;
 			sourceTree = "<group>";
 		};
 		4EAE9A81190C2B170003C829 /* DNManager */ = {
@@ -533,6 +593,45 @@
 			name = FeedViewCell;
 			sourceTree = "<group>";
 		};
+		4EF2154D1929413F00D530F4 /* Header View */ = {
+			isa = PBXGroup;
+			children = (
+				4EA7564118F1F0E30089346D /* TNHeaderView.h */,
+				4EA7564218F1F0E30089346D /* TNHeaderView.m */,
+				4EF21546192922F700D530F4 /* TNSearchHeaderView.h */,
+				4EF21547192922F700D530F4 /* TNSearchHeaderView.m */,
+			);
+			name = "Header View";
+			sourceTree = "<group>";
+		};
+		4EF2154E1929416D00D530F4 /* Utility Views */ = {
+			isa = PBXGroup;
+			children = (
+				4E4E1BC518AD98A100B87E7A /* TNButton.h */,
+				4E4E1BC618AD98A100B87E7A /* TNButton.m */,
+				4E4E1BC918AD98A100B87E7A /* TNTextField.h */,
+				4E4E1BCA18AD98A100B87E7A /* TNTextField.m */,
+				4EDADBEE192243740097754A /* DNMOTDLabel.h */,
+				4EDADBEF192243740097754A /* DNMOTDLabel.m */,
+				4E8402F518E4FDCD00E3AB34 /* TNRefreshView.h */,
+				4E8402F618E4FDCD00E3AB34 /* TNRefreshView.m */,
+				4E7BFF4C1906708E00A49102 /* TNEmptyStateView.h */,
+				4E7BFF4D1906708E00A49102 /* TNEmptyStateView.m */,
+			);
+			name = "Utility Views";
+			sourceTree = "<group>";
+		};
+		4EF2154F192941A800D530F4 /* SettingsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E485E5A1909942900B0FC4C /* DNSettingsViewController.h */,
+				4E485E5B1909942900B0FC4C /* DNSettingsViewController.m */,
+				4EB56CE0191D4C4B00DC151A /* HNSettingsViewController.h */,
+				4EB56CE1191D4C4B00DC151A /* HNSettingsViewController.m */,
+			);
+			name = SettingsViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -592,12 +691,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EA929E4192C351C0032E469 /* IMG_7813@2x.png in Resources */,
 				4E4E1BD718AD98E000B87E7A /* Montserrat-Bold.ttf in Resources */,
 				4E783D3018AD7D7D00D78B20 /* InfoPlist.strings in Resources */,
 				4E4E1BD618AD98E000B87E7A /* Entypo.ttf in Resources */,
 				4E4E1BD818AD98E000B87E7A /* Montserrat-Regular.ttf in Resources */,
+				4EA929E3192C351C0032E469 /* IMG_8836@2x.png in Resources */,
 				4ECE3DF018DFC13100DC26FB /* GooglePlus.bundle in Resources */,
 				4E783D3818AD7D7D00D78B20 /* Images.xcassets in Resources */,
+				4EA929E2192C351C0032E469 /* IMG_3572@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,9 +763,11 @@
 				4E7BFF441902E55000A49102 /* HNCommentCell.m in Sources */,
 				4EAE9AD3190C2B170003C829 /* JSDismissiveTextView.m in Sources */,
 				4EAE9AD1190C2B170003C829 /* DNStory.m in Sources */,
+				4EA929DE192C347B0032E469 /* TNTutorialViewController.m in Sources */,
 				4EAE9AD6190C2B170003C829 /* NSString+JSMessagesView.m in Sources */,
 				4EC1409618F145330082E3C3 /* DNFeedViewCell.m in Sources */,
 				4EAE9A80190C2AB70003C829 /* TNCommentCell.m in Sources */,
+				4EA929DB192C345B0032E469 /* TNWelcomeViewController.m in Sources */,
 				4EAE9A7C190C2A980003C829 /* HNCommentsViewController.m in Sources */,
 				4EB56CE2191D4C4B00DC151A /* HNSettingsViewController.m in Sources */,
 				4E4E1BC118AD989300B87E7A /* TNHomeViewController.m in Sources */,

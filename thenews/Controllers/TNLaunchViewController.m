@@ -12,9 +12,6 @@
 #import "TNHomeViewController.h"
 #import "TNButton.h"
 
-
-BOOL registrationSkipped;
-
 @interface TNLaunchViewController ()
 
 @property (strong, nonatomic) UILabel *appTitle;
@@ -27,14 +24,8 @@ BOOL registrationSkipped;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [[self navigationController] setNavigationBarHidden:YES animated:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    if (!registrationSkipped) {
-        [[self navigationController] setNavigationBarHidden:NO animated:YES];
-    }
+    [self.navigationController setNavigationBarHidden:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -61,7 +52,7 @@ BOOL registrationSkipped;
     [super viewDidLoad];
     [self setScreenName:@"Launch"];
     [self.view setBackgroundColor:[UIColor tnColor]];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 
     CGSize screenSize = self.view.bounds.size;
@@ -106,7 +97,6 @@ BOOL registrationSkipped;
 
 - (void)skipButtonPressed:(id)selector
 {
-    registrationSkipped = YES;
     TNHomeViewController *homeViewController = [[TNHomeViewController alloc] init];
     [self.navigationController pushViewController:homeViewController animated:YES];
 

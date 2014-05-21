@@ -28,6 +28,7 @@ TNType currentAuthType;
 - (void)viewWillAppear:(BOOL)animated
 {
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
 }
 
 - (void)viewDidLoad
@@ -42,10 +43,6 @@ TNType currentAuthType;
     CGSize screenSize = self.view.bounds.size;
 
     [self setTitle:@"Login"];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor tnColor]];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes: @{NSFontAttributeName:[UIFont fontWithName:@"Avenir" size:18.0f],
-                                                            NSForegroundColorAttributeName:[UIColor whiteColor]}];
 
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"The News" style:UIBarButtonItemStylePlain target:self action:@selector(pushHomeView)];
 

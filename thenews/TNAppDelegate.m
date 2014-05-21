@@ -14,6 +14,8 @@
 #import "GTScrollNavigationBar.h"
 #import "TNLaunchViewController.h"
 #import "TNHomeViewController.h"
+#import "TNTutorialViewController.h"
+#import "TNWelcomeViewController.h"
 #import <GooglePlus/GooglePlus.h>
 #import "AFNetworkActivityIndicatorManager.h"
 #import "TNAppDelegate.h"
@@ -53,7 +55,19 @@
         rootViewController = [TNHomeViewController new];
     }
 
+
+    rootViewController = [TNWelcomeViewController new];
+
     UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[GTScrollNavigationBar class] toolbarClass:nil];
+
+    [navController setNavigationBarHidden:YES];
+
+    // Configure general nav bar apperance
+
+    [[UINavigationBar appearance] setBarTintColor:[UIColor tnColor]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes: @{NSFontAttributeName:[UIFont fontWithName:@"Avenir" size:18.0f],
+                                                            NSForegroundColorAttributeName:[UIColor whiteColor]}];
 
     [navController setViewControllers:@[rootViewController] animated:NO];
     self.window.rootViewController = navController;
