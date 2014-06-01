@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TNWelcomeViewController : UIViewController
+@interface TNWelcomeViewController : GAITrackedViewController
 
 @end

@@ -331,6 +331,7 @@
 			children = (
 				4E783D3418AD7D7D00D78B20 /* TNAppDelegate.h */,
 				4E783D3518AD7D7D00D78B20 /* TNAppDelegate.m */,
+				4EA4CBE9192E604F007668B9 /* Resources */,
 				4E3B4C0018B61BF200D8B75B /* Utility */,
 				4E783D5418AD7E5900D78B20 /* Controllers */,
 				4E783D5718AD7E7B00D78B20 /* Views */,
@@ -344,7 +345,6 @@
 		4E783D2C18AD7D7D00D78B20 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4E4E1BDA18AD98E500B87E7A /* Fonts */,
 				4E783D2D18AD7D7D00D78B20 /* The News-Info.plist */,
 				4E783D2E18AD7D7D00D78B20 /* InfoPlist.strings */,
 				4E783D3118AD7D7D00D78B20 /* main.m */,
@@ -449,6 +449,14 @@
 				4EAE9A8D190C2B170003C829 /* JSMessage */,
 			);
 			name = "Third Party Libraries";
+			sourceTree = "<group>";
+		};
+		4EA4CBE9192E604F007668B9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4E4E1BDA18AD98E500B87E7A /* Fonts */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		4EA86396192D09D500C3A79B /* WelcomeViewController */ = {

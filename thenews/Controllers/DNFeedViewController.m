@@ -118,6 +118,7 @@ static NSString *CellIdentifier = @"DNFeedCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DNStory *story = (self.stories)[[indexPath row]];
+
     TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[story URL]] type:TNTypeDesignerNews];
 
     __weak DNFeedViewController *weakSelf = self;

@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import "GAIDictionaryBuilder.h"
 #import "TNHomeViewController.h"
 #import "TNLoginViewController.h"
 #import "TNLaunchViewController.h"
@@ -30,7 +31,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setScreenName:@"Welcome"];
     [self.view setBackgroundColor:[UIColor clearColor]];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
 	                                                          navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
@@ -55,11 +58,11 @@
 
     UIButton *loginButton = [self createTutorialViewButtonWithText:@"Login"];
     [loginButton setFrame:CGRectMake(10, 25, 70, 25)];
-    [loginButton addTarget:self action:@selector(pushLoginViewController) forControlEvents:UIControlEventTouchUpInside];
+    [loginButton addTarget:self action:@selector(pushLoginViewController:) forControlEvents:UIControlEventTouchUpInside];
 
     UIButton *skipButton = [self createTutorialViewButtonWithText:@"Skip"];
     [skipButton setFrame:CGRectMake(250, 25, 70, 25)];
-    [skipButton addTarget:self action:@selector(pushHomeViewController) forControlEvents:UIControlEventTouchUpInside];
+    [skipButton addTarget:self action:@selector(pushHomeViewController:) forControlEvents:UIControlEventTouchUpInside];
 
     [self.view addSubview:loginButton];
     [self.view addSubview:skipButton];
@@ -77,9 +80,10 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
       viewControllerBeforeViewController:(UIViewController *)viewController
 {
+    self.pageControl.currentPage -= 1;
+
     if ([viewController isKindOfClass:[TNLaunchViewController class]]) {
 
-        self.pageControl.currentPage = 0;
         [self.view setBackgroundColor:[UIColor tnColor]];
         return nil;
 
@@ -90,17 +94,14 @@
         switch (tutorialVC.type) {
 
             case TNTutorialNavigationBarSwipe:
-                self.pageControl.currentPage -= 1;
                 return self.launchViewController;
                 break;
 
             case TNTutorialRightTableViewCellSwipe:
-                self.pageControl.currentPage -= 1;
                 return [[TNTutorialViewController alloc] initWithTutorial:TNTutorialNavigationBarSwipe];
                 break;
 
             case TNTutorialLeftTableViewCellSwipe:
-                self.pageControl.currentPage -= 1;
                 return [[TNTutorialViewController alloc] initWithTutorial:TNTutorialRightTableViewCellSwipe];
                 break;
 
@@ -111,9 +112,10 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
        viewControllerAfterViewController:(UIViewController *)viewController
 {
+    self.pageControl.currentPage += 1;
+
     if ([viewController isKindOfClass:[TNLaunchViewController class]]) {
 
-        self.pageControl.currentPage += 1;
         return [[TNTutorialViewController alloc] initWithTutorial:TNTutorialNavigationBarSwipe];
 
     } else {
@@ -123,19 +125,15 @@
         switch (tutorialVC.type) {
 
             case TNTutorialNavigationBarSwipe:
-
-                self.pageControl.currentPage += 1;
+                [self.view setBackgroundColor:[UIColor whiteColor]];
                 return [[TNTutorialViewController alloc] initWithTutorial:TNTutorialRightTableViewCellSwipe];
                 break;
 
             case TNTutorialRightTableViewCellSwipe:
-                self.pageControl.currentPage += 1;
                 return [[TNTutorialViewController alloc] initWithTutorial:TNTutorialLeftTableViewCellSwipe];
                 break;
 
             case TNTutorialLeftTableViewCellSwipe:
-                self.pageControl.currentPage += 1;
-                [self.view setBackgroundColor:[UIColor whiteColor]];
                 return nil;
                 break;
                 
@@ -145,32 +143,36 @@
 
 #pragma mark - UIPageViewControllerDelegate Methods
 
-- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers 
 {
     UIViewController *vc = [pendingViewControllers firstObject];
+    [self fixPageControlForViewController:vc];
+}
 
-    if ([vc isKindOfClass:[TNLaunchViewController class]]) {
-
-        self.pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
-        self.pageControl.pageIndicatorTintColor  = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
-
-    } else {
-
-        self.pageControl.currentPageIndicatorTintColor = [UIColor tnColor];
-        self.pageControl.pageIndicatorTintColor  = [UIColor tnGreyColor];
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
+{
+    if (completed) {
+        return;
     }
+
+    UIViewController *vc = [previousViewControllers firstObject];
+    [self fixPageControlForViewController:vc];
 }
 
 #pragma mark - Button Actions
 
-- (void)pushLoginViewController
+- (void)pushLoginViewController:(id)selector
 {
+    [self logButtonPress:(UIButton *)selector];
+
     TNLoginViewController *loginViewController = [TNLoginViewController new];
     [self.navigationController pushViewController:loginViewController animated:YES];
 }
 
-- (void)pushHomeViewController
+- (void)pushHomeViewController:(id)selector
 {
+    [self logButtonPress:(UIButton *)selector];
+    
     TNHomeViewController *homeViewController = [TNHomeViewController new];
     [self.navigationController pushViewController:homeViewController animated:YES];
 
@@ -190,6 +192,32 @@
     [[button titleLabel] setFont:[UIFont fontWithName:@"Montserrat" size:18.0f]];
 
     return button;
+}
+
+- (void)fixPageControlForViewController:(UIViewController *)vc
+{
+    if ([vc isKindOfClass:[TNLaunchViewController class]]) {
+
+        self.pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
+        self.pageControl.pageIndicatorTintColor  = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
+
+    } else {
+
+        self.pageControl.currentPageIndicatorTintColor = [UIColor tnColor];
+        self.pageControl.pageIndicatorTintColor  = [UIColor tnGreyColor];
+    }
+}
+
+- (void)logButtonPress:(UIButton *)button{
+
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+
+    [tracker set:kGAIScreenName value:@"Welcome"];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UX"
+                                                          action:@"touch"
+                                                           label:[button.titleLabel text]
+                                                           value:nil] build]];
+    [tracker set:kGAIScreenName value:nil];
 }
 
 @end

@@ -29,18 +29,21 @@
         switch (type) {
             case TNTutorialNavigationBarSwipe:
                 // Swipe to Hacker News
+                [self setScreenName:@"Nav Bar Tutorial"];
                 self.image = [UIImage imageNamed:@"hnGesture"];
                 self.text = @"Swipe Left on the Nav Bar to view Hacker News";
                 break;
 
             case TNTutorialRightTableViewCellSwipe:
                 // Upvote
+                [self setScreenName:@"Upvote Tutorial"];
                 self.image = [UIImage imageNamed:@"upvoteGesture"];
                 self.text = @"Swipe Right on the Post to Upvote";
                 break;
                 
             case TNTutorialLeftTableViewCellSwipe:
                 // View Comments
+                [self setScreenName:@"View Comments Tutorial"];
                 self.image = [UIImage imageNamed:@"commentGesture"];
                 self.text = @"Swipe Left on the Post to View Comments";
                 break;
@@ -74,7 +77,6 @@
 
     [self.view addSubview:self.infoLabel];
     [self.view addSubview:self.imageView];
-    
 }
 
 

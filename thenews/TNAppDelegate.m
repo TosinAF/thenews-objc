@@ -31,7 +31,7 @@
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
-    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Avenir-Light" size:16.0f], NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Montserrat" size:14.0f], NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
 
     // Network Stuff & API's
 
@@ -47,16 +47,13 @@
 
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"appFirstStart"]) {
 
-        rootViewController = [TNLaunchViewController new];
+        rootViewController = [TNWelcomeViewController new];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"appFirstStart"];
 
     } else {
 
         rootViewController = [TNHomeViewController new];
     }
-
-
-    rootViewController = [TNWelcomeViewController new];
 
     UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[GTScrollNavigationBar class] toolbarClass:nil];
 
@@ -66,7 +63,7 @@
 
     [[UINavigationBar appearance] setBarTintColor:[UIColor tnColor]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes: @{NSFontAttributeName:[UIFont fontWithName:@"Avenir" size:18.0f],
+    [[UINavigationBar appearance] setTitleTextAttributes: @{NSFontAttributeName:[UIFont fontWithName:@"Montserrat" size:16.0f],
                                                             NSForegroundColorAttributeName:[UIColor whiteColor]}];
 
     [navController setViewControllers:@[rootViewController] animated:NO];

@@ -11,6 +11,7 @@
 #import "TNLoginViewController.h"
 #import "TNHomeViewController.h"
 #import "TNButton.h"
+#import "GAIDictionaryBuilder.h"
 
 @interface TNLaunchViewController ()
 
@@ -52,7 +53,6 @@
     [super viewDidLoad];
     [self setScreenName:@"Launch"];
     [self.view setBackgroundColor:[UIColor tnColor]];
-    //[[UIApplication sharedApplication] setStatusBarHidden:NO];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 
     CGSize screenSize = self.view.bounds.size;
@@ -91,18 +91,36 @@
 
 - (void)loginButtonPressed:(id)selector
 {
+    [self logButtonPress:(UIButton *)selector];
+
     TNLoginViewController *loginViewController = [[TNLoginViewController alloc] init];
     [self.navigationController pushViewController:loginViewController animated:YES];
 }
 
 - (void)skipButtonPressed:(id)selector
 {
+    [self logButtonPress:(UIButton *)selector];
+
     TNHomeViewController *homeViewController = [[TNHomeViewController alloc] init];
     [self.navigationController pushViewController:homeViewController animated:YES];
 
     // Remove Launch View Controllers As It Is No Longer Accessible
     NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
     [self.navigationController setViewControllers:@[[viewControllers lastObject]]];
+}
+
+#pragma mark - Google Analytics
+
+- (void)logButtonPress:(UIButton *)button{
+
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+
+    [tracker set:kGAIScreenName value:@"Launch"];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UX"
+                                                          action:@"touch"
+                                                           label:[button.titleLabel text]
+                                                           value:nil] build]];
+    [tracker set:kGAIScreenName value:nil];
 }
 
 @end

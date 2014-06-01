@@ -14,7 +14,7 @@ typedef NS_ENUM (NSInteger, TNTutorial) {
     TNTutorialLeftTableViewCellSwipe
 };
 
-@interface TNTutorialViewController : UIViewController
+@interface TNTutorialViewController : GAITrackedViewController
 
 @property (nonatomic, assign) TNTutorial type;
 

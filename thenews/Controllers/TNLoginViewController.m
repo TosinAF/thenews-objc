@@ -42,7 +42,7 @@ TNType currentAuthType;
 
     CGSize screenSize = self.view.bounds.size;
 
-    [self setTitle:@"Login"];
+    [self setTitle:@"LOGIN"];
 
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"The News" style:UIBarButtonItemStylePlain target:self action:@selector(pushHomeView)];
 
