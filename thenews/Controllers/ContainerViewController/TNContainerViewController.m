@@ -117,7 +117,7 @@ UIImageView *navBarHairlineImageView;
         UIImage *menuOpenImage = [UIImage imageNamed:@"menuOpen"];
         UIImage *menuClosedImage = [UIImage imageNamed:@"menuClosed"];
         UIButton *menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [menuButton setImage:menuClosedImage forState:UIControlStateNormal];
+        [menuButton setImage:menuClosedImage forState:UIControlStateNormal];;
         [menuButton setImage:menuOpenImage forState:UIControlStateSelected];
         [menuButton setFrame:CGRectMake(0, 0, menuOpenImage.size.width + 10, menuOpenImage.size.height + 10)];
         [menuButton addTarget:self action:@selector(toggleMenu) forControlEvents:UIControlEventTouchUpInside];
@@ -201,6 +201,7 @@ UIImageView *navBarHairlineImageView;
     [self.menu pop_addAnimation:anim forKey:@"frame"];
     [self.currentViewController.view pop_addAnimation:anim2 forKey:@"frame"];
     [self.currentViewController.view pop_addAnimation:anim3 forKey:@"alpha"];
+    [self.menuButton setEnabled:NO];
 }
 
 - (void)hideMenu {
@@ -240,6 +241,7 @@ UIImageView *navBarHairlineImageView;
     // ensure animations are done, then add gesture recognizers
     exitMenuTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitMenuOnTapRecognizer:)];
     exitMenuPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(exitMenuOnPanRecognizer:)];
+    [self.menuButton setEnabled:YES];
 
     [self.view addGestureRecognizer:exitMenuTap];
     [self.view addGestureRecognizer:exitMenuPan];
