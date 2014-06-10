@@ -212,6 +212,7 @@ UIImageView *navBarHairlineImageView;
     [self.view removeGestureRecognizer:exitMenuTap];
     [self.view removeGestureRecognizer:exitMenuPan];
     [self.menu toDefaultState];
+    [self.menuButton setEnabled:NO];
 
     // Set new origin of Menu & Contianer
     CGRect menuFrame = self.menu.frame;
@@ -231,6 +232,7 @@ UIImageView *navBarHairlineImageView;
                          [self.menu pop_removeAllAnimations];
                          [self.currentViewController pop_removeAllAnimations];
                          [self.currentViewController.view setUserInteractionEnabled:YES];
+                         [self.menuButton setEnabled:YES];
                      }];
 
     [UIView commitAnimations];
