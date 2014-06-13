@@ -60,6 +60,7 @@
 	UIView *subview;
 	while ((subview = [[[self contentView] subviews] lastObject]) != nil)
 		[subview removeFromSuperview];
+    [self.contentView setAlpha:1.0];
 }
 
 - (void)setForReuse {

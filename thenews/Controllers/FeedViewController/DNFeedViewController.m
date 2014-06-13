@@ -24,6 +24,8 @@
 
 static int CELL_HEIGHT = 85;
 static NSString *CellIdentifier = @"DNFeedCell";
+static NSString * const DNReadPostsKey = @"DNReadPostsKey";
+static NSString * const DNReadPostsCacheDateKey = @"DNReadPostsCacheDateKey";
 
 @interface DNFeedViewController () <TNFeedViewCellDelegate>
 
@@ -41,8 +43,17 @@ static NSString *CellIdentifier = @"DNFeedCell";
     self = [super init];
 
     if (self) {
+
         self.emptyStateView = [TNEmptyStateView new];
         [self addReachabilitykCheck];
+
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+        if([defaults arrayForKey:DNReadPostsKey] == nil) {
+            [defaults setObject:[NSArray new] forKey:DNReadPostsKey];
+            [defaults synchronize];
+        }
+
     }
 
     return self;
@@ -75,6 +86,9 @@ static NSString *CellIdentifier = @"DNFeedCell";
 
     [self.emptyStateView setFrame:self.view.bounds];
     [self.view addSubview:self.emptyStateView];
+
+    // Check DNReadPosts Cache Age - cache cleared after 3 days
+    [self checkReadPostsCache];
 }
 
 #pragma mark - Table View Data Source
@@ -105,6 +119,14 @@ static NSString *CellIdentifier = @"DNFeedCell";
 
     [cell addViewCommentsGesture];
     [cell setSeparatorInset:UIEdgeInsetsZero];
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *currentReadArticles = [defaults arrayForKey:DNReadPostsKey];
+
+    if ([currentReadArticles containsObject:[story storyID]]) {
+        [[cell contentView] setAlpha:0.6];
+    }
+
     return cell;
 }
 
@@ -118,6 +140,7 @@ static NSString *CellIdentifier = @"DNFeedCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DNStory *story = (self.stories)[[indexPath row]];
+    [self addStoryIDToReadList:[story storyID]];
 
     TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[story URL]] type:TNTypeDesignerNews];
 
@@ -125,6 +148,9 @@ static NSString *CellIdentifier = @"DNFeedCell";
     [postViewController setDismissAction:^{ [weakSelf.navigationController popViewControllerAnimated:YES]; }];
 
     [self.navigationController pushViewController:postViewController animated:YES];
+
+    UITableViewCell *cell = [self.feedView cellForRowAtIndexPath:indexPath];
+    [[cell contentView] setAlpha:0.6];
 }
 
 #pragma mark - TNFeedView Delegate
@@ -245,6 +271,41 @@ static NSString *CellIdentifier = @"DNFeedCell";
 }
 
 #pragma mark - Private Methods
+
+- (void)checkReadPostsCache
+{
+    NSDate *cacheDate = [[NSUserDefaults standardUserDefaults] objectForKey:DNReadPostsCacheDateKey];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    //  If this is the first time the app has been launched we record right now as the first time the app was launched.
+    if (!cacheDate) {
+        [defaults setObject:[NSDate date] forKey:DNReadPostsCacheDateKey];
+        return;
+    }
+
+    int diff = abs([cacheDate timeIntervalSinceNow]);
+    if (diff > 60 * 60 * 24 * 3) {
+        [defaults setObject:[NSArray new] forKey:DNReadPostsKey];
+    }
+}
+
+- (void)addStoryIDToReadList:(NSNumber *)storyID
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *currentReadArticles = [defaults arrayForKey:DNReadPostsKey];
+
+    if ([currentReadArticles containsObject:storyID]) {
+        return;
+    }
+
+    NSMutableArray *newReadArticles = [NSMutableArray arrayWithArray:currentReadArticles];
+    [newReadArticles addObject:storyID];
+
+    [defaults setObject:[NSArray arrayWithArray:newReadArticles] forKey:DNReadPostsKey];
+
+    NSLog(@"%lu", (unsigned long)[newReadArticles count]);
+    NSLog(@"i reached here aswell");
+}
 
 - (void)setupRefreshControl
 {

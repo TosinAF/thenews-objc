@@ -225,7 +225,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 
 - (void)shareAction
 {
-    OSKShareableContent *content = [OSKShareableContent contentFromMicroblogPost:self.titleLabel.text authorName:@"thenews" canonicalURL:self.url.absoluteString images:nil];
+    OSKShareableContent *content = [OSKShareableContent contentFromMicroblogPost:self.titleLabel.text authorName:@"thenewsios" canonicalURL:self.url.absoluteString images:nil];
     
     [[OSKPresentationManager sharedInstance] presentActivitySheetForContent:content presentingViewController:self options:nil];
 

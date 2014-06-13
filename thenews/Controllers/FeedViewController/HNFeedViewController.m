@@ -110,6 +110,12 @@ static NSString *CellIdentifier = @"HNFeedCell";
 
     [cell addViewCommentsGesture];
     [cell setSeparatorInset:UIEdgeInsetsZero];
+
+    BOOL hasRead = [[HNManager sharedManager] hasUserReadPost:post];
+    if (hasRead) {
+        // User has read the post.
+        [cell.contentView setAlpha:0.6];
+    }
     return cell;
 }
 
@@ -122,11 +128,16 @@ static NSString *CellIdentifier = @"HNFeedCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HNPost *post = (self.posts)[[indexPath row]];
+    [[HNManager sharedManager] setMarkAsReadForPost:post];
+
     TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[post UrlString]] type:TNTypeHackerNews];
 
     [postViewController setDismissAction:^{ [self.navigationController popViewControllerAnimated:YES]; }];
 
     [self.navigationController pushViewController:postViewController animated:YES];
+
+    UITableViewCell *cell = [self.feedView cellForRowAtIndexPath:indexPath];
+    [[cell contentView] setAlpha:0.6];
 }
 
 #pragma mark - TNFeedView Delegate
