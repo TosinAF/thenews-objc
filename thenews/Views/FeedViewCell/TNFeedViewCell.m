@@ -35,6 +35,11 @@
 			self.themeColor = [UIColor hnColor];
 			self.lightThemeColor = [UIColor hnLightColor];
 			break;
+
+        case TNTypeProductHunt:
+			self.themeColor = [UIColor phColor];
+			self.lightThemeColor = [UIColor phLightColor];
+			break;
 	}
 
     // Other Defaults

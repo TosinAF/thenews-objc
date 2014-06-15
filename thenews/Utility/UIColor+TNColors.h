@@ -20,6 +20,9 @@
 + (UIColor *) hnNavBarColor;
 + (UIColor *) hnLightColor;
 
++ (UIColor *) phColor;
++ (UIColor *) phLightColor;
+
 + (UIColor *) tnGreyColor;
 + (UIColor *) tnLightGreyColor;
 

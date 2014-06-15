@@ -38,6 +38,14 @@
     return [UIColor colorWithRed:0.992 green:0.584 blue:0.337 alpha:1];
 }
 
++ (UIColor *)phColor {
+    return [UIColor colorWithRed:0.855 green:0.333 blue:0.184 alpha:1];
+}
+
++ (UIColor *)phLightColor {
+    return [UIColor colorWithRed:0.875 green:0.467 blue:0.365 alpha:1];
+}
+
 + (UIColor *)tnGreyColor {
     return [UIColor colorWithRed:0.765 green:0.765 blue:0.765 alpha:1];
 }

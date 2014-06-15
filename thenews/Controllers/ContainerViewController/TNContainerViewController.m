@@ -10,6 +10,7 @@
 #import "TNMenuView.h"
 #import "DNFeedViewController.h"
 #import "HNFeedViewController.h"
+#import "PHFeedViewController.h"
 #import "TNContainerViewController.h"
 
 UITapGestureRecognizer *exitMenuTap;
@@ -41,6 +42,11 @@ UIImageView *navBarHairlineImageView;
 			case TNTypeHackerNews:
 				self.navTitle = @"HACKER NEWS";
 				self.navbarColor = [UIColor hnColor];
+				break;
+
+            case TNTypeProductHunt:
+                self.navTitle = @"PRODUCT HUNT";
+				self.navbarColor = [UIColor phColor];
 				break;
 		}
 	}
@@ -76,16 +82,29 @@ UIImageView *navBarHairlineImageView;
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
     /* Set Up Menu View */
+
     [self configureMenu];
+
+    if ([self.feedType isEqualToNumber:@(TNTypeProductHunt)]) {
+        [self.menuButton setHidden:YES];
+    }
 
     /* Set up First Child View Controller */
 
     UIViewController *feedViewController;
 
-    if ([self.feedType intValue] == 0) {
-        feedViewController = [DNFeedViewController new];
-    } else {
-        feedViewController = [HNFeedViewController new];
+    switch ([self.feedType intValue]) {
+        case TNTypeDesignerNews:
+            feedViewController = [DNFeedViewController new];
+            break;
+
+        case TNTypeHackerNews:
+            feedViewController = [HNFeedViewController new];
+            break;
+
+        case TNTypeProductHunt:
+            feedViewController = [PHFeedViewController new];
+            break;
     }
 
     self.currentViewController = feedViewController;
@@ -148,7 +167,7 @@ UIImageView *navBarHairlineImageView;
     if (self.menu) {
         [self.menu setFrame:CGRectMake(0, -208, 320, 208)];
     } else {
-        self.menu = [[TNMenuView alloc] initWithFrame:CGRectMake(0, -208, 320, 208) type:[self.feedType intValue]];
+        //self.menu = [[TNMenuView alloc] initWithFrame:CGRectMake(0, -208, 320, 208) type:[self.feedType intValue]];
     }
 
     [self.menu setHidden:YES];

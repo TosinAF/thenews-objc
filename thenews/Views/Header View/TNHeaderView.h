@@ -8,6 +8,7 @@
 
 #import "DNStory.h"
 #import "HNPost.h"
+#import "PHProduct.h"
 #import <UIKit/UIKit.h>
 
 typedef void (^ButtonActionBlock)(void);
@@ -21,6 +22,7 @@ typedef void (^ButtonActionBlock)(void);
 - (id)initWithFrame:(CGRect)frame type:(TNType)type;
 - (void)configureForStory:(DNStory *)story;
 - (void)configureForPost:(HNPost *)post;
+- (void)configureForProduct:(PHProduct *)product;
 
 - (void)showButton;
 - (void)setButtonTitle:(NSString *)title;

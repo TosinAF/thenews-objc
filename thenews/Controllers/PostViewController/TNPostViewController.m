@@ -63,6 +63,10 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 			case TNTypeHackerNews:
 				self.themeColor = [UIColor hnColor];
 				break;
+
+            case TNTypeProductHunt:
+				self.themeColor = [UIColor phColor];
+				break;
 		}
     }
     return self;

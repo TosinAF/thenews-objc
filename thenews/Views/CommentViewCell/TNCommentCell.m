@@ -61,6 +61,11 @@ TNType type;
 			self.themeColor = [UIColor hnColor];
 			self.lightThemeColor = [UIColor hnLightColor];
 			break;
+
+        case TNTypeProductHunt:
+			self.themeColor = [UIColor phColor];
+			self.lightThemeColor = [UIColor phLightColor];
+			break;
 	}
 
     type = feedType;
@@ -150,7 +155,7 @@ TNType type;
 
     NSString *detailString, *pointsString;
 
-    if (type == TNTypeHackerNews) {
+    if (type == TNTypeHackerNews || type == TNTypeProductHunt ) {
 
         detailString = [NSString stringWithFormat:@"\n\n%@", self.cellContent[@"author"]];
 
