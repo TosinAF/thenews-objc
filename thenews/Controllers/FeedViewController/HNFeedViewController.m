@@ -207,9 +207,6 @@ static NSString *CellIdentifier = @"HNFeedCell";
                 [self removeEmptyState];
             }
 
-            // scroll to top
-            [self.feedView setContentOffset:CGPointZero animated:YES];
-
         } else {
 
             NSLog(@"Error Occured");
