@@ -9,10 +9,12 @@
 
 #import "DNManager.h"
 
-static NSString * const DNAPIAccessTokenKey = @"DNAPIAccessTokenKey";
-static NSString * const DNAPIBaseURLString  = @"https://api-news.layervault.com/api/v1";
-static NSString * const DNAPIClientID       = @"3ba6addb82f5746189bbf3e59ac06a0d498f02309ae4d7119655be174528ad44";
-static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745e45e940bc7a6192014a0131f40397f78";
+static NSString * const DNAPIAccessTokenKey     = @"DNAPIAccessTokenKey";
+static NSString * const DNReadPostsKey          = @"DNReadPostsKey";
+static NSString * const DNReadPostsCacheDateKey = @"DNReadPostsCacheDateKey";
+static NSString * const DNAPIBaseURLString      = @"https://api-news.layervault.com/api/v1";
+static NSString * const DNAPIClientID           = @"3ba6addb82f5746189bbf3e59ac06a0d498f02309ae4d7119655be174528ad44";
+static NSString * const DNAPIClientSecret       = @"29f00d2f31eb18f622f55b30cdb1b745e45e940bc7a6192014a0131f40397f78";
 
 @interface DNManager ()
 
@@ -32,6 +34,15 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
     dispatch_once(&onceToken, ^{
         _sharedClient = [[DNManager alloc] initWithBaseURL:[NSURL URLWithString:DNAPIBaseURLString]];
     });
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    if([defaults arrayForKey:DNReadPostsKey] == nil) {
+        [defaults setObject:[NSArray new] forKey:DNReadPostsKey];
+        [defaults synchronize];
+    }
+
+    [_sharedClient checkReadPostsCache];
 
     return _sharedClient;
 }
@@ -126,6 +137,7 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
 
 #pragma mark - DN Story Methods
 
+
 - (void)getStoriesOnPage:(NSString *)page
                 feedType:(DNFeedType)feedType
                  success:(void (^) (NSArray *dnStories))success
@@ -190,6 +202,50 @@ static NSString * const DNAPIClientSecret   = @"29f00d2f31eb18f622f55b30cdb1b745
                               comment:comment
                               success:success
                               failure:failure];
+}
+
+- (void)addStoryToReadList:(NSNumber *)storyID
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *currentReadArticles = [defaults arrayForKey:DNReadPostsKey];
+
+    if ([self hasUserReadStory:storyID]) {
+        return;
+    }
+
+    NSMutableArray *newReadArticles = [NSMutableArray arrayWithArray:currentReadArticles];
+    [newReadArticles addObject:storyID];
+
+    [defaults setObject:[NSArray arrayWithArray:newReadArticles] forKey:DNReadPostsKey];
+    [defaults synchronize];
+
+    NSLog(@"%lu", (unsigned long)[newReadArticles count]);
+    NSLog(@"i reached here aswell");
+}
+
+- (BOOL)hasUserReadStory:(NSNumber *)storyID
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *currentReadArticles = [defaults arrayForKey:DNReadPostsKey];
+
+    return [currentReadArticles containsObject:storyID];
+}
+
+- (void)checkReadPostsCache
+{
+    NSDate *cacheDate = [[NSUserDefaults standardUserDefaults] objectForKey:DNReadPostsCacheDateKey];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    //  If this is the first time the app has been launched we record right now as the first time the app was launched.
+    if (!cacheDate) {
+        [defaults setObject:[NSDate date] forKey:DNReadPostsCacheDateKey];
+        return;
+    }
+
+    int diff = abs([cacheDate timeIntervalSinceNow]);
+    if (diff > 60 * 60 * 24 * 3) {
+        [defaults setObject:[NSArray new] forKey:DNReadPostsKey];
+    }
 }
 
 #pragma mark - DN Comment Methods

@@ -79,6 +79,10 @@ typedef void (^RequestFailureBlock) (NSURLSessionDataTask *task, NSError *error)
                  success:(ActionSuccessBlock)success
                  failure:(RequestFailureBlock)failure;
 
+- (void)addStoryToReadList:(NSNumber *)storyID;
+
+- (BOOL)hasUserReadStory:(NSNumber *)storyID;
+
 #pragma mark - DN Comment Methods
 
 - (void)getCommentsForStoryWithID:(NSString *)storyID
