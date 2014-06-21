@@ -7,13 +7,15 @@
 //
 
 #import "TNHomeViewController.h"
-#import "HNContainerViewController.h"
 #import "DNContainerViewController.h"
+#import "HNContainerViewController.h"
+#import "PHContainerViewController.h"
 
 @interface TNHomeViewController ()
 
 @property (nonatomic, strong) TNContainerViewController *dnViewController;
 @property (nonatomic, strong) TNContainerViewController *hnViewController;
+@property (nonatomic, strong) TNContainerViewController *phViewController;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 
 @end
@@ -43,6 +45,7 @@
 
 	self.hnViewController = [HNContainerViewController new];
 	self.dnViewController = [DNContainerViewController new];
+    self.phViewController = [PHContainerViewController new];
 
 
 	NSArray *viewControllers = @[self.dnViewController];
@@ -66,10 +69,13 @@
 
     switch ([feedType intValue]) {
         case TNTypeDesignerNews:
-            return nil;
+            return self.phViewController;
 
         case TNTypeHackerNews:
             return self.dnViewController;
+
+        case TNTypeProductHunt:
+            return nil;
 
         default:
             return nil;
@@ -87,6 +93,9 @@
 
         case TNTypeHackerNews:
             return nil;
+
+        case TNTypeProductHunt:
+            return self.dnViewController;
 
         default:
             return nil;

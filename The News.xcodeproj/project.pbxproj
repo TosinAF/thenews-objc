@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E48060D194B79E3009220EC /* PHManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E48060C194B79E3009220EC /* PHManager.m */; };
 		4E485E5C1909942900B0FC4C /* DNSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E485E5B1909942900B0FC4C /* DNSettingsViewController.m */; };
 		4E4E1BC118AD989300B87E7A /* TNHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E1BB918AD989300B87E7A /* TNHomeViewController.m */; };
 		4E4E1BC218AD989300B87E7A /* TNLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E1BBB18AD989300B87E7A /* TNLaunchViewController.m */; };
@@ -18,6 +19,11 @@
 		4E4E1BD718AD98E000B87E7A /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E4E1BD218AD98E000B87E7A /* Montserrat-Bold.ttf */; };
 		4E4E1BD818AD98E000B87E7A /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E4E1BD318AD98E000B87E7A /* Montserrat-Regular.ttf */; };
 		4E4E1BD918AD98E000B87E7A /* UIColor+TNColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E1BD518AD98E000B87E7A /* UIColor+TNColors.m */; };
+		4E505C57194CF760005E2977 /* PHCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E505C56194CF760005E2977 /* PHCommentsViewController.m */; };
+		4E505C5F194CF98C005E2977 /* PHComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E505C5A194CF98C005E2977 /* PHComment.m */; };
+		4E505C60194CF98C005E2977 /* PHProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E505C5C194CF98C005E2977 /* PHProduct.m */; };
+		4E505C61194CF98C005E2977 /* PHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E505C5E194CF98C005E2977 /* PHUser.m */; };
+		4E505C65194CFCBA005E2977 /* PHCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E505C64194CFCBA005E2977 /* PHCommentCell.m */; };
 		4E783D2618AD7D7D00D78B20 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E783D2518AD7D7D00D78B20 /* Foundation.framework */; };
 		4E783D2818AD7D7D00D78B20 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E783D2718AD7D7D00D78B20 /* CoreGraphics.framework */; };
 		4E783D2A18AD7D7D00D78B20 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E783D2918AD7D7D00D78B20 /* UIKit.framework */; };
@@ -61,9 +67,12 @@
 		4EC1409318F12F350082E3C3 /* HNFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC1409218F12F350082E3C3 /* HNFeedViewController.m */; };
 		4EC1409618F145330082E3C3 /* DNFeedViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC1409518F145330082E3C3 /* DNFeedViewCell.m */; };
 		4EC1409918F145D20082E3C3 /* HNFeedViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC1409818F145D20082E3C3 /* HNFeedViewCell.m */; };
+		4ECE0E56194ADEE3005EEBDD /* PHFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECE0E55194ADEE3005EEBDD /* PHFeedViewController.m */; };
+		4ECE0E59194ADF38005EEBDD /* PHFeedViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECE0E58194ADF38005EEBDD /* PHFeedViewCell.m */; };
 		4ECE3DEF18DFC13100DC26FB /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ECE3DEC18DFC13100DC26FB /* GoogleOpenSource.framework */; };
 		4ECE3DF018DFC13100DC26FB /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4ECE3DED18DFC13100DC26FB /* GooglePlus.bundle */; };
 		4ECE3DF118DFC13100DC26FB /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ECE3DEE18DFC13100DC26FB /* GooglePlus.framework */; };
+		4ED527FE194AD2F100C2FA9D /* PHContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED527FD194AD2F100C2FA9D /* PHContainerViewController.m */; };
 		4EDADBF0192243740097754A /* DNMOTDLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDADBEF192243740097754A /* DNMOTDLabel.m */; };
 		4EDADC1819228A3E0097754A /* DNMOTDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDADC1719228A3E0097754A /* DNMOTDViewController.m */; };
 		4EDADC231922E1140097754A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EDADC221922E1140097754A /* CoreData.framework */; };
@@ -84,6 +93,8 @@
 
 /* Begin PBXFileReference section */
 		2D3DAD6C1599406AAE6A11E1 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		4E48060B194B79E3009220EC /* PHManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHManager.h; path = PHManager/PHManager.h; sourceTree = "<group>"; };
+		4E48060C194B79E3009220EC /* PHManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHManager.m; path = PHManager/PHManager.m; sourceTree = "<group>"; };
 		4E485E5A1909942900B0FC4C /* DNSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNSettingsViewController.h; sourceTree = "<group>"; };
 		4E485E5B1909942900B0FC4C /* DNSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNSettingsViewController.m; sourceTree = "<group>"; };
 		4E4E1BB818AD989300B87E7A /* TNHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNHomeViewController.h; sourceTree = "<group>"; };
@@ -103,6 +114,16 @@
 		4E4E1BD318AD98E000B87E7A /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		4E4E1BD418AD98E000B87E7A /* UIColor+TNColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+TNColors.h"; sourceTree = "<group>"; };
 		4E4E1BD518AD98E000B87E7A /* UIColor+TNColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TNColors.m"; sourceTree = "<group>"; };
+		4E505C55194CF760005E2977 /* PHCommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHCommentsViewController.h; sourceTree = "<group>"; };
+		4E505C56194CF760005E2977 /* PHCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHCommentsViewController.m; sourceTree = "<group>"; };
+		4E505C59194CF98C005E2977 /* PHComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHComment.h; sourceTree = "<group>"; };
+		4E505C5A194CF98C005E2977 /* PHComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHComment.m; sourceTree = "<group>"; };
+		4E505C5B194CF98C005E2977 /* PHProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHProduct.h; sourceTree = "<group>"; };
+		4E505C5C194CF98C005E2977 /* PHProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHProduct.m; sourceTree = "<group>"; };
+		4E505C5D194CF98C005E2977 /* PHUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHUser.h; sourceTree = "<group>"; };
+		4E505C5E194CF98C005E2977 /* PHUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHUser.m; sourceTree = "<group>"; };
+		4E505C63194CFCBA005E2977 /* PHCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHCommentCell.h; sourceTree = "<group>"; };
+		4E505C64194CFCBA005E2977 /* PHCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHCommentCell.m; sourceTree = "<group>"; };
 		4E783D2218AD7D7D00D78B20 /* The News.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The News.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E783D2518AD7D7D00D78B20 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4E783D2718AD7D7D00D78B20 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -191,9 +212,15 @@
 		4EC1409518F145330082E3C3 /* DNFeedViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNFeedViewCell.m; sourceTree = "<group>"; };
 		4EC1409718F145D20082E3C3 /* HNFeedViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNFeedViewCell.h; sourceTree = "<group>"; };
 		4EC1409818F145D20082E3C3 /* HNFeedViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNFeedViewCell.m; sourceTree = "<group>"; };
+		4ECE0E54194ADEE3005EEBDD /* PHFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHFeedViewController.h; sourceTree = "<group>"; };
+		4ECE0E55194ADEE3005EEBDD /* PHFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHFeedViewController.m; sourceTree = "<group>"; };
+		4ECE0E57194ADF38005EEBDD /* PHFeedViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHFeedViewCell.h; sourceTree = "<group>"; };
+		4ECE0E58194ADF38005EEBDD /* PHFeedViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHFeedViewCell.m; sourceTree = "<group>"; };
 		4ECE3DEC18DFC13100DC26FB /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = "Pods/OvershareKit/Dependencies/GooglePlus-SDK/GoogleOpenSource.framework"; sourceTree = "<group>"; };
 		4ECE3DED18DFC13100DC26FB /* GooglePlus.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlus.bundle; path = "Pods/OvershareKit/Dependencies/GooglePlus-SDK/GooglePlus.bundle"; sourceTree = "<group>"; };
 		4ECE3DEE18DFC13100DC26FB /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = "Pods/OvershareKit/Dependencies/GooglePlus-SDK/GooglePlus.framework"; sourceTree = "<group>"; };
+		4ED527FC194AD2F100C2FA9D /* PHContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHContainerViewController.h; sourceTree = "<group>"; };
+		4ED527FD194AD2F100C2FA9D /* PHContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHContainerViewController.m; sourceTree = "<group>"; };
 		4EDADBEE192243740097754A /* DNMOTDLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNMOTDLabel.h; sourceTree = "<group>"; };
 		4EDADBEF192243740097754A /* DNMOTDLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNMOTDLabel.m; sourceTree = "<group>"; };
 		4EDADC1719228A3E0097754A /* DNMOTDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNMOTDViewController.m; sourceTree = "<group>"; };
@@ -271,6 +298,16 @@
 			path = LoginViewController;
 			sourceTree = "<group>";
 		};
+		4E48060A194B7999009220EC /* PHManager */ = {
+			isa = PBXGroup;
+			children = (
+				4E48060B194B79E3009220EC /* PHManager.h */,
+				4E48060C194B79E3009220EC /* PHManager.m */,
+				4E505C58194CF98C005E2977 /* Models */,
+			);
+			name = PHManager;
+			sourceTree = "<group>";
+		};
 		4E4E1BDA18AD98E500B87E7A /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,6 +316,29 @@
 				4E4E1BD318AD98E000B87E7A /* Montserrat-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		4E505C58194CF98C005E2977 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4E505C59194CF98C005E2977 /* PHComment.h */,
+				4E505C5A194CF98C005E2977 /* PHComment.m */,
+				4E505C5B194CF98C005E2977 /* PHProduct.h */,
+				4E505C5C194CF98C005E2977 /* PHProduct.m */,
+				4E505C5D194CF98C005E2977 /* PHUser.h */,
+				4E505C5E194CF98C005E2977 /* PHUser.m */,
+			);
+			name = Models;
+			path = PHManager/Models;
+			sourceTree = "<group>";
+		};
+		4E505C62194CFC45005E2977 /* MenuView */ = {
+			isa = PBXGroup;
+			children = (
+				4EBB4EA218D7B655008BB571 /* TNMenuView.h */,
+				4EBB4EA118D7B655008BB571 /* TNMenuView.m */,
+			);
+			name = MenuView;
 			sourceTree = "<group>";
 		};
 		4E783D1918AD7D7D00D78B20 = {
@@ -393,12 +453,11 @@
 		4E783D5718AD7E7B00D78B20 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4E505C62194CFC45005E2977 /* MenuView */,
 				4EF2154E1929416D00D530F4 /* Utility Views */,
 				4EF2154D1929413F00D530F4 /* Header View */,
 				4EC1409A18F149A30082E3C3 /* FeedViewCell */,
 				4E7BFF451902F90100A49102 /* CommentViewCell */,
-				4EBB4EA218D7B655008BB571 /* TNMenuView.h */,
-				4EBB4EA118D7B655008BB571 /* TNMenuView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -410,6 +469,8 @@
 				4EAE9A7F190C2AB70003C829 /* TNCommentCell.m */,
 				4E7BFF3F1902E53100A49102 /* DNCommentCell.h */,
 				4E7BFF401902E53100A49102 /* DNCommentCell.m */,
+				4E505C63194CFCBA005E2977 /* PHCommentCell.h */,
+				4E505C64194CFCBA005E2977 /* PHCommentCell.m */,
 				4E7BFF421902E55000A49102 /* HNCommentCell.h */,
 				4E7BFF431902E55000A49102 /* HNCommentCell.m */,
 			);
@@ -423,6 +484,8 @@
 				4E84011618E17B4F00E3AB34 /* DNFeedViewController.m */,
 				4EC1409118F12F350082E3C3 /* HNFeedViewController.h */,
 				4EC1409218F12F350082E3C3 /* HNFeedViewController.m */,
+				4ECE0E54194ADEE3005EEBDD /* PHFeedViewController.h */,
+				4ECE0E55194ADEE3005EEBDD /* PHFeedViewController.m */,
 			);
 			path = FeedViewController;
 			sourceTree = "<group>";
@@ -432,6 +495,8 @@
 			children = (
 				4EF215491929246800D530F4 /* DNCommentsSearchViewController.h */,
 				4EF2154A1929246800D530F4 /* DNCommentsSearchViewController.m */,
+				4E505C55194CF760005E2977 /* PHCommentsViewController.h */,
+				4E505C56194CF760005E2977 /* PHCommentsViewController.m */,
 				4EAE9A75190C2A980003C829 /* DNCommentsViewController.h */,
 				4EAE9A76190C2A980003C829 /* DNCommentsViewController.m */,
 				4EAE9A77190C2A980003C829 /* HNCommentsViewController.h */,
@@ -445,6 +510,7 @@
 		4E7BFF4B19066EF500A49102 /* Third Party Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				4E48060A194B7999009220EC /* PHManager */,
 				4EAE9A81190C2B170003C829 /* DNManager */,
 				4EAE9A8D190C2B170003C829 /* JSMessage */,
 			);
@@ -571,6 +637,8 @@
 				4E7BFF5C1906DAA800A49102 /* DNContainerViewController.m */,
 				4EAE9A72190C15C40003C829 /* HNContainerViewController.h */,
 				4EAE9A73190C15C40003C829 /* HNContainerViewController.m */,
+				4ED527FC194AD2F100C2FA9D /* PHContainerViewController.h */,
+				4ED527FD194AD2F100C2FA9D /* PHContainerViewController.m */,
 			);
 			path = ContainerViewController;
 			sourceTree = "<group>";
@@ -584,6 +652,8 @@
 				4EC1409518F145330082E3C3 /* DNFeedViewCell.m */,
 				4EC1409718F145D20082E3C3 /* HNFeedViewCell.h */,
 				4EC1409818F145D20082E3C3 /* HNFeedViewCell.m */,
+				4ECE0E57194ADF38005EEBDD /* PHFeedViewCell.h */,
+				4ECE0E58194ADF38005EEBDD /* PHFeedViewCell.m */,
 				4EF215431929187100D530F4 /* DNSearchViewCell.h */,
 				4EF215441929187100D530F4 /* DNSearchViewCell.m */,
 			);
@@ -746,21 +816,26 @@
 				4E485E5C1909942900B0FC4C /* DNSettingsViewController.m in Sources */,
 				4E4E1BCB18AD98A100B87E7A /* TNButton.m in Sources */,
 				4E84011718E17B4F00E3AB34 /* DNFeedViewController.m in Sources */,
+				4E48060D194B79E3009220EC /* PHManager.m in Sources */,
 				4EAE9AD2190C2B170003C829 /* DNUser.m in Sources */,
 				4EDADC1819228A3E0097754A /* DNMOTDViewController.m in Sources */,
 				4E7BFF4E1906708E00A49102 /* TNEmptyStateView.m in Sources */,
 				4E4E1BC218AD989300B87E7A /* TNLaunchViewController.m in Sources */,
+				4E505C60194CF98C005E2977 /* PHProduct.m in Sources */,
 				4EDADBF0192243740097754A /* DNMOTDLabel.m in Sources */,
 				4EBB4E9E18D7B626008BB571 /* TNPostViewController.m in Sources */,
 				4E8402F718E4FDCD00E3AB34 /* TNRefreshView.m in Sources */,
+				4E505C5F194CF98C005E2977 /* PHComment.m in Sources */,
 				4E7BFF5A1906BDB300A49102 /* DNPresentMOTDTransition.m in Sources */,
 				4E7BFF441902E55000A49102 /* HNCommentCell.m in Sources */,
 				4EAE9AD3190C2B170003C829 /* JSDismissiveTextView.m in Sources */,
 				4EAE9AD1190C2B170003C829 /* DNStory.m in Sources */,
 				4EA929DE192C347B0032E469 /* TNTutorialViewController.m in Sources */,
+				4E505C65194CFCBA005E2977 /* PHCommentCell.m in Sources */,
 				4EAE9AD6190C2B170003C829 /* NSString+JSMessagesView.m in Sources */,
 				4EC1409618F145330082E3C3 /* DNFeedViewCell.m in Sources */,
 				4EAE9A80190C2AB70003C829 /* TNCommentCell.m in Sources */,
+				4E505C57194CF760005E2977 /* PHCommentsViewController.m in Sources */,
 				4EA929DB192C345B0032E469 /* TNWelcomeViewController.m in Sources */,
 				4EAE9A7C190C2A980003C829 /* HNCommentsViewController.m in Sources */,
 				4EB56CE2191D4C4B00DC151A /* HNSettingsViewController.m in Sources */,
@@ -769,7 +844,9 @@
 				4EBB4E9718D7B60F008BB571 /* TNFormViewController.m in Sources */,
 				4EC1409318F12F350082E3C3 /* HNFeedViewController.m in Sources */,
 				4E4E1BC318AD989300B87E7A /* TNLoginViewController.m in Sources */,
+				4ECE0E56194ADEE3005EEBDD /* PHFeedViewController.m in Sources */,
 				4EA7564318F1F0E30089346D /* TNHeaderView.m in Sources */,
+				4ED527FE194AD2F100C2FA9D /* PHContainerViewController.m in Sources */,
 				4EAE9ACF190C2B170003C829 /* DNComment.m in Sources */,
 				4EBB4E9F18D7B626008BB571 /* TNContainerViewController.m in Sources */,
 				4E7BFF411902E53100A49102 /* DNCommentCell.m in Sources */,
@@ -779,6 +856,7 @@
 				4EC1409918F145D20082E3C3 /* HNFeedViewCell.m in Sources */,
 				4E783D3218AD7D7D00D78B20 /* main.m in Sources */,
 				4EAE9AD5190C2B170003C829 /* JSMessageTextView.m in Sources */,
+				4E505C61194CF98C005E2977 /* PHUser.m in Sources */,
 				4E84011D18E3468F00E3AB34 /* TNNotification.m in Sources */,
 				4E7BFF5D1906DAA800A49102 /* DNContainerViewController.m in Sources */,
 				4EF215451929187100D530F4 /* DNSearchViewCell.m in Sources */,
@@ -786,6 +864,7 @@
 				4EAE9AD4190C2B170003C829 /* JSMessageInputView.m in Sources */,
 				4EAE9ACE190C2B170003C829 /* DNManager.m in Sources */,
 				4E4E1BCD18AD98A100B87E7A /* TNTextField.m in Sources */,
+				4ECE0E59194ADF38005EEBDD /* PHFeedViewCell.m in Sources */,
 				4EAE9A7B190C2A980003C829 /* DNCommentsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

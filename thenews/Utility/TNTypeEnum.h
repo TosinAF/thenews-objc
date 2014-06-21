@@ -11,7 +11,8 @@
 
 typedef NS_ENUM (NSInteger, TNType) {
 	TNTypeDesignerNews,
-	TNTypeHackerNews
+	TNTypeHackerNews,
+    TNTypeProductHunt
 };
 
 #endif

@@ -35,6 +35,11 @@ ButtonActionBlock buttonAction;
                 self.themeColor = [UIColor hnColor];
                 self.lightThemeColor = [UIColor hnLightColor];
                 break;
+
+            case TNTypeProductHunt:
+                self.themeColor = [UIColor phColor];
+                self.lightThemeColor = [UIColor phLightColor];
+                break;
         }
     }
 
@@ -49,6 +54,18 @@ ButtonActionBlock buttonAction;
                                   @"author":[story displayName],
                                   @"points":[story voteCount],
                                   @"count":[story commentCount]};
+
+    [self updateLabels:cellContent];
+}
+
+- (void)configureForProduct:(PHProduct *)product
+{
+    [self layoutSubviews];
+
+    NSDictionary *cellContent = @{@"title":[product titleWithTagline],
+                                  @"author":[[product hunter] name],
+                                  @"points":[product voteCount],
+                                  @"count":[product commentCount]};
 
     [self updateLabels:cellContent];
 }
@@ -92,7 +109,7 @@ ButtonActionBlock buttonAction;
 
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, contentViewSize.width - 50, 40)];
 
-    self.detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 55, 145, 20)];
+    self.detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 55, 200, 20)];
 
     self.button = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.button setFrame:CGRectMake(200, 55, 100, 20)];
