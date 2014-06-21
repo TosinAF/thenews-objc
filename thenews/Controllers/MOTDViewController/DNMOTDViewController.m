@@ -258,7 +258,14 @@
 
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url;
 {
-    [[UIApplication sharedApplication] openURL:url];
+    UINavigationController *navController = (UINavigationController *)[[[[UIApplication sharedApplication] windows] firstObject] rootViewController];
+
+    [self dismissViewControllerAnimated:YES completion:^{
+
+        TNPostViewController *vc = [[TNPostViewController alloc] initWithURL:url type:TNTypeDesignerNews];
+        [navController pushViewController:vc animated:YES];
+
+    }];
 }
 
 @end
