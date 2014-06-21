@@ -69,6 +69,19 @@
     [self.view addGestureRecognizer:self.panGestureRecognizer];
 
     self.originalCenterOfContentView = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
+
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasMOTDInfoLabelBeenDipslayed"]) {
+
+        UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame) -100, 320, 50)];
+        [infoLabel setText:@"Move Card Offscreen To Dismiss"];
+        [infoLabel setTextAlignment:NSTextAlignmentCenter];
+        [infoLabel setFont:[UIFont fontWithName:@"Montserrat" size:16.0]];
+        [infoLabel setTextColor:[UIColor whiteColor]];
+        [self.view addSubview:infoLabel];
+
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasMOTDInfoLabelBeenDipslayed"];
+    }
+
 }
 
 #pragma mark - Content View
