@@ -244,6 +244,21 @@
     [textView resignFirstResponder];
 }
 
+-(BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange{
+
+    NSLog(@"I was here");
+
+    TNPostViewController *vc = [[TNPostViewController alloc] initWithURL:URL type:[self.feedType intValue]];
+    vc.createdFromSwitch = YES;
+
+    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        [self.navigationController pushViewController:vc animated:NO];
+    } completion:nil];
+
+    return NO;
+}
+
 #pragma mark - Layout message input view
 
 - (void)layoutAndAnimateMessageInputTextView:(UITextView *)textView

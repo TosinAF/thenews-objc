@@ -13,6 +13,7 @@
 @interface TNCommentsViewController : GAITrackedViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>
 
 @property (nonatomic) UIColor *themeColor;
+@property (nonatomic, strong) NSNumber *feedType;
 @property (nonatomic,   copy) NSArray *comments;
 
 @property (nonatomic) UITableView *commentsView;

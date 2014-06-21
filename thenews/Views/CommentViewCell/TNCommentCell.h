@@ -24,6 +24,8 @@
 
 - (void)setFeedType:(TNType)feedType;
 
+- (void)setCommentViewDelegate:(id<UITextViewDelegate>)delegate;
+
 @end
 
 @protocol TNCommentCellDelegate <NSObject>

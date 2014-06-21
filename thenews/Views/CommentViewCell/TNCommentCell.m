@@ -10,7 +10,7 @@
 
 TNType type;
 
-@interface TNCommentCell ()
+@interface TNCommentCell () <UITextViewDelegate>
 
 @property (nonatomic) UIColor *themeColor;
 @property (nonatomic) UIColor *lightThemeColor;
@@ -30,6 +30,7 @@ TNType type;
 
         self.commentView = [[UITextView alloc] initWithFrame:CGRectMake(20, 15, 270, 1000)];
         [self.commentView setEditable:NO];
+        [self.commentView setDelegate:self];
         [self.commentView setSelectable:YES];
         [self.commentView setScrollEnabled:NO];
         [self.commentView setTextAlignment:NSTextAlignmentJustified];
@@ -64,6 +65,11 @@ TNType type;
 	}
 
     type = feedType;
+}
+
+- (void)setCommentViewDelegate:(id<UITextViewDelegate>)delegate
+{
+    [self.commentView setDelegate:delegate];
 }
 
 - (CGFloat)updateSubviews
@@ -135,6 +141,7 @@ TNType type;
         [blockSelf.gestureDelegate replyActionForCell:tnCell];
     }];
 }
+
 
 #pragma mark - Private Methods
 

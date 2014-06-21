@@ -29,6 +29,7 @@ static NSString *CellIdentifier = @"DNCommentCell";
         [self setScreenName:@"DNComments"];
         self.title = @"DESIGNER NEWS";
         self.story = story;
+        self.feedType = @(TNTypeDesignerNews);
         self.themeColor = [UIColor dnColor];
         self.comments = [NSArray new];
         self.commentsView = [UITableView new];
@@ -90,6 +91,7 @@ static NSString *CellIdentifier = @"DNCommentCell";
 
     [cell configureForComment:comment];
     [cell setGestureDelegate:self];
+    [cell setCommentViewDelegate:self];
     [cell updateSubviews];
 
     if ([[DNManager sharedManager] isUserAuthenticated]) {

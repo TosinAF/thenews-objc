@@ -33,6 +33,7 @@ static NSString *CellIdentifier = @"HNCommentCell";
         self.post = post;
         self.replyToObject = post;
         self.themeColor = [UIColor hnColor];
+        self.feedType = @(TNTypeHackerNews);
         self.comments = [NSArray new];
         self.commentsView = [UITableView new];
     }
@@ -93,6 +94,7 @@ static NSString *CellIdentifier = @"HNCommentCell";
 
     [cell configureForComment:comment];
     [cell setGestureDelegate:self];
+    [cell setCommentViewDelegate:self];
     [cell updateSubviews];
 
     if ([[HNManager sharedManager] userIsLoggedIn]) [cell addReplyCommentGesture];
