@@ -7,6 +7,7 @@
 //
 
 #import "TNHomeViewController.h"
+#import "TNPageViewController.h"
 #import "DNContainerViewController.h"
 #import "HNContainerViewController.h"
 #import "PHContainerViewController.h"
@@ -16,7 +17,7 @@
 @property (nonatomic, strong) TNContainerViewController *dnViewController;
 @property (nonatomic, strong) TNContainerViewController *hnViewController;
 @property (nonatomic, strong) TNContainerViewController *phViewController;
-@property (nonatomic, strong) UIPageViewController *pageViewController;
+@property (nonatomic, strong) TNPageViewController *pageViewController;
 
 @end
 
@@ -37,7 +38,7 @@
 
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 
-	self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
+	self.pageViewController = [[TNPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
 	                                                          navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
 	                                                                        options:@{UIPageViewControllerOptionInterPageSpacingKey:@0.0f}];
     self.pageViewController.dataSource = self;

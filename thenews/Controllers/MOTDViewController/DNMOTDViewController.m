@@ -72,7 +72,15 @@
 
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasMOTDInfoLabelBeenDipslayed"]) {
 
-        UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame) -100, 320, 50)];
+        int yOrigin;
+
+        if (!(self.view.frame.size.height == 568)) {
+            yOrigin = CGRectGetMaxY(self.view.frame) - 50;
+        } else {
+            yOrigin = CGRectGetMaxY(self.view.frame) - 100;
+        }
+
+        UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin, 320, 50)];
         [infoLabel setText:@"Move Card Offscreen To Dismiss"];
         [infoLabel setTextAlignment:NSTextAlignmentCenter];
         [infoLabel setFont:[UIFont fontWithName:@"Montserrat" size:16.0]];
@@ -81,7 +89,6 @@
 
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasMOTDInfoLabelBeenDipslayed"];
     }
-
 }
 
 #pragma mark - Content View

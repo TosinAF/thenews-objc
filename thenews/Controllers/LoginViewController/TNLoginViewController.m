@@ -78,58 +78,85 @@ TNType currentAuthType;
 
     // Log In Buttons
 
-    self.addDN = ({
+    if ((self.view.frame.size.height == 568)) {
 
-        TNButton *addDN = [[TNButton alloc] initWithFrame:CGRectMake(20, 210, screenSize.width  - 40, 50)];
-        [addDN setBackgroundImageWithNormalColor:[UIColor whiteColor] highlightColor:[UIColor dnColor]];
-        [addDN removeHighlightBackgroundImage];
+        self.addDN = ({
 
-        [addDN setTitle:@"Login" forState:UIControlStateNormal];
-        [addDN setTitleColor:[UIColor dnColor] forState:UIControlStateNormal | UIControlStateHighlighted];
+            TNButton *addDN = [[TNButton alloc] initWithFrame:CGRectMake(20, 210, screenSize.width  - 40, 50)];
+            [addDN setBackgroundImageWithNormalColor:[UIColor whiteColor] highlightColor:[UIColor dnColor]];
+            [addDN removeHighlightBackgroundImage];
 
+            [addDN setTitle:@"Login" forState:UIControlStateNormal];
+            [addDN setTitleColor:[UIColor dnColor] forState:UIControlStateNormal | UIControlStateHighlighted];
 
-        [[addDN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:18]];
-        [[addDN layer] setBorderWidth:1.0f];
+            [[addDN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:18]];
+            [[addDN layer] setBorderWidth:1.0f];
 
-        [addDN setTitle:@"DN Account Added" forState:UIControlStateSelected];
-        [addDN setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+            [addDN setTitle:@"DN Account Added" forState:UIControlStateSelected];
+            [addDN setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
 
-        [addDN addTarget:self action:@selector(dnButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-        addDN;
-    });
+            [addDN addTarget:self action:@selector(dnButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+            addDN;
+        });
 
-    self.addHN = ({
+        self.addHN = ({
 
-        TNButton *addHN = [[TNButton alloc] initWithFrame:CGRectMake(20, 280, screenSize.width  - 40, 50)];
-        [addHN setBackgroundImageWithNormalColor:[UIColor whiteColor] highlightColor:[UIColor hnColor]];
-        [addHN removeHighlightBackgroundImage];
+            TNButton *addHN = [[TNButton alloc] initWithFrame:CGRectMake(20, 280, screenSize.width  - 40, 50)];
+            [addHN setBackgroundImageWithNormalColor:[UIColor whiteColor] highlightColor:[UIColor hnColor]];
+            [addHN removeHighlightBackgroundImage];
 
-        [addHN setTitle:@"Add HN Account" forState:UIControlStateNormal];
-        [addHN setTitleColor:[UIColor hnColor] forState:UIControlStateNormal | UIControlStateHighlighted];
+            [addHN setTitle:@"Add HN Account" forState:UIControlStateNormal];
+            [addHN setTitleColor:[UIColor hnColor] forState:UIControlStateNormal | UIControlStateHighlighted];
 
-        [[addHN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:18]];
-        [[addHN layer] setBorderWidth:1.0f];
+            [[addHN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:18]];
+            [[addHN layer] setBorderWidth:1.0f];
 
-        [addHN setTitle:@"HN Account Added" forState:UIControlStateSelected];
-        [addHN setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+            [addHN setTitle:@"HN Account Added" forState:UIControlStateSelected];
+            [addHN setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
 
-        [addHN addTarget:self action:@selector(hnButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-        addHN;
-    });
+            [addHN addTarget:self action:@selector(hnButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+            addHN;
+        });
 
-    if (!(self.view.frame.size.height == 568)) {
+    } else {
 
-        // fix positioning for 3.5 inch devices
+        self.addDN = ({
 
-        [self.addDN setFrame:CGRectMake(10, 200, screenSize.width / 2 - 15, 50)];
-        [self.addDN setBackgroundImageWithNormalColor:[UIColor whiteColor] highlightColor:[UIColor dnColor]];
-        [[self.addDN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:14]];
-        [[self.addDN layer] setBorderWidth:1.0f];
+            TNButton *addDN = [[TNButton alloc] initWithFrame:CGRectMake(10, 200, screenSize.width / 2 - 15, 50)];
+            [addDN setBackgroundImageWithNormalColor:[UIColor whiteColor] highlightColor:[UIColor dnColor]];
+            [addDN removeHighlightBackgroundImage];
 
-        [self.addHN setFrame:CGRectMake(165, 200, screenSize.width / 2 - 15, 50)];
-        [self.addHN setBackgroundImageWithNormalColor:[UIColor whiteColor] highlightColor:[UIColor hnColor]];
-        [[self.addHN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:14]];
-        [[self.addHN layer] setBorderWidth:1.0f];
+            [addDN setTitle:@"Login" forState:UIControlStateNormal];
+            [addDN setTitleColor:[UIColor dnColor] forState:UIControlStateNormal | UIControlStateHighlighted];
+
+            [[addDN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:14]];
+            [[addDN layer] setBorderWidth:1.0f];
+
+            [addDN setTitle:@"DN Added" forState:UIControlStateSelected];
+            [addDN setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+
+            [addDN addTarget:self action:@selector(dnButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+            addDN;
+        });
+
+        self.addHN = ({
+
+            TNButton *addHN = [[TNButton alloc] initWithFrame:CGRectMake(165, 200, screenSize.width / 2 - 15, 50)];
+            [addHN setBackgroundImageWithNormalColor:[UIColor whiteColor] highlightColor:[UIColor hnColor]];
+            [addHN removeHighlightBackgroundImage];
+
+            [addHN setTitle:@"Add HN Account" forState:UIControlStateNormal];
+            [addHN setTitleColor:[UIColor hnColor] forState:UIControlStateNormal | UIControlStateHighlighted];
+
+            [[addHN titleLabel] setFont:[UIFont fontWithName:@"Avenir-Medium" size:14]];
+            [[addHN layer] setBorderWidth:1.0f];
+
+            [addHN setTitle:@"HN Added" forState:UIControlStateSelected];
+            [addHN setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+
+            [addHN addTarget:self action:@selector(hnButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+            addHN;
+        });
     }
 
     [self.view addSubview:self.usernameField];
@@ -285,6 +312,10 @@ TNType currentAuthType;
         case TNTypeHackerNews:
             [self.usernameField setTintColor:[UIColor hnColor]];
             [self.passwordField setTintColor:[UIColor hnColor]];
+            break;
+
+        case TNTypeProductHunt:
+            NSLog(@"Not supported yet");
             break;
     }
 

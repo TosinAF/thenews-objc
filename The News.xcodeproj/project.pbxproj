@@ -80,6 +80,7 @@
 		4EDADC2B1922E3B20097754A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EDADC2A1922E3B10097754A /* libz.dylib */; };
 		4EDADC2D1922E3D10097754A /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EDADC2C1922E3D10097754A /* AdSupport.framework */; };
 		4EDADC351922ECE30097754A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EDADC341922ECE30097754A /* libsqlite3.dylib */; };
+		4EE3655B195CD9AE002F2C10 /* TNPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE3655A195CD9AE002F2C10 /* TNPageViewController.m */; };
 		4EF215451929187100D530F4 /* DNSearchViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF215441929187100D530F4 /* DNSearchViewCell.m */; };
 		4EF21548192922F700D530F4 /* TNSearchHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF21547192922F700D530F4 /* TNSearchHeaderView.m */; };
 		4EF2154B1929246800D530F4 /* DNCommentsSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2154A1929246800D530F4 /* DNCommentsSearchViewController.m */; };
@@ -229,6 +230,8 @@
 		4EDADC2A1922E3B10097754A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		4EDADC2C1922E3D10097754A /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		4EDADC341922ECE30097754A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		4EE36559195CD9AE002F2C10 /* TNPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNPageViewController.h; sourceTree = "<group>"; };
+		4EE3655A195CD9AE002F2C10 /* TNPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNPageViewController.m; sourceTree = "<group>"; };
 		4EF215431929187100D530F4 /* DNSearchViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNSearchViewCell.h; sourceTree = "<group>"; };
 		4EF215441929187100D530F4 /* DNSearchViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNSearchViewCell.m; sourceTree = "<group>"; };
 		4EF21546192922F700D530F4 /* TNSearchHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNSearchHeaderView.h; sourceTree = "<group>"; };
@@ -283,6 +286,8 @@
 				4E7BFF591906BDB300A49102 /* DNPresentMOTDTransition.m */,
 				4EAE9A6F190BCCBB0003C829 /* DNDismissMOTDTransistion.h */,
 				4EAE9A70190BCCBB0003C829 /* DNDismissMOTDTransistion.m */,
+				4EE36559195CD9AE002F2C10 /* TNPageViewController.h */,
+				4EE3655A195CD9AE002F2C10 /* TNPageViewController.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -862,6 +867,7 @@
 				4EF215451929187100D530F4 /* DNSearchViewCell.m in Sources */,
 				4EAE9A7D190C2A980003C829 /* TNCommentsViewController.m in Sources */,
 				4EAE9AD4190C2B170003C829 /* JSMessageInputView.m in Sources */,
+				4EE3655B195CD9AE002F2C10 /* TNPageViewController.m in Sources */,
 				4EAE9ACE190C2B170003C829 /* DNManager.m in Sources */,
 				4E4E1BCD18AD98A100B87E7A /* TNTextField.m in Sources */,
 				4ECE0E59194ADF38005EEBDD /* PHFeedViewCell.m in Sources */,
@@ -987,6 +993,7 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = "The News";
+				PROVISIONING_PROFILE = "66ABE59B-C378-40CD-80C4-971CC6DCEB8D";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -999,6 +1006,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1018,6 +1026,7 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = "The News";
+				PROVISIONING_PROFILE = "66ABE59B-C378-40CD-80C4-971CC6DCEB8D";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

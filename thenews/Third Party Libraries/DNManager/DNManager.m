@@ -218,9 +218,6 @@ static NSString * const DNAPIClientSecret       = @"29f00d2f31eb18f622f55b30cdb1
 
     [defaults setObject:[NSArray arrayWithArray:newReadArticles] forKey:DNReadPostsKey];
     [defaults synchronize];
-
-    NSLog(@"%lu", (unsigned long)[newReadArticles count]);
-    NSLog(@"i reached here aswell");
 }
 
 - (BOOL)hasUserReadStory:(NSNumber *)storyID
