@@ -104,7 +104,7 @@ static NSString * const DNAPIClientSecret       = @"29f00d2f31eb18f622f55b30cdb1
 
     [self GET:resourceURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
 
-        DNUser *userInfo = [[DNUser alloc] initWithDictionary:responseObject[@"me"]];
+        DNUser *userInfo = [[DNUser alloc] initWithDictionary:responseObject[@"user"]];
         success(userInfo);
 
     } failure:failure];

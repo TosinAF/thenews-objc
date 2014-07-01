@@ -51,7 +51,7 @@ static NSString * const PHAPIBaseURLString  = @"http://hook-api.herokuapp.com";
                       failure:(RequestFailureBlock)failure
 {
     NSMutableArray *comments = [NSMutableArray new];
-    NSString *resourceURL = [NSString stringWithFormat:@"%@/%@", PHAPIBaseURLString, [product permalink]];
+    NSString *resourceURL = [NSString stringWithFormat:@"%@%@", PHAPIBaseURLString, [product permalink]];
 
     [self GET:resourceURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
 
