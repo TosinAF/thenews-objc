@@ -24,7 +24,7 @@ bool inSettingsView = false;
     if (self) {
         [self setScreenName:@"HNContainer"];
         self.menu = [[TNMenuView alloc] initWithFrame:CGRectZero type:TNTypeHackerNews];
-        [self.menu setButtonTitles:@[@"Top Posts", @"New Posts", @"Ask HN", @"Settings"]];
+        [self.menu setButtonTitles:@[@"Top Posts", @"Show HN", @"Ask HN", @"Settings"]];
         [self.menu setDelegate:self];
     }
     return self;
@@ -54,7 +54,7 @@ bool inSettingsView = false;
     } else {
 
         hnVC = (HNFeedViewController *)self.currentViewController;
-        [hnVC setPostFilterType:0];
+        [hnVC setPostFilterType:PostFilterTypeTop];
     }
 
     [self hideMenu];
@@ -68,7 +68,7 @@ bool inSettingsView = false;
 
     if (inSettingsView) {
 
-        hnVC = [[HNFeedViewController alloc] initWithPostFilterType:2];
+        hnVC = [[HNFeedViewController alloc] initWithPostFilterType:PostFilterTypeShowHN];
         self.nextViewController = hnVC;
         [self.navItem setTitle:@"HACKER NEWS"];
         [self changeChildViewController];
@@ -76,7 +76,7 @@ bool inSettingsView = false;
     } else {
 
         hnVC = (HNFeedViewController *)self.currentViewController;
-        [hnVC setPostFilterType:2];
+        [hnVC setPostFilterType:PostFilterTypeShowHN];
     }
 
     [self hideMenu];
@@ -89,7 +89,7 @@ bool inSettingsView = false;
     HNFeedViewController *hnVC;
 
     if (inSettingsView) {
-        hnVC = [[HNFeedViewController alloc] initWithPostFilterType:1];
+        hnVC = [[HNFeedViewController alloc] initWithPostFilterType:PostFilterTypeAsk];
         self.nextViewController = hnVC;
         [self.navItem setTitle:@"HACKER NEWS"];
         [self changeChildViewController];
@@ -97,7 +97,7 @@ bool inSettingsView = false;
     } else {
 
         hnVC = (HNFeedViewController *)self.currentViewController;
-        [hnVC setPostFilterType:1];
+        [hnVC setPostFilterType:PostFilterTypeAsk];
     }
 
     [self hideMenu];
