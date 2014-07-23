@@ -23,6 +23,10 @@ typedef void (^RequestFailureBlock) (NSURLSessionDataTask *task, NSError *error)
 - (void)getTodaysProductsWithSuccess:(void (^) (NSArray *products))success
                              failure:(RequestFailureBlock)failure;
 
+- (void)addStoryToReadList:(NSString *)title;
+
+- (BOOL)hasUserReadStory:(NSString *)title;
+
 - (void)getCommentsForProduct:(PHProduct *)product
                       success:(void (^) (NSArray *comments))success
                       failure:(RequestFailureBlock)failure;

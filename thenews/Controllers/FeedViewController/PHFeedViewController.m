@@ -95,6 +95,10 @@ static NSString * const PHReadPostsCacheDateKey = @"PHReadPostsCacheDateKey";
     [cell addViewCommentsGesture];
 
     [cell setSeparatorInset:UIEdgeInsetsZero];
+
+    if ([[PHManager sharedManager] hasUserReadStory:[product title]]) {
+        [[cell contentView] setAlpha:0.6];
+    }
     return cell;
 }
 
@@ -108,6 +112,7 @@ static NSString * const PHReadPostsCacheDateKey = @"PHReadPostsCacheDateKey";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PHProduct *product = (self.products)[[indexPath row]];
+    [[PHManager sharedManager] addStoryToReadList:[product title]];
 
     TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[product URL]] type:TNTypeProductHunt];
 
@@ -115,6 +120,9 @@ static NSString * const PHReadPostsCacheDateKey = @"PHReadPostsCacheDateKey";
     [postViewController setDismissAction:^{ [weakSelf.navigationController popViewControllerAnimated:YES]; }];
 
     [self.navigationController pushViewController:postViewController animated:YES];
+
+    UITableViewCell *cell = [self.feedView cellForRowAtIndexPath:indexPath];
+    [[cell contentView] setAlpha:0.6];
 }
 
 #pragma mark - TNFeedView Delegate

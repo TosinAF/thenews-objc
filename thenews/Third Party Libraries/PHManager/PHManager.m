@@ -8,7 +8,9 @@
 
 #import "PHManager.h"
 
-static NSString * const PHAPIBaseURLString  = @"http://hook-api.herokuapp.com";
+static NSString * const PHAPIBaseURLString      = @"http://product-hunt-api.herokuapp.com";
+static NSString * const PHReadPostsKey          = @"PHReadPostsKey";
+static NSString * const PHReadPostsCacheDateKey = @"PHReadPostsCacheDateKey";
 
 @implementation PHManager
 
@@ -22,6 +24,8 @@ static NSString * const PHAPIBaseURLString  = @"http://hook-api.herokuapp.com";
 
     return _sharedClient;
 }
+
+#pragma mark - Product Methods
 
 - (void)getTodaysProductsWithSuccess:(void (^) (NSArray *products))success
                              failure:(RequestFailureBlock)failure
@@ -44,6 +48,47 @@ static NSString * const PHAPIBaseURLString  = @"http://hook-api.herokuapp.com";
         success(sortedProducts);
 
     } failure:failure];
+}
+
+- (void)addStoryToReadList:(NSString *)title
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *currentReadArticles = [defaults arrayForKey:PHReadPostsKey];
+
+    if ([self hasUserReadStory:title]) {
+        return;
+    }
+
+    NSMutableArray *newReadArticles = [NSMutableArray arrayWithArray:currentReadArticles];
+    [newReadArticles addObject:title];
+
+    [defaults setObject:[NSArray arrayWithArray:newReadArticles] forKey:PHReadPostsKey];
+    [defaults synchronize];
+}
+
+- (BOOL)hasUserReadStory:(NSString *)title
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *currentReadArticles = [defaults arrayForKey:PHReadPostsKey];
+
+    return [currentReadArticles containsObject:title];
+}
+
+- (void)checkReadPostsCache
+{
+    NSDate *cacheDate = [[NSUserDefaults standardUserDefaults] objectForKey:PHReadPostsCacheDateKey];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    //  If this is the first time the app has been launched we record right now as the first time the app was launched.
+    if (!cacheDate) {
+        [defaults setObject:[NSDate date] forKey:PHReadPostsCacheDateKey];
+        return;
+    }
+
+    int diff = abs([cacheDate timeIntervalSinceNow]);
+    if (diff > 60 * 60 * 24 * 3) {
+        [defaults setObject:[NSArray new] forKey:PHReadPostsKey];
+    }
 }
 
 - (void)getCommentsForProduct:(PHProduct *)product
