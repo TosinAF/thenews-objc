@@ -210,7 +210,7 @@ static NSString *CellIdentifier = @"HNFeedCell";
         } else {
 
             NSLog(@"Error Occured");
-            [self.emptyStateView showErrorWithText:@"HN MIGHT BE DOWN :("];
+            [self.emptyStateView showErrorWithText:@"Unable to Reach HN"];
         }
 
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
