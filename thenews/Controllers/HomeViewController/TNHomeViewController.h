@@ -10,4 +10,6 @@
 
 @interface TNHomeViewController : GAITrackedViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
+- (void)saveCurrentViewController;
+
 @end

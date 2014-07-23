@@ -12,6 +12,8 @@
 #import "HNContainerViewController.h"
 #import "PHContainerViewController.h"
 
+static NSString * const LastViewedContainerKey = @"LastViewedContainer";
+
 @interface TNHomeViewController ()
 
 @property (nonatomic, strong) TNContainerViewController *dnViewController;
@@ -50,6 +52,30 @@
 
 
 	NSArray *viewControllers = @[self.dnViewController];
+    NSNumber *feedType = [[NSUserDefaults standardUserDefaults] objectForKey:LastViewedContainerKey];
+
+    if (feedType) {
+
+        switch ([feedType intValue]) {
+            case TNTypeDesignerNews:
+                viewControllers = @[self.dnViewController];
+                break;
+
+            case TNTypeHackerNews:
+                viewControllers = @[self.hnViewController];
+                break;
+
+            case TNTypeProductHunt:
+                viewControllers = @[self.phViewController];
+                break;
+
+            default:
+                viewControllers = @[self.dnViewController];
+                break;
+        }
+    }
+
+
 	[self.pageViewController setViewControllers:viewControllers
 	                                  direction:UIPageViewControllerNavigationDirectionForward
 	                                   animated:NO completion:nil];
@@ -81,6 +107,8 @@
         default:
             return nil;
     }
+
+
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
@@ -101,6 +129,17 @@
         default:
             return nil;
     }
+}
+
+#pragma mark - AppDelegate Method
+
+- (void)saveCurrentViewController
+{
+    TNContainerViewController *currentVC = [self.pageViewController.viewControllers firstObject];
+    NSNumber *feedType =  currentVC.feedType;
+
+    [[NSUserDefaults standardUserDefaults] setObject:feedType forKey:LastViewedContainerKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end
