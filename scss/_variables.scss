@@ -1,0 +1,100 @@
+/* ==========================================================================
+   VARIABLES
+   ========================================================================== */
+
+/* Colors
+   ========================================================================== */
+
+/* Don't use black */
+$black:  #111111;
+$white: #FEFEFE;
+
+/* Gray scale */
+
+$grey-light:  #D8D8D8;
+$grey-medium: darken($grey-light, 10%);
+$grey-dark:   darken($grey-light, 25%);
+
+
+
+
+/* Accent Colors */
+$blue-dn: #5984D0;
+$orange-hn: #FF6837;
+$green-tn: #67CAB4;
+
+/* Radii
+   ========================================================================== */
+   
+   $button-radius: 24px;
+
+
+/* Typography
+   ========================================================================== */
+
+$body: "Proxima Nova", "Source Sans Pro", "Helvetica Neue", "Arial", sans-serif;
+$head: "Montserrat", "Source Sans Pro", "Helvetica Neue", "Arial", sans-serif;
+
+
+   
+   
+/* Type Scale
+   ========================================================================== */
+
+/** * 12 & 16 as roots then powers of two. */
+
+$fs1: 3em;
+$fs2: 2.25em;
+$fs3: 1.5em;
+$fs4: 1.3125em;
+$fs5: 1.125em;
+$fsp: 1em;
+$fs6: 1em;
+
+// Line Height
+
+$line-height: 24px;
+$line-height-small: 16px;
+
+
+/* Mixins
+   ========================================================================== */
+
+/* Vertically Align Magic */
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+@mixin br ($radius) {
+  @include border-top-radius($radius);
+  @include border-bottom-radius($radius);
+  @include border-left-radius($radius);
+  @include border-right-radius($radius);
+}
+
+// Mixin
+@mixin keyframes($name) {
+  @-moz-keyframes #{$name}    { @content; }
+  @-webkit-keyframes #{$name} { @content; }
+  @-o-keyframes #{$name}      { @content; }
+  @-ms-keyframes #{$name}     { @content; }
+  @-khtml-keyframes #{$name}  { @content; }
+  @keyframes #{$name}         { @content; }
+}
+ 
+// Create the keyframes using the mixin
+@include keyframes(fadeInUp) {
+  0% {
+    opacity: 0;
+    bottom: -3em;
+  }
+  100% {
+    opacity: 1;
+    bottom: 0;
+  }
+}
+

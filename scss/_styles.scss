@@ -1,0 +1,176 @@
+/* Start Stylin' */
+* {
+ margin: 0;
+ padding: 0;
+ border: 0;
+ @include box-sizing(border-box);
+ font: inherit;
+ vertical-align: baseline;
+ //@include transition(all .66s ease-in-out);
+ -webkit-font-smoothing: antialiased;
+}
+
+html {
+  font-size: 100%;
+  height: 100%;
+  max-height: 100%;
+}
+
+body {
+  color: $black;
+  height: 100%;
+  background: $white;
+  font-family: $body;
+  -webkit-text-smoothing: antialiased;
+  font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+em {
+  font-style: italic;
+}
+    
+strong, b, .label {
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+}
+
+%all-caps {
+  font-size: $fs5;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.liga {
+  font-style: italic;
+  -moz-font-feature-settings: "liga=1, dlig=1";
+  -ms-font-feature-settings: "liga", "dlig";
+  -webkit-font-feature-settings: "liga", "dlig";
+  -o-font-feature-settings: "liga", "dlig";
+  font-feature-settings: "liga", "dlig";
+}
+
+/* Site Architecture */
+
+%container {
+  @include outer-container();  
+  // Big Screens
+  @include media($huge-screen) {
+  }
+  
+  // Tablet
+  @include media($medium-screen) {
+    padding: 0 1em;
+  }
+}
+
+// Article Pieces
+article {
+  @extend %container;
+  @include clearfix();
+  height: 100%;
+  position: relative;
+  // Section
+  section {
+    @include span-columns(5);
+    @include shift(1);
+    @include vertical-align;
+    // iPhone
+    @include media($small-screen) {
+      @include span-columns(4);
+      display: block;
+      @include shift(0);
+      margin-right: 0;
+    }
+    .cta {
+      @extend .h3;
+    }
+    .btn {
+      margin-top: 2em;
+      text-align: center;
+      @include transition(all .2s $ease-in-out-quad);
+      &.dn {
+        @include button (hacker, $blue-dn);
+      }
+      &.hn {
+        @include button (hacker, $orange-hn);
+      }
+      &.tn {
+        @include button (hacker, $green-tn);
+      }
+    }
+  }
+  nav {
+    width: 24em;
+    position: absolute;
+    left: 8.5298%;
+    bottom: em(36);
+    // iPhone
+    @include media($small-screen) {
+      @include span-columns(4);
+      display: block;
+      margin-right: 0;
+      br {
+        display: none;
+      }
+    }
+    ul {
+      list-style: none;
+      list-style-type: none;
+      li {
+        display: inline-block;
+        margin-right: 2em;
+        @include media($small-screen) {
+          display: block;
+          margin-right: 0;
+          margin-bottom: .5em;
+        }
+        &:last-child {
+          margin-right: 0;
+          margin-bottom: 0;
+        }
+      }
+      a {
+        color: $grey-medium;
+        border-bottom: none;
+        font-family: $body;
+      }
+    }
+  }
+  aside {
+    @include span-columns(6);
+    @include omega();
+    height: 100%;
+    position: relative;
+    // iPhone
+    @include media($small-screen) {
+      @include span-columns(4);
+      @include shift(0);
+      display: block;
+      margin-right: 0;
+      display: none;
+    }
+    .app {
+      position: relative;
+      height: 100%;
+      img {
+        width: em(385);
+        height: auto;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        z-index: 1000;
+        // Animation
+        @include animation(fadeInUp 0.4s ease);
+      }
+    }
+  }
+}
+
+
+// Slider
+@import "unslider";

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TheNews for iOS</title>
+  <meta name="description" content="TheNews integrates Hacker News and Designer News. Swipe between sources quickly to stay on top of the best online communities.">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/i.css">
+
+  <!-- Custom Webfonts -->
+  <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+  <script type="text/javascript" src="//use.typekit.net/eyu4xwr.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+  <!-- JS -->
+  <script src="js/modernizr.custom.js"></script>
+</head>
+<body>
+  <article>
+    <section class="copy"> <!-- The Copywriting -->
+      <h1 class="cta">Designer News, meet Hacker News.</h1>
+      <p>TheNews integrates the two best discussion sites on the web. Swipe between sources quickly to stay on top of the latest news.</p>
+      <a id="btn" class="btn tn" href="https://appsto.re/us/PpnV0.i">Download on the App Store</a>
+    </section>
+    <aside>
+      <div id="app-wrap" class="app-wrap">
+        <div class="app-device">
+          <div class="unslider">
+            <ul>
+              <li><a href="#"><img src="images/ph.png"/></a></li>
+              <li><a href="#"><img src="images/dn.png"/></a></li>
+              <li><a href="#"><img src="images/dn-upvote.png"/></a></li>
+              <li><a href="#"><img src="images/hn.png"/></a></li>
+            </ul> 
+          </div>
+        </div>
+      </div>
+    </aside>
+    <nav>
+      <ul>
+        <li><a href="http://thenews.im">TheNews</a></li>
+        <li><a href="http://twnsnd.co">Design by Cole</a></li>
+        <li><a href="https://github.com/TosinAF">Code by Tosin</a></li>
+      </ul>
+    </nav>  
+  </article>
+
+<!-- Scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="js/unslider.js"></script>
+<script type="text/javascript" src="js/retina.js"></script>
+
+<script>
+  $(function() {
+    $('.unslider').unslider({
+      speed: 400,               //  The speed to animate each slide (in milliseconds)
+      delay: 2400,              //  The delay between slide animations (in milliseconds)
+      complete: function() {},  //  A function that gets called after every slide animation
+      keys: true,               //  Enable keyboard (left, right) arrow shortcuts
+      dots: true,               //  Display dot navigation
+      fluid: false              //  Support responsive design. May break non-responsive designs
+    });
+});
+</script>
+
+<script>
+var unslider = $('.banner').unslider();
+  
+  $('.unslider-arrow').click(function() {
+      var fn = this.className.split(' ')[1];
+      
+      //  Either do unslider.data('unslider').next() or .prev() depending on the className
+      unslider.data('unslider')[fn]();
+  });
+</script>
+
+</body>
+</html>

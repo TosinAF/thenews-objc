@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TheNews for iOS</title>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/i.css">
+
+  <!-- Custom Webfonts -->
+
+  <!-- JS -->
+  <script src="js/modernizr.custom.js"></script>
+
+
+</head>
+<body>
+  <article>
+    <section class="copy"> <!-- The Copywriting -->
+      <h1 class="cta">Designer News, meet Hacker News</h1>
+      <p>TheNews integrates the two best discussion sites on the web. <br> Swipe between sources quickly to stay on top of the latest news.</p>
+      <button id="btn" class="dn">Download on the App Store</button>
+    </section>
+    <aside>
+      <div id="app-wrap" class="app-wrap">
+        <div class="app-device">
+          <a href="#"><img src="images/dn.png"/></a>
+          <nav>
+            <span>&lt;</span>
+            <span>&gt;</span>
+          </nav>
+        </div>
+        <div class="app-list">
+          <a href="#"><img src="images/dn.png"/></a>
+          <a href="#"><img src="images/hn.png"/></a>
+          <a href="#"><img src="images/tn.png"/></a>          
+        </div>
+      </div>
+    </aside>  
+  </article>
+
+<!-- Scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="js/appshowcase_3.js"></script>
+<script>
+  $(function() {
+    AppShowcase.init();
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+@mixin button ($style: hacker, $base-color: $orange-hn) {
+
+  @if type-of($style) == color {
+    $base-color: $style;
+    $style: hacker;
+  }
+
+  // Grayscale button
+  @if $base-color == grayscale($base-color) {
+    @if $style == hacker {
+      @include hn($base-color, $grayscale: true);
+    }
+
+    @else if $style == designer {
+      @include dn($base-color, $grayscale: true);
+    }
+
+    @else if $style == theNews {
+      @include tn($base-color, $grayscale: true);
+    }
+  }
+
+  // Colored button
+  @else {
+    @if $style == hacker {
+      @include hn($base-color);
+    }
+
+    @else if $style == designer {
+      @include dn($base-color);
+    }
+
+    @else if $style == theNews {
+      @include tn($base-color);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+
+// Hacker News Button
+//************************************************************************//
+@mixin hn($base-color, $grayscale: false) {
+  $color:         hsl(0, 0, 100%);
+  $border:        adjust-color($base-color, $saturation:  9%,  $lightness: -14%);
+
+  @if lightness($base-color) > 70% {
+    $color:       hsl(0, 0, 20%);
+  }
+
+  @if $grayscale == true {
+    $border:        grayscale($border);
+  }
+
+  color: $base-color;
+  @include br($button-radius);
+  display: inline-block;
+  font-size: $fsp;
+  height: 48px;
+  line-height: 47px;
+  padding: 0 1.5rem;
+  text-decoration: none;
+  background: $white;
+  border: 1px solid $base-color;
+  background-clip: padding-box;
+
+  &:hover:not(:disabled) {
+    $base-color-hover:    adjust-color($base-color, $saturation: -4%, $lightness: -5%);
+    color: $white;
+
+    @if $grayscale == true {
+      $base-color-hover:    grayscale($base-color-hover);
+    }
+
+    cursor: pointer;
+    background: $base-color-hover;
+  }
+
+  &:active:not(:disabled) {
+    $border-active:       adjust-color($base-color, $saturation: 9%, $lightness: -14%);
+
+    @if $grayscale == true {
+      $border-active:       grayscale($border-active);
+    }
+
+    background: $border-active;
+  }
+}

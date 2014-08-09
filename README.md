@@ -1,4 +1,6 @@
 thenews
 =======
 
-iOS Client for theNews.im
+TheNews = Hacker News + Designer News
+
+Landing Page

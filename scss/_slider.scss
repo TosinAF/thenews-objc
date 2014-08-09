@@ -1,0 +1,199 @@
+aside .app-wrap {
+  position: absolute;
+  bottom: -180px;
+  right: 0;
+  @include perspective(1000px);
+  @include perspective-origin(50% 25%)
+}
+
+.app-device {
+  background: url(../images/iphone-stroke.png) no-repeat;
+  width: 385px;
+  height: 802px;
+  float: left;
+  position: relative;
+  @include transition(all .3s ease);
+  @include transform-style(preserve-3d);
+}
+
+.app-device a {
+  height: 578px;
+  width: 320px;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  margin: 114px 0 0 35px;
+}
+
+.app-device a img {
+  display: block;
+  position: absolute;
+}
+
+.app-device nav {
+  position: absolute;
+  bottom: 1em;
+  top: 0;
+  width: 385px;
+}
+
+.app-device nav span {
+  display: block;
+  font-size: 2.4em;
+  font-weight: 300;
+  cursor: pointer;
+  color: black;
+  background: #4a77c6;
+  opacity: .5;
+  line-height: 1;
+  padding: 6em 0;
+  margin-top: 116px;
+  float: right;
+  width: 48px;
+  text-align: center;
+  margin-right: 32px;
+}
+
+.app-device nav span:first-child {
+  display: block;
+  font-size: 2.4em;
+  font-weight: 300;
+  cursor: pointer;
+  color: black;
+  line-height: 1;
+  padding: 6em 0;
+  float: left;
+  width: 48px;
+  text-align: center; 
+  margin-left: 37px;
+  margin-right: 0;
+}
+
+.app-list {
+  position: absolute;
+  width: 620px;
+  left: 50%;
+  margin-left: -310px;
+  height: 100%;
+  z-index: 1000;
+  top: 0;
+  opacity: 0;
+  pointer-events: none;
+  @include transform-style(preserve-3d);
+  @include transition(all .3s ease);
+  @include transform(translateZ(-350px));
+}
+
+.app-list a {
+  width: 145px;
+  display: block;
+  position: relative;
+  float: left;
+  margin: 10px 5px;
+  cursor: pointer;
+}
+
+.app-list a img {
+  display: block;
+  width: 100%;
+}
+
+.app-wrapper.app-gridview .app-device {
+  -webkit-transform: translateZ(-350px);
+  -moz-transform: translateZ(-350px);
+  transform: translateZ(-350px);
+  opacity: .6;
+}
+
+.app-wrapper.app-gridview .app-grid {
+  -webkit-transform: translateZ(0px);
+  -moz-transform: translateZ(0px);
+  transform: translateZ(0px);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media screen and (max-width: 63.875em) {
+  .app-wrap { 
+    font-size: 60%; 
+    width: 100%; 
+    padding: 0 20px;
+  }
+
+  .app-device {
+    margin: 0;
+    width: 100%;
+  }
+
+  .app-device h3 { 
+    width: 50%;
+    left: 290px;
+  }
+
+  .app-wrap h2 { 
+    left: 308px; 
+    padding: 0; 
+    text-align: left; 
+    margin-left: 30px;
+  }
+
+  .app-device nav {
+    left: 280px;
+    font-size: 2em;
+  }
+}
+
+@media screen and (max-width: 39.8125em) {
+  .app-list {
+    width: 90%;
+    left: 5%;
+    margin-left: 0;
+    padding-top: 150px;
+  }
+
+  .app-list a {
+    width: 22%;
+  }
+}
+
+
+@media screen and (max-width: 35.6875em) {
+  .app-wrap {
+    padding: 0 20px 100px;
+  }
+
+  .app-wrap h2 { 
+    width: 100%;
+    text-align: center;
+    margin: 0 0 1em;
+    top: 0;
+    left: auto;
+    position: relative;
+  }
+
+  .app-device {
+    margin: 0 auto;
+    width: 288px;
+  }
+
+  .app-device h3 {
+    position: relative;
+    margin: 0;
+    left: auto;
+    top: auto;
+    width: 100%;
+    padding-top: 100px;
+    display: block;
+    text-align: center;
+  }
+
+  .app-device nav {
+    position: relative;
+    padding-top: 20px;
+    text-align: center;
+    bottom: auto;
+    margin: 0;
+    left: auto;
+  }
+}
+

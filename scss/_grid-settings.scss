@@ -1,0 +1,9 @@
+@import "neat/neat-helpers";
+
+// Neat Breakpoints
+///////////////////////////////////////////////////////////////////////////////
+
+$small-screen: new-breakpoint(max-width em(540) 4);
+$medium-screen: new-breakpoint(max-width em(760) 8);
+$large-screen: new-breakpoint(min-width em(920) 12);
+$huge-screen: new-breakpoint(min-width em(1088) 12);

@@ -1,0 +1,64 @@
+/* ==========================================================================
+   TYPE
+   - Meat
+   - Headings
+   - Media Query adjustments
+   ========================================================================== */
+
+/* Meat
+   ========================================================================== */
+
+p {           
+    font-size: $fsp;
+    line-height: $line-height; 
+}
+
+.intro {      
+    font-size: $fs3; 
+    line-height: $line-height;
+}
+
+.post ul li {
+    font-size: $fsp;
+    line-height: $line-height;
+    margin-bottom: $line-height;
+}
+
+
+
+/* Headings
+   ========================================================================== */
+
+h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5 {
+  font-family: $head;
+}
+
+h1,.h1 { 
+  font-size: $fs1;
+  line-height: $line-height;
+  margin-bottom: $line-height/2;
+}
+
+h2,.h2 {      
+  font-size: $fs2; 
+  line-height: $line-height*1.333333333333;
+  margin-bottom: ($line-height*2)/3;
+} 
+
+h3,.h3 {      
+  font-size: $fs3; 
+  line-height: $line-height;
+  margin-bottom: $line-height;
+}
+
+h4,.h4 {      
+  font-size: $fs4; 
+  line-height: 1.142857142857143em;
+  margin-bottom: 1.142857142857143em;
+} 
+
+h5,.h5 {      
+  font-size: $fs5; 
+  line-height: $line-height*1.3333333333333;
+  margin-bottom: $line-height*1.333333333333333;
+} 
