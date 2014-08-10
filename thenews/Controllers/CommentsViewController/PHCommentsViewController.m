@@ -108,7 +108,7 @@ static NSString *CellIdentifier = @"PHCommentCell";
 
 - (void)switchAction
 {
-    NSURL *productURL = [NSURL URLWithString:[self.product URL]];
+    NSURL *productURL = [NSURL URLWithString:[self.product redirectURL]];
 
     TNPostViewController *vc = [[TNPostViewController alloc] initWithURL:productURL type:TNTypeProductHunt];
     vc.createdFromSwitch = YES;

@@ -14,7 +14,7 @@
 {
     [self setFeedType:TNTypeProductHunt];
 
-    NSDictionary *cellContent = @{@"comment":[comment comment],
+    NSDictionary *cellContent = @{@"comment":[comment body],
                                   @"author":[[comment hunter] name],
                                   @"depth":@(0),
                                   @"commentID":@(0)};

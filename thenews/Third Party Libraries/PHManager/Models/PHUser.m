@@ -15,7 +15,9 @@
     self = [super init];
 
     if (self) {
+        [self setId:dict[@"id"]];
         [self setName:dict[@"name"]];
+        [self setHeadline:dict[@"headline"]];
         [self setUsername:dict[@"username"]];
     }
 

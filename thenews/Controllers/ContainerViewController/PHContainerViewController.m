@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#import "PHFeedViewController.h"
 #import "PHContainerViewController.h"
 
 @interface PHContainerViewController ()
@@ -23,5 +24,10 @@
     return self;
 }
 
+- (void)navBarTapped
+{
+    PHFeedViewController* phVC = (PHFeedViewController *)self.currentViewController;
+    [phVC.feedView setContentOffset:CGPointMake(0,0) animated:YES];
+}
 
 @end

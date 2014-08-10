@@ -15,11 +15,21 @@
     self = [super init];
 
     if (self) {
-        [self setComment:dict[@"comment"]];
-        [self setCommentHTML:dict[@"comment_html"]];
-        [self setTimestamp:dict[@"timestamp"]];
-        [self setIndex:dict[@"index"]];
+        [self setId:dict[@"id"]];
+        [self setPostID:dict[@"post_id"]];
+        [self setParentCommentID:dict[@"parent_comment_id"]];
+        [self setChildCommentsCount:dict[@"child_comments_count"]];
+        [self setBody:dict[@"body"]];
         [self setHunter:[[PHUser alloc] initWithDictionary:dict[@"user"]]];
+
+        NSMutableArray *childComments = [NSMutableArray new];
+
+        for (NSDictionary* commentDict in dict[@"child_comments"] ) {
+            PHComment *comment = [[PHComment alloc] initWithDictionary:commentDict];
+            [childComments addObject:comment];
+        }
+
+        [self setChildComments:[NSArray arrayWithArray:childComments]];
     }
 
     return self;

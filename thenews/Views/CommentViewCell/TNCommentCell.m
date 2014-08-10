@@ -17,6 +17,7 @@ TNType type;
 
 @property (nonatomic) UITextView *commentView;
 @property (nonatomic) UIView *leftBorder;
+@property (nonatomic) UIButton *toggleButton;
 
 @end
 
@@ -45,6 +46,20 @@ TNType type;
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
         [self setSeparatorInset:UIEdgeInsetsZero];
         [self setFirstTrigger:0.20];
+
+        /*
+
+         if (self.toggleButton) {
+         [self.leftBorder removeFromSuperview];
+         } else {
+         self.toggleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+         [self.toggleButton setBackgroundImage:[UIImage imageNamed:@"arrowDown"] forState:UIControlStateNormal];
+         }
+
+
+        self.isExpanded = [NSNumber numberWithBool:1];
+         
+        */
     }
 
     return self;
@@ -77,6 +92,11 @@ TNType type;
     [self.commentView setDelegate:delegate];
 }
 
+- (void)showToggleButton
+{
+    [self addSubview:self.toggleButton];
+}
+
 - (CGFloat)updateSubviews
 {
     NSAttributedString *attrString = [self configureAttributedString];
@@ -100,6 +120,12 @@ TNType type;
 
         [self addSubview:self.leftBorder];
     }
+
+    /*
+
+    [self.toggleButton setFrame:CGRectMake(self.commentView.frame.origin.x + self.commentView.frame.size.width - 10, self.commentView.frame.origin.y + self.commentView.frame.size.height - 17, 11, 6)];
+     
+     */
 
     return height + 45; // Height to be used for height for row at index path
 }

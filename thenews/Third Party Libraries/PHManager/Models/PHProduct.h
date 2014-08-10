@@ -11,14 +11,15 @@
 
 @interface PHProduct : NSObject
 
-@property (nonatomic, copy) NSString *title;
+@property (nonatomic, strong) NSNumber *id;
+@property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *tagline;
-@property (nonatomic, copy) NSString *titleWithTagline;
-@property (nonatomic, copy) NSString *URL;
-@property (nonatomic, copy) NSString *permalink;
-@property (nonatomic, strong) NSNumber *rank;
-@property (nonatomic, strong) NSNumber *voteCount;
-@property (nonatomic, strong) NSNumber *commentCount;
+@property (nonatomic, strong) NSNumber *upvotes;
+@property (nonatomic, strong) NSNumber *commentsCount;
+@property (nonatomic, copy) NSString *nameWithTagline;
+@property (nonatomic, copy) NSString *discussionURL;
+@property (nonatomic, copy) NSString *redirectURL;
+
 @property (nonatomic, strong) PHUser *hunter;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;

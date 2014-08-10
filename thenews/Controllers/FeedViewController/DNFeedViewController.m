@@ -126,12 +126,19 @@ static NSString *CellIdentifier = @"DNFeedCell";
     DNStory *story = (self.stories)[[indexPath row]];
     [[DNManager sharedManager] addStoryToReadList:[story storyID]];
 
-    TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[story URL]] type:TNTypeDesignerNews];
+    if ( [[story badge] isEqualToString:@"ask"] || [[story badge] isEqualToString:@"discussion"] ) {
 
-    __weak DNFeedViewController *weakSelf = self;
-    [postViewController setDismissAction:^{ [weakSelf.navigationController popViewControllerAnimated:YES]; }];
+        [self showCommentsForStory:story];
 
-    [self.navigationController pushViewController:postViewController animated:YES];
+    } else {
+
+        TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[story URL]] type:TNTypeDesignerNews];
+
+        __weak DNFeedViewController *weakSelf = self;
+        [postViewController setDismissAction:^{ [weakSelf.navigationController popViewControllerAnimated:YES]; }];
+
+        [self.navigationController pushViewController:postViewController animated:YES];
+    }
 
     UITableViewCell *cell = [self.feedView cellForRowAtIndexPath:indexPath];
     [[cell contentView] setAlpha:0.6];

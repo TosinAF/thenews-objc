@@ -62,10 +62,10 @@ ButtonActionBlock buttonAction;
 {
     [self layoutSubviews];
 
-    NSDictionary *cellContent = @{@"title":[product titleWithTagline],
+    NSDictionary *cellContent = @{@"title":[product nameWithTagline],
                                   @"author":[[product hunter] name],
-                                  @"points":[product voteCount],
-                                  @"count":[product commentCount]};
+                                  @"points":[product upvotes],
+                                  @"count":[product commentsCount]};
 
     [self updateLabels:cellContent];
 }

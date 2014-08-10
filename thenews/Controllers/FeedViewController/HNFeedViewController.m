@@ -127,26 +127,23 @@ static NSString *CellIdentifier = @"HNFeedCell";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HNPost *post = (self.posts)[[indexPath row]];
-    [[HNManager sharedManager] setMarkAsReadForPost:post];
+    HNFeedViewCell *hnCell = (HNFeedViewCell *)[self.feedView cellForRowAtIndexPath:indexPath];
+    [[HNManager sharedManager] setMarkAsReadForPost:[hnCell post]];
 
-    UITableViewCell *cell = [self.feedView cellForRowAtIndexPath:indexPath];
+    if ([[hnCell post] Type] == PostFilterTypeAsk) {
 
-    if (hnPostFilterType == PostFilterTypeAsk) {
-
-        HNFeedViewCell *hnCell = (HNFeedViewCell *)cell;
         [self showCommentsForPost:[hnCell post]];
 
     } else {
 
-        TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[post UrlString]] type:TNTypeHackerNews];
+        TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[[hnCell post] UrlString]] type:TNTypeHackerNews];
 
         [postViewController setDismissAction:^{ [self.navigationController popViewControllerAnimated:YES]; }];
 
         [self.navigationController pushViewController:postViewController animated:YES];
     }
 
-    [[cell contentView] setAlpha:0.6];
+    [[hnCell contentView] setAlpha:0.6];
 }
 
 #pragma mark - TNFeedView Delegate

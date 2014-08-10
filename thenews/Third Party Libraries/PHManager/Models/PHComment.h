@@ -11,10 +11,12 @@
 
 @interface PHComment : NSObject
 
-@property (nonatomic, strong) NSNumber *index;
-@property (nonatomic, copy) NSString *comment;
-@property (nonatomic, copy) NSString *commentHTML;
-@property (nonatomic, copy) NSString *timestamp;
+@property (nonatomic, strong) NSNumber *id;
+@property (nonatomic, strong) NSNumber *postID;
+@property (nonatomic, strong) NSNumber *parentCommentID;
+@property (nonatomic, strong) NSNumber *childCommentsCount;
+@property (nonatomic, strong) NSString *body;
+@property (nonatomic, strong) NSArray *childComments;
 @property (nonatomic, strong) PHUser *hunter;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;

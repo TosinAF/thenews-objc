@@ -10,7 +10,9 @@
 
 @interface PHUser : NSObject
 
+@property (nonatomic, strong) NSNumber *id;
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *headline;
 @property (nonatomic, copy) NSString *username;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;

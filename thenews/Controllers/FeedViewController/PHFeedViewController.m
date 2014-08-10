@@ -22,9 +22,6 @@
 
 static int CELL_HEIGHT = 85;
 static NSString *CellIdentifier = @"PHFeedCell";
-static NSString * const PHReadPostsKey = @"PHReadPostsKey";
-static NSString * const PHReadPostsCacheDateKey = @"PHReadPostsCacheDateKey";
-
 
 @interface PHFeedViewController () <UITableViewDelegate, UITableViewDataSource, TNFeedViewCellDelegate>
 
@@ -96,7 +93,7 @@ static NSString * const PHReadPostsCacheDateKey = @"PHReadPostsCacheDateKey";
 
     [cell setSeparatorInset:UIEdgeInsetsZero];
 
-    if ([[PHManager sharedManager] hasUserReadStory:[product title]]) {
+    if ([[PHManager sharedManager] hasUserReadStory:[product id]]) {
         [[cell contentView] setAlpha:0.6];
     }
     return cell;
@@ -112,9 +109,9 @@ static NSString * const PHReadPostsCacheDateKey = @"PHReadPostsCacheDateKey";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PHProduct *product = (self.products)[[indexPath row]];
-    [[PHManager sharedManager] addStoryToReadList:[product title]];
+    [[PHManager sharedManager] addStoryToReadList:[product id]];
 
-    TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[product URL]] type:TNTypeProductHunt];
+    TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[product redirectURL]] type:TNTypeProductHunt];
 
     __weak PHFeedViewController *weakSelf = self;
     [postViewController setDismissAction:^{ [weakSelf.navigationController popViewControllerAnimated:YES]; }];

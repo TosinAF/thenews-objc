@@ -21,6 +21,7 @@
         [self setSiteURL:dict[@"site_url"]];
         [self setVoteCount:dict[@"vote_count"]];
         [self setCommentCount:dict[@"comment_count"]];
+        [self setBadge:dict[@"badge"]];
         [self setCreatedAt:[self formatDate:dict[@"created_at"]]];
         [self setUserID:dict[@"user_id"]];
         [self setDisplayName:dict[@"user_display_name"]];

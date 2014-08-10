@@ -14,6 +14,7 @@
 @interface TNCommentCell : MCSwipeTableViewCell
 
 @property (nonatomic, strong) NSDictionary *cellContent;
+@property (nonatomic, strong) NSNumber *isExpanded;
 @property (nonatomic, weak) id<TNCommentCellDelegate> gestureDelegate;
 
 - (CGFloat)updateSubviews;
@@ -21,6 +22,8 @@
 - (void)addUpvoteGesture;
 
 - (void)addReplyCommentGesture;
+
+- (void)showToggleButton;
 
 - (void)setFeedType:(TNType)feedType;
 

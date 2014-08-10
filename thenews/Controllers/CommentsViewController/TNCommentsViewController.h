@@ -14,7 +14,7 @@
 
 @property (nonatomic) UIColor *themeColor;
 @property (nonatomic, strong) NSNumber *feedType;
-@property (nonatomic,   copy) NSArray *comments;
+@property (nonatomic, strong) NSArray *comments;
 
 @property (nonatomic) UITableView *commentsView;
 @property (assign, nonatomic) CGFloat previousTextViewContentHeight;

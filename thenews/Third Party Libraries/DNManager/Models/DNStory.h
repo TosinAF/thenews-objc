@@ -18,7 +18,7 @@
 @property (nonatomic, copy) NSString *URL;
 @property (nonatomic, strong) NSNumber *voteCount;
 @property (nonatomic, strong) NSNumber *commentCount;
-
+@property (nonatomic, copy) NSString *badge;
 @property (nonatomic, copy) NSNumber *userID;
 @property (nonatomic, copy) NSString *displayName;
 

@@ -17,6 +17,9 @@ static NSString *CellIdentifier = @"DNCommentCell";
 
 @interface DNCommentsViewController () <TNCommentCellDelegate, UINavigationControllerDelegate>
 
+@property (nonatomic, strong) NSArray *commentsTree;
+@property (nonatomic, strong) NSArray *originalCommentsTree; // To be referred to when inserting rows
+
 @end
 
 @implementation DNCommentsViewController
@@ -94,6 +97,17 @@ static NSString *CellIdentifier = @"DNCommentCell";
     [cell setCommentViewDelegate:self];
     [cell updateSubviews];
 
+    /*
+
+    int childrenCount = [self.commentsTree[[indexPath row]] count];
+
+    if (childrenCount > 0) {
+        [cell showToggleButton];
+        //cell.isExpanded = [NSNumber numberWithBool:1];
+    }
+     
+    */
+
     if ([[DNManager sharedManager] isUserAuthenticated]) {
         [cell addUpvoteGesture];
         [cell addReplyCommentGesture];
@@ -101,6 +115,8 @@ static NSString *CellIdentifier = @"DNCommentCell";
     
     return cell;
 }
+
+#pragma mark - Table View Delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -114,6 +130,38 @@ static NSString *CellIdentifier = @"DNCommentCell";
 
     return [cell updateSubviews];
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    /*
+    int currentRow = [indexPath row];
+
+    NSArray *children = self.commentsTree[currentRow];
+    int childrenCount = [children count];
+
+    NSMutableArray *comments = [NSMutableArray arrayWithArray:self.comments];
+    NSMutableArray *rowsToBeRemoved = [NSMutableArray new];
+    NSMutableArray *commentsToBeRemoved = [NSMutableArray new];
+
+    for (int i = 1; i <= childrenCount; i++) {
+
+        int row = currentRow + i;
+        [rowsToBeRemoved addObject:[NSIndexPath indexPathForRow:row inSection:0]];
+        [commentsToBeRemoved addObject:comments[row]];
+    }
+
+    [comments removeObjectsInArray:commentsToBeRemoved];
+    self.comments = [NSArray arrayWithArray:comments];
+    self.commentsTree = [self generateCommentsTree:comments];
+
+    [self.commentsView beginUpdates];
+    [self.commentsView deleteRowsAtIndexPaths:rowsToBeRemoved withRowAnimation:UITableViewRowAnimationFade];
+    [self.commentsView endUpdates];
+
+    [self.commentsView reloadData];
+     */
+}
+
 
 #pragma mark - TNCommentCell Gesture Delegate
 
@@ -151,6 +199,8 @@ static NSString *CellIdentifier = @"DNCommentCell";
 
         self.comments = comments;
         [self.commentsView reloadData];
+        //self.originalCommentsTree = [self generateCommentsTree:comments];
+        //self.commentsTree = [NSArray arrayWithArray:self.originalCommentsTree];
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
 
@@ -197,6 +247,40 @@ static NSString *CellIdentifier = @"DNCommentCell";
         }];
     }
     
+}
+
+- (NSArray *)generateCommentsTree:(NSArray *)comments
+{
+    NSMutableArray *tree = [NSMutableArray new];
+    NSDictionary *treeDictionary = [NSDictionary new];
+    NSMutableArray *children = [NSMutableArray new];
+
+    for (int i = 0 ; i < ([comments count] - 1); i++) {
+
+        DNComment *parentComment = comments[i];
+        int x = i + 1;
+        DNComment *currentComment = comments[x];
+
+        while ([currentComment.depth intValue] > [parentComment.depth intValue] && x != [comments count]) {
+
+            [children addObject:currentComment];
+
+            if (x != ([comments count] - 1)) {
+                // due to edge case when the last comment is a nested comment
+                currentComment = comments[++x];
+            } else {
+                x++;
+            }
+        }
+
+        [tree addObject:[NSArray arrayWithArray:children]];
+        [children removeAllObjects];
+    }
+
+    // last comment by definition, has no children
+    // possible bug when we collapse & it becomes the last
+    [tree addObject:[NSArray new]];
+    return [NSArray arrayWithArray:tree];
 }
 
 - (void)switchAction
