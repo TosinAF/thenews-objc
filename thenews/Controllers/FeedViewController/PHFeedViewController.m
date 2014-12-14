@@ -65,7 +65,8 @@ static NSString *CellIdentifier = @"PHFeedCell";
 	[self.feedView setSeparatorColor:[UIColor tnLightGreyColor]];
 	[self.feedView registerClass:[PHFeedViewCell class] forCellReuseIdentifier:CellIdentifier];
 
-    [self.emptyStateView setFrame:self.view.bounds];
+    [self.emptyStateView setFrame:contentViewFrame];
+    [self.emptyStateView configureSubviews];
     [self.view addSubview:self.emptyStateView];
 }
 
@@ -189,8 +190,8 @@ static NSString *CellIdentifier = @"PHFeedCell";
         [blockSelf downloadProducts];
     }];
 
-    TNRefreshView *pulling = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, 320, 60) state:TNRefreshStatePulling];
-    TNRefreshView *loading = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, 320, 60) state:TNRefreshStateLoading];
+    TNRefreshView *pulling = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60) state:TNRefreshStatePulling];
+    TNRefreshView *loading = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60) state:TNRefreshStateLoading];
 
     [[self.feedView pullToRefreshView] setCustomView:pulling forState:SVPullToRefreshStateAll];
     [[self.feedView pullToRefreshView] setCustomView:loading forState:SVPullToRefreshStateLoading];

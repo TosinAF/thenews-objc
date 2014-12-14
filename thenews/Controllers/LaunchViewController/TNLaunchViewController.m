@@ -19,6 +19,9 @@
 @property (strong, nonatomic) TNButton *login;
 @property (strong, nonatomic) UIButton *skip;
 
+@property (strong, nonatomic) NSLayoutConstraint *loginButtonYConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *skipButtonYConstraint;
+
 @end
 
 @implementation TNLaunchViewController
@@ -43,7 +46,7 @@
     POPSpringAnimation *anim2 = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
     anim2.springBounciness = 10;
     anim2.springSpeed = 10;
-    anim2.toValue = [NSValue valueWithCGRect:CGRectMake(10, screenSize.height - 110, 300, 50)];
+    anim2.toValue = [NSValue valueWithCGRect:CGRectMake(0, screenSize.height - 110, screenSize.width, 50)];
 
     [self.skip.layer pop_addAnimation:anim2 forKey:@"frame"];
 }
@@ -58,11 +61,12 @@
     CGSize screenSize = self.view.bounds.size;
 
     self.appTitle = ({
-        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, screenSize.width, 100)];
+        UILabel *title = [UILabel new];
         [title setText:@"THE NEWS"];
         [title setTextColor:[UIColor whiteColor]];
         [title setTextAlignment:NSTextAlignmentCenter];
         [title setFont:[UIFont fontWithName:@"Montserrat-Bold" size:40]];
+        [title setTranslatesAutoresizingMaskIntoConstraints:false];
         title;
     });
 
@@ -71,15 +75,21 @@
         [login setBackgroundImageWithNormalColor:[UIColor tnColor] highlightColor:[UIColor whiteColor]];
         [login setTitle:@"Log In" forState:UIControlStateNormal];
         [login addTarget:self action:@selector(loginButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+
+        CGPoint center = login.center;
+        center.x = self.view.center.x;
+        login.center = center;
+
         login;
     });
 
     self.skip = ({
-        UIButton *skip = [UIButton buttonWithType:UIButtonTypeCustom ];
-        [skip setFrame:CGRectMake(10, screenSize.height + 150, screenSize.width - 20, 50)];
+        UIButton *skip = [UIButton buttonWithType:UIButtonTypeCustom];
+        [skip setFrame:CGRectMake(0, screenSize.height + 150, screenSize.width, 50)];
         [skip setTitle:@"Skip to The News" forState:UIControlStateNormal];
         [skip setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [[skip titleLabel] setFont:[UIFont fontWithName:@"Montserrat-Regular" size:20]];
+        [[skip titleLabel] setTextAlignment:NSTextAlignmentCenter];
         [skip addTarget:self action:@selector(skipButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         skip;
     });
@@ -87,6 +97,16 @@
     [self.view addSubview:self.appTitle];
     [self.view addSubview:self.login];
     [self.view addSubview:self.skip];
+
+    [self layoutSubviews];
+}
+
+- (void)layoutSubviews
+{
+    NSDictionary *views = @{ @"title": self.appTitle };
+
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[title]" options:0 metrics:nil views:views]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.appTitle attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0]];
 }
 
 - (void)loginButtonPressed:(id)selector

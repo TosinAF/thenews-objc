@@ -74,7 +74,8 @@ static NSString *CellIdentifier = @"DNFeedCell";
 	[self.feedView setSeparatorColor:[UIColor tnLightGreyColor]];
 	[self.feedView registerClass:[DNFeedViewCell class] forCellReuseIdentifier:CellIdentifier];
 
-    [self.emptyStateView setFrame:self.view.bounds];
+    [self.emptyStateView setFrame:contentViewFrame];
+    [self.emptyStateView configureSubviews];
     [self.view addSubview:self.emptyStateView];
 }
 
@@ -126,19 +127,20 @@ static NSString *CellIdentifier = @"DNFeedCell";
     DNStory *story = (self.stories)[[indexPath row]];
     [[DNManager sharedManager] addStoryToReadList:[story storyID]];
 
-    if ( [[story badge] isEqualToString:@"ask"] || [[story badge] isEqualToString:@"discussion"] ) {
+        if ( [[story badge] isEqualToString:@"ask"] || [[story badge] isEqualToString:@"discussion"] ) {
 
-        [self showCommentsForStory:story];
+            [self showCommentsForStory:story];
 
-    } else {
+        } else {
 
-        TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[story URL]] type:TNTypeDesignerNews];
+            TNPostViewController *postViewController = [[TNPostViewController alloc] initWithURL:[NSURL URLWithString:[story URL]] type:TNTypeDesignerNews];
 
-        __weak DNFeedViewController *weakSelf = self;
-        [postViewController setDismissAction:^{ [weakSelf.navigationController popViewControllerAnimated:YES]; }];
+            __weak DNFeedViewController *weakSelf = self;
+            [postViewController setDismissAction:^{ [weakSelf.navigationController popViewControllerAnimated:YES]; }];
 
-        [self.navigationController pushViewController:postViewController animated:YES];
-    }
+            [self.navigationController pushViewController:postViewController animated:YES];
+
+        }
 
     UITableViewCell *cell = [self.feedView cellForRowAtIndexPath:indexPath];
     [[cell contentView] setAlpha:0.6];
@@ -275,8 +277,8 @@ static NSString *CellIdentifier = @"DNFeedCell";
         [blockSelf downloadFeedAndReset:NO];
     }];
 
-    TNRefreshView *pulling = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, 320, 60) state:TNRefreshStatePulling];
-    TNRefreshView *loading = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, 320, 60) state:TNRefreshStateLoading];
+    TNRefreshView *pulling = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60) state:TNRefreshStatePulling];
+    TNRefreshView *loading = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60) state:TNRefreshStateLoading];
 
     [[self.feedView pullToRefreshView] setCustomView:pulling forState:SVPullToRefreshStateAll];
     [[self.feedView pullToRefreshView] setCustomView:loading forState:SVPullToRefreshStateLoading];

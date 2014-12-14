@@ -47,11 +47,14 @@
 }
 
 - (void)layoutSubviews {
-	CGSize contentViewSize = self.frame.size;
 
-	self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, contentViewSize.width - 50, 40)];
-	self.detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 55, 145, 20)];
-	self.commentCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 55, 100, 20)];
+    self.titleLabel = [UILabel new];
+    self.titleLabel.numberOfLines = 2;
+    [self.titleLabel setTranslatesAutoresizingMaskIntoConstraints:false];
+    self.detailLabel = [UILabel new];
+    [self.detailLabel setTranslatesAutoresizingMaskIntoConstraints:false];
+    self.commentCountLabel = [UILabel new];
+    [self.commentCountLabel setTranslatesAutoresizingMaskIntoConstraints:false];
 
 	[self.contentView addSubview:self.titleLabel];
 	[self.contentView addSubview:self.detailLabel];
@@ -59,6 +62,26 @@
 
     [self setDefaultColor:[UIColor tnLightGreyColor]];
     [self setSelectionStyle:UITableViewCellSelectionStyleNone];
+}
+
+- (void)setNeedsUpdateConstraints {
+    [super setNeedsUpdateConstraints];
+
+    NSDictionary *views = @{ @"title": self.titleLabel,
+                             @"detail": self.detailLabel,
+                             @"count": self.commentCountLabel
+                             };
+
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-20-[title]-20-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[title]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[title]" options:0 metrics:nil views:views]];
+
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-20-[detail]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[count]-60-|" options:0 metrics:nil views:views]];
+
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[detail]-10-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[count]-10-|" options:0 metrics:nil views:views]];
+
 }
 
 - (void)removeSubviews {
@@ -106,6 +129,8 @@
 	[self.commentCountLabel setText:commentCountString];
     [self.commentCountLabel setTextColor:self.lightThemeColor];
     [self.commentCountLabel setFont:[UIFont fontWithName:@"Montserrat" size:10.0f]];
+
+    [self setNeedsUpdateConstraints];
 }
 
 - (void)addUpvoteGesture

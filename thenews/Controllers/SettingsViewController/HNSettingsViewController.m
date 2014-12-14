@@ -42,10 +42,10 @@
         TNButton *button;
 
         if ([[HNManager sharedManager] userIsLoggedIn]) {
-            button = [[TNButton alloc] initWithFrame:CGRectMake(20, 270, 320  - 40, 50)];
+            button = [[TNButton alloc] initWithFrame:CGRectMake(20, 270, self.view.frame.size.width  - 40, 50)];
             [button setTitle:@"Log Out" forState:UIControlStateNormal];
         } else {
-            button = [[TNButton alloc] initWithFrame:CGRectMake(20, 200, 320  - 40, 50)];
+            button = [[TNButton alloc] initWithFrame:CGRectMake(20, 200, self.view.frame.size.width  - 40, 50)];
             [button setTitle:@"Login" forState:UIControlStateNormal];
         }
 
@@ -74,16 +74,18 @@
 
 - (void)configureViewForLoggedOutState
 {
+    CGFloat screenWidth = self.view.frame.size.width;
+
     // Setup Text Fields & Borders
 
-    self.usernameField = [[TNTextField alloc] initWithFrame:CGRectMake(50, 70, 320, 50)];
+    self.usernameField = [[TNTextField alloc] initWithFrame:CGRectMake(50, 70, screenWidth, 50)];
     [self.usernameField setDelegate:self];
     [self.usernameField setPlaceholder:@"Email"];
     [self.usernameField setTag:0];
     [self.usernameField setTintColor:[UIColor hnColor]];
     [self.usernameField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
 
-    self.passwordField = [[TNTextField alloc] initWithFrame:CGRectMake(50, 130, 320, 50)];
+    self.passwordField = [[TNTextField alloc] initWithFrame:CGRectMake(50, 130, screenWidth, 50)];
     [self.passwordField setDelegate:self];
     [self.passwordField setPlaceholder:@"Password"];
     [self.passwordField setReturnKeyType:UIReturnKeyDone];
@@ -94,10 +96,10 @@
 
     // Add borders
 
-    self.border = [[UIView alloc] initWithFrame:CGRectMake(0, 120, 320, 2)];
+    self.border = [[UIView alloc] initWithFrame:CGRectMake(0, 120, screenWidth, 2)];
     [self.border setBackgroundColor:[UIColor tnLightGreyColor]];
 
-    self.border2 = [[UIView alloc] initWithFrame:CGRectMake(0, 180, 320, 2)];
+    self.border2 = [[UIView alloc] initWithFrame:CGRectMake(0, 180, screenWidth, 2)];
     [self.border2 setBackgroundColor:[UIColor tnLightGreyColor]];
 
     [self.view addSubview:self.usernameField];

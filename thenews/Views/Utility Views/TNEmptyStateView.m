@@ -20,26 +20,21 @@
 
 @implementation TNEmptyStateView
 
-- (instancetype)init
-{
-    self = [super init];
-
-    if (self) {
-        [self configureSubviews];
-    }
-
-    return self;
-}
-
 - (void)configureSubviews
 {
     UIImage *loadingIcon = [UIImage imageNamed:@"Loading"];
 
-    CGRect imageViewFrame = CGRectMake(80, 170, loadingIcon.size.width, loadingIcon.size.height);
+    CGRect imageViewFrame = CGRectMake(0, 170, loadingIcon.size.width, loadingIcon.size.height);
     CGRect labelFrame = CGRectMake(0, 170 + loadingIcon.size.height + 25, 320, 15);
 
     self.loadingView = [[UIImageView alloc] initWithImage:loadingIcon];
     [self.loadingView setFrame:imageViewFrame];
+
+    // I know its retarded but, for some reason autolayout dosent work :/
+
+    CGPoint center = self.loadingView.center;
+    center.x = self.center.x;
+    self.loadingView.center = center;
 
     self.infoLabel = [[UILabel alloc] initWithFrame:labelFrame];
     [self.infoLabel setText:@"DELIVERING THE NEWS..."];
@@ -49,9 +44,15 @@
     self.labelShimmeringView = [[FBShimmeringView alloc] initWithFrame:labelFrame];
     self.labelShimmeringView.contentView = self.infoLabel;
 
+    center = self.labelShimmeringView.center;
+    center.x = self.center.x;
+    self.infoLabel.center = center;
+    self.labelShimmeringView.center = center;
+
     [self addSubview:self.loadingView];
     [self addSubview:self.labelShimmeringView];
 }
+
 
 - (void)setText:(NSString *)text
 {

@@ -130,10 +130,12 @@
 {
     self.indicator = [UIView new];
     [self.indicator setBackgroundColor:[UIColor hnNavBarColor]];
-    [self.indicator setFrame:CGRectMake(281.5, 20, 10, 10)];
+    CGFloat xOrigin = self.frame.size.width - 38.5;
+    [self.indicator setFrame:CGRectMake(xOrigin, 20, 10, 10)];
     [[self.indicator layer] setCornerRadius:5];
 
     [self addSubview:self.indicator];
+
 }
 
 - (void)moveIndicatorTo:(int)index

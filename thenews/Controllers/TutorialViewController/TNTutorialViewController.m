@@ -66,17 +66,35 @@
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
-    self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 60, CGRectGetWidth(self.view.frame) - 20, 100)];
+    self.infoLabel = [UILabel new];
     [self.infoLabel setNumberOfLines:0];
     [self.infoLabel setText:self.text];
     [self.infoLabel setFont:[UIFont fontWithName:@"Montserrat" size:18.0f]];
     [self.infoLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.infoLabel setTranslatesAutoresizingMaskIntoConstraints:false];
 
     self.imageView = [[UIImageView alloc] initWithImage:self.image];
-    [self.imageView setFrame:CGRectMake(0, 190, self.image.size.width, self.image.size.height)];
+    [self.imageView setTranslatesAutoresizingMaskIntoConstraints:false];
+    [self.imageView setContentMode:UIViewContentModeScaleAspectFit];
 
     [self.view addSubview:self.infoLabel];
     [self.view addSubview:self.imageView];
+
+    [self layoutSubviews];
+}
+
+- (void)layoutSubviews {
+    NSDictionary *views = @{
+                            @"label": self.infoLabel,
+                            @"image": self.imageView
+                            };
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-30-[label]-30-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[label]" options:0 metrics:nil views:views]];
+
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[image]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-190-[image]|" options:0 metrics:nil views:views]];
+
 }
 
 

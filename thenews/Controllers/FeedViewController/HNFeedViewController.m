@@ -81,7 +81,8 @@ static NSString *CellIdentifier = @"HNFeedCell";
 	[self.feedView setSeparatorColor:[UIColor tnLightGreyColor]];
 	[self.feedView registerClass:[HNFeedViewCell class] forCellReuseIdentifier:CellIdentifier];
 
-    [self.emptyStateView setFrame:self.view.bounds];
+    [self.emptyStateView setFrame:contentViewFrame];
+    [self.emptyStateView configureSubviews];
     [self.view addSubview:self.emptyStateView];
 }
 
@@ -191,7 +192,7 @@ static NSString *CellIdentifier = @"HNFeedCell";
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
-    [[HNManager sharedManager] loadPostsWithFilter:hnPostFilterType completion:^(NSArray *posts){
+    [[HNManager sharedManager] loadPostsWithFilter:hnPostFilterType completion:^(NSArray *posts, NSString *nextPageIdentifier){
 
         if (posts) {
 
@@ -219,7 +220,7 @@ static NSString *CellIdentifier = @"HNFeedCell";
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
-    [[HNManager sharedManager] loadPostsWithUrlAddition:[[HNManager sharedManager] postUrlAddition] completion:^(NSArray *posts){
+    [[HNManager sharedManager] loadPostsWithUrlAddition:[[HNManager sharedManager] postUrlAddition] completion:^(NSArray *posts, NSString *nextPageIdentifier){
         if (posts && posts.count > 0) {
 
             [self.posts addObjectsFromArray:posts];
@@ -280,8 +281,8 @@ static NSString *CellIdentifier = @"HNFeedCell";
         [blockSelf downloadEvenMorePosts];
     }];
 
-    TNRefreshView *pulling = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, 320, 60) state:TNRefreshStatePulling];
-    TNRefreshView *loading = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, 320, 60) state:TNRefreshStateLoading];
+    TNRefreshView *pulling = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60) state:TNRefreshStatePulling];
+    TNRefreshView *loading = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60) state:TNRefreshStateLoading];
     
     [[self.feedView pullToRefreshView] setCustomView:pulling forState:SVPullToRefreshStateAll];
     [[self.feedView pullToRefreshView] setCustomView:loading forState:SVPullToRefreshStateLoading];

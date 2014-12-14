@@ -83,7 +83,9 @@ static NSString * const LastViewedContainerKey = @"LastViewedContainer";
     // View Controller Containment
     [self.pageViewController didMoveToParentViewController:self];
     [self addChildViewController:self.pageViewController];
+    self.pageViewController.view.frame = self.view.frame;
     [self.view addSubview:self.pageViewController.view];
+
 
 }
 

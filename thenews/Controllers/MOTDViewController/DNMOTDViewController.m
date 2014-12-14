@@ -55,10 +55,13 @@
     [self setScreenName:@"DNMOTD"];
     [self.view setBackgroundColor:[UIColor clearColor]];
 
-    self.contentView = [[UIView alloc] initWithFrame:CGRectMake(10, 130, 300, 300)];
+    self.contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 130, self.view.frame.size.width - 40, 300)];
     [self.contentView setBackgroundColor:[UIColor whiteColor]];
     [self.contentView.layer setMasksToBounds:YES];
     [self.contentView.layer setCornerRadius:12.0f];
+
+    self.originalCenterOfContentView = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
+    self.contentView.center = self.originalCenterOfContentView;
 
     [self.view addSubview:self.contentView];
     [self configureContentView];
@@ -68,9 +71,9 @@
 
     [self.view addGestureRecognizer:self.panGestureRecognizer];
 
-    self.originalCenterOfContentView = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
 
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasMOTDInfoLabelBeenDipslayed"]) {
+
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"hasMOTDInfoLabelBeenDipslayed"]) {
 
         int yOrigin;
 
@@ -80,7 +83,7 @@
             yOrigin = CGRectGetMaxY(self.view.frame) - 100;
         }
 
-        UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin, 320, 50)];
+        UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yOrigin, self.view.frame.size.width, 50)];
         [infoLabel setText:@"Move Card Offscreen To Dismiss"];
         [infoLabel setTextAlignment:NSTextAlignmentCenter];
         [infoLabel setFont:[UIFont fontWithName:@"Montserrat" size:16.0]];
@@ -95,14 +98,14 @@
 
 - (void)configureContentView
 {
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 50)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.contentView.frame.size.width, 50)];
     [titleLabel setText:@"M.O.T.D"];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setBackgroundColor:[UIColor dnColor]];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [titleLabel setFont:[UIFont fontWithName:@"Montserrat" size:20.0f]];
 
-    self.messageLabel = [[DNMOTDLabel alloc] initWithFrame:CGRectMake(10, 65, 280, 200)];
+    self.messageLabel = [[DNMOTDLabel alloc] initWithFrame:CGRectMake(30, 65, self.view.frame.size.width - 60, 200)];
     [self.messageLabel setTextAlignment:NSTextAlignmentJustified];
     [self.messageLabel setDelegate:self];
     [self.messageLabel setFont:[UIFont fontWithName:@"Avenir-BookOblique" size:20.0f]];
@@ -110,23 +113,28 @@
     [self.messageLabel setEnabledTextCheckingTypes:NSTextCheckingTypeLink];
     [self.messageLabel setTextAndAdjustFrame:@"What wise words shall we read now?"];
     [self.messageLabel setTextColor:[UIColor tnGreyColor]];
+    [self.messageLabel setNumberOfLines:2];
     [self.messageLabel setTextAlignment:NSTextAlignmentCenter];
 
     self.upvoteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.upvoteButton setFrame:CGRectMake(30, 220, 100, 50)];
+    [self.upvoteButton setFrame:CGRectMake(0, 220, self.view.frame.size.width / 2 - 20, 50)];
     [self.upvoteButton setTitle:@"Upvote" forState:UIControlStateNormal];
     [self.upvoteButton setTitle:@"Upvoted!" forState:UIControlStateSelected];
     [self.upvoteButton setTitleColor:[UIColor tnColor] forState:UIControlStateNormal];
     [self.upvoteButton addTarget:self action:@selector(upvoteMOTD) forControlEvents:UIControlEventTouchUpInside];
+    //[self.upvoteButton setTranslatesAutoresizingMaskIntoConstraints:false];
     [[self.upvoteButton titleLabel] setFont:[UIFont fontWithName:@"Montserrat" size:18.0f]];
+    [[self.upvoteButton titleLabel] setTextAlignment:NSTextAlignmentCenter];
 
     self.downvoteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.downvoteButton setFrame:CGRectMake(160, 220, 120, 50)];
+    [self.downvoteButton setFrame:CGRectMake(self.view.frame.size.width / 2 - 40, 220, self.view.frame.size.width / 2, 50)];
     [self.downvoteButton setTitle:@"Downvote" forState:UIControlStateNormal];
     [self.downvoteButton setTitle:@"Downvoted!" forState:UIControlStateSelected];
     [self.downvoteButton setTitleColor:[UIColor colorWithRed:0.949 green:0.635 blue:0.600 alpha:1] forState:UIControlStateNormal];
     [self.downvoteButton addTarget:self action:@selector(downvoteMOTD) forControlEvents:UIControlEventTouchUpInside];
     [[self.downvoteButton titleLabel] setFont:[UIFont fontWithName:@"Montserrat" size:18.0f]];
+    //[self.downvoteButton setTranslatesAutoresizingMaskIntoConstraints:false];
+    [[self.downvoteButton titleLabel] setTextAlignment:NSTextAlignmentCenter];
 
     self.downvoteCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(260, 260, 30, 15)];
     [self.downvoteCountLabel setTextColor:[UIColor colorWithRed:0.949 green:0.635 blue:0.600 alpha:1]];
@@ -138,7 +146,15 @@
     [self.contentView addSubview:self.downvoteButton];
     //[self.contentView addSubview:self.upvoteCountLabel];
     //[self.contentView addSubview:self.downvoteCountLabel];
+/*
+    NSDictionary *views = @{
+                            @"upvoteButton": self.upvoteButton,
+                            @"downvoteButton": self.downvoteButton
+                           };
 
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-10-[upvoteButton(==downvoteButton)][downvoteButton]-20-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[downvoteButton]-20-|" options:0 metrics:nil views:views]];
+*/
     [self getMOTD];
 }
 

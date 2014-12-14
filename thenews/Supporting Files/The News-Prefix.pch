@@ -17,4 +17,5 @@
     #import "TNTypeEnum.h"
     #import "GAI.h"
     #import "GAIFields.h"
+    #import "GAITrackedViewController.h"
 #endif

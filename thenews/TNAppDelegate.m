@@ -6,17 +6,13 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
-#import "Heap.h"
 #import "libHN.h"
 #import "DNManager.h"
-#import "PocketAPI.h"
-#import "OSKADNLoginManager.h"
 #import "GTScrollNavigationBar.h"
 #import "TNLaunchViewController.h"
 #import "TNHomeViewController.h"
 #import "TNTutorialViewController.h"
 #import "TNWelcomeViewController.h"
-#import <GooglePlus/GooglePlus.h>
 #import "AFNetworkActivityIndicatorManager.h"
 #import "TNAppDelegate.h"
 
@@ -34,8 +30,6 @@
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Montserrat" size:14.0f], NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
 
     // Network Stuff & API's
-
-    [[PocketAPI sharedAPI] setConsumerKey:@"25320-2c296baa9f562cd41e0259f9"];
 
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 
@@ -77,8 +71,6 @@
     //[[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-46757742-4"];
 
-    [Heap setAppId:@"2938636207"];
-    //[Heap setAppId:@"1624384941"];
     
     [self.window makeKeyAndVisible];
     return YES;
@@ -131,26 +123,6 @@
 
     // Display the indicator as long as our static counter is > 0.
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:(NumberOfCallsToSetVisible > 0)];
-}
-
-# pragma mark - Share Kit Methods
-
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    BOOL success = NO;
-    if ([[OSKADNLoginManager sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation]) {
-        success = YES;
-    }
-    else if ([[PocketAPI sharedAPI] handleOpenURL:url]){
-        success = YES;
-    }
-    else if ([GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation]) {
-        success = YES;
-    }
-    else {
-        // if you handle your own custom url-schemes, do it here
-        // success = whatever;
-    }
-    return success;
 }
 
 @end

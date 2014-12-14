@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) UILabel *infoLabel;
 
+- (void)configureSubviews;
 - (void)showErrorText;
 - (void)showDownloadingText;
 - (void)showErrorWithText:(NSString *)text;

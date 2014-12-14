@@ -252,7 +252,7 @@ static NSString *CellIdentifier = @"DNCommentCell";
 - (NSArray *)generateCommentsTree:(NSArray *)comments
 {
     NSMutableArray *tree = [NSMutableArray new];
-    NSDictionary *treeDictionary = [NSDictionary new];
+    //NSDictionary *treeDictionary = [NSDictionary new];
     NSMutableArray *children = [NSMutableArray new];
 
     for (int i = 0 ; i < ([comments count] - 1); i++) {

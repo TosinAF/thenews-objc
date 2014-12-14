@@ -1,13 +1,10 @@
-platform :ios, "7.0"
+platform :ios, "8.0"
 
 pod 'pop'
 pod 'libHN'
 pod 'Shimmer'
 pod 'iOS-blur'
 pod 'ionicons'
-pod 'ADNLogin'
-pod 'PocketAPI'
-pod 'OvershareKit'
 pod 'AFNetworking'
 pod 'Reachability'
 pod 'SVPullToRefresh'

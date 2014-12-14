@@ -165,7 +165,7 @@ UIImageView *navBarHairlineImageView;
 - (void)configureMenu {
 
     if (self.menu) {
-        [self.menu setFrame:CGRectMake(0, -208, 320, 208)];
+        [self.menu setFrame:CGRectMake(0, -208, self.view.frame.size.width, 208)];
     } else {
         //self.menu = [[TNMenuView alloc] initWithFrame:CGRectMake(0, -208, 320, 208) type:[self.feedType intValue]];
     }
@@ -277,7 +277,7 @@ UIImageView *navBarHairlineImageView;
     int height = self.navBar.frame.size.height;
     int width = self.navBar.frame.size.width;
     int triangleSize = 10;
-    int trianglePosition = 276;
+    int trianglePosition =  self.view.frame.size.width - 44;
 
     // The path for the triangle (showing that the menu is open).
     UIBezierPath *triangleShape = [[UIBezierPath alloc] init];

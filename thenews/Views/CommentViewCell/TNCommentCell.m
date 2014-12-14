@@ -29,7 +29,7 @@ TNType type;
 
     if (self) {
 
-        self.commentView = [[UITextView alloc] initWithFrame:CGRectMake(20, 15, 270, 1000)];
+        self.commentView = [[UITextView alloc] initWithFrame:CGRectMake(20, 15, self.contentView.frame.size.width, 1000)];
         [self.commentView setEditable:NO];
         [self.commentView setDelegate:self];
         [self.commentView setSelectable:YES];

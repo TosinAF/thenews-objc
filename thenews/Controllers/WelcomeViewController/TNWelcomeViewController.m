@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
-#import "GAIDictionaryBuilder.h"
+
 #import "TNHomeViewController.h"
 #import "TNLoginViewController.h"
 #import "TNLaunchViewController.h"
@@ -16,6 +16,8 @@
 @interface TNWelcomeViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @property (nonatomic, strong) UIPageControl *pageControl;
+@property (nonatomic, strong) UIButton *loginButton;
+@property (nonatomic, strong) UIButton *skipButton;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, strong) TNLaunchViewController *launchViewController;
 
@@ -56,23 +58,47 @@
 
     // Tutorial View Buttons
 
-    UIButton *loginButton = [self createTutorialViewButtonWithText:@"Login"];
-    [loginButton setFrame:CGRectMake(10, 25, 70, 25)];
-    [loginButton addTarget:self action:@selector(pushLoginViewController:) forControlEvents:UIControlEventTouchUpInside];
+    self.loginButton = [self createTutorialViewButtonWithText:@"Login"];
+    [self.loginButton addTarget:self action:@selector(pushLoginViewController:) forControlEvents:UIControlEventTouchUpInside];
+    [self.loginButton setTranslatesAutoresizingMaskIntoConstraints:false];
 
-    UIButton *skipButton = [self createTutorialViewButtonWithText:@"Skip"];
-    [skipButton setFrame:CGRectMake(250, 25, 70, 25)];
-    [skipButton addTarget:self action:@selector(pushHomeViewController:) forControlEvents:UIControlEventTouchUpInside];
+    self.skipButton = [self createTutorialViewButtonWithText:@"Skip"];
+    [self.skipButton addTarget:self action:@selector(pushHomeViewController:) forControlEvents:UIControlEventTouchUpInside];
+    [self.skipButton setTranslatesAutoresizingMaskIntoConstraints:false];
 
-    [self.view addSubview:loginButton];
-    [self.view addSubview:skipButton];
+    [self.view addSubview:self.loginButton];
+    [self.view addSubview:self.skipButton];
 
     // Page View Control
 
-    self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(110, 150, 100, 20)];
+    self.pageControl = [UIPageControl new];
     [self.pageControl setNumberOfPages:4];
+    [self.pageControl setTranslatesAutoresizingMaskIntoConstraints:false];
 
     [self.view addSubview:self.pageControl];
+
+    [self layoutSubviews];
+}
+
+- (void)layoutSubviews {
+
+    NSDictionary *views = @{
+                            @"loginButton": self.loginButton,
+                            @"skipButton": self.skipButton,
+                            @"pageControl": self.pageControl
+                            };
+
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-20-[loginButton]" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-25-[loginButton]" options:0 metrics:nil views:views]];
+
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[skipButton]-20-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-25-[skipButton]" options:0 metrics:nil views:views]];
+
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.pageControl attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-150-[pageControl]" options:0 metrics:nil views:views]];
+
+    
+
 }
 
 #pragma mark - UIPageViewControllerDataSource Methods
@@ -163,16 +189,12 @@
 
 - (void)pushLoginViewController:(id)selector
 {
-    [self logButtonPress:(UIButton *)selector];
-
     TNLoginViewController *loginViewController = [TNLoginViewController new];
     [self.navigationController pushViewController:loginViewController animated:YES];
 }
 
 - (void)pushHomeViewController:(id)selector
 {
-    [self logButtonPress:(UIButton *)selector];
-    
     TNHomeViewController *homeViewController = [TNHomeViewController new];
     [self.navigationController pushViewController:homeViewController animated:YES];
 
@@ -206,18 +228,6 @@
         self.pageControl.currentPageIndicatorTintColor = [UIColor tnColor];
         self.pageControl.pageIndicatorTintColor  = [UIColor tnGreyColor];
     }
-}
-
-- (void)logButtonPress:(UIButton *)button{
-
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-
-    [tracker set:kGAIScreenName value:@"Welcome"];
-    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UX"
-                                                          action:@"touch"
-                                                           label:[button.titleLabel text]
-                                                           value:nil] build]];
-    [tracker set:kGAIScreenName value:nil];
 }
 
 @end

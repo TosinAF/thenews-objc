@@ -10,7 +10,6 @@
 #import "ionicons-codes.h"
 #import "GTScrollNavigationBar.h"
 #import "TNPostViewController.h"
-#import "OvershareKit.h"
 
 #import "FBShimmering.h"
 #import "FBShimmeringView.h"
@@ -142,7 +141,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    [self.navigationController.scrollNavigationBar resetToDefaultPosition:NO];
+    [self.navigationController.scrollNavigationBar resetToDefaultPositionWithAnimation:NO];
     [self updateToolbarButtonState];
 }
 
@@ -185,7 +184,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
 {
-    [self.navigationController.scrollNavigationBar resetToDefaultPosition:NO];
+    [self.navigationController.scrollNavigationBar resetToDefaultPositionWithAnimation:NO];
 }
 
 #pragma mark - Private Methods
@@ -219,7 +218,7 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"Share"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
+    //[button addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:CGRectMake(0, 0, 30, 30)];
 
     self.shareButton = [[UIBarButtonItem alloc] initWithCustomView:button];
@@ -227,13 +226,6 @@ typedef NS_ENUM (NSInteger, TNToolBarButtonType) {
     self.navigationItem.rightBarButtonItem = self.shareButton;
 }
 
-- (void)shareAction
-{
-    OSKShareableContent *content = [OSKShareableContent contentFromMicroblogPost:self.titleLabel.text authorName:@"thenewsios" canonicalURL:self.url.absoluteString images:nil];
-    
-    [[OSKPresentationManager sharedInstance] presentActivitySheetForContent:content presentingViewController:self options:nil];
-
-}
 #pragma mark - Toolbar Methods
 
 // Can be Refactored into its own view

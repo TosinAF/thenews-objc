@@ -52,10 +52,10 @@
 
 
         if ([[DNManager sharedManager] isUserAuthenticated]) {
-            button = [[TNButton alloc] initWithFrame:CGRectMake(20, 270, 320  - 40, 50)];
+            button = [[TNButton alloc] initWithFrame:CGRectMake(20, 270, self.view.frame.size.width  - 40, 50)];
             [button setTitle:@"Log Out" forState:UIControlStateNormal];
         } else {
-            button = [[TNButton alloc] initWithFrame:CGRectMake(20, 200, 320  - 40, 50)];
+            button = [[TNButton alloc] initWithFrame:CGRectMake(20, 200, self.view.frame.size.width - 40, 50)];
             [button setTitle:@"Login" forState:UIControlStateNormal];
         }
 
@@ -163,15 +163,19 @@
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(120, 90, 80, 80)];
     [self.imageView setBackgroundColor:[UIColor tnLightGreyColor]];
 
+    CGPoint center = self.imageView.center;
+    center.x = self.view.center.x;
+    self.imageView.center = center;
+
     // Labels
 
-    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 190, 320, 30)];
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 190, self.view.frame.size.width, 30)];
     [self.nameLabel setFont:[UIFont fontWithName:@"Montserrat" size:18.0f]];
     [self.nameLabel setText:@"John Doe"];
     [self.nameLabel setTextColor:[UIColor tnGreyColor]];
     [self.nameLabel setTextAlignment:NSTextAlignmentCenter];
 
-    self.jobLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 220, 320, 30)];
+    self.jobLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 220, self.view.frame.size.width, 30)];
     [self.jobLabel setFont:[UIFont fontWithName:@"Montserrat" size:18.0f]];
     [self.jobLabel setText:@"Partner at John Doe Industires"];
     [self.jobLabel setTextColor:[UIColor tnGreyColor]];
@@ -188,13 +192,15 @@
 {
     // Setup Text Fields & Borders
 
-    self.usernameField = [[TNTextField alloc] initWithFrame:CGRectMake(50, 70, 320, 50)];
+    CGFloat screenWidth = self.view.frame.size.width;
+
+    self.usernameField = [[TNTextField alloc] initWithFrame:CGRectMake(50, 70, screenWidth, 50)];
     [self.usernameField setDelegate:self];
     [self.usernameField setPlaceholder:@"Email"];
     [self.usernameField setTag:0];
     [self.usernameField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
 
-    self.passwordField = [[TNTextField alloc] initWithFrame:CGRectMake(50, 130, 320, 50)];
+    self.passwordField = [[TNTextField alloc] initWithFrame:CGRectMake(50, 130, screenWidth, 50)];
     [self.passwordField setDelegate:self];
     [self.passwordField setPlaceholder:@"Password"];
     [self.passwordField setReturnKeyType:UIReturnKeyDone];
@@ -204,10 +210,10 @@
 
     // Add borders
 
-    self.border = [[UIView alloc] initWithFrame:CGRectMake(0, 120, 320, 2)];
+    self.border = [[UIView alloc] initWithFrame:CGRectMake(0, 120, screenWidth, 2)];
     [self.border setBackgroundColor:[UIColor tnLightGreyColor]];
 
-    self.border2 = [[UIView alloc] initWithFrame:CGRectMake(0, 180, 320, 2)];
+    self.border2 = [[UIView alloc] initWithFrame:CGRectMake(0, 180, screenWidth, 2)];
     [self.border2 setBackgroundColor:[UIColor tnLightGreyColor]];
 
     [self.view addSubview:self.usernameField];
