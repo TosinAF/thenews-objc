@@ -15,6 +15,6 @@
 @property (nonatomic, strong) UITableView *feedView;
 
 - (int)switchDNFeedType;
-- (void)downloadFeedAndReset:(BOOL)reset;
+- (void)refreshFeed;
 
 @end

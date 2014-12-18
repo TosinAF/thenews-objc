@@ -10,6 +10,10 @@
 
 @implementation DNFeedViewCell
 
+- (UIEdgeInsets)layoutMargins {
+    return UIEdgeInsetsZero;
+}
+
 - (void)configureForStory:(DNStory *)story
 {
     self.story = story;

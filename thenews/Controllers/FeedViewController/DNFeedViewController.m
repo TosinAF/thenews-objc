@@ -70,7 +70,7 @@ static NSString *CellIdentifier = @"DNFeedCell";
 	self.feedView = [[UITableView alloc] initWithFrame:contentViewFrame];
 	[self.feedView setDelegate:self];
 	[self.feedView setDataSource:self];
-	[self.feedView setSeparatorInset:UIEdgeInsetsZero];
+	//[self.feedView setSeparatorInset:UIEdgeInsetsZero];
 	[self.feedView setSeparatorColor:[UIColor tnLightGreyColor]];
 	[self.feedView registerClass:[DNFeedViewCell class] forCellReuseIdentifier:CellIdentifier];
 
@@ -114,7 +114,6 @@ static NSString *CellIdentifier = @"DNFeedCell";
 
     return cell;
 }
-
 
 #pragma mark - Table View Delegate
 
@@ -176,31 +175,16 @@ static NSString *CellIdentifier = @"DNFeedCell";
 
 #pragma mark - Network Methods
 
-- (void)downloadFeedAndReset:(BOOL)reset
+- (void)refreshFeed
 {
-    static int page = 0;
-
-    if(reset) {
-        page = 0;
-    }
-
-    page++;
-
+    int page = 0;
     [[DNManager sharedManager] getStoriesOnPage:[NSString stringWithFormat:@"%d", page] feedType:[self.dnFeedType intValue] success:^(NSArray *dnStories) {
 
-        if (reset) {
-            [self.stories removeAllObjects];
-            [self.feedView.pullToRefreshView stopAnimating];
-
-            // scroll to top
-            [self.feedView setContentOffset:CGPointZero animated:YES];
-
-        } else {
-
-            [self.feedView.infiniteScrollingView stopAnimating];
-        }
-
+        [self.stories removeAllObjects];
         [self.stories addObjectsFromArray:dnStories];
+        [self.feedView.pullToRefreshView stopAnimating];
+
+        [self.feedView setContentOffset:CGPointZero animated:YES];
         [self.feedView reloadData];
 
         if (self.emptyStateView) {
@@ -209,11 +193,28 @@ static NSString *CellIdentifier = @"DNFeedCell";
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
 
-
         NSLog(@"%@", [[error userInfo] objectForKey:@"NSLocalizedDescription"]);
         [self.emptyStateView.infoLabel setText:@"NO INTERNET CONNECTION :("];
         [self.feedView.pullToRefreshView stopAnimating];
+
+    }];
+}
+
+- (void)getMoreOfFeed
+{
+    static int page = 0;
+    page++;
+
+    [[DNManager sharedManager] getStoriesOnPage:[NSString stringWithFormat:@"%d", page] feedType:[self.dnFeedType intValue] success:^(NSArray *dnStories) {
+
         [self.feedView.infiniteScrollingView stopAnimating];
+        [self.stories addObjectsFromArray:dnStories];
+        [self.feedView reloadData];
+
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+
+        [self.feedView.infiniteScrollingView stopAnimating];
+
     }];
 }
 
@@ -248,7 +249,7 @@ static NSString *CellIdentifier = @"DNFeedCell";
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.emptyStateView showDownloadingText];
-            [self downloadFeedAndReset:YES];
+            [self refreshFeed];
         });
     };
 
@@ -270,11 +271,12 @@ static NSString *CellIdentifier = @"DNFeedCell";
     __block DNFeedViewController *blockSelf = self;
 
     [self.feedView addPullToRefreshWithActionHandler:^{
-        [blockSelf downloadFeedAndReset:YES];
+        NSLog(@"I am called");
+        [blockSelf refreshFeed];
     }];
 
     [self.feedView addInfiniteScrollingWithActionHandler:^{
-        [blockSelf downloadFeedAndReset:NO];
+        [blockSelf getMoreOfFeed];
     }];
 
     TNRefreshView *pulling = [[TNRefreshView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60) state:TNRefreshStatePulling];
@@ -314,7 +316,7 @@ static NSString *CellIdentifier = @"DNFeedCell";
             break;
     }
 
-    [self downloadFeedAndReset:YES];
+    [self refreshFeed];
     return type;
 }
 

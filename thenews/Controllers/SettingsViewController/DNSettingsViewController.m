@@ -255,7 +255,7 @@
     POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
     anim.springBounciness = 5;
     anim.springSpeed = 5;
-    anim.toValue = [NSValue valueWithCGRect:CGRectMake(20, 270, 320  - 40, 50)];
+    anim.toValue = [NSValue valueWithCGRect:CGRectMake(20, 270, self.view.frame.size.width - 40, 50)];
 
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
         [self.imageView setAlpha:1];
@@ -288,7 +288,7 @@
     POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
     anim.springBounciness = 5;
     anim.springSpeed = 5;
-    anim.toValue = [NSValue valueWithCGRect:CGRectMake(20, 200, 320  - 40, 50)];
+    anim.toValue = [NSValue valueWithCGRect:CGRectMake(20, 200, self.view.frame.size.width  - 40, 50)];
 
 
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{

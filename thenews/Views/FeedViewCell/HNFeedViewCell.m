@@ -10,6 +10,10 @@
 
 @implementation HNFeedViewCell
 
+- (UIEdgeInsets)layoutMargins {
+    return UIEdgeInsetsZero;
+}
+
 - (void)configureForPost:(HNPost *)post
 {
     self.post = post;
