@@ -6,6 +6,20 @@
 //  Copyright (c) 2014 Tosin Afolabi. All rights reserved.
 //
 
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
+
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+
+#define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
+#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
+#define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
+#define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
+
 #import "TNCommentCell.h"
 
 TNType type;
@@ -29,7 +43,12 @@ TNType type;
 
     if (self) {
 
-        self.commentView = [[UITextView alloc] initWithFrame:CGRectMake(20, 15, self.contentView.frame.size.width, 1000)];
+        CGRect frame = CGRectMake(20, 15, self.contentView.frame.size.width, 1000);
+        if (IS_IPHONE_4_OR_LESS  || IS_IPHONE_5) {
+            frame.size.width = 270;
+        }
+
+        self.commentView = [[UITextView alloc] initWithFrame:frame];
         [self.commentView setEditable:NO];
         [self.commentView setDelegate:self];
         [self.commentView setSelectable:YES];
@@ -137,7 +156,12 @@ TNType type;
     [self.commentView setAttributedText:nil];
     [self.commentView setAttributedText:text];
 
-    CGSize size = [self.commentView sizeThatFits:CGSizeMake(270, FLT_MAX)];
+    CGFloat width = self.contentView.frame.size.width;
+    if (IS_IPHONE_4_OR_LESS  || IS_IPHONE_5) {
+        width = 270;
+    }
+
+    CGSize size = [self.commentView sizeThatFits:CGSizeMake(width, FLT_MAX)];
     return size.height;
 }
 
