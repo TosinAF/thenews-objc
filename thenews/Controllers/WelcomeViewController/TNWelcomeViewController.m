@@ -169,20 +169,9 @@
 
 #pragma mark - UIPageViewControllerDelegate Methods
 
-- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers 
-{
-    UIViewController *vc = [pendingViewControllers firstObject];
-    [self fixPageControlForViewController:vc];
-}
-
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
 {
-    if (completed) {
-        return;
-    }
-
-    UIViewController *vc = [previousViewControllers firstObject];
-    [self fixPageControlForViewController:vc];
+	[self fixPageControlForViewController];
 }
 
 #pragma mark - Button Actions
@@ -216,15 +205,15 @@
     return button;
 }
 
-- (void)fixPageControlForViewController:(UIViewController *)vc
+- (void)fixPageControlForViewController
 {
-    if ([vc isKindOfClass:[TNLaunchViewController class]]) {
-
+	// since iOS 6 `[[self.pageViewController viewControllers] firstObject]` should be the current VC
+	// see: http://stackoverflow.com/questions/8400870/uipageviewcontroller-return-the-current-visible-view
+    if ([[[self.pageViewController viewControllers] firstObject] isKindOfClass:[TNLaunchViewController class]]) {
         self.pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
         self.pageControl.pageIndicatorTintColor  = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
-
-    } else {
-
+    }
+	else {
         self.pageControl.currentPageIndicatorTintColor = [UIColor tnColor];
         self.pageControl.pageIndicatorTintColor  = [UIColor tnGreyColor];
     }
