@@ -169,20 +169,15 @@
 
 #pragma mark - UIPageViewControllerDelegate Methods
 
-- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers 
-{
-    UIViewController *vc = [pendingViewControllers firstObject];
-    [self fixPageControlForViewController:vc];
+- (void) pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
+	// Hide the page control when we're changing classes (and thus changing background colors)
+	if (! [[pendingViewControllers firstObject] isKindOfClass:[[[pageViewController viewControllers] firstObject] class]]) self.pageControl.hidden = YES;
 }
 
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
 {
-    if (completed) {
-        return;
-    }
-
-    UIViewController *vc = [previousViewControllers firstObject];
-    [self fixPageControlForViewController:vc];
+	self.pageControl.hidden = NO;
+	[self fixPageControlForViewController];
 }
 
 #pragma mark - Button Actions
@@ -216,18 +211,29 @@
     return button;
 }
 
-- (void)fixPageControlForViewController:(UIViewController *)vc
+- (void)fixPageControlForViewController
 {
-    if ([vc isKindOfClass:[TNLaunchViewController class]]) {
-
-        self.pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
-        self.pageControl.pageIndicatorTintColor  = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
-
-    } else {
-
-        self.pageControl.currentPageIndicatorTintColor = [UIColor tnColor];
-        self.pageControl.pageIndicatorTintColor  = [UIColor tnGreyColor];
-    }
+	UIColor *currentTintColor = nil;
+	UIColor *otherTintColor = nil;
+	
+	// since iOS 6 `[[self.pageViewController viewControllers] firstObject]` should be the current VC
+	// see: http://stackoverflow.com/questions/8400870/uipageviewcontroller-return-the-current-visible-view
+	if ([[[self.pageViewController viewControllers] firstObject] isKindOfClass:[TNLaunchViewController class]]) {
+		currentTintColor = [UIColor whiteColor];
+		otherTintColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
+	}
+	else {
+		currentTintColor = [UIColor tnColor];
+		otherTintColor = [UIColor tnGreyColor];
+	}
+	
+	// No need to re-animate the same color...
+	if ([self.pageControl.currentPageIndicatorTintColor isEqual:currentTintColor]) return;
+	
+	[UIView animateWithDuration:0.25 animations:^{
+		self.pageControl.currentPageIndicatorTintColor = currentTintColor;
+		self.pageControl.pageIndicatorTintColor = otherTintColor;
+	}];
 }
 
 @end
