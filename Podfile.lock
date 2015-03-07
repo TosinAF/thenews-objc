@@ -1,11 +1,11 @@
 PODS:
   - AFNetworking (2.5.0):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-    - AFNetworking/UIKit
+    - AFNetworking/NSURLConnection (= 2.5.0)
+    - AFNetworking/NSURLSession (= 2.5.0)
+    - AFNetworking/Reachability (= 2.5.0)
+    - AFNetworking/Security (= 2.5.0)
+    - AFNetworking/Serialization (= 2.5.0)
+    - AFNetworking/UIKit (= 2.5.0)
   - AFNetworking/NSURLConnection (2.5.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
@@ -22,12 +22,12 @@ PODS:
     - AFNetworking/NSURLSession
   - CRToast (0.0.3)
   - GoogleAnalytics-iOS-SDK (3.10):
-    - GoogleAnalytics-iOS-SDK/Core
+    - GoogleAnalytics-iOS-SDK/Core (= 3.10)
   - GoogleAnalytics-iOS-SDK/Core (3.10)
   - GTScrollNavigationBar (0.1.2)
   - ionicons (1.5.2)
   - iOS-blur (0.0.5)
-  - libHN (3.0.2)
+  - libHN (4.0.2)
   - MCSwipeTableViewCell (2.1.2)
   - pop (1.0.7)
   - Reachability (3.1.1)
@@ -55,6 +55,11 @@ EXTERNAL SOURCES:
     :commit: e85576e81d
     :git: https://github.com/vIiRuS/CRToast.git
 
+CHECKOUT OPTIONS:
+  CRToast:
+    :commit: e85576e81d
+    :git: https://github.com/vIiRuS/CRToast.git
+
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
   CRToast: 098268afe8f33eea983196badd9c2ca6b1f4e621
@@ -62,7 +67,7 @@ SPEC CHECKSUMS:
   GTScrollNavigationBar: 837e4481076638eabafd64b94546a1b4c05058ca
   ionicons: 6be0e241a437a7e69c50cbc8e1700ee8d1535a58
   iOS-blur: 5ec57b4a72e57a4f8f5f47ff3f59e56c0690b761
-  libHN: 0c5ec22bf8480fee669efffa9f348752218c886e
+  libHN: 243997619c679e20e5e7f78b1d7e4ca37745bfb1
   MCSwipeTableViewCell: 8e78ff197ab06ba7bfd5c938a00149de8a33afa9
   pop: 2f14a1ea61339767af9e66741b418c831b3844df
   Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
@@ -70,4 +75,4 @@ SPEC CHECKSUMS:
   SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190
   TTTAttributedLabel: e63baa4d3b8798ea259f5d9f55720002b4bbbd66
 
-COCOAPODS: 0.34.4
+COCOAPODS: 0.36.0.beta.2
